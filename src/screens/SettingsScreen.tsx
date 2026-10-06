@@ -37,7 +37,13 @@ type SaveStatus =
   | { kind: 'saved'; scheduledCount: number; skippedTimes: string[] }
   | { kind: 'permission_denied' };
 
-export default function SettingsScreen() {
+type Props = {
+  // Like an Angular @Output(): SettingsScreen doesn't know what happens
+  // after reset, it just tells the parent (RootNavigator) that it should.
+  onResetOnboarding: () => void;
+};
+
+export default function SettingsScreen({ onResetOnboarding }: Props) {
   const [selectedCircumstances, setSelectedCircumstances] = useState<string[]>([]);
   const [settings, setSettings] = useState<NotificationSettings>(DEFAULT_NOTIFICATION_SETTINGS);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ kind: 'idle' });
@@ -223,6 +229,10 @@ export default function SettingsScreen() {
             </Text>
           </View>
         )}
+
+        <Pressable onPress={onResetOnboarding} style={styles.resetLink}>
+          <Text style={styles.resetLinkText}>Redo welcome setup</Text>
+        </Pressable>
       </ScrollView>
     </SafeAreaView>
   );
@@ -326,5 +336,14 @@ const styles = StyleSheet.create({
     color: '#B5563C',
     textAlign: 'center',
     marginTop: 4,
+  },
+  resetLink: {
+    marginTop: 32,
+    alignItems: 'center',
+  },
+  resetLinkText: {
+    fontSize: 13,
+    color: '#9A9A9A',
+    textDecorationLine: 'underline',
   },
 });

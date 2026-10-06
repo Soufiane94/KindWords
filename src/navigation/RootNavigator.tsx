@@ -8,27 +8,38 @@ import { View, ActivityIndicator } from 'react-native';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import { getOnboardingDone, getCircumstances, getNotificationSettings } from '../services/storage';
+import {
+  getOnboardingDone,
+  setOnboardingDone,
+  getCircumstances,
+  getNotificationSettings,
+} from '../services/storage';
 import { rescheduleAllNotifications } from '../services/notifications';
 
 const Tab = createBottomTabNavigator();
 
-function MainTabs() {
+type MainTabsProps = {
+  onResetOnboarding: () => void;
+};
+
+function MainTabs({ onResetOnboarding }: MainTabsProps) {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
+      <Tab.Screen name="Settings">
+        {() => <SettingsScreen onResetOnboarding={onResetOnboarding} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
 
 export default function RootNavigator() {
   const [loading, setLoading] = useState(true);
-  const [onboardingDone, setOnboardingDone] = useState(false);
+  const [onboardingDone, setOnboardingDoneState] = useState(false);
 
   useEffect(() => {
     getOnboardingDone().then(async (done) => {
-      setOnboardingDone(done);
+      setOnboardingDoneState(done);
       setLoading(false);
 
       // Refresh scheduled notifications (new random quotes, latest settings)
@@ -56,9 +67,14 @@ export default function RootNavigator() {
   return (
     <NavigationContainer>
       {onboardingDone ? (
-        <MainTabs />
+        <MainTabs
+          onResetOnboarding={async () => {
+            await setOnboardingDone(false);
+            setOnboardingDoneState(false);
+          }}
+        />
       ) : (
-        <OnboardingScreen onDone={() => setOnboardingDone(true)} />
+        <OnboardingScreen onDone={() => setOnboardingDoneState(true)} />
       )}
     </NavigationContainer>
   );
