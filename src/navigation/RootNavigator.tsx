@@ -8,7 +8,8 @@ import { View, ActivityIndicator } from 'react-native';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import { getOnboardingDone } from '../services/storage';
+import { getOnboardingDone, getCircumstances, getNotificationSettings } from '../services/storage';
+import { rescheduleAllNotifications } from '../services/notifications';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,9 +27,21 @@ export default function RootNavigator() {
   const [onboardingDone, setOnboardingDone] = useState(false);
 
   useEffect(() => {
-    getOnboardingDone().then((done) => {
+    getOnboardingDone().then(async (done) => {
       setOnboardingDone(done);
       setLoading(false);
+
+      // Refresh scheduled notifications (new random quotes, latest settings)
+      // every time the app opens, so reminders never go stale.
+      if (done) {
+        const [circumstances, settings] = await Promise.all([
+          getCircumstances(),
+          getNotificationSettings(),
+        ]);
+        rescheduleAllNotifications(settings, circumstances).catch(() => {
+          // Non-fatal: the user can still use the app without reminders.
+        });
+      }
     });
   }, []);
 

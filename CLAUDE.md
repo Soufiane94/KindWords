@@ -40,4 +40,33 @@ keep this tone in mind above all else.
   code over clever generalization.
 
 ## Current phase status
-See ROADMAP.md. Phase 1 (MVP) is complete.
+See ROADMAP.md. Phases 1 (MVP) and 2 (Notifications) are complete.
+
+## Testing on a device
+As of Phase 2, **Expo Go can no longer run this app** — `expo-notifications`
+registers Android push-token listeners at import time, and Android push
+support was removed from Expo Go in SDK 53+ (it throws a "runtime not
+ready" error immediately on load, even though this app only uses local
+notifications). We now test with a custom **EAS development build**
+instead:
+- `expo-dev-client` is installed and `eas.json` has a `development` profile
+  (`developmentClient: true`, Android `apk` build type).
+- Build once with `eas build --platform android --profile development`,
+  install the resulting APK on the test device, then run
+  `npx expo start --dev-client` for day-to-day iteration — no Expo Go.
+- Only rebuild the APK when native dependencies change (new packages with
+  native code, or config plugin changes). Plain JS/TS changes just need a
+  Metro reload via `npx expo start --dev-client`.
+
+## Notification scheduling notes
+- `src/services/notifications.ts` holds all expo-notifications logic.
+  `rescheduleAllNotifications()` always cancels every scheduled notification
+  first, then reschedules from scratch — this keeps it simple and avoids
+  tracking individual notification IDs.
+- Android can't change a channel's lock-screen visibility after it's
+  created, so there are two channels (`kindwords-public` /
+  `kindwords-private`) and scheduling picks whichever matches the current
+  setting.
+- Quiet hours are enforced at scheduling time: any slot whose time falls
+  inside the quiet-hours window is simply not scheduled (not shifted), and
+  the Settings screen tells the user which times got skipped.

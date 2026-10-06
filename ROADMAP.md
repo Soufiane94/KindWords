@@ -9,12 +9,15 @@
   circumstances, plus an "Another kind word" button.
 - No notifications yet — that's Phase 2.
 
-## Phase 2 — Notifications
-- Settings: frequency (e.g. 1/day, 3/week, custom times), quiet hours.
-- Schedule local notifications with matching quotes, rescheduled when
-  settings change or the app opens.
-- Android notification channel, permission handling (including Android 13+),
-  and a setting for lock-screen visibility (show text vs. hidden content).
+## Phase 2 — Notifications ✅ done
+- Settings: frequency (daily, 3x/week, or custom times), quiet hours.
+- Local notifications scheduled with matching quotes, rescheduled whenever
+  settings are saved or the app opens (so quotes stay fresh).
+- Android notification channels (one per lock-screen visibility option,
+  since channel visibility can't change after creation) and permission
+  handling, including Android 13+'s runtime POST_NOTIFICATIONS prompt.
+- Lock-screen visibility setting (show quote text vs. hide it), defaulting
+  to hidden since some quotes touch on grief or illness.
 
 ## Phase 3 — Calendar events
 - In-app calendar: add/edit/delete events with a type (exam, job interview,
