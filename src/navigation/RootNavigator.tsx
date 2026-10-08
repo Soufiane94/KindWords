@@ -6,6 +6,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, ActivityIndicator } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
@@ -28,6 +29,15 @@ import type { RootStackParamList } from './types';
 const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
+// Filled icon when a tab is active, outline when it isn't. Keyed by route
+// name so one screenOptions function below can look up the right pair.
+const TAB_ICONS: Record<string, { active: keyof typeof Ionicons.glyphMap; inactive: keyof typeof Ionicons.glyphMap }> = {
+  Home: { active: 'home', inactive: 'home-outline' },
+  Favorites: { active: 'heart', inactive: 'heart-outline' },
+  Events: { active: 'calendar', inactive: 'calendar-outline' },
+  Settings: { active: 'settings', inactive: 'settings-outline' },
+};
+
 type MainTabsProps = {
   onResetOnboarding: () => void;
 };
@@ -37,12 +47,16 @@ function MainTabs({ onResetOnboarding }: MainTabsProps) {
 
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.mutedText,
         tabBarStyle: { backgroundColor: colors.card, borderTopColor: colors.border },
-      }}
+        tabBarIcon: ({ color, size, focused }) => {
+          const icon = TAB_ICONS[route.name];
+          return <Ionicons name={focused ? icon.active : icon.inactive} size={size} color={color} />;
+        },
+      })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />

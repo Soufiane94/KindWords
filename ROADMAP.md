@@ -76,11 +76,18 @@ more features. Do the sub-parts in this order, one commit each.
   without opening the app. Would need `setNotificationCategoryAsync` plus
   handling `actionIdentifier` in the response — can be added later.
 
-### 5B — Navigation icons
-- Add icons to every bottom tab (Home, Events, Favorites, Settings), with a
-  filled icon for the active tab and an outline icon for inactive ones.
-- Use `@expo/vector-icons` (already included with Expo, no new native code).
-- Icons should take their colors from the active theme.
+### 5B — Navigation icons ✅ done
+- Added icons to every bottom tab (Home, Events, Favorites, Settings), with a
+  filled icon for the active tab and an outline icon for inactive ones
+  (`Ionicons` home/heart/calendar/settings, `*-outline` variants when not
+  focused).
+- Used `@expo/vector-icons` — added as an explicit dependency (SDK 57's
+  `expo` package no longer pulls it in transitively), but it only needs
+  `expo-font`, which was already linked, so no new EAS dev-client build is
+  required.
+- Icons take their colors from the active theme: `tabBarIcon` receives the
+  same `color` as `tabBarActiveTintColor`/`tabBarInactiveTintColor`, which
+  already read from `ThemeContext`.
 
 ### 5C — Visual identity: "Worlds" (aesthetic themes)
 Goal: the app should feel fun and comfy, not like a plain React app. Replace
