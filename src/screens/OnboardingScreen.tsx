@@ -1,12 +1,14 @@
 // First screen a new user sees. Lets them pick one or more circumstances
 // so later screens can show quotes that feel relevant to their life.
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CIRCUMSTANCES } from '../data/circumstances';
 import { setCircumstances, setOnboardingDone } from '../services/storage';
 import CircumstanceChip from '../components/CircumstanceChip';
+import { useTheme } from '../theme/ThemeContext';
+import type { Palette } from '../data/themes';
 
 type Props = {
   onDone: () => void;
@@ -14,6 +16,8 @@ type Props = {
 
 export default function OnboardingScreen({ onDone }: Props) {
   const [selected, setSelected] = useState<string[]>([]);
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   function toggle(id: string) {
     setSelected((prev) =>
@@ -60,46 +64,48 @@ export default function OnboardingScreen({ onDone }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FBF6EC',
-  },
-  content: {
-    padding: 24,
-    paddingTop: 48,
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: '700',
-    color: '#3A3A3A',
-    marginBottom: 12,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 15,
-    color: '#6A6A6A',
-    textAlign: 'center',
-    marginBottom: 28,
-    lineHeight: 22,
-  },
-  chipRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  footer: {
-    padding: 24,
-  },
-  button: {
-    backgroundColor: '#C9A94F',
-    paddingVertical: 16,
-    borderRadius: 16,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '700',
-  },
-});
+function createStyles(colors: Palette) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    content: {
+      padding: 24,
+      paddingTop: 48,
+    },
+    title: {
+      fontSize: 26,
+      fontWeight: '700',
+      color: colors.primaryText,
+      marginBottom: 12,
+      textAlign: 'center',
+    },
+    subtitle: {
+      fontSize: 15,
+      color: colors.secondaryText,
+      textAlign: 'center',
+      marginBottom: 28,
+      lineHeight: 22,
+    },
+    chipRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+    },
+    footer: {
+      padding: 24,
+    },
+    button: {
+      backgroundColor: colors.accent,
+      paddingVertical: 16,
+      borderRadius: 16,
+      alignItems: 'center',
+    },
+    buttonText: {
+      color: colors.accentText,
+      fontSize: 16,
+      fontWeight: '700',
+    },
+  });
+}

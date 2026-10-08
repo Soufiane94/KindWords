@@ -56,3 +56,10 @@ export function getRandomQuoteForEvent(eventType: string, excludeId?: string): Q
 
   return pickRandom(candidates, excludeId);
 }
+
+// Looks up a specific quote by id, e.g. to turn a favorited id back into the
+// full quote for display. Favorites are stored as ids (see storage.ts) so
+// they always reflect the latest quote text if quotes.json is ever edited.
+export function getQuoteById(id: string): Quote | undefined {
+  return ALL_QUOTES.find((q) => q.id === id);
+}

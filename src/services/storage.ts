@@ -3,12 +3,15 @@
 // how we persist things later without hunting through every screen.
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ThemeName, DEFAULT_THEME_NAME } from '../data/themes';
 
 const KEYS = {
   ONBOARDING_DONE: 'kindwords:onboardingDone',
   CIRCUMSTANCES: 'kindwords:circumstances',
   NOTIFICATION_SETTINGS: 'kindwords:notificationSettings',
   EVENTS: 'kindwords:events',
+  FAVORITES: 'kindwords:favorites',
+  THEME: 'kindwords:theme',
 };
 
 export type Frequency = 'daily' | 'three_per_week' | 'custom';
@@ -118,4 +121,43 @@ export async function updateEvent(event: CalendarEvent): Promise<void> {
 export async function deleteEvent(id: string): Promise<void> {
   const events = await getEvents();
   await setEvents(events.filter((e) => e.id !== id));
+}
+
+// Favorite quotes, stored as just a list of quote ids — the quote text
+// itself always comes from quotes.ts, so there's only one place it can
+// drift out of date.
+export async function getFavoriteIds(): Promise<string[]> {
+  const value = await AsyncStorage.getItem(KEYS.FAVORITES);
+  if (!value) return [];
+  try {
+    return JSON.parse(value) as string[];
+  } catch {
+    return [];
+  }
+}
+
+async function setFavoriteIds(ids: string[]): Promise<void> {
+  await AsyncStorage.setItem(KEYS.FAVORITES, JSON.stringify(ids));
+}
+
+// Flips a quote's favorite state and returns whether it's now a favorite,
+// so callers can update their UI without a second read.
+export async function toggleFavorite(quoteId: string): Promise<boolean> {
+  const ids = await getFavoriteIds();
+  const isFavorite = ids.includes(quoteId);
+  const next = isFavorite ? ids.filter((id) => id !== quoteId) : [...ids, quoteId];
+  await setFavoriteIds(next);
+  return !isFavorite;
+}
+
+export async function getThemeName(): Promise<ThemeName> {
+  const value = await AsyncStorage.getItem(KEYS.THEME);
+  if (value === 'warm' || value === 'calm' || value === 'rose' || value === 'dusk') {
+    return value;
+  }
+  return DEFAULT_THEME_NAME;
+}
+
+export async function setThemeName(name: ThemeName): Promise<void> {
+  await AsyncStorage.setItem(KEYS.THEME, name);
 }

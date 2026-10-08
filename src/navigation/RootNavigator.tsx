@@ -1,12 +1,13 @@
 // Decides what the user sees first: onboarding (if they haven't done it yet)
-// or the main app (Home, Events, and Settings tabs).
+// or the main app (Home, Favorites, Events, and Settings tabs).
 
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, ActivityIndicator } from 'react-native';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
+import FavoritesScreen from '../screens/FavoritesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import EventsScreen from '../screens/EventsScreen';
 import {
@@ -17,6 +18,7 @@ import {
   getEvents,
 } from '../services/storage';
 import { rescheduleAllNotifications } from '../services/notifications';
+import { useTheme } from '../theme/ThemeContext';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,9 +27,19 @@ type MainTabsProps = {
 };
 
 function MainTabs({ onResetOnboarding }: MainTabsProps) {
+  const { colors } = useTheme();
+
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: colors.accent,
+        tabBarInactiveTintColor: colors.mutedText,
+        tabBarStyle: { backgroundColor: colors.card, borderTopColor: colors.border },
+      }}
+    >
       <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen name="Events" component={EventsScreen} />
       <Tab.Screen name="Settings">
         {() => <SettingsScreen onResetOnboarding={onResetOnboarding} />}
@@ -39,6 +51,7 @@ function MainTabs({ onResetOnboarding }: MainTabsProps) {
 export default function RootNavigator() {
   const [loading, setLoading] = useState(true);
   const [onboardingDone, setOnboardingDoneState] = useState(false);
+  const { colors, themeName } = useTheme();
 
   useEffect(() => {
     getOnboardingDone().then(async (done) => {
@@ -62,14 +75,34 @@ export default function RootNavigator() {
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#C9A94F" />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: colors.background,
+        }}
+      >
+        <ActivityIndicator size="large" color={colors.accent} />
       </View>
     );
   }
 
+  const base = themeName === 'dusk' ? DarkTheme : DefaultTheme;
+  const navigationTheme = {
+    ...base,
+    colors: {
+      ...base.colors,
+      primary: colors.accent,
+      background: colors.background,
+      card: colors.card,
+      text: colors.primaryText,
+      border: colors.border,
+    },
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={navigationTheme}>
       {onboardingDone ? (
         <MainTabs
           onResetOnboarding={async () => {

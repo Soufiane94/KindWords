@@ -1,7 +1,8 @@
-// Settings screen: circumstances (from Phase 1) plus notification
-// preferences (Phase 2) — frequency, quiet hours, and lock-screen visibility.
+// Settings screen: appearance (Phase 4), circumstances (Phase 1), plus
+// notification preferences (Phase 2) — frequency, quiet hours, and
+// lock-screen visibility.
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
@@ -21,6 +22,8 @@ import { rescheduleAllNotifications } from '../services/notifications';
 import CircumstanceChip from '../components/CircumstanceChip';
 import SegmentedControl from '../components/SegmentedControl';
 import TimeRow from '../components/TimeRow';
+import { useTheme, THEME_OPTIONS } from '../theme/ThemeContext';
+import type { Palette } from '../data/themes';
 
 const FREQUENCY_OPTIONS: { value: Frequency; label: string }[] = [
   { value: 'daily', label: 'Daily' },
@@ -48,6 +51,8 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   const [selectedCircumstances, setSelectedCircumstances] = useState<string[]>([]);
   const [settings, setSettings] = useState<NotificationSettings>(DEFAULT_NOTIFICATION_SETTINGS);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ kind: 'idle' });
+  const { colors, themeName, setThemeName } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   useFocusEffect(
     useCallback(() => {
@@ -109,6 +114,22 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Settings</Text>
 
+        <Text style={styles.sectionTitle}>Appearance</Text>
+        <Text style={styles.subtitle}>Pick whichever feels most like home.</Text>
+        <View style={styles.chipRow}>
+          {THEME_OPTIONS.map((t) => (
+            <CircumstanceChip
+              key={t.id}
+              label={t.label}
+              emoji={t.emoji}
+              selected={themeName === t.id}
+              onPress={() => setThemeName(t.id)}
+            />
+          ))}
+        </View>
+
+        <View style={styles.divider} />
+
         <Text style={styles.sectionTitle}>Your circumstances</Text>
         <Text style={styles.subtitle}>
           This changes which kind words show up around the app.
@@ -132,7 +153,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
           <Switch
             value={settings.enabled}
             onValueChange={(enabled) => updateSettings({ enabled })}
-            trackColor={{ true: '#C9A94F' }}
+            trackColor={{ true: colors.accent }}
           />
         </View>
 
@@ -239,112 +260,114 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FBF6EC',
-  },
-  content: {
-    padding: 24,
-    paddingTop: 32,
-    paddingBottom: 48,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#3A3A3A',
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 17,
-    fontWeight: '700',
-    color: '#3A3A3A',
-  },
-  subtitle: {
-    fontSize: 13,
-    color: '#6A6A6A',
-    marginTop: 4,
-    marginBottom: 12,
-    lineHeight: 19,
-  },
-  chipRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  divider: {
-    height: 1,
-    backgroundColor: '#E8DFC8',
-    marginVertical: 24,
-  },
-  rowBetween: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#3A3A3A',
-    marginBottom: 8,
-  },
-  customTimeRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  customTimeField: {
-    flex: 1,
-  },
-  removeButton: {
-    marginLeft: 8,
-    padding: 8,
-  },
-  removeButtonText: {
-    fontSize: 16,
-    color: '#B5563C',
-  },
-  addTimeButton: {
-    marginTop: 8,
-    alignSelf: 'flex-start',
-  },
-  addTimeButtonText: {
-    color: '#8A6D1F',
-    fontWeight: '600',
-    fontSize: 14,
-  },
-  saveButton: {
-    backgroundColor: '#C9A94F',
-    paddingVertical: 16,
-    borderRadius: 16,
-    alignItems: 'center',
-    marginTop: 28,
-  },
-  saveButtonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  statusBox: {
-    marginTop: 16,
-  },
-  statusText: {
-    fontSize: 13,
-    color: '#5A7A4A',
-    textAlign: 'center',
-  },
-  statusWarning: {
-    fontSize: 13,
-    color: '#B5563C',
-    textAlign: 'center',
-    marginTop: 4,
-  },
-  resetLink: {
-    marginTop: 32,
-    alignItems: 'center',
-  },
-  resetLinkText: {
-    fontSize: 13,
-    color: '#9A9A9A',
-    textDecorationLine: 'underline',
-  },
-});
+function createStyles(colors: Palette) {
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    content: {
+      padding: 24,
+      paddingTop: 32,
+      paddingBottom: 48,
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: '700',
+      color: colors.primaryText,
+      marginBottom: 20,
+    },
+    sectionTitle: {
+      fontSize: 17,
+      fontWeight: '700',
+      color: colors.primaryText,
+    },
+    subtitle: {
+      fontSize: 13,
+      color: colors.secondaryText,
+      marginTop: 4,
+      marginBottom: 12,
+      lineHeight: 19,
+    },
+    chipRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
+    divider: {
+      height: 1,
+      backgroundColor: colors.divider,
+      marginVertical: 24,
+    },
+    rowBetween: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 12,
+    },
+    label: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: colors.primaryText,
+      marginBottom: 8,
+    },
+    customTimeRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    customTimeField: {
+      flex: 1,
+    },
+    removeButton: {
+      marginLeft: 8,
+      padding: 8,
+    },
+    removeButtonText: {
+      fontSize: 16,
+      color: colors.danger,
+    },
+    addTimeButton: {
+      marginTop: 8,
+      alignSelf: 'flex-start',
+    },
+    addTimeButtonText: {
+      color: colors.accent,
+      fontWeight: '600',
+      fontSize: 14,
+    },
+    saveButton: {
+      backgroundColor: colors.accent,
+      paddingVertical: 16,
+      borderRadius: 16,
+      alignItems: 'center',
+      marginTop: 28,
+    },
+    saveButtonText: {
+      color: colors.accentText,
+      fontSize: 16,
+      fontWeight: '700',
+    },
+    statusBox: {
+      marginTop: 16,
+    },
+    statusText: {
+      fontSize: 13,
+      color: colors.success,
+      textAlign: 'center',
+    },
+    statusWarning: {
+      fontSize: 13,
+      color: colors.danger,
+      textAlign: 'center',
+      marginTop: 4,
+    },
+    resetLink: {
+      marginTop: 32,
+      alignItems: 'center',
+    },
+    resetLinkText: {
+      fontSize: 13,
+      color: colors.mutedText,
+      textDecorationLine: 'underline',
+    },
+  });
+}

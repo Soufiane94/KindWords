@@ -29,8 +29,22 @@
   cancel-all-then-reschedule approach), and skipped if 9am falls in quiet
   hours or the reminder date has already passed.
 
-## Phase 4 — Polish
-- Favorites, share a quote as an image, themes, bigger quote library.
+## Phase 4 — Polish ✅ done
+- Favorites: heart a quote from Home to save it; a new "Favorites" tab lists
+  saved quotes (by id, so they always show the current quote text) and lets
+  you unsave or share from there too.
+- Share a quote as an image: the quote card is captured as a PNG
+  (`react-native-view-shot`) and handed to the native share sheet
+  (`expo-sharing`). Both add native code, so this needs a new EAS dev-client
+  build before it can be tested on-device (see Testing section).
+- Themes: four color palettes (Warm/default, Calm, Rose, Dusk) chosen from a
+  new "Appearance" section in Settings, applied app-wide via
+  `src/theme/ThemeContext.tsx` and persisted locally. Every screen and
+  component now reads colors from the active theme instead of hardcoded
+  hex values; Dusk is a soft dark mode for evening use.
+- Bigger quote library: `quotes.json` grew from ~40 to 80 original quotes,
+  tagged the same way as before (circumstances/eventTypes/mood), still no
+  attributed authors.
 
 ## Phase 5 — AI quotes
 - Small serverless backend that calls the Claude API to generate quotes from

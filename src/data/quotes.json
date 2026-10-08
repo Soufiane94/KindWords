@@ -278,5 +278,285 @@
     "circumstances": ["other", "living_alone", "parent", "worker", "student"],
     "eventTypes": ["family_event", "other"],
     "mood": "warmth"
+  },
+  {
+    "id": "q041",
+    "text": "You don't have to earn rest by finishing everything first.",
+    "circumstances": ["worker", "student", "other"],
+    "eventTypes": ["other"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q042",
+    "text": "A text that just says \"thinking of you\" can hold more than it looks like it can.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["other"],
+    "mood": "warmth"
+  },
+  {
+    "id": "q043",
+    "text": "Grief doesn't ask your permission to visit on an ordinary afternoon. You're allowed to let it in.",
+    "circumstances": ["widowed", "patient"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q044",
+    "text": "Interviews end. Exams end. The way you treat yourself while you wait doesn't have to.",
+    "circumstances": ["student", "worker"],
+    "eventTypes": ["job_interview", "exam"],
+    "mood": "encouragement"
+  },
+  {
+    "id": "q045",
+    "text": "You can love your family loudly and still need a quiet minute alone in the bathroom. That's allowed too.",
+    "circumstances": ["parent"],
+    "eventTypes": ["family_event"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q046",
+    "text": "Waiting rooms are strange, patient places. So are you, and that's alright.",
+    "circumstances": ["patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q047",
+    "text": "Whatever today's results are, you were already worth caring for before you knew them.",
+    "circumstances": ["patient", "other"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q048",
+    "text": "Some prayers are just a name repeated softly. That's enough of a prayer.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other", "grief_anniversary"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q049",
+    "text": "You've survived every today you've ever had. This one included.",
+    "circumstances": ["other", "patient", "widowed"],
+    "eventTypes": ["other"],
+    "mood": "encouragement"
+  },
+  {
+    "id": "q050",
+    "text": "An empty chair at the table still holds the shape of who sat there. That's not nothing.",
+    "circumstances": ["widowed", "living_alone"],
+    "eventTypes": ["grief_anniversary", "family_event"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q051",
+    "text": "You don't need a reason to deserve kindness today. Being tired is reason enough.",
+    "circumstances": ["other", "worker", "parent"],
+    "eventTypes": ["other"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q052",
+    "text": "Studying by lamplight at this hour means you care. Let that be true even if the grade doesn't show it yet.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "encouragement"
+  },
+  {
+    "id": "q053",
+    "text": "You can be proud of surviving a hard year without pretending the year was fine.",
+    "circumstances": ["patient", "widowed", "other"],
+    "eventTypes": ["grief_anniversary", "medical_appointment"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q054",
+    "text": "A job interview can only ask for an hour of you. It doesn't get to define the rest.",
+    "circumstances": ["worker", "student"],
+    "eventTypes": ["job_interview"],
+    "mood": "encouragement"
+  },
+  {
+    "id": "q055",
+    "text": "Living alone taught you a kind of quiet most people never learn to sit with. That's its own kind of strength.",
+    "circumstances": ["living_alone"],
+    "eventTypes": ["other"],
+    "mood": "warmth"
+  },
+  {
+    "id": "q056",
+    "text": "You don't have to perform okay-ness for people who love you. They'd rather have you real.",
+    "circumstances": ["other", "parent", "worker"],
+    "eventTypes": ["family_event", "other"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q057",
+    "text": "Children remember being loved far more clearly than they remember being impressed.",
+    "circumstances": ["parent"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth"
+  },
+  {
+    "id": "q058",
+    "text": "Doubt isn't the opposite of faith. Sometimes it's just faith, thinking out loud.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q059",
+    "text": "You get to grieve the version of today you hoped for, even while you're grateful for the one you got.",
+    "circumstances": ["patient", "widowed", "parent"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q060",
+    "text": "Somewhere in this ordinary day, you did something that mattered more than you noticed.",
+    "circumstances": ["other", "worker", "student"],
+    "eventTypes": ["other"],
+    "mood": "encouragement"
+  },
+  {
+    "id": "q061",
+    "text": "A diagnosis is information, not a verdict on how brave or loved you are.",
+    "circumstances": ["patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q062",
+    "text": "You're allowed to miss someone and still laugh at something silly on the same day.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q063",
+    "text": "The quiet after everyone leaves isn't empty. It's just quiet. You can rest in it.",
+    "circumstances": ["living_alone", "parent"],
+    "eventTypes": ["family_event", "other"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q064",
+    "text": "Whatever this exam measures, it isn't your worth, your kindness, or how hard you tried in the dark hours no one saw.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "encouragement"
+  },
+  {
+    "id": "q065",
+    "text": "You don't owe anyone a timeline for healing, grieving, or figuring your life out.",
+    "circumstances": ["other", "patient", "widowed"],
+    "eventTypes": ["other", "grief_anniversary"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q066",
+    "text": "Faith can hold both gratitude and grief in the same open hand.",
+    "circumstances": ["religious", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q067",
+    "text": "You looked after someone today, even if it was just yourself, even if it was barely.",
+    "circumstances": ["parent", "patient", "other"],
+    "eventTypes": ["other"],
+    "mood": "warmth"
+  },
+  {
+    "id": "q068",
+    "text": "There's no prize for suffering alone when you don't have to. Reaching out counts as strength, not failure.",
+    "circumstances": ["living_alone", "patient", "other"],
+    "eventTypes": ["other"],
+    "mood": "encouragement"
+  },
+  {
+    "id": "q069",
+    "text": "Interviews aren't a referendum on your whole life. They're one conversation, on one day, with one stranger.",
+    "circumstances": ["worker", "student"],
+    "eventTypes": ["job_interview"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q070",
+    "text": "The work you do without applause is often the work that matters most.",
+    "circumstances": ["worker", "parent"],
+    "eventTypes": ["other"],
+    "mood": "warmth"
+  },
+  {
+    "id": "q071",
+    "text": "You are not required to have faith figured out. You're only asked to keep showing up.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q072",
+    "text": "A good cry in the car counts as taking care of yourself.",
+    "circumstances": ["other", "patient", "widowed", "worker"],
+    "eventTypes": ["other", "medical_appointment"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q073",
+    "text": "Somewhere, a version of you from a hard year ago would be proud to see you still here.",
+    "circumstances": ["other", "student", "worker", "patient"],
+    "eventTypes": ["exam", "medical_appointment"],
+    "mood": "encouragement"
+  },
+  {
+    "id": "q074",
+    "text": "Anniversaries of loss don't get easier on a schedule. Be as gentle with yourself today as you'd be with someone you love.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort"
+  },
+  {
+    "id": "q075",
+    "text": "You can set the table for one and still be living a full life.",
+    "circumstances": ["living_alone"],
+    "eventTypes": ["other"],
+    "mood": "warmth"
+  },
+  {
+    "id": "q076",
+    "text": "Being needed all day by small hands is exhausting and also, somehow, the thing you'll miss most.",
+    "circumstances": ["parent"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth"
+  },
+  {
+    "id": "q077",
+    "text": "You're allowed to ask your body for patience the same way you'd ask a tired friend.",
+    "circumstances": ["patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "gentle"
+  },
+  {
+    "id": "q078",
+    "text": "Whatever you walk into today, you don't walk in alone. Someone, somewhere, is hoping it goes well for you.",
+    "circumstances": ["other", "student", "worker"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "warmth"
+  },
+  {
+    "id": "q079",
+    "text": "Love doesn't need a holiday on the calendar to count. An ordinary Tuesday will do.",
+    "circumstances": ["parent", "widowed", "other"],
+    "eventTypes": ["family_event", "other"],
+    "mood": "warmth"
+  },
+  {
+    "id": "q080",
+    "text": "You made it to the end of this day. That's not a small thing, even if no one throws confetti for it.",
+    "circumstances": ["other", "patient", "worker", "student", "living_alone"],
+    "eventTypes": ["other"],
+    "mood": "encouragement"
   }
 ]

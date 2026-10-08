@@ -2,9 +2,11 @@
 // native time picker. Works with simple "HH:mm" strings so the rest of the
 // app never has to deal with Date objects directly.
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { useTheme } from '../theme/ThemeContext';
+import type { Palette } from '../data/themes';
 
 type Props = {
   label: string;
@@ -34,6 +36,8 @@ function formatDisplay(hhmm: string): string {
 
 export default function TimeRow({ label, time, onChange }: Props) {
   const [showPicker, setShowPicker] = useState(false);
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
 
   function handleChange(event: DateTimePickerEvent, selectedDate?: Date) {
     setShowPicker(false);
@@ -55,27 +59,29 @@ export default function TimeRow({ label, time, onChange }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-  },
-  label: {
-    fontSize: 15,
-    color: '#3A3A3A',
-    flex: 1,
-  },
-  timeButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    borderRadius: 12,
-    backgroundColor: '#F4E8C8',
-  },
-  timeText: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: '#3A3A3A',
-  },
-});
+function createStyles(colors: Palette) {
+  return StyleSheet.create({
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 10,
+    },
+    label: {
+      fontSize: 15,
+      color: colors.primaryText,
+      flex: 1,
+    },
+    timeButton: {
+      paddingVertical: 8,
+      paddingHorizontal: 14,
+      borderRadius: 12,
+      backgroundColor: colors.chipSelectedBackground,
+    },
+    timeText: {
+      fontSize: 15,
+      fontWeight: '600',
+      color: colors.primaryText,
+    },
+  });
+}
