@@ -11,6 +11,7 @@ import {
   setCircumstances,
   getNotificationSettings,
   setNotificationSettings,
+  getEvents,
   NotificationSettings,
   Frequency,
   LockScreenVisibility,
@@ -86,9 +87,9 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   }
 
   async function handleSave() {
-    const circumstances = await getCircumstances();
+    const [circumstances, events] = await Promise.all([getCircumstances(), getEvents()]);
     await setNotificationSettings(settings);
-    const result = await rescheduleAllNotifications(settings, circumstances);
+    const result = await rescheduleAllNotifications(settings, circumstances, events);
 
     if (settings.enabled && result.scheduledCount === 0 && result.skippedTimes.length === 0) {
       setSaveStatus({ kind: 'permission_denied' });

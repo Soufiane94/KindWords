@@ -7,8 +7,8 @@
 
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
-import { getRandomQuote } from './quotes';
-import type { NotificationSettings } from './storage';
+import { getRandomQuote, getRandomQuoteForEvent } from './quotes';
+import type { CalendarEvent, NotificationSettings } from './storage';
 
 // Show the notification banner even while the app is open, so it's easy to
 // test without backgrounding the app.
@@ -79,6 +79,18 @@ export function isWithinQuietHours(
   return t >= start || t < end; // wraps past midnight
 }
 
+// Event reminders (before/after a calendar event) always fire at this local
+// hour, so adding an event doesn't require picking yet another time.
+const EVENT_REMINDER_HOUR = 9;
+
+// `offsetDays` is -1 for the reminder before the event, +1 for after.
+function eventReminderDate(event: CalendarEvent, offsetDays: number): Date {
+  const [year, month, day] = event.date.split('-').map(Number);
+  const date = new Date(year, month - 1, day, EVENT_REMINDER_HOUR, 0, 0, 0);
+  date.setDate(date.getDate() + offsetDays);
+  return date;
+}
+
 type Slot = { time: string; weekday?: number };
 
 function buildSlots(settings: NotificationSettings): Slot[] {
@@ -97,11 +109,13 @@ export type RescheduleResult = {
 };
 
 // Cancels every notification this app has scheduled, then schedules fresh
-// ones (with freshly-picked quotes) for the given settings and
-// circumstances. Safe to call whenever settings change or the app opens.
+// ones (with freshly-picked quotes) for the given settings, circumstances,
+// and calendar events. Safe to call whenever settings change, an event is
+// added/edited/deleted, or the app opens.
 export async function rescheduleAllNotifications(
   settings: NotificationSettings,
-  circumstances: string[]
+  circumstances: string[],
+  events: CalendarEvent[] = []
 ): Promise<RescheduleResult> {
   await Notifications.cancelAllScheduledNotificationsAsync();
 
@@ -150,5 +164,29 @@ export async function rescheduleAllNotifications(
     });
   }
 
-  return { scheduledCount: slots.length, skippedTimes };
+  // Event reminders always use a fixed hour, so just check once whether
+  // that hour falls inside quiet hours rather than per-event.
+  const eventReminderTime = `${EVENT_REMINDER_HOUR.toString().padStart(2, '0')}:00`;
+  let eventReminderCount = 0;
+  if (!isWithinQuietHours(eventReminderTime, settings.quietHoursStart, settings.quietHoursEnd)) {
+    const now = new Date();
+    for (const event of events) {
+      for (const offsetDays of [-1, 1]) {
+        const date = eventReminderDate(event, offsetDays);
+        if (date <= now) continue; // don't schedule reminders in the past
+
+        const quote = getRandomQuoteForEvent(event.type);
+        await Notifications.scheduleNotificationAsync({
+          content: {
+            title: offsetDays < 0 ? 'Thinking of you' : 'Checking in on you',
+            body: quote.text,
+          },
+          trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date, channelId },
+        });
+        eventReminderCount++;
+      }
+    }
+  }
+
+  return { scheduledCount: slots.length + eventReminderCount, skippedTimes };
 }

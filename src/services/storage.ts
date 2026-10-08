@@ -8,6 +8,7 @@ const KEYS = {
   ONBOARDING_DONE: 'kindwords:onboardingDone',
   CIRCUMSTANCES: 'kindwords:circumstances',
   NOTIFICATION_SETTINGS: 'kindwords:notificationSettings',
+  EVENTS: 'kindwords:events',
 };
 
 export type Frequency = 'daily' | 'three_per_week' | 'custom';
@@ -72,4 +73,49 @@ export async function getCircumstances(): Promise<string[]> {
 
 export async function setCircumstances(ids: string[]): Promise<void> {
   await AsyncStorage.setItem(KEYS.CIRCUMSTANCES, JSON.stringify(ids));
+}
+
+// A date someone wants a kind word around, e.g. an exam or a grief
+// anniversary. `date` is a plain "YYYY-MM-DD" (no time) since reminders are
+// scheduled relative to the day, not a specific hour.
+export type CalendarEvent = {
+  id: string;
+  title: string;
+  type: string; // matches an id in src/data/eventTypes.ts
+  date: string;
+};
+
+function generateEventId(): string {
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+export async function getEvents(): Promise<CalendarEvent[]> {
+  const value = await AsyncStorage.getItem(KEYS.EVENTS);
+  if (!value) return [];
+  try {
+    return JSON.parse(value) as CalendarEvent[];
+  } catch {
+    return [];
+  }
+}
+
+async function setEvents(events: CalendarEvent[]): Promise<void> {
+  await AsyncStorage.setItem(KEYS.EVENTS, JSON.stringify(events));
+}
+
+export async function createEvent(data: Omit<CalendarEvent, 'id'>): Promise<CalendarEvent> {
+  const events = await getEvents();
+  const event: CalendarEvent = { ...data, id: generateEventId() };
+  await setEvents([...events, event]);
+  return event;
+}
+
+export async function updateEvent(event: CalendarEvent): Promise<void> {
+  const events = await getEvents();
+  await setEvents(events.map((e) => (e.id === event.id ? event : e)));
+}
+
+export async function deleteEvent(id: string): Promise<void> {
+  const events = await getEvents();
+  await setEvents(events.filter((e) => e.id !== id));
 }

@@ -1,5 +1,5 @@
 // Decides what the user sees first: onboarding (if they haven't done it yet)
-// or the main app (Home + Settings tabs).
+// or the main app (Home, Events, and Settings tabs).
 
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,11 +8,13 @@ import { View, ActivityIndicator } from 'react-native';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import EventsScreen from '../screens/EventsScreen';
 import {
   getOnboardingDone,
   setOnboardingDone,
   getCircumstances,
   getNotificationSettings,
+  getEvents,
 } from '../services/storage';
 import { rescheduleAllNotifications } from '../services/notifications';
 
@@ -26,6 +28,7 @@ function MainTabs({ onResetOnboarding }: MainTabsProps) {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Events" component={EventsScreen} />
       <Tab.Screen name="Settings">
         {() => <SettingsScreen onResetOnboarding={onResetOnboarding} />}
       </Tab.Screen>
@@ -45,11 +48,12 @@ export default function RootNavigator() {
       // Refresh scheduled notifications (new random quotes, latest settings)
       // every time the app opens, so reminders never go stale.
       if (done) {
-        const [circumstances, settings] = await Promise.all([
+        const [circumstances, settings, events] = await Promise.all([
           getCircumstances(),
           getNotificationSettings(),
+          getEvents(),
         ]);
-        rescheduleAllNotifications(settings, circumstances).catch(() => {
+        rescheduleAllNotifications(settings, circumstances, events).catch(() => {
           // Non-fatal: the user can still use the app without reminders.
         });
       }

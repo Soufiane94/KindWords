@@ -19,11 +19,15 @@
 - Lock-screen visibility setting (show quote text vs. hide it), defaulting
   to hidden since some quotes touch on grief or illness.
 
-## Phase 3 — Calendar events
-- In-app calendar: add/edit/delete events with a type (exam, job interview,
-  medical appointment, anniversary/grief day, family event, etc.).
-- Schedule a quote before and after each event, chosen by event type. Tag
-  more quotes with `eventTypes`.
+## Phase 3 — Calendar events ✅ done
+- New "Events" tab: add/edit/delete events with a type (exam, job interview,
+  medical appointment, anniversary/grief day, family event, or other).
+- A local notification is scheduled the day before and the day after each
+  event (fixed at 9am, to keep it simple), with a quote chosen to match the
+  event's type. Quotes in `quotes.json` are now tagged with `eventTypes`.
+- Event reminders are rescheduled together with the regular ones (same
+  cancel-all-then-reschedule approach), and skipped if 9am falls in quiet
+  hours or the reminder date has already passed.
 
 ## Phase 4 — Polish
 - Favorites, share a quote as an image, themes, bigger quote library.
