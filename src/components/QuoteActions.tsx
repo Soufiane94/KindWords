@@ -11,9 +11,12 @@ type Props = {
   isFavorite: boolean;
   onToggleFavorite: () => void;
   onShare: () => void;
+  // Only the Kind word detail screen offers snoozing, so this stays
+  // optional and Home/Favorites keep showing just the two buttons.
+  onSnooze?: () => void;
 };
 
-export default function QuoteActions({ isFavorite, onToggleFavorite, onShare }: Props) {
+export default function QuoteActions({ isFavorite, onToggleFavorite, onShare, onSnooze }: Props) {
   const { colors } = useTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
@@ -41,6 +44,18 @@ export default function QuoteActions({ isFavorite, onToggleFavorite, onShare }: 
         <Text style={styles.icon}>⤴</Text>
         <Text style={styles.label}>Share</Text>
       </Pressable>
+
+      {onSnooze && (
+        <Pressable
+          onPress={onSnooze}
+          style={styles.button}
+          accessibilityRole="button"
+          accessibilityLabel="Snooze kind words or hide this quote"
+        >
+          <Text style={styles.icon}>⏰</Text>
+          <Text style={styles.label}>Snooze</Text>
+        </Pressable>
+      )}
     </View>
   );
 }

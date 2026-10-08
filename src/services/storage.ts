@@ -12,6 +12,8 @@ const KEYS = {
   EVENTS: 'kindwords:events',
   FAVORITES: 'kindwords:favorites',
   THEME: 'kindwords:theme',
+  HIDDEN_QUOTES: 'kindwords:hiddenQuotes',
+  SNOOZE_UNTIL: 'kindwords:snoozeUntil',
 };
 
 export type Frequency = 'daily' | 'three_per_week' | 'custom';
@@ -148,6 +150,43 @@ export async function toggleFavorite(quoteId: string): Promise<boolean> {
   const next = isFavorite ? ids.filter((id) => id !== quoteId) : [...ids, quoteId];
   await setFavoriteIds(next);
   return !isFavorite;
+}
+
+// Quotes the user has said "don't show me this again" to, from the Kind
+// word detail screen. Kept separate from favorites — hiding a quote only
+// stops it being picked again, it doesn't touch anything already saved.
+export async function getHiddenQuoteIds(): Promise<string[]> {
+  const value = await AsyncStorage.getItem(KEYS.HIDDEN_QUOTES);
+  if (!value) return [];
+  try {
+    return JSON.parse(value) as string[];
+  } catch {
+    return [];
+  }
+}
+
+export async function hideQuoteForever(quoteId: string): Promise<void> {
+  const ids = await getHiddenQuoteIds();
+  if (!ids.includes(quoteId)) {
+    await AsyncStorage.setItem(KEYS.HIDDEN_QUOTES, JSON.stringify([...ids, quoteId]));
+  }
+}
+
+// A timestamp (ms since epoch) until which notifications are paused, set by
+// the "Snooze" menu on the Kind word screen. `null` means not snoozed.
+export async function getSnoozeUntil(): Promise<number | null> {
+  const value = await AsyncStorage.getItem(KEYS.SNOOZE_UNTIL);
+  if (!value) return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+export async function setSnoozeUntil(timestamp: number | null): Promise<void> {
+  if (timestamp === null) {
+    await AsyncStorage.removeItem(KEYS.SNOOZE_UNTIL);
+  } else {
+    await AsyncStorage.setItem(KEYS.SNOOZE_UNTIL, String(timestamp));
+  }
 }
 
 export async function getThemeName(): Promise<ThemeName> {

@@ -4,12 +4,15 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, ActivityIndicator } from 'react-native';
+import * as Notifications from 'expo-notifications';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import EventsScreen from '../screens/EventsScreen';
+import KindWordScreen from '../screens/KindWordScreen';
 import {
   getOnboardingDone,
   setOnboardingDone,
@@ -17,10 +20,13 @@ import {
   getNotificationSettings,
   getEvents,
 } from '../services/storage';
-import { rescheduleAllNotifications } from '../services/notifications';
+import { rescheduleAllNotifications, extractQuoteId } from '../services/notifications';
 import { useTheme } from '../theme/ThemeContext';
+import { navigationRef } from './navigationRef';
+import type { RootStackParamList } from './types';
 
 const Tab = createBottomTabNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 type MainTabsProps = {
   onResetOnboarding: () => void;
@@ -48,10 +54,57 @@ function MainTabs({ onResetOnboarding }: MainTabsProps) {
   );
 }
 
+type RootStackNavigatorProps = {
+  onResetOnboarding: () => void;
+};
+
+// Wraps the tab bar in a stack so the Kind word detail screen can open full
+// screen over whichever tab is active, when a notification is tapped.
+function RootStackNavigator({ onResetOnboarding }: RootStackNavigatorProps) {
+  return (
+    <RootStack.Navigator screenOptions={{ headerShown: false }}>
+      <RootStack.Screen name="MainTabs">
+        {() => <MainTabs onResetOnboarding={onResetOnboarding} />}
+      </RootStack.Screen>
+      <RootStack.Screen
+        name="KindWord"
+        component={KindWordScreen}
+        options={{ presentation: 'modal' }}
+      />
+    </RootStack.Navigator>
+  );
+}
+
 export default function RootNavigator() {
   const [loading, setLoading] = useState(true);
   const [onboardingDone, setOnboardingDoneState] = useState(false);
+  const [pendingQuoteId, setPendingQuoteId] = useState<string | undefined>();
   const { colors, themeName } = useTheme();
+
+  // Covers both a cold start (app launched by tapping a notification) and
+  // a tap while already running — this hook handles both and dedupes
+  // repeats of the same notification for us.
+  const lastNotificationResponse = Notifications.useLastNotificationResponse();
+
+  useEffect(() => {
+    const quoteId = extractQuoteId(lastNotificationResponse);
+    if (quoteId) setPendingQuoteId(quoteId);
+  }, [lastNotificationResponse]);
+
+  // Navigates to the pending quote once both it and the navigator are
+  // ready. Called from an effect (re-checked on every relevant change,
+  // since the two can become ready in either order) and from
+  // NavigationContainer's onReady below, which catches the one case the
+  // effect can't: the container becoming ready without any further state
+  // change afterwards to re-run the effect.
+  function navigateToPendingQuoteIfReady() {
+    if (pendingQuoteId && onboardingDone && navigationRef.isReady()) {
+      navigationRef.navigate('KindWord', { quoteId: pendingQuoteId });
+      setPendingQuoteId(undefined);
+    }
+  }
+
+  useEffect(navigateToPendingQuoteIfReady, [pendingQuoteId, onboardingDone, loading]);
 
   useEffect(() => {
     getOnboardingDone().then(async (done) => {
@@ -102,9 +155,13 @@ export default function RootNavigator() {
   };
 
   return (
-    <NavigationContainer theme={navigationTheme}>
+    <NavigationContainer
+      ref={navigationRef}
+      theme={navigationTheme}
+      onReady={navigateToPendingQuoteIfReady}
+    >
       {onboardingDone ? (
-        <MainTabs
+        <RootStackNavigator
           onResetOnboarding={async () => {
             await setOnboardingDone(false);
             setOnboardingDoneState(false);

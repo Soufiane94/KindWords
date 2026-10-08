@@ -8,6 +8,7 @@
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import { getRandomQuote, getRandomQuoteForEvent } from './quotes';
+import { getHiddenQuoteIds, getSnoozeUntil, setSnoozeUntil } from './storage';
 import type { CalendarEvent, NotificationSettings } from './storage';
 
 // Show the notification banner even while the app is open, so it's easy to
@@ -108,6 +109,32 @@ export type RescheduleResult = {
   skippedTimes: string[]; // times skipped for falling inside quiet hours
 };
 
+// How long "Snooze" on the Kind word screen pauses notifications for.
+export type SnoozeDuration = 'hour' | 'tomorrow' | 'three_days';
+
+export function computeSnoozeUntil(duration: SnoozeDuration, from: Date = new Date()): number {
+  if (duration === 'hour') return from.getTime() + 60 * 60 * 1000;
+  if (duration === 'three_days') return from.getTime() + 3 * 24 * 60 * 60 * 1000;
+  // "Until tomorrow" means from now through the end of today.
+  return new Date(from.getFullYear(), from.getMonth(), from.getDate() + 1).getTime();
+}
+
+export function describeSnoozeDuration(duration: SnoozeDuration): string {
+  if (duration === 'hour') return 'Paused kind words for 1 hour.';
+  if (duration === 'three_days') return 'Paused kind words for 3 days.';
+  return 'Paused kind words until tomorrow.';
+}
+
+// Pulls the quote id back out of a tapped notification (see the `data:
+// { quoteId }` attached below), so the app can open the Kind word screen
+// for the exact quote that was sent instead of a new random one.
+export function extractQuoteId(
+  response: Notifications.MaybeNotificationResponse
+): string | undefined {
+  const quoteId = response?.notification.request.content.data?.quoteId;
+  return typeof quoteId === 'string' ? quoteId : undefined;
+}
+
 // Cancels every notification this app has scheduled, then schedules fresh
 // ones (with freshly-picked quotes) for the given settings, circumstances,
 // and calendar events. Safe to call whenever settings change, an event is
@@ -128,9 +155,22 @@ export async function rescheduleAllNotifications(
     return { scheduledCount: 0, skippedTimes: [] };
   }
 
+  const hiddenQuoteIds = await getHiddenQuoteIds();
+
+  // A snooze pauses every regular reminder until it passes. Once it has,
+  // clear it so things just go back to normal without any extra steps.
+  let snoozeUntil = await getSnoozeUntil();
+  if (snoozeUntil !== null && snoozeUntil <= Date.now()) {
+    await setSnoozeUntil(null);
+    snoozeUntil = null;
+  }
+
   const channelId = await ensureAndroidChannel(settings.lockScreenVisibility);
 
-  const allSlots = buildSlots(settings);
+  // Like quiet hours, a snooze simply isn't scheduled rather than shifted —
+  // it'll pick back up the next time this runs (settings save or app open)
+  // after the snooze has passed.
+  const allSlots = snoozeUntil ? [] : buildSlots(settings);
   const slots = allSlots.filter(
     (slot) => !isWithinQuietHours(slot.time, settings.quietHoursStart, settings.quietHoursEnd)
   );
@@ -140,12 +180,13 @@ export async function rescheduleAllNotifications(
 
   for (const slot of slots) {
     const { hour, minute } = parseTime(slot.time);
-    const quote = getRandomQuote(circumstances);
+    const quote = getRandomQuote(circumstances, undefined, hiddenQuoteIds);
 
     await Notifications.scheduleNotificationAsync({
       content: {
         title: 'A kind word for you',
         body: quote.text,
+        data: { quoteId: quote.id },
       },
       trigger: slot.weekday
         ? {
@@ -174,12 +215,14 @@ export async function rescheduleAllNotifications(
       for (const offsetDays of [-1, 1]) {
         const date = eventReminderDate(event, offsetDays);
         if (date <= now) continue; // don't schedule reminders in the past
+        if (snoozeUntil && date.getTime() < snoozeUntil) continue; // falls inside the snooze
 
-        const quote = getRandomQuoteForEvent(event.type);
+        const quote = getRandomQuoteForEvent(event.type, undefined, hiddenQuoteIds);
         await Notifications.scheduleNotificationAsync({
           content: {
             title: offsetDays < 0 ? 'Thinking of you' : 'Checking in on you',
             body: quote.text,
+            data: { quoteId: quote.id },
           },
           trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date, channelId },
         });

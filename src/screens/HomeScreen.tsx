@@ -7,13 +7,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import { getRandomQuote, Quote } from '../services/quotes';
-import { getCircumstances, getFavoriteIds, toggleFavorite } from '../services/storage';
+import { getCircumstances, getFavoriteIds, getHiddenQuoteIds, toggleFavorite } from '../services/storage';
 import { shareViewAsImage } from '../services/share';
 import { useTheme } from '../theme/ThemeContext';
 import type { Palette } from '../data/themes';
 
 export default function HomeScreen() {
   const [circumstances, setCircumstances] = useState<string[]>([]);
+  const [hiddenIds, setHiddenIds] = useState<string[]>([]);
   const [quote, setQuote] = useState<Quote | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const cardRef = useRef<View>(null);
@@ -21,9 +22,10 @@ export default function HomeScreen() {
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   useEffect(() => {
-    getCircumstances().then((ids) => {
+    Promise.all([getCircumstances(), getHiddenQuoteIds()]).then(([ids, hidden]) => {
       setCircumstances(ids);
-      setQuote(getRandomQuote(ids));
+      setHiddenIds(hidden);
+      setQuote(getRandomQuote(ids, undefined, hidden));
     });
   }, []);
 
@@ -33,8 +35,8 @@ export default function HomeScreen() {
   }, [quote]);
 
   const showAnotherQuote = useCallback(() => {
-    setQuote((current) => getRandomQuote(circumstances, current?.id));
-  }, [circumstances]);
+    setQuote((current) => getRandomQuote(circumstances, current?.id, hiddenIds));
+  }, [circumstances, hiddenIds]);
 
   async function handleToggleFavorite() {
     if (!quote) return;

@@ -25,17 +25,28 @@ function pickRandom(candidates: Quote[], excludeId?: string): Quote {
 
 // Returns a random quote matching at least one of the user's circumstances.
 // If the user picked no circumstances, or none match, falls back to any quote
-// tagged "other" so there is always something gentle to show.
-export function getRandomQuote(userCircumstances: string[], excludeId?: string): Quote {
-  let candidates = ALL_QUOTES.filter((q) =>
-    q.circumstances.some((c) => userCircumstances.includes(c))
+// tagged "other" so there is always something gentle to show. `hiddenIds`
+// (quotes the user said "don't show me this again" to) are excluded first,
+// unless that would leave nothing to show at all.
+export function getRandomQuote(
+  userCircumstances: string[],
+  excludeId?: string,
+  hiddenIds: string[] = []
+): Quote {
+  const notHidden = (qs: Quote[]) => qs.filter((q) => !hiddenIds.includes(q.id));
+
+  let candidates = notHidden(
+    ALL_QUOTES.filter((q) => q.circumstances.some((c) => userCircumstances.includes(c)))
   );
 
   if (candidates.length === 0) {
-    candidates = ALL_QUOTES.filter((q) => q.circumstances.includes('other'));
+    candidates = notHidden(ALL_QUOTES.filter((q) => q.circumstances.includes('other')));
   }
   if (candidates.length === 0) {
-    candidates = ALL_QUOTES;
+    candidates = notHidden(ALL_QUOTES);
+  }
+  if (candidates.length === 0) {
+    candidates = ALL_QUOTES; // everything is hidden; show something rather than nothing
   }
 
   return pickRandom(candidates, excludeId);
@@ -44,11 +55,20 @@ export function getRandomQuote(userCircumstances: string[], excludeId?: string):
 // Returns a random quote matching the given calendar event type (exam, job
 // interview, etc.), for the reminders scheduled before/after an event. Falls
 // back to quotes tagged "other" so there is always something to send.
-export function getRandomQuoteForEvent(eventType: string, excludeId?: string): Quote {
-  let candidates = ALL_QUOTES.filter((q) => q.eventTypes.includes(eventType));
+export function getRandomQuoteForEvent(
+  eventType: string,
+  excludeId?: string,
+  hiddenIds: string[] = []
+): Quote {
+  const notHidden = (qs: Quote[]) => qs.filter((q) => !hiddenIds.includes(q.id));
+
+  let candidates = notHidden(ALL_QUOTES.filter((q) => q.eventTypes.includes(eventType)));
 
   if (candidates.length === 0) {
-    candidates = ALL_QUOTES.filter((q) => q.eventTypes.includes('other'));
+    candidates = notHidden(ALL_QUOTES.filter((q) => q.eventTypes.includes('other')));
+  }
+  if (candidates.length === 0) {
+    candidates = notHidden(ALL_QUOTES);
   }
   if (candidates.length === 0) {
     candidates = ALL_QUOTES;
