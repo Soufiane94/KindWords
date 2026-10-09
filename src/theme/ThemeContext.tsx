@@ -1,36 +1,44 @@
-// Makes the user's chosen color palette available to every screen and
-// component, and handles loading/saving which one they picked.
+// Makes the user's chosen world (Phase 5C: colors + fonts + background +
+// card style + decorations) available to every screen and component, and
+// handles loading/saving which one they picked. Most components only ever
+// read `colors`, so they don't need to know worlds exist at all.
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { THEMES, THEME_OPTIONS, DEFAULT_THEME_NAME, ThemeName, Palette } from '../data/themes';
-import { getThemeName, setThemeName as persistThemeName } from '../services/storage';
+import { WORLDS, WORLD_OPTIONS, DEFAULT_WORLD_ID, WorldId, World, Palette } from '../data/worlds';
+import { getWorldId, setWorldId as persistWorldId } from '../services/storage';
 
 type ThemeContextValue = {
-  themeName: ThemeName;
+  worldId: WorldId;
+  world: World;
   colors: Palette;
-  setThemeName: (name: ThemeName) => void;
+  setWorldId: (id: WorldId) => void;
 };
 
+const defaultWorld = WORLDS[DEFAULT_WORLD_ID];
+
 const ThemeContext = createContext<ThemeContextValue>({
-  themeName: DEFAULT_THEME_NAME,
-  colors: THEMES[DEFAULT_THEME_NAME],
-  setThemeName: () => {},
+  worldId: DEFAULT_WORLD_ID,
+  world: defaultWorld,
+  colors: defaultWorld.colors,
+  setWorldId: () => {},
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [themeName, setThemeNameState] = useState<ThemeName>(DEFAULT_THEME_NAME);
+  const [worldId, setWorldIdState] = useState<WorldId>(DEFAULT_WORLD_ID);
 
   useEffect(() => {
-    getThemeName().then(setThemeNameState);
+    getWorldId().then(setWorldIdState);
   }, []);
 
-  function setThemeName(name: ThemeName) {
-    setThemeNameState(name);
-    persistThemeName(name);
+  function setWorldId(id: WorldId) {
+    setWorldIdState(id);
+    persistWorldId(id);
   }
 
+  const world = WORLDS[worldId];
+
   return (
-    <ThemeContext.Provider value={{ themeName, colors: THEMES[themeName], setThemeName }}>
+    <ThemeContext.Provider value={{ worldId, world, colors: world.colors, setWorldId }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -40,5 +48,5 @@ export function useTheme(): ThemeContextValue {
   return useContext(ThemeContext);
 }
 
-export { THEME_OPTIONS };
-export type { ThemeName, Palette };
+export { WORLD_OPTIONS };
+export type { WorldId, World, Palette };

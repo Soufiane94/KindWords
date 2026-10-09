@@ -14,6 +14,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import SnoozeMenu from '../components/SnoozeMenu';
+import WorldBackground from '../components/WorldBackground';
 import { getQuoteById } from '../services/quotes';
 import {
   getFavoriteIds,
@@ -32,7 +33,8 @@ import {
   SnoozeDuration,
 } from '../services/notifications';
 import { useTheme } from '../theme/ThemeContext';
-import type { Palette } from '../data/themes';
+import type { World } from '../data/worlds';
+import { headingFont } from '../theme/fontStyle';
 import type { RootStackParamList } from '../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'KindWord'>;
@@ -43,8 +45,8 @@ export default function KindWordScreen({ route, navigation }: Props) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const cardRef = useRef<View>(null);
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const { world } = useTheme();
+  const styles = useMemo(() => createStyles(world), [world]);
 
   useEffect(() => {
     if (!quote) return;
@@ -92,6 +94,7 @@ export default function KindWordScreen({ route, navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <WorldBackground />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Kind word</Text>
         <Pressable
@@ -134,7 +137,8 @@ export default function KindWordScreen({ route, navigation }: Props) {
   );
 }
 
-function createStyles(colors: Palette) {
+function createStyles(world: World) {
+  const { colors } = world;
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -149,8 +153,8 @@ function createStyles(colors: Palette) {
     },
     headerTitle: {
       fontSize: 17,
-      fontWeight: '700',
       color: colors.primaryText,
+      ...headingFont(world),
     },
     closeButton: {
       padding: 6,

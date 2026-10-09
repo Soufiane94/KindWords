@@ -16,5 +16,13 @@ export const CIRCUMSTANCES: Circumstance[] = [
   { id: 'living_alone', label: 'Living alone', emoji: '🏠' },
   { id: 'patient', label: 'Managing an illness', emoji: '🩺' },
   { id: 'religious', label: 'Religious / Spiritual', emoji: '🙏' },
+  { id: 'caregiver', label: 'Caregiver', emoji: '🤲' },
+  { id: 'grieving', label: 'Grieving a loss', emoji: '🕯️' },
+  { id: 'breakup', label: 'Breakup or divorce', emoji: '💔' },
+  { id: 'new_parent', label: 'New parent / expecting', emoji: '🍼' },
+  { id: 'far_from_home', label: 'Far from home', emoji: '🌍' },
+  { id: 'overwhelmed', label: 'Anxious or overwhelmed', emoji: '🌊' },
+  { id: 'job_searching', label: 'Job searching', emoji: '🔍' },
+  { id: 'older_adult', label: 'Older adult / retired', emoji: '🧓' },
   { id: 'other', label: 'Just here for kind words', emoji: '💛' },
 ];

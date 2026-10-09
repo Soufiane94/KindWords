@@ -22,8 +22,10 @@ import { rescheduleAllNotifications } from '../services/notifications';
 import CircumstanceChip from '../components/CircumstanceChip';
 import SegmentedControl from '../components/SegmentedControl';
 import TimeRow from '../components/TimeRow';
-import { useTheme, THEME_OPTIONS } from '../theme/ThemeContext';
-import type { Palette } from '../data/themes';
+import WorldBackground from '../components/WorldBackground';
+import { useTheme, WORLD_OPTIONS } from '../theme/ThemeContext';
+import type { World } from '../data/worlds';
+import { headingFont } from '../theme/fontStyle';
 
 const FREQUENCY_OPTIONS: { value: Frequency; label: string }[] = [
   { value: 'daily', label: 'Daily' },
@@ -51,8 +53,8 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   const [selectedCircumstances, setSelectedCircumstances] = useState<string[]>([]);
   const [settings, setSettings] = useState<NotificationSettings>(DEFAULT_NOTIFICATION_SETTINGS);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ kind: 'idle' });
-  const { colors, themeName, setThemeName } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const { world, colors, worldId, setWorldId } = useTheme();
+  const styles = useMemo(() => createStyles(world), [world]);
 
   useFocusEffect(
     useCallback(() => {
@@ -111,24 +113,9 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Settings</Text>
-
-        <Text style={styles.sectionTitle}>Appearance</Text>
-        <Text style={styles.subtitle}>Pick whichever feels most like home.</Text>
-        <View style={styles.chipRow}>
-          {THEME_OPTIONS.map((t) => (
-            <CircumstanceChip
-              key={t.id}
-              label={t.label}
-              emoji={t.emoji}
-              selected={themeName === t.id}
-              onPress={() => setThemeName(t.id)}
-            />
-          ))}
-        </View>
-
-        <View style={styles.divider} />
 
         <Text style={styles.sectionTitle}>Your circumstances</Text>
         <Text style={styles.subtitle}>
@@ -142,6 +129,22 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
               emoji={c.emoji}
               selected={selectedCircumstances.includes(c.id)}
               onPress={() => toggleCircumstance(c.id)}
+            />
+          ))}
+        </View>
+
+        <View style={styles.divider} />
+
+        <Text style={styles.sectionTitle}>Appearance</Text>
+        <Text style={styles.subtitle}>Pick whichever feels most like home.</Text>
+        <View style={styles.chipRow}>
+          {WORLD_OPTIONS.map((w) => (
+            <CircumstanceChip
+              key={w.id}
+              label={w.label}
+              emoji={w.emoji}
+              selected={worldId === w.id}
+              onPress={() => setWorldId(w.id)}
             />
           ))}
         </View>
@@ -260,7 +263,8 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   );
 }
 
-function createStyles(colors: Palette) {
+function createStyles(world: World) {
+  const { colors } = world;
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -273,14 +277,14 @@ function createStyles(colors: Palette) {
     },
     title: {
       fontSize: 24,
-      fontWeight: '700',
       color: colors.primaryText,
       marginBottom: 20,
+      ...headingFont(world),
     },
     sectionTitle: {
       fontSize: 17,
-      fontWeight: '700',
       color: colors.primaryText,
+      ...headingFont(world),
     },
     subtitle: {
       fontSize: 13,
@@ -344,7 +348,7 @@ function createStyles(colors: Palette) {
     saveButtonText: {
       color: colors.accentText,
       fontSize: 16,
-      fontWeight: '700',
+      ...headingFont(world),
     },
     statusBox: {
       marginTop: 16,

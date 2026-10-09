@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 import { Pressable, Text, StyleSheet } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
-import type { Palette } from '../data/themes';
+import type { Palette } from '../data/worlds';
 
 type Props = {
   label: string;

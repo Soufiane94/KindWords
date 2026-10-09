@@ -19,8 +19,10 @@ import {
 import { rescheduleAllNotifications } from '../services/notifications';
 import CircumstanceChip from '../components/CircumstanceChip';
 import DateRow, { dateToISO, formatDateDisplay } from '../components/DateRow';
+import WorldBackground from '../components/WorldBackground';
 import { useTheme } from '../theme/ThemeContext';
-import type { Palette } from '../data/themes';
+import type { World } from '../data/worlds';
+import { headingFont } from '../theme/fontStyle';
 
 function labelFor(typeId: string): { label: string; emoji: string } {
   const match = EVENT_TYPES.find((t) => t.id === typeId);
@@ -34,8 +36,8 @@ export default function EventsScreen() {
   const [title, setTitle] = useState('');
   const [type, setType] = useState(EVENT_TYPES[0].id);
   const [date, setDate] = useState(dateToISO(new Date()));
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const { world, colors } = useTheme();
+  const styles = useMemo(() => createStyles(world), [world]);
 
   const loadEvents = useCallback(() => {
     getEvents().then((loaded) => {
@@ -110,6 +112,7 @@ export default function EventsScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Calendar</Text>
         <Text style={styles.subtitle}>
@@ -148,6 +151,7 @@ export default function EventsScreen() {
 
       <Modal visible={modalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)}>
         <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+          <WorldBackground />
           <ScrollView contentContainerStyle={styles.content}>
             <View style={styles.modalHeader}>
               <Text style={styles.title}>{editingId ? 'Edit event' : 'New event'}</Text>
@@ -201,7 +205,8 @@ export default function EventsScreen() {
   );
 }
 
-function createStyles(colors: Palette) {
+function createStyles(world: World) {
+  const { colors } = world;
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -214,8 +219,8 @@ function createStyles(colors: Palette) {
     },
     title: {
       fontSize: 24,
-      fontWeight: '700',
       color: colors.primaryText,
+      ...headingFont(world),
     },
     subtitle: {
       fontSize: 13,
@@ -266,7 +271,7 @@ function createStyles(colors: Palette) {
     addButtonText: {
       color: colors.accentText,
       fontSize: 16,
-      fontWeight: '700',
+      ...headingFont(world),
     },
     modalHeader: {
       flexDirection: 'row',
@@ -312,7 +317,7 @@ function createStyles(colors: Palette) {
     saveButtonText: {
       color: colors.accentText,
       fontSize: 16,
-      fontWeight: '700',
+      ...headingFont(world),
     },
     deleteLink: {
       marginTop: 20,

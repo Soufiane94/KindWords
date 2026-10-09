@@ -89,10 +89,71 @@ more features. Do the sub-parts in this order, one commit each.
   same `color` as `tabBarActiveTintColor`/`tabBarInactiveTintColor`, which
   already read from `ThemeContext`.
 
-### 5C — Visual identity: "Worlds" (aesthetic themes)
+### 5C — Visual identity: "Worlds" (aesthetic themes) ✅ done
 Goal: the app should feel fun and comfy, not like a plain React app. Replace
 the simple color palettes with full "worlds", switchable from Settings >
 Appearance. See the feasibility notes below.
+
+- Replaced the four flat Phase 4 palettes (Warm/Calm/Rose/Dusk) with a
+  world model in `src/data/worlds.ts`: each world bundles a color palette,
+  fonts, a background, a quote-card style, and a decoration kind.
+  `ThemeContext` exposes both `world` (the full object) and `colors` (just
+  the palette, same shape as before), so most components didn't need any
+  changes.
+- Four worlds shipped: **Simple** (the old Warm palette, system font, no
+  background or decorations — this is the accessibility/low-distraction
+  option the feasibility notes called for), **Nature** (green gradient,
+  Quicksand, drifting leaves), **Space** (indigo gradient, Space Mono,
+  twinkling stars), **Medieval** (parchment gradient, MedievalSharp
+  headings over IM Fell English body text, flickering candle corners).
+  Picked from Settings > Appearance with the same chip row as before.
+- Ten more worlds added in a second pass, after curating the original
+  "world ideas" list down to ones that fit people who need comfort,
+  warmth, or a gentle lift — not just a nice palette (see "World ideas"
+  below for what got cut and why): **Desert** (sunset dunes, low sun
+  glow), **Ocean** (deep blue, swaying wave lines), **Cozy Cabin** (dark
+  warm wood, firelight glow + rain streaks — the second dark-toned world
+  after Space), **Japanese Garden** (minimal, cherry blossom petals),
+  **Storybook** (whimsical, fairy-light sparkles + a crescent moon),
+  **Winter** (falling snow + a warm lit-window glow, so it reads as
+  hushed rather than cold), **Sunrise Meadow** (golden-hour light, rising
+  light motes), **Letters & Ink** (handwritten stationery, a wax seal —
+  echoes what this app itself does), **Soft Clouds** (pastel sky,
+  drifting clouds — the lowest-stimulation world besides Simple), and
+  **Patchwork Quilt** (stitched fabric, a comfort-object feel aimed at
+  grief/illness). 14 worlds total.
+- New `WorldBackground` component (gradient + decorations, absolutely
+  positioned, `pointerEvents="none"`) is dropped into each screen as its
+  first child. Adding a future world needs no screen changes — only a new
+  entry in `worlds.ts` and, if it wants one, a decoration component.
+- Decorations are small inline SVG/View shapes (leaves, stars, candle
+  flames) animated with the plain `Animated` API (`useNativeDriver`) —
+  skipped `react-native-reanimated` since plain `Animated` covers these
+  simple opacity/transform loops, so one fewer native dependency than the
+  feasibility notes guessed.
+- New native deps: `expo-linear-gradient`, `react-native-svg`. New fonts:
+  `@expo-google-fonts/quicksand`, `space-mono`, `medievalsharp`, and
+  `im-fell-english`, loaded once at app start via `expo-font`'s
+  `useFonts`. **Needs a new EAS dev-client build** before testing
+  on-device (see Testing section) — the two native modules weren't linked
+  before.
+- The second batch of ten worlds added eleven more font packages (`lora`,
+  `comfortaa`, `merriweather`, `nunito`, `patrick-hand`, `baloo-2`,
+  `fredoka`, `caveat`, `eb-garamond`, `varela-round`, `mali`), all under
+  `@expo-google-fonts/*`. These are font files, not native modules — they
+  load through the same already-linked `expo-font`, so unlike
+  `expo-linear-gradient`/`react-native-svg` above, **no new EAS dev-client
+  build is needed for them**. A plain Metro reload picks them up.
+- Headings, primary buttons, and quote text pick up each world's fonts;
+  smaller UI chrome (chip labels, inputs, time/date pickers) intentionally
+  stays on the system font, for legibility and to limit scope.
+- Old Phase 4 choices ('warm'/'calm'/'rose'/'dusk', stored under the same
+  AsyncStorage key) fall back to Simple automatically on upgrade — just a
+  validity check, no migration code needed.
+- Not done (deferred, out of scope for worlds specifically): per-world
+  tab-icon style/button-shape variation (tab icons stay Ionicons
+  app-wide, just recolored, and buttons keep one shape). Can be picked up
+  incrementally later.
 
 A world is more than colors. Each one defines:
 - Color palette (light/dark where it makes sense).
@@ -124,15 +185,33 @@ Feasibility and approach:
   and accent color, so worlds apply inside the app, the notification detail
   page, and the shared quote image.
 
-World ideas:
-- Nature (forest, leaves, soft greens), Space (starfield, nebula),
-  Medieval (parchment, serif lettering, candlelight), Desert (dunes,
-  warm sunset), Futuristic (glass, soft neon, mono font).
-- More suggestions: Ocean (waves, deep blues), Cozy Cabin (rain on window,
-  fireplace glow), Japanese Garden (minimal, cherry blossom), Storybook /
-  Fairytale (illustrated, whimsical), Cottagecore (flowers, linen), Winter
-  (snow, soft white), Sunrise Meadow (golden light), Retro Arcade (pixel
-  style), Candlelit Library (books, warm dark).
+World ideas — shipped (14): Simple, Nature, Space, Medieval, Desert,
+Ocean, Cozy Cabin, Japanese Garden, Storybook, Winter, Sunrise Meadow,
+Letters & Ink, Soft Clouds, Patchwork Quilt.
+
+World ideas — considered and cut, before building the second batch, on
+the rule that a world should appeal to someone who actually needs this
+app (lonely, grieving, unwell, overwhelmed), not just look nice:
+- **Futuristic** (glass, neon, mono font) and **Retro Arcade** (pixel
+  style) — cut for tone, not redundancy: sleek/neon and game-nostalgia
+  both read as energetic rather than warm, which cuts against this app's
+  "never toxic-positive, sensitive to grief/illness/loneliness" bar.
+- **Cottagecore** (flowers, linen) — cut as redundant: sat in the same
+  "soft homey florals" space as Nature, Japanese Garden, and Sunrise
+  Meadow without adding a distinct mood.
+- **Candlelit Library** (books, warm dark, candle glow) — cut as
+  redundant with Medieval (candlelight) and Cozy Cabin (warm dark +
+  glow); didn't earn a third variant on that combination.
+- **Autumn Orchard** (rust/amber falling leaves) — cut as redundant: its
+  decoration would have been Nature's drifting-leaves motif just
+  recolored, not a genuinely distinct scene.
+- **Aurora Night** (aurora ribbons, dark sky) — cut as redundant with
+  Space: same dark-sky-with-light-phenomena slot, not different enough
+  to earn both.
+- **Lighthouse Coast** (foggy coast, lighthouse beam) — cut over Ocean:
+  same coastal-blue slot, and fog/isolation imagery is a real risk to
+  misread as bleak rather than comforting for someone already feeling
+  alone, which isn't a risk worth taking for a subtle code-drawn scene.
 
 ## Phase 6 — Languages
 Languages: English, French, and Moroccan Arabic (Darija).

@@ -6,11 +6,13 @@ import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
+import WorldBackground from '../components/WorldBackground';
 import { getRandomQuote, Quote } from '../services/quotes';
 import { getCircumstances, getFavoriteIds, getHiddenQuoteIds, toggleFavorite } from '../services/storage';
 import { shareViewAsImage } from '../services/share';
 import { useTheme } from '../theme/ThemeContext';
-import type { Palette } from '../data/themes';
+import type { World } from '../data/worlds';
+import { headingFont } from '../theme/fontStyle';
 
 export default function HomeScreen() {
   const [circumstances, setCircumstances] = useState<string[]>([]);
@@ -18,8 +20,8 @@ export default function HomeScreen() {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const cardRef = useRef<View>(null);
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const { world } = useTheme();
+  const styles = useMemo(() => createStyles(world), [world]);
 
   useEffect(() => {
     Promise.all([getCircumstances(), getHiddenQuoteIds()]).then(([ids, hidden]) => {
@@ -54,6 +56,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <WorldBackground />
       <View style={styles.content}>
         <Text style={styles.heading}>A kind word for you</Text>
         {quote ? (
@@ -79,7 +82,8 @@ export default function HomeScreen() {
   );
 }
 
-function createStyles(colors: Palette) {
+function createStyles(world: World) {
+  const { colors } = world;
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -96,6 +100,7 @@ function createStyles(colors: Palette) {
       color: colors.mutedText,
       marginBottom: 20,
       letterSpacing: 0.5,
+      ...headingFont(world),
     },
     cardWrapper: {
       width: '100%',
@@ -116,7 +121,7 @@ function createStyles(colors: Palette) {
     buttonText: {
       color: colors.accentText,
       fontSize: 16,
-      fontWeight: '700',
+      ...headingFont(world),
     },
   });
 }

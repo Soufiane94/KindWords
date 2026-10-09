@@ -7,8 +7,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { CIRCUMSTANCES } from '../data/circumstances';
 import { setCircumstances, setOnboardingDone } from '../services/storage';
 import CircumstanceChip from '../components/CircumstanceChip';
+import WorldBackground from '../components/WorldBackground';
 import { useTheme } from '../theme/ThemeContext';
-import type { Palette } from '../data/themes';
+import type { World } from '../data/worlds';
+import { headingFont } from '../theme/fontStyle';
 
 type Props = {
   onDone: () => void;
@@ -16,8 +18,8 @@ type Props = {
 
 export default function OnboardingScreen({ onDone }: Props) {
   const [selected, setSelected] = useState<string[]>([]);
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const { world } = useTheme();
+  const styles = useMemo(() => createStyles(world), [world]);
 
   function toggle(id: string) {
     setSelected((prev) =>
@@ -35,6 +37,7 @@ export default function OnboardingScreen({ onDone }: Props) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Welcome to Kindwords</Text>
         <Text style={styles.subtitle}>
@@ -64,7 +67,8 @@ export default function OnboardingScreen({ onDone }: Props) {
   );
 }
 
-function createStyles(colors: Palette) {
+function createStyles(world: World) {
+  const { colors } = world;
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -76,10 +80,10 @@ function createStyles(colors: Palette) {
     },
     title: {
       fontSize: 26,
-      fontWeight: '700',
       color: colors.primaryText,
       marginBottom: 12,
       textAlign: 'center',
+      ...headingFont(world),
     },
     subtitle: {
       fontSize: 15,
@@ -105,7 +109,7 @@ function createStyles(colors: Palette) {
     buttonText: {
       color: colors.accentText,
       fontSize: 16,
-      fontWeight: '700',
+      ...headingFont(world),
     },
   });
 }

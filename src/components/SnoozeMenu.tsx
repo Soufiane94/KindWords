@@ -5,7 +5,7 @@
 import React, { useMemo } from 'react';
 import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
 import { useTheme } from '../theme/ThemeContext';
-import type { Palette } from '../data/themes';
+import type { Palette } from '../data/worlds';
 import type { SnoozeDuration } from '../services/notifications';
 
 type Props = {

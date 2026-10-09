@@ -3,7 +3,7 @@
 // how we persist things later without hunting through every screen.
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ThemeName, DEFAULT_THEME_NAME } from '../data/themes';
+import { WorldId, WORLD_OPTIONS, DEFAULT_WORLD_ID } from '../data/worlds';
 
 const KEYS = {
   ONBOARDING_DONE: 'kindwords:onboardingDone',
@@ -189,14 +189,15 @@ export async function setSnoozeUntil(timestamp: number | null): Promise<void> {
   }
 }
 
-export async function getThemeName(): Promise<ThemeName> {
+export async function getWorldId(): Promise<WorldId> {
   const value = await AsyncStorage.getItem(KEYS.THEME);
-  if (value === 'warm' || value === 'calm' || value === 'rose' || value === 'dusk') {
-    return value;
-  }
-  return DEFAULT_THEME_NAME;
+  // Phase 4 stored one of the old flat palettes ('warm'/'calm'/'rose'/
+  // 'dusk') under this same key — anything that isn't a current world id
+  // (including those) falls back to the default instead of rendering broken.
+  const isValid = WORLD_OPTIONS.some((option) => option.id === value);
+  return isValid ? (value as WorldId) : DEFAULT_WORLD_ID;
 }
 
-export async function setThemeName(name: ThemeName): Promise<void> {
-  await AsyncStorage.setItem(KEYS.THEME, name);
+export async function setWorldId(id: WorldId): Promise<void> {
+  await AsyncStorage.setItem(KEYS.THEME, id);
 }

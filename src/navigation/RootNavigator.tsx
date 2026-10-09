@@ -93,7 +93,7 @@ export default function RootNavigator() {
   const [loading, setLoading] = useState(true);
   const [onboardingDone, setOnboardingDoneState] = useState(false);
   const [pendingQuoteId, setPendingQuoteId] = useState<string | undefined>();
-  const { colors, themeName } = useTheme();
+  const { colors } = useTheme();
 
   // Covers both a cold start (app launched by tapping a notification) and
   // a tap while already running — this hook handles both and dedupes
@@ -155,7 +155,10 @@ export default function RootNavigator() {
     );
   }
 
-  const base = themeName === 'dusk' ? DarkTheme : DefaultTheme;
+  // Generalizes the old 'dusk'-only check so any dark-leaning world (Space,
+  // say) gets react-navigation's dark chrome defaults too, before our own
+  // color overrides below take over anyway.
+  const base = colors.statusBarStyle === 'light' ? DarkTheme : DefaultTheme;
   const navigationTheme = {
     ...base,
     colors: {

@@ -7,11 +7,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
+import WorldBackground from '../components/WorldBackground';
 import { getQuoteById, Quote } from '../services/quotes';
 import { getFavoriteIds, toggleFavorite } from '../services/storage';
 import { shareViewAsImage } from '../services/share';
 import { useTheme } from '../theme/ThemeContext';
-import type { Palette } from '../data/themes';
+import type { World } from '../data/worlds';
+import { headingFont } from '../theme/fontStyle';
 
 type ItemProps = {
   quote: Quote;
@@ -47,8 +49,8 @@ function FavoriteItem({ quote, onRemoved, styles }: ItemProps) {
 
 export default function FavoritesScreen() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const { world } = useTheme();
+  const styles = useMemo(() => createStyles(world), [world]);
 
   const load = useCallback(() => {
     getFavoriteIds().then((ids) => {
@@ -68,6 +70,7 @@ export default function FavoritesScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Favorites</Text>
         <Text style={styles.subtitle}>Kind words you've saved to come back to.</Text>
@@ -86,7 +89,8 @@ export default function FavoritesScreen() {
   );
 }
 
-function createStyles(colors: Palette) {
+function createStyles(world: World) {
+  const { colors } = world;
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -99,8 +103,8 @@ function createStyles(colors: Palette) {
     },
     title: {
       fontSize: 24,
-      fontWeight: '700',
       color: colors.primaryText,
+      ...headingFont(world),
     },
     subtitle: {
       fontSize: 13,

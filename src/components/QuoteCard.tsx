@@ -6,15 +6,16 @@ import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import type { Quote } from '../services/quotes';
 import { useTheme } from '../theme/ThemeContext';
-import type { Palette } from '../data/themes';
+import type { World } from '../data/worlds';
+import { bodyFont } from '../theme/fontStyle';
 
 type Props = {
   quote: Quote;
 };
 
 export default function QuoteCard({ quote }: Props) {
-  const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const { world } = useTheme();
+  const styles = useMemo(() => createStyles(world), [world]);
 
   return (
     <View style={styles.card}>
@@ -25,19 +26,22 @@ export default function QuoteCard({ quote }: Props) {
   );
 }
 
-function createStyles(colors: Palette) {
+function createStyles(world: World) {
+  const { colors, card } = world;
   return StyleSheet.create({
     card: {
       backgroundColor: colors.card,
-      borderRadius: 24,
+      borderRadius: card.borderRadius,
+      borderWidth: card.borderWidth,
+      borderColor: card.borderColor,
       paddingVertical: 36,
       paddingHorizontal: 28,
       width: '100%',
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.08,
+      shadowOpacity: card.shadowOpacity,
       shadowRadius: 12,
-      elevation: 3,
+      elevation: card.elevation,
       alignItems: 'center',
     },
     quoteMark: {
@@ -51,12 +55,14 @@ function createStyles(colors: Palette) {
       lineHeight: 30,
       textAlign: 'center',
       color: colors.primaryText,
-      fontWeight: '500',
+      fontWeight: world.fonts.body ? undefined : '500',
+      ...bodyFont(world),
     },
     author: {
       marginTop: 16,
       fontSize: 14,
       color: colors.mutedText,
+      ...bodyFont(world),
     },
   });
 }
