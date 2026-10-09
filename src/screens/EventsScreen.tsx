@@ -6,7 +6,8 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, TextInput, Modal, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
-import { EVENT_TYPES } from '../data/eventTypes';
+import { useTranslation } from 'react-i18next';
+import { EVENT_TYPES, EventTypeOption } from '../data/eventTypes';
 import {
   getEvents,
   createEvent,
@@ -14,6 +15,7 @@ import {
   deleteEvent,
   getCircumstances,
   getNotificationSettings,
+  getQuoteLanguage,
   CalendarEvent,
 } from '../services/storage';
 import { rescheduleAllNotifications } from '../services/notifications';
@@ -21,12 +23,12 @@ import CircumstanceChip from '../components/CircumstanceChip';
 import DateRow, { dateToISO, formatDateDisplay } from '../components/DateRow';
 import WorldBackground from '../components/WorldBackground';
 import { useTheme } from '../theme/ThemeContext';
+import { useUiLanguage } from '../i18n';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
 
-function labelFor(typeId: string): { label: string; emoji: string } {
-  const match = EVENT_TYPES.find((t) => t.id === typeId);
-  return match ?? { label: 'Other', emoji: '📌' };
+function eventTypeFor(typeId: string): EventTypeOption {
+  return EVENT_TYPES.find((opt) => opt.id === typeId) ?? EVENT_TYPES.find((opt) => opt.id === 'other')!;
 }
 
 export default function EventsScreen() {
@@ -37,6 +39,8 @@ export default function EventsScreen() {
   const [type, setType] = useState(EVENT_TYPES[0].id);
   const [date, setDate] = useState(dateToISO(new Date()));
   const { world, colors } = useTheme();
+  const { t } = useTranslation();
+  const language = useUiLanguage();
   const styles = useMemo(() => createStyles(world), [world]);
 
   const loadEvents = useCallback(() => {
@@ -69,12 +73,13 @@ export default function EventsScreen() {
   }
 
   async function reschedule() {
-    const [circumstances, settings, latestEvents] = await Promise.all([
+    const [circumstances, settings, latestEvents, quoteLanguage] = await Promise.all([
       getCircumstances(),
       getNotificationSettings(),
       getEvents(),
+      getQuoteLanguage(),
     ]);
-    await rescheduleAllNotifications(settings, circumstances, latestEvents).catch(() => {
+    await rescheduleAllNotifications(settings, circumstances, latestEvents, quoteLanguage).catch(() => {
       // Non-fatal: the event is still saved even if scheduling fails.
     });
   }
@@ -95,10 +100,10 @@ export default function EventsScreen() {
 
   function handleDelete() {
     if (!editingId) return;
-    Alert.alert('Delete this event?', undefined, [
-      { text: 'Cancel', style: 'cancel' },
+    Alert.alert(t('events.deleteConfirmTitle'), undefined, [
+      { text: t('common.cancel'), style: 'cancel' },
       {
-        text: 'Delete',
+        text: t('events.deleteButton'),
         style: 'destructive',
         onPress: async () => {
           await deleteEvent(editingId);
@@ -114,16 +119,14 @@ export default function EventsScreen() {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Calendar</Text>
-        <Text style={styles.subtitle}>
-          Add a date that matters, and we'll send a kind word the day before and the day after.
-        </Text>
+        <Text style={styles.title}>{t('events.title')}</Text>
+        <Text style={styles.subtitle}>{t('events.subtitle')}</Text>
 
         {events.length === 0 ? (
-          <Text style={styles.emptyText}>No events yet.</Text>
+          <Text style={styles.emptyText}>{t('events.emptyText')}</Text>
         ) : (
           events.map((event) => {
-            const { label, emoji } = labelFor(event.type);
+            const { id, emoji } = eventTypeFor(event.type);
             return (
               <Pressable
                 key={event.id}
@@ -134,7 +137,7 @@ export default function EventsScreen() {
                 <View style={styles.eventInfo}>
                   <Text style={styles.eventTitle}>{event.title}</Text>
                   <Text style={styles.eventMeta}>
-                    {label} · {formatDateDisplay(event.date)}
+                    {t(`eventTypes.${id}`)} · {formatDateDisplay(event.date, language)}
                   </Text>
                 </View>
               </Pressable>
@@ -145,7 +148,7 @@ export default function EventsScreen() {
 
       <View style={styles.footer}>
         <Pressable style={styles.addButton} onPress={openAddModal}>
-          <Text style={styles.addButtonText}>+ Add event</Text>
+          <Text style={styles.addButtonText}>{t('events.addEvent')}</Text>
         </Pressable>
       </View>
 
@@ -154,48 +157,48 @@ export default function EventsScreen() {
           <WorldBackground />
           <ScrollView contentContainerStyle={styles.content}>
             <View style={styles.modalHeader}>
-              <Text style={styles.title}>{editingId ? 'Edit event' : 'New event'}</Text>
+              <Text style={styles.title}>{editingId ? t('events.editEventTitle') : t('events.newEventTitle')}</Text>
               <Pressable onPress={() => setModalVisible(false)}>
                 <Text style={styles.closeText}>✕</Text>
               </Pressable>
             </View>
 
-            <Text style={styles.label}>What is it?</Text>
+            <Text style={styles.label}>{t('events.whatIsIt')}</Text>
             <TextInput
               style={styles.input}
               value={title}
               onChangeText={setTitle}
-              placeholder="e.g. Math final, Dad's checkup"
+              placeholder={t('events.titlePlaceholder')}
               placeholderTextColor={colors.placeholder}
             />
 
-            <Text style={[styles.label, { marginTop: 20 }]}>Type</Text>
+            <Text style={[styles.label, { marginTop: 20 }]}>{t('events.typeLabel')}</Text>
             <View style={styles.chipRow}>
-              {EVENT_TYPES.map((t) => (
+              {EVENT_TYPES.map((opt) => (
                 <CircumstanceChip
-                  key={t.id}
-                  label={t.label}
-                  emoji={t.emoji}
-                  selected={type === t.id}
-                  onPress={() => setType(t.id)}
+                  key={opt.id}
+                  label={t(`eventTypes.${opt.id}`)}
+                  emoji={opt.emoji}
+                  selected={type === opt.id}
+                  onPress={() => setType(opt.id)}
                 />
               ))}
             </View>
 
-            <Text style={[styles.label, { marginTop: 20 }]}>Date</Text>
-            <DateRow label="Event date" date={date} onChange={setDate} />
+            <Text style={[styles.label, { marginTop: 20 }]}>{t('events.dateLabel')}</Text>
+            <DateRow label={t('events.eventDateLabel')} date={date} onChange={setDate} />
 
             <Pressable
               style={[styles.saveButton, !title.trim() && styles.saveButtonDisabled]}
               onPress={handleSave}
               disabled={!title.trim()}
             >
-              <Text style={styles.saveButtonText}>Save</Text>
+              <Text style={styles.saveButtonText}>{t('common.save')}</Text>
             </Pressable>
 
             {editingId && (
               <Pressable onPress={handleDelete} style={styles.deleteLink}>
-                <Text style={styles.deleteLinkText}>Delete event</Text>
+                <Text style={styles.deleteLinkText}>{t('events.deleteEventLink')}</Text>
               </Pressable>
             )}
           </ScrollView>

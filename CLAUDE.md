@@ -24,9 +24,16 @@ keep this tone in mind above all else.
 - Notifications use expo-notifications (local scheduled notifications only,
   no push server, until Phase 5).
 - Quotes live in `src/data/quotes.json`: each quote has
-  `{ id, text, author?, circumstances: [], eventTypes: [], mood }`.
+  `{ id, text, author?, circumstances: [], eventTypes: [], mood, language }`.
   Only original or public-domain quotes — never fabricate an attribution to
-  a real person.
+  a real person. `language` is one of `en`/`fr`/`ary` (see Phase 6) — quotes
+  are written natively per language, never machine-translated from another
+  entry in the file.
+- i18n (Phase 6): `i18next` + `react-i18next`, with `expo-localization` to
+  detect the phone's language as the default. UI strings live in
+  `src/i18n/locales/{en,fr,ary}.json`; look them up with `useTranslation()`,
+  never hardcode UI text in a screen/component. `ary` (Darija) is written in
+  Latin letters ("Arabizi"), not Arabic script — no RTL layout in this app.
 
 ## Code style
 - Keep code simple and organized:
@@ -40,7 +47,7 @@ keep this tone in mind above all else.
   code over clever generalization.
 
 ## Current phase status
-See ROADMAP.md. Phases 1 (MVP) and 2 (Notifications) are complete.
+See ROADMAP.md. Phases 1 through 6 are complete.
 
 ## Testing on a device
 As of Phase 2, **Expo Go can no longer run this app** — `expo-notifications`

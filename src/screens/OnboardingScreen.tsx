@@ -4,6 +4,7 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import { CIRCUMSTANCES } from '../data/circumstances';
 import { setCircumstances, setOnboardingDone } from '../services/storage';
 import CircumstanceChip from '../components/CircumstanceChip';
@@ -19,6 +20,7 @@ type Props = {
 export default function OnboardingScreen({ onDone }: Props) {
   const [selected, setSelected] = useState<string[]>([]);
   const { world } = useTheme();
+  const { t } = useTranslation();
   const styles = useMemo(() => createStyles(world), [world]);
 
   function toggle(id: string) {
@@ -39,17 +41,14 @@ export default function OnboardingScreen({ onDone }: Props) {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Welcome to Kindwords</Text>
-        <Text style={styles.subtitle}>
-          Which of these feel like you right now? Pick as many as you like — this
-          just helps us choose kinder words for you.
-        </Text>
+        <Text style={styles.title}>{t('onboarding.title')}</Text>
+        <Text style={styles.subtitle}>{t('onboarding.subtitle')}</Text>
 
         <View style={styles.chipRow}>
           {CIRCUMSTANCES.map((c) => (
             <CircumstanceChip
               key={c.id}
-              label={c.label}
+              label={t(`circumstances.${c.id}`)}
               emoji={c.emoji}
               selected={selected.includes(c.id)}
               onPress={() => toggle(c.id)}
@@ -60,7 +59,7 @@ export default function OnboardingScreen({ onDone }: Props) {
 
       <View style={styles.footer}>
         <Pressable style={styles.button} onPress={handleContinue}>
-          <Text style={styles.buttonText}>Continue</Text>
+          <Text style={styles.buttonText}>{t('onboarding.continue')}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

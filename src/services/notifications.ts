@@ -10,6 +10,8 @@ import { Platform } from 'react-native';
 import { getRandomQuote, getRandomQuoteForEvent } from './quotes';
 import { getHiddenQuoteIds, getSnoozeUntil, setSnoozeUntil } from './storage';
 import type { CalendarEvent, NotificationSettings } from './storage';
+import type { Language } from '../data/languages';
+import i18n from '../i18n';
 
 // Show the notification banner even while the app is open, so it's easy to
 // test without backgrounding the app.
@@ -45,7 +47,9 @@ async function ensureAndroidChannel(
 
   const channelId = visibility === 'public' ? CHANNEL_PUBLIC : CHANNEL_PRIVATE;
   await Notifications.setNotificationChannelAsync(channelId, {
-    name: 'Kind words',
+    // Unlike importance/visibility, a channel's name can be updated after
+    // creation, so this stays in sync with the chosen UI language.
+    name: i18n.t('notifications.channelName'),
     importance: Notifications.AndroidImportance.DEFAULT,
     lockscreenVisibility:
       visibility === 'public'
@@ -120,9 +124,9 @@ export function computeSnoozeUntil(duration: SnoozeDuration, from: Date = new Da
 }
 
 export function describeSnoozeDuration(duration: SnoozeDuration): string {
-  if (duration === 'hour') return 'Paused kind words for 1 hour.';
-  if (duration === 'three_days') return 'Paused kind words for 3 days.';
-  return 'Paused kind words until tomorrow.';
+  if (duration === 'hour') return i18n.t('notifications.snoozedHour');
+  if (duration === 'three_days') return i18n.t('notifications.snoozedThreeDays');
+  return i18n.t('notifications.snoozedTomorrow');
 }
 
 // Pulls the quote id back out of a tapped notification (see the `data:
@@ -142,7 +146,8 @@ export function extractQuoteId(
 export async function rescheduleAllNotifications(
   settings: NotificationSettings,
   circumstances: string[],
-  events: CalendarEvent[] = []
+  events: CalendarEvent[] = [],
+  quoteLanguage: Language
 ): Promise<RescheduleResult> {
   await Notifications.cancelAllScheduledNotificationsAsync();
 
@@ -180,11 +185,11 @@ export async function rescheduleAllNotifications(
 
   for (const slot of slots) {
     const { hour, minute } = parseTime(slot.time);
-    const quote = getRandomQuote(circumstances, undefined, hiddenQuoteIds);
+    const quote = getRandomQuote(circumstances, quoteLanguage, undefined, hiddenQuoteIds);
 
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: 'A kind word for you',
+        title: i18n.t('notifications.title'),
         body: quote.text,
         data: { quoteId: quote.id },
       },
@@ -217,10 +222,10 @@ export async function rescheduleAllNotifications(
         if (date <= now) continue; // don't schedule reminders in the past
         if (snoozeUntil && date.getTime() < snoozeUntil) continue; // falls inside the snooze
 
-        const quote = getRandomQuoteForEvent(event.type, undefined, hiddenQuoteIds);
+        const quote = getRandomQuoteForEvent(event.type, quoteLanguage, undefined, hiddenQuoteIds);
         await Notifications.scheduleNotificationAsync({
           content: {
-            title: offsetDays < 0 ? 'Thinking of you' : 'Checking in on you',
+            title: offsetDays < 0 ? i18n.t('notifications.beforeEventTitle') : i18n.t('notifications.afterEventTitle'),
             body: quote.text,
             data: { quoteId: quote.id },
           },

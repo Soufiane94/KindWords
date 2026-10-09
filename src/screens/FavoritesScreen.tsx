@@ -5,6 +5,7 @@ import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import WorldBackground from '../components/WorldBackground';
@@ -23,6 +24,7 @@ type ItemProps = {
 
 function FavoriteItem({ quote, onRemoved, styles }: ItemProps) {
   const cardRef = useRef<View>(null);
+  const { t } = useTranslation();
 
   async function handleUnfavorite() {
     await toggleFavorite(quote.id);
@@ -33,7 +35,7 @@ function FavoriteItem({ quote, onRemoved, styles }: ItemProps) {
     try {
       await shareViewAsImage(cardRef);
     } catch {
-      Alert.alert("Couldn't share that", 'Please try again in a moment.');
+      Alert.alert(t('common.shareErrorTitle'), t('common.shareErrorMessage'));
     }
   }
 
@@ -50,6 +52,7 @@ function FavoriteItem({ quote, onRemoved, styles }: ItemProps) {
 export default function FavoritesScreen() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const { world } = useTheme();
+  const { t } = useTranslation();
   const styles = useMemo(() => createStyles(world), [world]);
 
   const load = useCallback(() => {
@@ -72,13 +75,11 @@ export default function FavoritesScreen() {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Favorites</Text>
-        <Text style={styles.subtitle}>Kind words you've saved to come back to.</Text>
+        <Text style={styles.title}>{t('favorites.title')}</Text>
+        <Text style={styles.subtitle}>{t('favorites.subtitle')}</Text>
 
         {quotes.length === 0 ? (
-          <Text style={styles.emptyText}>
-            No favorites yet. Tap the heart under a quote on Home to save it here.
-          </Text>
+          <Text style={styles.emptyText}>{t('favorites.emptyText')}</Text>
         ) : (
           quotes.map((quote) => (
             <FavoriteItem key={quote.id} quote={quote} onRemoved={load} styles={styles} />

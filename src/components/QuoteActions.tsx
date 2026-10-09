@@ -4,6 +4,7 @@
 
 import React, { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../theme/ThemeContext';
 import type { Palette } from '../data/worlds';
 
@@ -18,6 +19,7 @@ type Props = {
 
 export default function QuoteActions({ isFavorite, onToggleFavorite, onShare, onSnooze }: Props) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   return (
@@ -26,23 +28,23 @@ export default function QuoteActions({ isFavorite, onToggleFavorite, onShare, on
         onPress={onToggleFavorite}
         style={styles.button}
         accessibilityRole="button"
-        accessibilityLabel={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+        accessibilityLabel={isFavorite ? t('quoteActions.removeFromFavorites') : t('quoteActions.addToFavorites')}
         accessibilityState={{ selected: isFavorite }}
       >
         <Text style={[styles.icon, isFavorite && styles.iconActive]}>
           {isFavorite ? '♥' : '♡'}
         </Text>
-        <Text style={styles.label}>{isFavorite ? 'Saved' : 'Save'}</Text>
+        <Text style={styles.label}>{isFavorite ? t('quoteActions.saved') : t('quoteActions.save')}</Text>
       </Pressable>
 
       <Pressable
         onPress={onShare}
         style={styles.button}
         accessibilityRole="button"
-        accessibilityLabel="Share this quote as an image"
+        accessibilityLabel={t('quoteActions.shareAccessibility')}
       >
         <Text style={styles.icon}>⤴</Text>
-        <Text style={styles.label}>Share</Text>
+        <Text style={styles.label}>{t('quoteActions.share')}</Text>
       </Pressable>
 
       {onSnooze && (
@@ -50,10 +52,10 @@ export default function QuoteActions({ isFavorite, onToggleFavorite, onShare, on
           onPress={onSnooze}
           style={styles.button}
           accessibilityRole="button"
-          accessibilityLabel="Snooze kind words or hide this quote"
+          accessibilityLabel={t('quoteActions.snoozeAccessibility')}
         >
           <Text style={styles.icon}>⏰</Text>
-          <Text style={styles.label}>Snooze</Text>
+          <Text style={styles.label}>{t('quoteActions.snooze')}</Text>
         </Pressable>
       )}
     </View>

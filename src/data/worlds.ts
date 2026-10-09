@@ -568,19 +568,23 @@ export const WORLDS: Record<WorldId, World> = {
 
 export const DEFAULT_WORLD_ID: WorldId = 'simple';
 
-export const WORLD_OPTIONS: { id: WorldId; label: string; emoji: string }[] = [
-  { id: 'simple', label: simple.name, emoji: simple.emoji },
-  { id: 'nature', label: nature.name, emoji: nature.emoji },
-  { id: 'space', label: space.name, emoji: space.emoji },
-  { id: 'medieval', label: medieval.name, emoji: medieval.emoji },
-  { id: 'desert', label: desert.name, emoji: desert.emoji },
-  { id: 'ocean', label: ocean.name, emoji: ocean.emoji },
-  { id: 'cabin', label: cabin.name, emoji: cabin.emoji },
-  { id: 'garden', label: garden.name, emoji: garden.emoji },
-  { id: 'storybook', label: storybook.name, emoji: storybook.emoji },
-  { id: 'winter', label: winter.name, emoji: winter.emoji },
-  { id: 'meadow', label: meadow.name, emoji: meadow.emoji },
-  { id: 'letters', label: letters.name, emoji: letters.emoji },
-  { id: 'clouds', label: clouds.name, emoji: clouds.emoji },
-  { id: 'quilt', label: quilt.name, emoji: quilt.emoji },
+// `name` on each World above is just a human-readable id for developers
+// reading this file — the label shown in the UI comes from the translation
+// files (src/i18n/locales, under "worlds") since Phase 6, looked up as
+// `worlds.${id}` with useTranslation() rather than read from here.
+export const WORLD_OPTIONS: { id: WorldId; emoji: string }[] = [
+  { id: 'simple', emoji: simple.emoji },
+  { id: 'nature', emoji: nature.emoji },
+  { id: 'space', emoji: space.emoji },
+  { id: 'medieval', emoji: medieval.emoji },
+  { id: 'desert', emoji: desert.emoji },
+  { id: 'ocean', emoji: ocean.emoji },
+  { id: 'cabin', emoji: cabin.emoji },
+  { id: 'garden', emoji: garden.emoji },
+  { id: 'storybook', emoji: storybook.emoji },
+  { id: 'winter', emoji: winter.emoji },
+  { id: 'meadow', emoji: meadow.emoji },
+  { id: 'letters', emoji: letters.emoji },
+  { id: 'clouds', emoji: clouds.emoji },
+  { id: 'quilt', emoji: quilt.emoji },
 ];

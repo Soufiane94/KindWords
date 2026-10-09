@@ -6,7 +6,10 @@ import React, { useState, useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { useTheme } from '../theme/ThemeContext';
+import { useUiLanguage } from '../i18n';
+import { WEEKDAYS_SHORT, MONTHS_SHORT } from '../i18n/dateNames';
 import type { Palette } from '../data/worlds';
+import type { Language } from '../data/languages';
 
 type Props = {
   label: string;
@@ -26,17 +29,22 @@ export function dateToISO(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-export function formatDateDisplay(iso: string): string {
-  return isoToDate(iso).toLocaleDateString(undefined, {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-  });
+// Formatted by hand from our own name tables rather than
+// Date#toLocaleDateString — see src/i18n/dateNames.ts for why.
+export function formatDateDisplay(iso: string, language: Language): string {
+  const date = isoToDate(iso);
+  const weekday = WEEKDAYS_SHORT[language][date.getDay()];
+  const month = MONTHS_SHORT[language][date.getMonth()];
+  const day = date.getDate();
+  // English keeps "Mon, Jan 5"; French, Spanish, and Darija read better
+  // day-first, the order each language actually uses for a short date like this.
+  return language === 'en' ? `${weekday}, ${month} ${day}` : `${weekday} ${day} ${month}`;
 }
 
 export default function DateRow({ label, date, onChange }: Props) {
   const [showPicker, setShowPicker] = useState(false);
   const { colors } = useTheme();
+  const language = useUiLanguage();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   function handleChange(event: DateTimePickerEvent, selectedDate?: Date) {
@@ -50,7 +58,7 @@ export default function DateRow({ label, date, onChange }: Props) {
     <View style={styles.row}>
       <Text style={styles.label}>{label}</Text>
       <Pressable style={styles.dateButton} onPress={() => setShowPicker(true)}>
-        <Text style={styles.dateText}>{formatDateDisplay(date)}</Text>
+        <Text style={styles.dateText}>{formatDateDisplay(date, language)}</Text>
       </Pressable>
       {showPicker && (
         <DateTimePicker value={isoToDate(date)} mode="date" onChange={handleChange} />

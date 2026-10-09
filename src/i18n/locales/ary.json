@@ -1,0 +1,157 @@
+{
+  "common": {
+    "save": "7fed",
+    "cancel": "Lghi",
+    "shareErrorTitle": "Ma9dernach npartagiw hadchi",
+    "shareErrorMessage": "3awed 7awel m3a chwiya d wqt."
+  },
+  "nav": {
+    "home": "Dar",
+    "favorites": "Mfaddal",
+    "events": "Agenda",
+    "settings": "L3dadat"
+  },
+  "onboarding": {
+    "title": "Mer7ba bik f Kindwords",
+    "subtitle": "Chno kayshabah 7alek daba? Khtar kter men wa7ed — hadchi ghir bach ne3tawk klam a7sen.",
+    "continue": "Kemmel"
+  },
+  "home": {
+    "heading": "Chi klma 7elwa lik",
+    "anotherKindWord": "Klma 7elwa khra"
+  },
+  "settings": {
+    "title": "L3dadat",
+    "circumstancesTitle": "L7ala dyalek",
+    "circumstancesSubtitle": "Hadchi kaybeddel chno ghadi tchouf f l app.",
+    "appearanceTitle": "Chakl",
+    "appearanceSubtitle": "Khtar li ye9rbek ktar.",
+    "languageTitle": "Lougha",
+    "uiLanguageLabel": "Lougha dyal l app",
+    "uiLanguageSubtitle": "Lougha li biha mektoub l app.",
+    "quoteLanguageLabel": "Lougha dyal lklam l7lou",
+    "quoteLanguageSubtitle": "Lougha li biha kayji lklam l7lou — ymken tkoun mkhtalfa 3la lougha dyal l app.",
+    "remindersTitle": "Tnbihat dyal lklam l7lou",
+    "howOften": "Chhal men merra",
+    "frequency": {
+      "daily": "Koul nhar",
+      "three_per_week": "3 mrat f simana",
+      "custom": "Khas bik"
+    },
+    "notificationTime": "Wqt tnbih",
+    "timeMonWedFri": "Wqt (Tnin/Larb3a/Jem3a)",
+    "timeNumbered": "Wqt {{number}}",
+    "addAnotherTime": "+ Zid wqt akhor",
+    "quietHours": "Sw9at skat",
+    "quietHoursSubtitle": "Ma ghadi nbr7ouch tnbihat f had lwa9t.",
+    "quietHoursStarts": "Kaybda",
+    "quietHoursEnds": "Kaysali",
+    "lockScreen": "Likran msakr",
+    "visibility": {
+      "public": "Wri f likran msakr",
+      "private": "Khbi f likran msakr"
+    },
+    "savedOff": "Tsejjel. Tnbihat mwa96fin.",
+    "scheduledOne": "Tsejjel. {{count}} tnbih mbrmej.",
+    "scheduledOther": "Tsejjel. {{count}} tnbihat mbrmjin.",
+    "skippedTimes": "Tnehhaw: {{times}} — dakhel sw9at skat.",
+    "permissionDenied": "Tnbihat msakrin l Kindwords f l3dadat dyal telephone dyalek. Smeh liha mn tma, mn b3d 3awed 7awel tsejjel.",
+    "resetOnboarding": "3awed l bidaya"
+  },
+  "events": {
+    "title": "Agenda",
+    "subtitle": "Zid date mohima, w ghadi nseftou klma 7lowa nhar 9bel w nhar b3d.",
+    "emptyText": "Mazal ma kayn 7ta événement.",
+    "addEvent": "+ Zid événement",
+    "editEventTitle": "Beddel événement",
+    "newEventTitle": "Événement jdid",
+    "whatIsIt": "Chno howa?",
+    "titlePlaceholder": "mithal: Imtihan dyal lhisab, rendez-vous dyal baba",
+    "typeLabel": "No3",
+    "dateLabel": "Date",
+    "eventDateLabel": "Date dyal l événement",
+    "deleteConfirmTitle": "Msse7 had l événement?",
+    "deleteButton": "Msse7",
+    "deleteEventLink": "Msse7 l événement"
+  },
+  "favorites": {
+    "title": "Mfaddal",
+    "subtitle": "Lklam l7lou li 7fedti bach trj3 lih.",
+    "emptyText": "Mazal ma kayn 7ta favori. Dess 3la qelb taht chi klma f Dar bach t7efedha hna."
+  },
+  "kindWord": {
+    "headerTitle": "Klma 7lowa",
+    "closeLabel": "Sded",
+    "missingText": "Hadi lklma 7lowa mabqat-ch mawjouda.",
+    "snoozeDoneTitle": "Safi",
+    "hideQuoteTitle": "Mefhoum",
+    "hideQuoteMessage": "Maghadi nseftouhach 3awtani."
+  },
+  "quoteActions": {
+    "save": "7fed",
+    "saved": "M7affed",
+    "addToFavorites": "Zid l favorite",
+    "removeFromFavorites": "N9ess mn favorite",
+    "share": "Partagi",
+    "shareAccessibility": "Partagi hadi lklma b chi tsawira",
+    "snooze": "Wa99ef",
+    "snoozeAccessibility": "Wa99ef lklam l7lou aw khbi hadi lklma"
+  },
+  "snoozeMenu": {
+    "hour": "Wa99ef lklam l7lou sa3a wahda",
+    "tomorrow": "Wa99ef lklam l7lou l ghda",
+    "threeDays": "Wa99ef lklam l7lou tlat iyam",
+    "dontShowAgain": "Mab9ach twrini hadi lklma"
+  },
+  "notifications": {
+    "channelName": "Lklam l7lou",
+    "title": "Chi klma 7elwa lik",
+    "beforeEventTitle": "Fkrinek",
+    "afterEventTitle": "Kansqsiw 3lik",
+    "snoozedHour": "Lklam l7lou twa99fo sa3a wahda.",
+    "snoozedTomorrow": "Lklam l7lou twa99fo l ghda.",
+    "snoozedThreeDays": "Lklam l7lou twa99fo tlat iyam."
+  },
+  "circumstances": {
+    "student": "Talib(a)",
+    "worker": "Khddam(a)",
+    "parent": "Waled",
+    "widowed": "Armel(a)",
+    "living_alone": "Wa7dani(a)",
+    "patient": "Marid(a)",
+    "religious": "Mtdyen(a)",
+    "caregiver": "M3awen(a)",
+    "grieving": "F 7zen",
+    "breakup": "Ferra9",
+    "new_parent": "Waled(a) jdid(a)",
+    "far_from_home": "B3id 3la blad",
+    "overwhelmed": "Metqelqel(a)",
+    "job_searching": "Kaytchouf khdma",
+    "older_adult": "Mesen(a)",
+    "other": "Ghir hna 3la khater lklam l7lou"
+  },
+  "eventTypes": {
+    "exam": "Imtihan",
+    "job_interview": "Entretien dyal khdma",
+    "medical_appointment": "Rendez-vous dyal tbib",
+    "grief_anniversary": "3id dyal l7zen",
+    "family_event": "7adath dyal l3ila",
+    "other": "Akhor"
+  },
+  "worlds": {
+    "simple": "Basit",
+    "nature": "Tabi3a",
+    "space": "Fada",
+    "medieval": "Medyeval",
+    "desert": "Sahra",
+    "ocean": "Bhar",
+    "cabin": "Cabane",
+    "garden": "Jnan Japoni",
+    "storybook": "7ikaya",
+    "winter": "Chta",
+    "meadow": "Chare9",
+    "letters": "Bra w Stilou",
+    "clouds": "Sa7ab",
+    "quilt": "Lizar"
+  }
+}

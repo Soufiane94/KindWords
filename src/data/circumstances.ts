@@ -1,28 +1,31 @@
 // The list of circumstances a user can pick from during onboarding.
 // Each quote in quotes.json is tagged with zero or more of these ids,
 // so we can show quotes that feel relevant to the person reading them.
+//
+// Labels live in the translation files (src/i18n/locales, under
+// "circumstances") since Phase 6 — look up `circumstances.${id}` with
+// useTranslation() rather than reading a label from here.
 
 export type Circumstance = {
   id: string;
-  label: string;
   emoji: string;
 };
 
 export const CIRCUMSTANCES: Circumstance[] = [
-  { id: 'student', label: 'Student', emoji: '📚' },
-  { id: 'worker', label: 'Working', emoji: '💼' },
-  { id: 'parent', label: 'Parent', emoji: '👨‍👩‍👧' },
-  { id: 'widowed', label: 'Widow / Widower', emoji: '🕊️' },
-  { id: 'living_alone', label: 'Living alone', emoji: '🏠' },
-  { id: 'patient', label: 'Managing an illness', emoji: '🩺' },
-  { id: 'religious', label: 'Religious / Spiritual', emoji: '🙏' },
-  { id: 'caregiver', label: 'Caregiver', emoji: '🤲' },
-  { id: 'grieving', label: 'Grieving a loss', emoji: '🕯️' },
-  { id: 'breakup', label: 'Breakup or divorce', emoji: '💔' },
-  { id: 'new_parent', label: 'New parent / expecting', emoji: '🍼' },
-  { id: 'far_from_home', label: 'Far from home', emoji: '🌍' },
-  { id: 'overwhelmed', label: 'Anxious or overwhelmed', emoji: '🌊' },
-  { id: 'job_searching', label: 'Job searching', emoji: '🔍' },
-  { id: 'older_adult', label: 'Older adult / retired', emoji: '🧓' },
-  { id: 'other', label: 'Just here for kind words', emoji: '💛' },
+  { id: 'student', emoji: '📚' },
+  { id: 'worker', emoji: '💼' },
+  { id: 'parent', emoji: '👨‍👩‍👧' },
+  { id: 'widowed', emoji: '🕊️' },
+  { id: 'living_alone', emoji: '🏠' },
+  { id: 'patient', emoji: '🩺' },
+  { id: 'religious', emoji: '🙏' },
+  { id: 'caregiver', emoji: '🤲' },
+  { id: 'grieving', emoji: '🕯️' },
+  { id: 'breakup', emoji: '💔' },
+  { id: 'new_parent', emoji: '🍼' },
+  { id: 'far_from_home', emoji: '🌍' },
+  { id: 'overwhelmed', emoji: '🌊' },
+  { id: 'job_searching', emoji: '🔍' },
+  { id: 'older_adult', emoji: '🧓' },
+  { id: 'other', emoji: '💛' },
 ];

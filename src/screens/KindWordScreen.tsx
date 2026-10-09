@@ -10,6 +10,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
@@ -24,6 +25,7 @@ import {
   getCircumstances,
   getNotificationSettings,
   getEvents,
+  getQuoteLanguage,
 } from '../services/storage';
 import { shareViewAsImage } from '../services/share';
 import {
@@ -46,6 +48,7 @@ export default function KindWordScreen({ route, navigation }: Props) {
   const [menuVisible, setMenuVisible] = useState(false);
   const cardRef = useRef<View>(null);
   const { world } = useTheme();
+  const { t } = useTranslation();
   const styles = useMemo(() => createStyles(world), [world]);
 
   useEffect(() => {
@@ -63,17 +66,18 @@ export default function KindWordScreen({ route, navigation }: Props) {
     try {
       await shareViewAsImage(cardRef);
     } catch {
-      Alert.alert("Couldn't share that", 'Please try again in a moment.');
+      Alert.alert(t('common.shareErrorTitle'), t('common.shareErrorMessage'));
     }
   }
 
   async function reschedule() {
-    const [circumstances, settings, events] = await Promise.all([
+    const [circumstances, settings, events, quoteLanguage] = await Promise.all([
       getCircumstances(),
       getNotificationSettings(),
       getEvents(),
+      getQuoteLanguage(),
     ]);
-    await rescheduleAllNotifications(settings, circumstances, events).catch(() => {
+    await rescheduleAllNotifications(settings, circumstances, events, quoteLanguage).catch(() => {
       // Non-fatal: the snooze/hide choice is still saved either way.
     });
   }
@@ -82,25 +86,25 @@ export default function KindWordScreen({ route, navigation }: Props) {
     setMenuVisible(false);
     await setSnoozeUntil(computeSnoozeUntil(duration));
     await reschedule();
-    Alert.alert('Done', describeSnoozeDuration(duration));
+    Alert.alert(t('kindWord.snoozeDoneTitle'), describeSnoozeDuration(duration));
   }
 
   async function handleHideQuote() {
     if (!quote) return;
     setMenuVisible(false);
     await hideQuoteForever(quote.id);
-    Alert.alert('Got it', "We won't send that one again.");
+    Alert.alert(t('kindWord.hideQuoteTitle'), t('kindWord.hideQuoteMessage'));
   }
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Kind word</Text>
+        <Text style={styles.headerTitle}>{t('kindWord.headerTitle')}</Text>
         <Pressable
           onPress={() => navigation.goBack()}
           accessibilityRole="button"
-          accessibilityLabel="Close"
+          accessibilityLabel={t('kindWord.closeLabel')}
           style={styles.closeButton}
         >
           <Text style={styles.closeText}>✕</Text>
@@ -130,7 +134,7 @@ export default function KindWordScreen({ route, navigation }: Props) {
         </>
       ) : (
         <View style={styles.content}>
-          <Text style={styles.missingText}>This kind word isn't available anymore.</Text>
+          <Text style={styles.missingText}>{t('kindWord.missingText')}</Text>
         </View>
       )}
     </SafeAreaView>

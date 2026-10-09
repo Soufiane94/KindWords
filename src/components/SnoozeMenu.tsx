@@ -4,6 +4,7 @@
 
 import React, { useMemo } from 'react';
 import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../theme/ThemeContext';
 import type { Palette } from '../data/worlds';
 import type { SnoozeDuration } from '../services/notifications';
@@ -15,15 +16,17 @@ type Props = {
   onHideQuote: () => void;
 };
 
-const SNOOZE_OPTIONS: { value: SnoozeDuration; label: string }[] = [
-  { value: 'hour', label: 'Pause kind words for 1 hour' },
-  { value: 'tomorrow', label: 'Pause kind words until tomorrow' },
-  { value: 'three_days', label: 'Pause kind words for 3 days' },
-];
+const SNOOZE_VALUES: SnoozeDuration[] = ['hour', 'tomorrow', 'three_days'];
 
 export default function SnoozeMenu({ visible, onClose, onSnooze, onHideQuote }: Props) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   const styles = useMemo(() => createStyles(colors), [colors]);
+
+  const SNOOZE_OPTIONS = SNOOZE_VALUES.map((value) => ({
+    value,
+    label: t(`snoozeMenu.${value === 'three_days' ? 'threeDays' : value}`),
+  }));
 
   return (
     <Modal visible={visible} animationType="fade" transparent onRequestClose={onClose}>
@@ -40,13 +43,13 @@ export default function SnoozeMenu({ visible, onClose, onSnooze, onHideQuote }: 
           <View style={styles.divider} />
 
           <Pressable style={styles.row} onPress={onHideQuote}>
-            <Text style={[styles.rowText, styles.dangerText]}>Don't show me this quote again</Text>
+            <Text style={[styles.rowText, styles.dangerText]}>{t('snoozeMenu.dontShowAgain')}</Text>
           </Pressable>
 
           <View style={styles.divider} />
 
           <Pressable style={styles.row} onPress={onClose}>
-            <Text style={[styles.rowText, styles.cancelText]}>Cancel</Text>
+            <Text style={[styles.rowText, styles.cancelText]}>{t('common.cancel')}</Text>
           </Pressable>
         </Pressable>
       </Pressable>

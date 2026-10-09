@@ -4,559 +4,1599 @@
     "text": "You don't have to carry today perfectly. You just have to carry it.",
     "circumstances": ["other", "worker", "student", "parent"],
     "eventTypes": ["other"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q002",
     "text": "Somewhere, someone is glad you exist. That someone might just be you, a little later today.",
     "circumstances": ["living_alone", "other"],
     "eventTypes": ["other"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q003",
     "text": "Grief is just love with nowhere to go. It's allowed to stay as long as it needs.",
     "circumstances": ["widowed"],
     "eventTypes": ["grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q004",
     "text": "Rest is not quitting. It's you, taking care of the one person you can't replace.",
     "circumstances": ["worker", "parent", "patient"],
     "eventTypes": ["medical_appointment"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q005",
     "text": "Small steps still move you forward. You're allowed to go slowly.",
     "circumstances": ["student", "patient", "other"],
     "eventTypes": ["exam", "job_interview"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q006",
     "text": "The quiet of an empty room doesn't mean you're forgotten. You are held by more than you can see.",
     "circumstances": ["living_alone", "widowed"],
     "eventTypes": ["grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q007",
     "text": "You showed up today. That counts for more than you think.",
     "circumstances": ["worker", "student", "patient", "other"],
     "eventTypes": ["exam", "job_interview"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q008",
     "text": "Being a parent is a thousand invisible acts of love a day. Someone notices, even when it's just you.",
     "circumstances": ["parent"],
     "eventTypes": ["family_event"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q009",
     "text": "Healing isn't a straight line. A hard day doesn't erase the good ones before it.",
     "circumstances": ["patient", "widowed"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q010",
     "text": "However you pray, however you doubt, you are not alone in wondering.",
     "circumstances": ["religious"],
     "eventTypes": ["other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q011",
     "text": "You are allowed to take up space in your own life.",
     "circumstances": ["other", "student", "worker"],
     "eventTypes": ["exam", "job_interview"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q012",
     "text": "The people who love you don't need you to have it all figured out.",
     "circumstances": ["parent", "student", "worker", "other"],
     "eventTypes": ["family_event"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q013",
     "text": "A single kind thought toward yourself today is enough. You don't need a whole speech.",
     "circumstances": ["other", "patient"],
     "eventTypes": ["medical_appointment", "other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q014",
     "text": "Missing someone is proof of how well you loved them.",
     "circumstances": ["widowed"],
     "eventTypes": ["grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q015",
     "text": "You don't need to be cheerful to be doing okay. Quiet and tired counts too.",
     "circumstances": ["patient", "worker", "parent", "other"],
     "eventTypes": ["medical_appointment"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q016",
     "text": "Study, work, rest, repeat — it's a lot. You're doing more than it feels like.",
     "circumstances": ["student"],
     "eventTypes": ["exam"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q017",
     "text": "Living alone doesn't mean living unseen. Someone, somewhere, is thinking of you right now.",
     "circumstances": ["living_alone"],
     "eventTypes": ["other"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q018",
     "text": "Your body is doing its best with what it has today. That's worth some gentleness.",
     "circumstances": ["patient"],
     "eventTypes": ["medical_appointment"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q019",
     "text": "Faith doesn't have to be loud to be real. A whispered hope still counts.",
     "circumstances": ["religious"],
     "eventTypes": ["other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q020",
     "text": "You are not behind. You are exactly as far along as someone who has lived your exact life would be.",
     "circumstances": ["student", "worker", "other"],
     "eventTypes": ["exam", "job_interview"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q021",
     "text": "The silence after loss has its own kind of voice. It's okay to sit with it a while.",
     "circumstances": ["widowed"],
     "eventTypes": ["grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q022",
     "text": "A single phone call, a single hello, can turn a whole day around. You're one message away from less alone.",
     "circumstances": ["living_alone", "other"],
     "eventTypes": ["family_event"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q023",
     "text": "Tired hands still built something good today, even if it was just getting through it.",
     "circumstances": ["worker", "parent"],
     "eventTypes": ["exam", "job_interview"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q024",
     "text": "You are not a burden for needing rest, help, or a little more patience today.",
     "circumstances": ["patient", "other"],
     "eventTypes": ["medical_appointment"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q025",
     "text": "Somewhere between the lessons and the deadlines, you're still learning who you are. That's the real work.",
     "circumstances": ["student"],
     "eventTypes": ["exam"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q026",
     "text": "The love you gave someone doesn't end when they do.",
     "circumstances": ["widowed"],
     "eventTypes": ["grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q027",
     "text": "You can believe in something bigger than today's troubles and still feel today's troubles fully.",
     "circumstances": ["religious", "patient"],
     "eventTypes": ["medical_appointment"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q028",
     "text": "Parenting doesn't come with applause. Consider this a small one, just for you.",
     "circumstances": ["parent"],
     "eventTypes": ["family_event"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q029",
     "text": "An ordinary Tuesday survived is still a Tuesday survived. Well done.",
     "circumstances": ["worker", "student", "other"],
     "eventTypes": ["exam", "job_interview"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q030",
     "text": "You are allowed to need people. That's not weakness, that's just being human.",
     "circumstances": ["living_alone", "other"],
     "eventTypes": ["family_event", "other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q031",
     "text": "Some days the bravest thing you do is simply not give up. Today might be one of those days, and you're still here.",
     "circumstances": ["patient", "widowed", "other"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q032",
     "text": "However far you've come, it was you who carried yourself there.",
     "circumstances": ["student", "worker", "patient", "other"],
     "eventTypes": ["exam", "job_interview"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q033",
     "text": "Your prayers don't need the right words. They just need to be yours.",
     "circumstances": ["religious"],
     "eventTypes": ["other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q034",
     "text": "A house can be quiet and still be full of the love that built it.",
     "circumstances": ["living_alone", "widowed"],
     "eventTypes": ["grief_anniversary", "family_event"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q035",
     "text": "You are doing a hard, good thing, even on the days it doesn't feel like either.",
     "circumstances": ["parent", "worker", "patient"],
     "eventTypes": ["medical_appointment", "family_event"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q036",
     "text": "This moment of reading a kind word means you made a little room for yourself today. That matters.",
     "circumstances": ["other"],
     "eventTypes": ["other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q037",
     "text": "You don't owe anyone a brave face today. Soft is allowed.",
     "circumstances": ["patient", "widowed", "other"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q038",
     "text": "Every exam, every deadline, every long shift — none of it defines your worth. You were worthy before any of it began.",
     "circumstances": ["student", "worker"],
     "eventTypes": ["exam", "job_interview"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q039",
     "text": "Whatever you believe in, may it hold you a little lighter today.",
     "circumstances": ["religious", "other"],
     "eventTypes": ["family_event"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q040",
     "text": "You are someone's good thing that happened today. Possibly your own.",
     "circumstances": ["other", "living_alone", "parent", "worker", "student"],
     "eventTypes": ["family_event", "other"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q041",
     "text": "You don't have to earn rest by finishing everything first.",
     "circumstances": ["worker", "student", "other"],
     "eventTypes": ["other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q042",
     "text": "A text that just says \"thinking of you\" can hold more than it looks like it can.",
     "circumstances": ["living_alone", "other"],
     "eventTypes": ["other"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q043",
     "text": "Grief doesn't ask your permission to visit on an ordinary afternoon. You're allowed to let it in.",
     "circumstances": ["widowed", "patient"],
     "eventTypes": ["grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q044",
     "text": "Interviews end. Exams end. The way you treat yourself while you wait doesn't have to.",
     "circumstances": ["student", "worker"],
     "eventTypes": ["job_interview", "exam"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q045",
     "text": "You can love your family loudly and still need a quiet minute alone in the bathroom. That's allowed too.",
     "circumstances": ["parent"],
     "eventTypes": ["family_event"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q046",
     "text": "Waiting rooms are strange, patient places. So are you, and that's alright.",
     "circumstances": ["patient"],
     "eventTypes": ["medical_appointment"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q047",
     "text": "Whatever today's results are, you were already worth caring for before you knew them.",
     "circumstances": ["patient", "other"],
     "eventTypes": ["medical_appointment"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q048",
     "text": "Some prayers are just a name repeated softly. That's enough of a prayer.",
     "circumstances": ["religious"],
     "eventTypes": ["other", "grief_anniversary"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q049",
     "text": "You've survived every today you've ever had. This one included.",
     "circumstances": ["other", "patient", "widowed"],
     "eventTypes": ["other"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q050",
     "text": "An empty chair at the table still holds the shape of who sat there. That's not nothing.",
     "circumstances": ["widowed", "living_alone"],
     "eventTypes": ["grief_anniversary", "family_event"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q051",
     "text": "You don't need a reason to deserve kindness today. Being tired is reason enough.",
     "circumstances": ["other", "worker", "parent"],
     "eventTypes": ["other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q052",
     "text": "Studying by lamplight at this hour means you care. Let that be true even if the grade doesn't show it yet.",
     "circumstances": ["student"],
     "eventTypes": ["exam"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q053",
     "text": "You can be proud of surviving a hard year without pretending the year was fine.",
     "circumstances": ["patient", "widowed", "other"],
     "eventTypes": ["grief_anniversary", "medical_appointment"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q054",
     "text": "A job interview can only ask for an hour of you. It doesn't get to define the rest.",
     "circumstances": ["worker", "student"],
     "eventTypes": ["job_interview"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q055",
     "text": "Living alone taught you a kind of quiet most people never learn to sit with. That's its own kind of strength.",
     "circumstances": ["living_alone"],
     "eventTypes": ["other"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q056",
     "text": "You don't have to perform okay-ness for people who love you. They'd rather have you real.",
     "circumstances": ["other", "parent", "worker"],
     "eventTypes": ["family_event", "other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q057",
     "text": "Children remember being loved far more clearly than they remember being impressed.",
     "circumstances": ["parent"],
     "eventTypes": ["family_event"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q058",
     "text": "Doubt isn't the opposite of faith. Sometimes it's just faith, thinking out loud.",
     "circumstances": ["religious"],
     "eventTypes": ["other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q059",
     "text": "You get to grieve the version of today you hoped for, even while you're grateful for the one you got.",
     "circumstances": ["patient", "widowed", "parent"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q060",
     "text": "Somewhere in this ordinary day, you did something that mattered more than you noticed.",
     "circumstances": ["other", "worker", "student"],
     "eventTypes": ["other"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q061",
     "text": "A diagnosis is information, not a verdict on how brave or loved you are.",
     "circumstances": ["patient"],
     "eventTypes": ["medical_appointment"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q062",
     "text": "You're allowed to miss someone and still laugh at something silly on the same day.",
     "circumstances": ["widowed"],
     "eventTypes": ["grief_anniversary"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q063",
     "text": "The quiet after everyone leaves isn't empty. It's just quiet. You can rest in it.",
     "circumstances": ["living_alone", "parent"],
     "eventTypes": ["family_event", "other"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q064",
     "text": "Whatever this exam measures, it isn't your worth, your kindness, or how hard you tried in the dark hours no one saw.",
     "circumstances": ["student"],
     "eventTypes": ["exam"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q065",
     "text": "You don't owe anyone a timeline for healing, grieving, or figuring your life out.",
     "circumstances": ["other", "patient", "widowed"],
     "eventTypes": ["other", "grief_anniversary"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q066",
     "text": "Faith can hold both gratitude and grief in the same open hand.",
     "circumstances": ["religious", "widowed"],
     "eventTypes": ["grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q067",
     "text": "You looked after someone today, even if it was just yourself, even if it was barely.",
     "circumstances": ["parent", "patient", "other"],
     "eventTypes": ["other"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q068",
     "text": "There's no prize for suffering alone when you don't have to. Reaching out counts as strength, not failure.",
     "circumstances": ["living_alone", "patient", "other"],
     "eventTypes": ["other"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q069",
     "text": "Interviews aren't a referendum on your whole life. They're one conversation, on one day, with one stranger.",
     "circumstances": ["worker", "student"],
     "eventTypes": ["job_interview"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q070",
     "text": "The work you do without applause is often the work that matters most.",
     "circumstances": ["worker", "parent"],
     "eventTypes": ["other"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q071",
     "text": "You are not required to have faith figured out. You're only asked to keep showing up.",
     "circumstances": ["religious"],
     "eventTypes": ["other"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q072",
     "text": "A good cry in the car counts as taking care of yourself.",
     "circumstances": ["other", "patient", "widowed", "worker"],
     "eventTypes": ["other", "medical_appointment"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q073",
     "text": "Somewhere, a version of you from a hard year ago would be proud to see you still here.",
     "circumstances": ["other", "student", "worker", "patient"],
     "eventTypes": ["exam", "medical_appointment"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
   },
   {
     "id": "q074",
     "text": "Anniversaries of loss don't get easier on a schedule. Be as gentle with yourself today as you'd be with someone you love.",
     "circumstances": ["widowed"],
     "eventTypes": ["grief_anniversary"],
-    "mood": "comfort"
+    "mood": "comfort",
+    "language": "en"
   },
   {
     "id": "q075",
     "text": "You can set the table for one and still be living a full life.",
     "circumstances": ["living_alone"],
     "eventTypes": ["other"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q076",
     "text": "Being needed all day by small hands is exhausting and also, somehow, the thing you'll miss most.",
     "circumstances": ["parent"],
     "eventTypes": ["family_event"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q077",
     "text": "You're allowed to ask your body for patience the same way you'd ask a tired friend.",
     "circumstances": ["patient"],
     "eventTypes": ["medical_appointment"],
-    "mood": "gentle"
+    "mood": "gentle",
+    "language": "en"
   },
   {
     "id": "q078",
     "text": "Whatever you walk into today, you don't walk in alone. Someone, somewhere, is hoping it goes well for you.",
     "circumstances": ["other", "student", "worker"],
     "eventTypes": ["exam", "job_interview"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q079",
     "text": "Love doesn't need a holiday on the calendar to count. An ordinary Tuesday will do.",
     "circumstances": ["parent", "widowed", "other"],
     "eventTypes": ["family_event", "other"],
-    "mood": "warmth"
+    "mood": "warmth",
+    "language": "en"
   },
   {
     "id": "q080",
     "text": "You made it to the end of this day. That's not a small thing, even if no one throws confetti for it.",
     "circumstances": ["other", "patient", "worker", "student", "living_alone"],
     "eventTypes": ["other"],
-    "mood": "encouragement"
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "qfr001",
+    "text": "Tu n'as pas à réussir ta journée. Juste à la traverser, à ton rythme.",
+    "circumstances": ["other", "worker", "student", "parent"],
+    "eventTypes": ["other"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr002",
+    "text": "Même dans le silence d'un appartement vide, il y a quelqu'un qui pense à toi aujourd'hui.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr003",
+    "text": "Le chagrin ne s'en va pas sur commande. Il a le droit de rester aussi longtemps qu'il en a besoin.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr004",
+    "text": "Se reposer, ce n'est pas abandonner. C'est prendre soin de la seule personne qu'on ne peut pas remplacer.",
+    "circumstances": ["worker", "parent", "patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr005",
+    "text": "Un petit pas reste un pas. Tu as le droit d'avancer lentement.",
+    "circumstances": ["student", "patient", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr006",
+    "text": "Le calme d'une pièce vide ne veut pas dire que tu es oublié. Tu comptes pour plus de monde que tu ne le vois.",
+    "circumstances": ["living_alone", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr007",
+    "text": "Tu t'es levé aujourd'hui. Ça compte plus que tu ne le penses.",
+    "circumstances": ["worker", "student", "patient", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr008",
+    "text": "Être parent, c'est mille gestes d'amour invisibles chaque jour. Quelqu'un les remarque, même si c'est juste toi.",
+    "circumstances": ["parent"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr009",
+    "text": "Guérir n'est pas une ligne droite. Un jour difficile n'efface pas les bons jours d'avant.",
+    "circumstances": ["patient", "widowed"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr010",
+    "text": "Peu importe comment tu pries, peu importe tes doutes, tu n'es pas seul à te questionner.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr011",
+    "text": "Tu as le droit de prendre de la place dans ta propre vie.",
+    "circumstances": ["other", "student", "worker"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr012",
+    "text": "Les gens qui t'aiment n'ont pas besoin que tu aies tout compris.",
+    "circumstances": ["parent", "student", "worker", "other"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr013",
+    "text": "Une seule pensée douce envers toi-même aujourd'hui suffit. Pas besoin d'un grand discours.",
+    "circumstances": ["other", "patient"],
+    "eventTypes": ["medical_appointment", "other"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr014",
+    "text": "S'ennuyer de quelqu'un, c'est la preuve qu'on l'a bien aimé.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr015",
+    "text": "Tu n'as pas besoin d'être joyeux pour aller bien. Être calme et fatigué compte aussi.",
+    "circumstances": ["patient", "worker", "parent", "other"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr016",
+    "text": "Réviser, travailler, se reposer, recommencer — c'est beaucoup. Tu fais plus que tu ne le sens.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr017",
+    "text": "Vivre seul ne veut pas dire vivre invisible. Quelqu'un, quelque part, pense à toi maintenant.",
+    "circumstances": ["living_alone"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr018",
+    "text": "Ton corps fait de son mieux avec ce qu'il a aujourd'hui. Il mérite un peu de douceur.",
+    "circumstances": ["patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr019",
+    "text": "La foi n'a pas besoin d'être bruyante pour être réelle. Un espoir chuchoté compte aussi.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr020",
+    "text": "Tu n'es pas en retard. Tu es exactement là où quelqu'un qui a vécu ta vie en serait.",
+    "circumstances": ["student", "worker", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr021",
+    "text": "Le silence après une perte a sa propre voix. Tu peux t'asseoir avec lui un moment.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr022",
+    "text": "Un simple appel, un simple bonjour, peut changer toute une journée. Tu n'es qu'à un message de te sentir moins seul.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr023",
+    "text": "Des mains fatiguées ont encore accompli quelque chose aujourd'hui, même si c'était juste tenir bon.",
+    "circumstances": ["worker", "parent"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr024",
+    "text": "Tu n'es pas un fardeau parce que tu as besoin de repos, d'aide, ou d'un peu plus de patience aujourd'hui.",
+    "circumstances": ["patient", "other"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr025",
+    "text": "Entre les cours et les délais, tu continues d'apprendre qui tu es. C'est ça, le vrai travail.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr026",
+    "text": "L'amour que tu as donné à quelqu'un ne s'arrête pas quand cette personne s'en va.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr027",
+    "text": "Tu peux croire en quelque chose de plus grand que tes soucis d'aujourd'hui, et ressentir ces soucis pleinement quand même.",
+    "circumstances": ["religious", "patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr028",
+    "text": "Être parent ne vient pas avec des applaudissements. Considère ceci comme un petit, juste pour toi.",
+    "circumstances": ["parent"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr029",
+    "text": "Un mardi ordinaire traversé reste un mardi traversé. Bravo.",
+    "circumstances": ["worker", "student", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr030",
+    "text": "Tu as le droit d'avoir besoin des autres. Ce n'est pas une faiblesse, c'est juste être humain.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["family_event", "other"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr031",
+    "text": "Certains jours, le plus courageux c'est simplement de ne pas abandonner. Aujourd'hui est peut-être un de ces jours, et tu es toujours là.",
+    "circumstances": ["patient", "widowed", "other"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr032",
+    "text": "Peu importe le chemin parcouru, c'est toi qui t'y es porté.",
+    "circumstances": ["student", "worker", "patient", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr033",
+    "text": "Tes prières n'ont pas besoin des mots parfaits. Elles ont juste besoin d'être les tiennes.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr034",
+    "text": "Une maison peut être silencieuse et rester pleine de l'amour qui l'a construite.",
+    "circumstances": ["living_alone", "widowed"],
+    "eventTypes": ["grief_anniversary", "family_event"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr035",
+    "text": "Tu fais quelque chose de difficile et de beau, même les jours où ça ne ressemble à aucun des deux.",
+    "circumstances": ["parent", "worker", "patient"],
+    "eventTypes": ["medical_appointment", "family_event"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr036",
+    "text": "Ce moment où tu lis un mot doux veut dire que tu t'es fait une petite place aujourd'hui. Ça compte.",
+    "circumstances": ["other"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr037",
+    "text": "Tu ne dois une mine courageuse à personne aujourd'hui. La douceur est permise.",
+    "circumstances": ["patient", "widowed", "other"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr038",
+    "text": "Chaque examen, chaque échéance, chaque longue journée — rien de tout ça ne définit ta valeur. Tu avais de la valeur avant que tout ça commence.",
+    "circumstances": ["student", "worker"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr039",
+    "text": "Quoi que tu croies, puisse-t-il t'alléger un peu aujourd'hui.",
+    "circumstances": ["religious", "other"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr040",
+    "text": "Tu es la bonne chose arrivée à quelqu'un aujourd'hui. Peut-être même la tienne.",
+    "circumstances": ["other", "living_alone", "parent", "worker", "student"],
+    "eventTypes": ["family_event", "other"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qary001",
+    "text": "Ma khassek chi nhar perfect. Ghir 3addih b chwiya.",
+    "circumstances": ["other", "worker", "student", "parent"],
+    "eventTypes": ["other"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary002",
+    "text": "Hta f dar khawya, kayn li farhan bik.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "ary"
+  },
+  {
+    "id": "qary003",
+    "text": "Chwa9 l wahed, howa 7ob baqi 7ay.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary004",
+    "text": "Rtah. Machi khssara, howa l9owa dyalek.",
+    "circumstances": ["worker", "parent", "patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary005",
+    "text": "Khtwa sghira, baqya khtwa. Mchi b chwiya.",
+    "circumstances": ["student", "patient", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary006",
+    "text": "S-skat f bit khawya, machi nsyan. Kayn li 3aqel bik.",
+    "circumstances": ["living_alone", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary007",
+    "text": "Khrejti lyouma. Hadchi kbir, hta ila ma bantch.",
+    "circumstances": ["worker", "student", "patient", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary008",
+    "text": "Koun waldin, alf 7aja ma kat9alch. Walakin kayn li chaf.",
+    "circumstances": ["parent"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "ary"
+  },
+  {
+    "id": "qary009",
+    "text": "Chfa machi tri9 dghya. Nhar khayb ma kay7yedch nhar mzyan.",
+    "circumstances": ["patient", "widowed"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary010",
+    "text": "Kif ma kan l-iman dyalek, machi wahdek f chk dyalek.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "ary"
+  },
+  {
+    "id": "qary011",
+    "text": "3andek l7a9 taddi blasa f 7yatek.",
+    "circumstances": ["other", "student", "worker"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary012",
+    "text": "Li kay7ebbouk, mabghiinkch kolchi mfahem. Bghiwk ghir nta.",
+    "circumstances": ["parent", "student", "worker", "other"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "ary"
+  },
+  {
+    "id": "qary013",
+    "text": "Fekra wahda mezyana 3lik lyouma, kafya. Ma khassek discour twil.",
+    "circumstances": ["other", "patient"],
+    "eventTypes": ["medical_appointment", "other"],
+    "mood": "gentle",
+    "language": "ary"
+  },
+  {
+    "id": "qary014",
+    "text": "Chwa9 howa dalil 3la l7ob li kan.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary015",
+    "text": "Ma khassekch tkoun far7an bach tkoun labas. Hta l hed9a, far7a.",
+    "circumstances": ["patient", "worker", "parent", "other"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "gentle",
+    "language": "ary"
+  },
+  {
+    "id": "qary016",
+    "text": "9raya, khdma, rta7a, 3awed. Bezzaf hadchi. Rak dayer ktar mn ma 7ssit.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary017",
+    "text": "3icha wehdek, machi 3icha manchoufa. Kayn li fakerk daba.",
+    "circumstances": ["living_alone"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "ary"
+  },
+  {
+    "id": "qary018",
+    "text": "Jeldek kay3mel li fi 7alo lyouma. Khasso chwiya hnan.",
+    "circumstances": ["patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary019",
+    "text": "L-iman ma khassou ysra3 bach ykoun s7i7. Chi rja sakta, kafya.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "ary"
+  },
+  {
+    "id": "qary020",
+    "text": "Ma-nta mtakher. Nta f blasa li khassek tkoun fiha.",
+    "circumstances": ["student", "worker", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary021",
+    "text": "S-skat mn b3d l-khssara 3ando sot dyalo. Rtah m3ah chwiya.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary022",
+    "text": "Chi 3ayta, chi salam, kafyin ybedlou nhar kamel. Nta 9rib mn far7a.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "ary"
+  },
+  {
+    "id": "qary023",
+    "text": "Ydik 3iyyanin, walakin dazou chi haja mzyana lyouma.",
+    "circumstances": ["worker", "parent"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary024",
+    "text": "Ma-nta 3ib 7it bghiti rta7a aw 3awn.",
+    "circumstances": ["patient", "other"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary025",
+    "text": "Bin dourouss w deadlines, mazal katl9a rasek. Hada howa l khdma l7qiqya.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "gentle",
+    "language": "ary"
+  },
+  {
+    "id": "qary026",
+    "text": "L7ob li 3titi, ma-kaytsnach mlli ghab howa.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary027",
+    "text": "Tnajem tiqen, w t7ess b sou3oubtek f wa9t wa7ed.",
+    "circumstances": ["religious", "patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "gentle",
+    "language": "ary"
+  },
+  {
+    "id": "qary028",
+    "text": "Koun mma aw bba, ma3endouch tsfi9. Hadi tsfi9 sghira, l wa7dek.",
+    "circumstances": ["parent"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "ary"
+  },
+  {
+    "id": "qary029",
+    "text": "Nhar 3adi li 3ddaytih, baqi nhar 3ddaytih. Bravo.",
+    "circumstances": ["worker", "student", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary030",
+    "text": "3andek l7a9 tbghi n-nas m3ak. Machi d3if, ghir insan.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["family_event", "other"],
+    "mood": "gentle",
+    "language": "ary"
+  },
+  {
+    "id": "qary031",
+    "text": "Chi nhar, l-shja3a hiya ghir ma-ttsali9ch. Lyouma yemken ykoun mnhoum, w mazal hna.",
+    "circumstances": ["patient", "widowed", "other"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary032",
+    "text": "Kif ma kan tri9ek, nta li 7melti rasek l hna.",
+    "circumstances": ["student", "worker", "patient", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary033",
+    "text": "Do3a dyalek ma khassou klam mzyan. Khasso ghir ykoun dyalek.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "ary"
+  },
+  {
+    "id": "qary034",
+    "text": "Dar fiha skat, walakin mazal 3amra b l7ob li bnaha.",
+    "circumstances": ["living_alone", "widowed"],
+    "eventTypes": ["grief_anniversary", "family_event"],
+    "mood": "warmth",
+    "language": "ary"
+  },
+  {
+    "id": "qary035",
+    "text": "Katdir chi haja wa3ra w mzyana, hta f nhar ma kattbench bih.",
+    "circumstances": ["parent", "worker", "patient"],
+    "eventTypes": ["medical_appointment", "family_event"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary036",
+    "text": "Qrit kelma 7elwa lyouma — hadi blasa 3titiha l rasek.",
+    "circumstances": ["other"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "ary"
+  },
+  {
+    "id": "qary037",
+    "text": "Ma khassekch twajed wjeh kayel lyouma. Rta7a msmou7a.",
+    "circumstances": ["patient", "widowed", "other"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "comfort",
+    "language": "ary"
+  },
+  {
+    "id": "qary038",
+    "text": "Koul imti7an, koul deadline, koul nhar twil — maykhassrouch 9imtek. Kanet 9imtek 9bel kolchi.",
+    "circumstances": ["student", "worker"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "ary"
+  },
+  {
+    "id": "qary039",
+    "text": "Kifma kant l-iman dyalek, ykhafaf 3lik chwiya lyouma.",
+    "circumstances": ["religious", "other"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "ary"
+  },
+  {
+    "id": "qary040",
+    "text": "Nta l-7aja l mzyana li wq3at l chi wahed lyouma. Yemken ykoun nta b rasek.",
+    "circumstances": ["other", "living_alone", "parent", "worker", "student"],
+    "eventTypes": ["family_event", "other"],
+    "mood": "warmth",
+    "language": "ary"
+  },
+  {
+    "id": "qes001",
+    "text": "No tienes que llevar el día a la perfección. Solo tienes que llevarlo, poco a poco.",
+    "circumstances": ["other", "worker", "student", "parent"],
+    "eventTypes": ["other"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes002",
+    "text": "Aunque hoy estés en casa sin compañía, alguien está pensando en ti en este momento: nosotros.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "es"
+  },
+  {
+    "id": "qes003",
+    "text": "Hoy el corazón pesa un poco más, y está bien que así sea. Lo que sentiste por esa persona sigue vivo en ti.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes004",
+    "text": "Cuidar tu salud también es una forma de cuidar a quienes te rodean. Esta cita es un paso, no una sentencia.",
+    "circumstances": ["worker", "parent", "patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes005",
+    "text": "Has hecho lo que podías con lo que tenías. Eso ya merece sentirse orgulloso.",
+    "circumstances": ["student", "patient", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes006",
+    "text": "La casa puede sentirse más callada hoy. Está bien quedarte un rato con ese silencio, sin llenarlo de nada.",
+    "circumstances": ["living_alone", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes007",
+    "text": "Respira hondo. Lo que viene hoy no mide todo lo que vales, solo es un paso más del camino.",
+    "circumstances": ["worker", "student", "patient", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes008",
+    "text": "Ser madre o padre no pide perfección, solo presencia. Y hoy, ahí estás, eso ya cuenta.",
+    "circumstances": ["parent"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "es"
+  },
+  {
+    "id": "qes009",
+    "text": "No hace falta ser fuerte todo el tiempo. Hoy también puedes simplemente dejarte sostener.",
+    "circumstances": ["patient", "widowed"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes010",
+    "text": "Que encuentres hoy un momento de calma, aunque sea pequeño, para sentirte acompañado.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "es"
+  },
+  {
+    "id": "qes011",
+    "text": "No vas a esto solo. Llevas contigo cada intento anterior, y eso también es una forma de fuerza.",
+    "circumstances": ["other", "student", "worker"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes012",
+    "text": "Las reuniones de familia no siempre son fáciles. Aun así, mereces sentirte bienvenido en la tuya.",
+    "circumstances": ["parent", "student", "worker", "other"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "es"
+  },
+  {
+    "id": "qes013",
+    "text": "Ir más despacio hoy no es rendirse. Es simplemente lo que tu cuerpo te está pidiendo ahora.",
+    "circumstances": ["other", "patient"],
+    "eventTypes": ["medical_appointment", "other"],
+    "mood": "gentle",
+    "language": "es"
+  },
+  {
+    "id": "qes014",
+    "text": "El amor que sentiste no se borra con los años. Hoy, déjalo quedarse un rato contigo.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes015",
+    "text": "No todos los días hay que sentirse con fuerzas. Hoy puedes ir despacio, sin pedirte más.",
+    "circumstances": ["patient", "worker", "parent", "other"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "gentle",
+    "language": "es"
+  },
+  {
+    "id": "qes016",
+    "text": "Lo que has estudiado ya forma parte de ti. Confía un poco en lo que llevas por dentro.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes017",
+    "text": "Vivir solo no es lo mismo que estar solo. Hoy te mandamos un poco de compañía en palabras.",
+    "circumstances": ["living_alone"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "es"
+  },
+  {
+    "id": "qes018",
+    "text": "Tu cuerpo está haciendo su propio trabajo, aunque todavía no lo puedas ver. Ten paciencia contigo.",
+    "circumstances": ["patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes019",
+    "text": "Un respiro, una pausa, una pequeña oración: hoy cualquiera de estas cosas ya es suficiente.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "es"
+  },
+  {
+    "id": "qes020",
+    "text": "Cada intento te deja algo, incluso cuando no sale como esperabas. Vas bien, aunque no lo sientas hoy.",
+    "circumstances": ["student", "worker", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes021",
+    "text": "No existe una forma correcta de extrañar a alguien. La tuya también es válida hoy.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes022",
+    "text": "Si hoy la mesa se siente un poco vacía, que estas palabras ocupen un pequeño lugar en ella.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "es"
+  },
+  {
+    "id": "qes023",
+    "text": "Equilibrar todo lo que llevas encima no es fácil, y aun así sigues intentándolo. Eso ya cuenta.",
+    "circumstances": ["worker", "parent"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes024",
+    "text": "Está bien tener miedo antes de una cita médica. Puedes sentir miedo y, aun así, estar bien.",
+    "circumstances": ["patient", "other"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes025",
+    "text": "No necesitas saberlo todo para empezar. Solo necesitas dar el primer paso.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "gentle",
+    "language": "es"
+  },
+  {
+    "id": "qes026",
+    "text": "Hoy puede doler de nuevo, casi como el primer día. Eso solo muestra cuánto amaste.",
+    "circumstances": ["widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes027",
+    "text": "Que algo más grande que tú te sostenga hoy, aunque sea solo por un instante.",
+    "circumstances": ["religious", "patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "gentle",
+    "language": "es"
+  },
+  {
+    "id": "qes028",
+    "text": "Entre el ruido y las tareas de hoy, espero que alguien también te mire a ti con cariño.",
+    "circumstances": ["parent"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "es"
+  },
+  {
+    "id": "qes029",
+    "text": "No necesitas sentirte listo del todo. Solo necesitas presentarte, y eso ya lo estás haciendo.",
+    "circumstances": ["worker", "student", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes030",
+    "text": "Si hoy no hay nadie más en la sala, que sepas que desde aquí también se piensa en ti.",
+    "circumstances": ["living_alone", "other"],
+    "eventTypes": ["family_event", "other"],
+    "mood": "gentle",
+    "language": "es"
+  },
+  {
+    "id": "qes031",
+    "text": "Cargas más de lo que la gente alcanza a ver. Y aun así, sigues aquí. Eso ya es mucho.",
+    "circumstances": ["patient", "widowed", "other"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes032",
+    "text": "No tienes que sentirte seguro para intentarlo. El valor también camina con dudas.",
+    "circumstances": ["student", "worker", "patient", "other"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes033",
+    "text": "Hoy no tienes que entenderlo todo. Solo confiar un poco más de lo que dudas.",
+    "circumstances": ["religious"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "es"
+  },
+  {
+    "id": "qes034",
+    "text": "Las reuniones familiares pueden recordarte a quien falta. Está bien sentir las dos cosas a la vez: alegría y nostalgia.",
+    "circumstances": ["living_alone", "widowed"],
+    "eventTypes": ["grief_anniversary", "family_event"],
+    "mood": "warmth",
+    "language": "es"
+  },
+  {
+    "id": "qes035",
+    "text": "Entre el trabajo, la familia y tu salud, a veces te olvidas de cuidarte a ti mismo. Hoy, que no se te olvide.",
+    "circumstances": ["parent", "worker", "patient"],
+    "eventTypes": ["medical_appointment", "family_event"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes036",
+    "text": "Donde sea que estés hoy, espero que encuentres un instante de paz, aunque sea pequeño.",
+    "circumstances": ["other"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "es"
+  },
+  {
+    "id": "qes037",
+    "text": "El dolor no sigue un calendario. Puede llegar hoy sin avisar, y está bien dejarlo pasar por ti.",
+    "circumstances": ["patient", "widowed", "other"],
+    "eventTypes": ["medical_appointment", "grief_anniversary"],
+    "mood": "comfort",
+    "language": "es"
+  },
+  {
+    "id": "qes038",
+    "text": "Pase lo que pase hoy, ya has demostrado que sabes seguir intentándolo.",
+    "circumstances": ["student", "worker"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "es"
+  },
+  {
+    "id": "qes039",
+    "text": "Que la fe y la familia, cada una a su manera, te recuerden hoy que no estás solo.",
+    "circumstances": ["religious", "other"],
+    "eventTypes": ["family_event"],
+    "mood": "warmth",
+    "language": "es"
+  },
+  {
+    "id": "qes040",
+    "text": "No importa en cuál de estos papeles te encuentres hoy, mereces un momento de ternura.",
+    "circumstances": ["other", "living_alone", "parent", "worker", "student"],
+    "eventTypes": ["family_event", "other"],
+    "mood": "warmth",
+    "language": "es"
   }
 ]

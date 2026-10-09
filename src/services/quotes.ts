@@ -1,6 +1,8 @@
-// Logic for picking a quote that matches the user's chosen circumstances.
+// Logic for picking a quote that matches the user's chosen circumstances
+// and chosen quote language.
 
 import quotesData from '../data/quotes.json';
+import type { Language } from '../data/languages';
 
 export type Quote = {
   id: string;
@@ -9,6 +11,7 @@ export type Quote = {
   circumstances: string[];
   eventTypes: string[];
   mood: string;
+  language: Language;
 };
 
 const ALL_QUOTES: Quote[] = quotesData as Quote[];
@@ -23,24 +26,30 @@ function pickRandom(candidates: Quote[], excludeId?: string): Quote {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
-// Returns a random quote matching at least one of the user's circumstances.
-// If the user picked no circumstances, or none match, falls back to any quote
-// tagged "other" so there is always something gentle to show. `hiddenIds`
-// (quotes the user said "don't show me this again" to) are excluded first,
-// unless that would leave nothing to show at all.
+// Returns a random quote matching at least one of the user's circumstances,
+// in the chosen quote language. Falls back, in order: any quote in that
+// language tagged "other", any quote at all in that language, then (so a
+// language with a thin library never shows literally nothing) any quote in
+// any language. `hiddenIds` (quotes the user said "don't show me this
+// again" to) are excluded first, unless that would leave nothing to show.
 export function getRandomQuote(
   userCircumstances: string[],
+  language: Language,
   excludeId?: string,
   hiddenIds: string[] = []
 ): Quote {
   const notHidden = (qs: Quote[]) => qs.filter((q) => !hiddenIds.includes(q.id));
+  const inLanguage = (qs: Quote[]) => qs.filter((q) => q.language === language);
 
   let candidates = notHidden(
-    ALL_QUOTES.filter((q) => q.circumstances.some((c) => userCircumstances.includes(c)))
+    inLanguage(ALL_QUOTES).filter((q) => q.circumstances.some((c) => userCircumstances.includes(c)))
   );
 
   if (candidates.length === 0) {
-    candidates = notHidden(ALL_QUOTES.filter((q) => q.circumstances.includes('other')));
+    candidates = notHidden(inLanguage(ALL_QUOTES).filter((q) => q.circumstances.includes('other')));
+  }
+  if (candidates.length === 0) {
+    candidates = notHidden(inLanguage(ALL_QUOTES));
   }
   if (candidates.length === 0) {
     candidates = notHidden(ALL_QUOTES);
@@ -53,19 +62,24 @@ export function getRandomQuote(
 }
 
 // Returns a random quote matching the given calendar event type (exam, job
-// interview, etc.), for the reminders scheduled before/after an event. Falls
-// back to quotes tagged "other" so there is always something to send.
+// interview, etc.) in the chosen quote language, for the reminders scheduled
+// before/after an event. Falls back the same way getRandomQuote() does.
 export function getRandomQuoteForEvent(
   eventType: string,
+  language: Language,
   excludeId?: string,
   hiddenIds: string[] = []
 ): Quote {
   const notHidden = (qs: Quote[]) => qs.filter((q) => !hiddenIds.includes(q.id));
+  const inLanguage = (qs: Quote[]) => qs.filter((q) => q.language === language);
 
-  let candidates = notHidden(ALL_QUOTES.filter((q) => q.eventTypes.includes(eventType)));
+  let candidates = notHidden(inLanguage(ALL_QUOTES).filter((q) => q.eventTypes.includes(eventType)));
 
   if (candidates.length === 0) {
-    candidates = notHidden(ALL_QUOTES.filter((q) => q.eventTypes.includes('other')));
+    candidates = notHidden(inLanguage(ALL_QUOTES).filter((q) => q.eventTypes.includes('other')));
+  }
+  if (candidates.length === 0) {
+    candidates = notHidden(inLanguage(ALL_QUOTES));
   }
   if (candidates.length === 0) {
     candidates = notHidden(ALL_QUOTES);

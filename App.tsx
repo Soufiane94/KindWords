@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -19,6 +20,8 @@ import { VarelaRound_400Regular } from '@expo-google-fonts/varela-round';
 import { Mali_400Regular, Mali_700Bold } from '@expo-google-fonts/mali';
 import RootNavigator from './src/navigation/RootNavigator';
 import { ThemeProvider, useTheme } from './src/theme/ThemeContext';
+import i18n from './src/i18n';
+import { getUiLanguage } from './src/services/storage';
 
 // Split out so it can read the chosen world — the StatusBar needs to know
 // whether the current world counts as light or dark, which only exists
@@ -27,6 +30,16 @@ import { ThemeProvider, useTheme } from './src/theme/ThemeContext';
 // unstyled text while a font loads in.
 function AppContent() {
   const { colors } = useTheme();
+
+  // src/i18n/index.ts already set i18next to the phone's detected language
+  // at import time (synchronously); this only needs to apply a saved
+  // override, same pattern as ThemeProvider loading the saved world.
+  useEffect(() => {
+    getUiLanguage().then((language) => {
+      if (language !== i18n.language) i18n.changeLanguage(language);
+    });
+  }, []);
+
   const [fontsLoaded] = useFonts({
     Quicksand_400Regular,
     Quicksand_700Bold,

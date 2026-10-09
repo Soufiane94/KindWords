@@ -4,6 +4,8 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { WorldId, WORLD_OPTIONS, DEFAULT_WORLD_ID } from '../data/worlds';
+import { Language, isSupportedLanguage } from '../data/languages';
+import { getCurrentUiLanguage } from '../i18n';
 
 const KEYS = {
   ONBOARDING_DONE: 'kindwords:onboardingDone',
@@ -14,6 +16,8 @@ const KEYS = {
   THEME: 'kindwords:theme',
   HIDDEN_QUOTES: 'kindwords:hiddenQuotes',
   SNOOZE_UNTIL: 'kindwords:snoozeUntil',
+  UI_LANGUAGE: 'kindwords:uiLanguage',
+  QUOTE_LANGUAGE: 'kindwords:quoteLanguage',
 };
 
 export type Frequency = 'daily' | 'three_per_week' | 'custom';
@@ -200,4 +204,30 @@ export async function getWorldId(): Promise<WorldId> {
 
 export async function setWorldId(id: WorldId): Promise<void> {
   await AsyncStorage.setItem(KEYS.THEME, id);
+}
+
+// The app's own UI language (buttons, screens, notification chrome text).
+// Falls back to whatever i18next already detected from the phone, same way
+// getWorldId() falls back to the default world, so Settings always has a
+// sensible value to show even before the user has ever changed it.
+export async function getUiLanguage(): Promise<Language> {
+  const value = await AsyncStorage.getItem(KEYS.UI_LANGUAGE);
+  return isSupportedLanguage(value) ? value : getCurrentUiLanguage();
+}
+
+export async function setUiLanguage(language: Language): Promise<void> {
+  await AsyncStorage.setItem(KEYS.UI_LANGUAGE, language);
+}
+
+// The language quotes themselves are picked in — kept separate from the UI
+// language (see ROADMAP.md Phase 6) so e.g. a French interface can still
+// show Darija quotes. Defaults to the UI language until set explicitly.
+export async function getQuoteLanguage(): Promise<Language> {
+  const value = await AsyncStorage.getItem(KEYS.QUOTE_LANGUAGE);
+  if (isSupportedLanguage(value)) return value;
+  return getUiLanguage();
+}
+
+export async function setQuoteLanguage(language: Language): Promise<void> {
+  await AsyncStorage.setItem(KEYS.QUOTE_LANGUAGE, language);
 }

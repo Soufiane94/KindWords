@@ -4,31 +4,38 @@
 import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import WorldBackground from '../components/WorldBackground';
 import { getRandomQuote, Quote } from '../services/quotes';
-import { getCircumstances, getFavoriteIds, getHiddenQuoteIds, toggleFavorite } from '../services/storage';
+import { getCircumstances, getFavoriteIds, getHiddenQuoteIds, getQuoteLanguage, toggleFavorite } from '../services/storage';
 import { shareViewAsImage } from '../services/share';
 import { useTheme } from '../theme/ThemeContext';
 import type { World } from '../data/worlds';
+import type { Language } from '../data/languages';
 import { headingFont } from '../theme/fontStyle';
 
 export default function HomeScreen() {
   const [circumstances, setCircumstances] = useState<string[]>([]);
   const [hiddenIds, setHiddenIds] = useState<string[]>([]);
+  const [quoteLanguage, setQuoteLanguage] = useState<Language>('en');
   const [quote, setQuote] = useState<Quote | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const cardRef = useRef<View>(null);
   const { world } = useTheme();
+  const { t } = useTranslation();
   const styles = useMemo(() => createStyles(world), [world]);
 
   useEffect(() => {
-    Promise.all([getCircumstances(), getHiddenQuoteIds()]).then(([ids, hidden]) => {
-      setCircumstances(ids);
-      setHiddenIds(hidden);
-      setQuote(getRandomQuote(ids, undefined, hidden));
-    });
+    Promise.all([getCircumstances(), getHiddenQuoteIds(), getQuoteLanguage()]).then(
+      ([ids, hidden, language]) => {
+        setCircumstances(ids);
+        setHiddenIds(hidden);
+        setQuoteLanguage(language);
+        setQuote(getRandomQuote(ids, language, undefined, hidden));
+      }
+    );
   }, []);
 
   useEffect(() => {
@@ -37,8 +44,8 @@ export default function HomeScreen() {
   }, [quote]);
 
   const showAnotherQuote = useCallback(() => {
-    setQuote((current) => getRandomQuote(circumstances, current?.id, hiddenIds));
-  }, [circumstances, hiddenIds]);
+    setQuote((current) => getRandomQuote(circumstances, quoteLanguage, current?.id, hiddenIds));
+  }, [circumstances, quoteLanguage, hiddenIds]);
 
   async function handleToggleFavorite() {
     if (!quote) return;
@@ -50,7 +57,7 @@ export default function HomeScreen() {
     try {
       await shareViewAsImage(cardRef);
     } catch {
-      Alert.alert("Couldn't share that", 'Please try again in a moment.');
+      Alert.alert(t('common.shareErrorTitle'), t('common.shareErrorMessage'));
     }
   }
 
@@ -58,7 +65,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <View style={styles.content}>
-        <Text style={styles.heading}>A kind word for you</Text>
+        <Text style={styles.heading}>{t('home.heading')}</Text>
         {quote ? (
           <>
             <View ref={cardRef} collapsable={false} style={styles.cardWrapper}>
@@ -75,7 +82,7 @@ export default function HomeScreen() {
 
       <View style={styles.footer}>
         <Pressable style={styles.button} onPress={showAnotherQuote}>
-          <Text style={styles.buttonText}>Another kind word</Text>
+          <Text style={styles.buttonText}>{t('home.anotherKindWord')}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

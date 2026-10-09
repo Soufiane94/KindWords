@@ -6,13 +6,20 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 import { CIRCUMSTANCES } from '../data/circumstances';
+import { LANGUAGE_OPTIONS, Language } from '../data/languages';
+import i18n from '../i18n';
 import {
   getCircumstances,
   setCircumstances,
   getNotificationSettings,
   setNotificationSettings,
   getEvents,
+  getUiLanguage,
+  setUiLanguage,
+  getQuoteLanguage,
+  setQuoteLanguage,
   NotificationSettings,
   Frequency,
   LockScreenVisibility,
@@ -27,16 +34,8 @@ import { useTheme, WORLD_OPTIONS } from '../theme/ThemeContext';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
 
-const FREQUENCY_OPTIONS: { value: Frequency; label: string }[] = [
-  { value: 'daily', label: 'Daily' },
-  { value: 'three_per_week', label: '3x a week' },
-  { value: 'custom', label: 'Custom' },
-];
-
-const VISIBILITY_OPTIONS: { value: LockScreenVisibility; label: string }[] = [
-  { value: 'private', label: 'Hide on lock screen' },
-  { value: 'public', label: 'Show on lock screen' },
-];
+const FREQUENCY_VALUES: Frequency[] = ['daily', 'three_per_week', 'custom'];
+const VISIBILITY_VALUES: LockScreenVisibility[] = ['private', 'public'];
 
 type SaveStatus =
   | { kind: 'idle' }
@@ -52,14 +51,28 @@ type Props = {
 export default function SettingsScreen({ onResetOnboarding }: Props) {
   const [selectedCircumstances, setSelectedCircumstances] = useState<string[]>([]);
   const [settings, setSettings] = useState<NotificationSettings>(DEFAULT_NOTIFICATION_SETTINGS);
+  const [uiLanguage, setUiLanguageState] = useState<Language>('en');
+  const [quoteLanguage, setQuoteLanguageState] = useState<Language>('en');
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ kind: 'idle' });
   const { world, colors, worldId, setWorldId } = useTheme();
+  const { t } = useTranslation();
   const styles = useMemo(() => createStyles(world), [world]);
+
+  const FREQUENCY_OPTIONS = FREQUENCY_VALUES.map((value) => ({
+    value,
+    label: t(`settings.frequency.${value}`),
+  }));
+  const VISIBILITY_OPTIONS = VISIBILITY_VALUES.map((value) => ({
+    value,
+    label: t(`settings.visibility.${value}`),
+  }));
 
   useFocusEffect(
     useCallback(() => {
       getCircumstances().then(setSelectedCircumstances);
       getNotificationSettings().then(setSettings);
+      getUiLanguage().then(setUiLanguageState);
+      getQuoteLanguage().then(setQuoteLanguageState);
       setSaveStatus({ kind: 'idle' });
     }, [])
   );
@@ -71,6 +84,17 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
     const safeNext = next.length > 0 ? next : ['other'];
     setSelectedCircumstances(safeNext);
     await setCircumstances(safeNext);
+  }
+
+  async function handleUiLanguageChange(language: Language) {
+    setUiLanguageState(language);
+    await setUiLanguage(language);
+    await i18n.changeLanguage(language);
+  }
+
+  async function handleQuoteLanguageChange(language: Language) {
+    setQuoteLanguageState(language);
+    await setQuoteLanguage(language);
   }
 
   function updateSettings(patch: Partial<NotificationSettings>) {
@@ -96,7 +120,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   async function handleSave() {
     const [circumstances, events] = await Promise.all([getCircumstances(), getEvents()]);
     await setNotificationSettings(settings);
-    const result = await rescheduleAllNotifications(settings, circumstances, events);
+    const result = await rescheduleAllNotifications(settings, circumstances, events, quoteLanguage);
 
     if (settings.enabled && result.scheduledCount === 0 && result.skippedTimes.length === 0) {
       setSaveStatus({ kind: 'permission_denied' });
@@ -115,17 +139,15 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Settings</Text>
+        <Text style={styles.title}>{t('settings.title')}</Text>
 
-        <Text style={styles.sectionTitle}>Your circumstances</Text>
-        <Text style={styles.subtitle}>
-          This changes which kind words show up around the app.
-        </Text>
+        <Text style={styles.sectionTitle}>{t('settings.circumstancesTitle')}</Text>
+        <Text style={styles.subtitle}>{t('settings.circumstancesSubtitle')}</Text>
         <View style={styles.chipRow}>
           {CIRCUMSTANCES.map((c) => (
             <CircumstanceChip
               key={c.id}
-              label={c.label}
+              label={t(`circumstances.${c.id}`)}
               emoji={c.emoji}
               selected={selectedCircumstances.includes(c.id)}
               onPress={() => toggleCircumstance(c.id)}
@@ -135,13 +157,13 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
         <View style={styles.divider} />
 
-        <Text style={styles.sectionTitle}>Appearance</Text>
-        <Text style={styles.subtitle}>Pick whichever feels most like home.</Text>
+        <Text style={styles.sectionTitle}>{t('settings.appearanceTitle')}</Text>
+        <Text style={styles.subtitle}>{t('settings.appearanceSubtitle')}</Text>
         <View style={styles.chipRow}>
           {WORLD_OPTIONS.map((w) => (
             <CircumstanceChip
               key={w.id}
-              label={w.label}
+              label={t(`worlds.${w.id}`)}
               emoji={w.emoji}
               selected={worldId === w.id}
               onPress={() => setWorldId(w.id)}
@@ -151,8 +173,39 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
         <View style={styles.divider} />
 
+        <Text style={styles.sectionTitle}>{t('settings.languageTitle')}</Text>
+        <Text style={styles.label}>{t('settings.uiLanguageLabel')}</Text>
+        <Text style={styles.subtitle}>{t('settings.uiLanguageSubtitle')}</Text>
+        <View style={styles.chipRow}>
+          {LANGUAGE_OPTIONS.map((l) => (
+            <CircumstanceChip
+              key={l.id}
+              label={l.label}
+              emoji={l.emoji}
+              selected={uiLanguage === l.id}
+              onPress={() => handleUiLanguageChange(l.id)}
+            />
+          ))}
+        </View>
+
+        <Text style={[styles.label, { marginTop: 16 }]}>{t('settings.quoteLanguageLabel')}</Text>
+        <Text style={styles.subtitle}>{t('settings.quoteLanguageSubtitle')}</Text>
+        <View style={styles.chipRow}>
+          {LANGUAGE_OPTIONS.map((l) => (
+            <CircumstanceChip
+              key={l.id}
+              label={l.label}
+              emoji={l.emoji}
+              selected={quoteLanguage === l.id}
+              onPress={() => handleQuoteLanguageChange(l.id)}
+            />
+          ))}
+        </View>
+
+        <View style={styles.divider} />
+
         <View style={styles.rowBetween}>
-          <Text style={styles.sectionTitle}>Kind word reminders</Text>
+          <Text style={styles.sectionTitle}>{t('settings.remindersTitle')}</Text>
           <Switch
             value={settings.enabled}
             onValueChange={(enabled) => updateSettings({ enabled })}
@@ -162,7 +215,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
         {settings.enabled && (
           <>
-            <Text style={styles.label}>How often</Text>
+            <Text style={styles.label}>{t('settings.howOften')}</Text>
             <SegmentedControl
               options={FREQUENCY_OPTIONS}
               value={settings.frequency}
@@ -171,7 +224,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
             {(settings.frequency === 'daily' || settings.frequency === 'three_per_week') && (
               <TimeRow
-                label={settings.frequency === 'daily' ? 'Notification time' : 'Time (Mon/Wed/Fri)'}
+                label={t(settings.frequency === 'daily' ? 'settings.notificationTime' : 'settings.timeMonWedFri')}
                 time={settings.times[0] ?? '09:00'}
                 onChange={(time) => updateTimeAt(0, time)}
               />
@@ -183,9 +236,9 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
                   <View key={index} style={styles.customTimeRow}>
                     <View style={styles.customTimeField}>
                       <TimeRow
-                        label={`Time ${index + 1}`}
+                        label={t('settings.timeNumbered', { number: index + 1 })}
                         time={time}
-                        onChange={(t) => updateTimeAt(index, t)}
+                        onChange={(newTime) => updateTimeAt(index, newTime)}
                       />
                     </View>
                     {settings.times.length > 1 && (
@@ -197,28 +250,26 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
                 ))}
                 {settings.times.length < 5 && (
                   <Pressable onPress={addCustomTime} style={styles.addTimeButton}>
-                    <Text style={styles.addTimeButtonText}>+ Add another time</Text>
+                    <Text style={styles.addTimeButtonText}>{t('settings.addAnotherTime')}</Text>
                   </Pressable>
                 )}
               </>
             )}
 
-            <Text style={[styles.label, { marginTop: 20 }]}>Quiet hours</Text>
-            <Text style={styles.subtitle}>
-              We won't schedule reminders inside this window.
-            </Text>
+            <Text style={[styles.label, { marginTop: 20 }]}>{t('settings.quietHours')}</Text>
+            <Text style={styles.subtitle}>{t('settings.quietHoursSubtitle')}</Text>
             <TimeRow
-              label="Starts"
+              label={t('settings.quietHoursStarts')}
               time={settings.quietHoursStart}
               onChange={(time) => updateSettings({ quietHoursStart: time })}
             />
             <TimeRow
-              label="Ends"
+              label={t('settings.quietHoursEnds')}
               time={settings.quietHoursEnd}
               onChange={(time) => updateSettings({ quietHoursEnd: time })}
             />
 
-            <Text style={[styles.label, { marginTop: 20 }]}>Lock screen</Text>
+            <Text style={[styles.label, { marginTop: 20 }]}>{t('settings.lockScreen')}</Text>
             <SegmentedControl
               options={VISIBILITY_OPTIONS}
               value={settings.lockScreenVisibility}
@@ -228,19 +279,21 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
         )}
 
         <Pressable style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.saveButtonText}>Save</Text>
+          <Text style={styles.saveButtonText}>{t('common.save')}</Text>
         </Pressable>
 
         {saveStatus.kind === 'saved' && (
           <View style={styles.statusBox}>
             <Text style={styles.statusText}>
               {saveStatus.scheduledCount > 0
-                ? `Saved. Scheduled ${saveStatus.scheduledCount} reminder${saveStatus.scheduledCount === 1 ? '' : 's'}.`
-                : 'Saved. Reminders are turned off.'}
+                ? t(saveStatus.scheduledCount === 1 ? 'settings.scheduledOne' : 'settings.scheduledOther', {
+                    count: saveStatus.scheduledCount,
+                  })
+                : t('settings.savedOff')}
             </Text>
             {saveStatus.skippedTimes.length > 0 && (
               <Text style={styles.statusWarning}>
-                Skipped {saveStatus.skippedTimes.join(', ')} — inside your quiet hours.
+                {t('settings.skippedTimes', { times: saveStatus.skippedTimes.join(', ') })}
               </Text>
             )}
           </View>
@@ -248,15 +301,12 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
         {saveStatus.kind === 'permission_denied' && (
           <View style={styles.statusBox}>
-            <Text style={styles.statusWarning}>
-              Notifications are turned off for Kindwords in your phone's settings. Please
-              allow them there, then try saving again.
-            </Text>
+            <Text style={styles.statusWarning}>{t('settings.permissionDenied')}</Text>
           </View>
         )}
 
         <Pressable onPress={onResetOnboarding} style={styles.resetLink}>
-          <Text style={styles.resetLinkText}>Redo welcome setup</Text>
+          <Text style={styles.resetLinkText}>{t('settings.resetOnboarding')}</Text>
         </Pressable>
       </ScrollView>
     </SafeAreaView>

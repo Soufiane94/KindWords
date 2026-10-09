@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
+import { useTranslation } from 'react-i18next';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
@@ -20,6 +21,7 @@ import {
   getCircumstances,
   getNotificationSettings,
   getEvents,
+  getQuoteLanguage,
 } from '../services/storage';
 import { rescheduleAllNotifications, extractQuoteId } from '../services/notifications';
 import { useTheme } from '../theme/ThemeContext';
@@ -44,6 +46,7 @@ type MainTabsProps = {
 
 function MainTabs({ onResetOnboarding }: MainTabsProps) {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Tab.Navigator
@@ -58,10 +61,10 @@ function MainTabs({ onResetOnboarding }: MainTabsProps) {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} />
-      <Tab.Screen name="Events" component={EventsScreen} />
-      <Tab.Screen name="Settings">
+      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: t('nav.home') }} />
+      <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ tabBarLabel: t('nav.favorites') }} />
+      <Tab.Screen name="Events" component={EventsScreen} options={{ tabBarLabel: t('nav.events') }} />
+      <Tab.Screen name="Settings" options={{ tabBarLabel: t('nav.settings') }}>
         {() => <SettingsScreen onResetOnboarding={onResetOnboarding} />}
       </Tab.Screen>
     </Tab.Navigator>
@@ -128,12 +131,13 @@ export default function RootNavigator() {
       // Refresh scheduled notifications (new random quotes, latest settings)
       // every time the app opens, so reminders never go stale.
       if (done) {
-        const [circumstances, settings, events] = await Promise.all([
+        const [circumstances, settings, events, quoteLanguage] = await Promise.all([
           getCircumstances(),
           getNotificationSettings(),
           getEvents(),
+          getQuoteLanguage(),
         ]);
-        rescheduleAllNotifications(settings, circumstances, events).catch(() => {
+        rescheduleAllNotifications(settings, circumstances, events, quoteLanguage).catch(() => {
           // Non-fatal: the user can still use the app without reminders.
         });
       }

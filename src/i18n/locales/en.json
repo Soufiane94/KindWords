@@ -1,0 +1,157 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "shareErrorTitle": "Couldn't share that",
+    "shareErrorMessage": "Please try again in a moment."
+  },
+  "nav": {
+    "home": "Home",
+    "favorites": "Favorites",
+    "events": "Events",
+    "settings": "Settings"
+  },
+  "onboarding": {
+    "title": "Welcome to Kindwords",
+    "subtitle": "Which of these feel like you right now? Pick as many as you like — this just helps us choose kinder words for you.",
+    "continue": "Continue"
+  },
+  "home": {
+    "heading": "A kind word for you",
+    "anotherKindWord": "Another kind word"
+  },
+  "settings": {
+    "title": "Settings",
+    "circumstancesTitle": "Your circumstances",
+    "circumstancesSubtitle": "This changes which kind words show up around the app.",
+    "appearanceTitle": "Appearance",
+    "appearanceSubtitle": "Pick whichever feels most like home.",
+    "languageTitle": "Language",
+    "uiLanguageLabel": "App language",
+    "uiLanguageSubtitle": "What the app itself is written in.",
+    "quoteLanguageLabel": "Kind words language",
+    "quoteLanguageSubtitle": "What language the quotes themselves are chosen in — can be different from the app language.",
+    "remindersTitle": "Kind word reminders",
+    "howOften": "How often",
+    "frequency": {
+      "daily": "Daily",
+      "three_per_week": "3x a week",
+      "custom": "Custom"
+    },
+    "notificationTime": "Notification time",
+    "timeMonWedFri": "Time (Mon/Wed/Fri)",
+    "timeNumbered": "Time {{number}}",
+    "addAnotherTime": "+ Add another time",
+    "quietHours": "Quiet hours",
+    "quietHoursSubtitle": "We won't schedule reminders inside this window.",
+    "quietHoursStarts": "Starts",
+    "quietHoursEnds": "Ends",
+    "lockScreen": "Lock screen",
+    "visibility": {
+      "public": "Show on lock screen",
+      "private": "Hide on lock screen"
+    },
+    "savedOff": "Saved. Reminders are turned off.",
+    "scheduledOne": "Saved. Scheduled {{count}} reminder.",
+    "scheduledOther": "Saved. Scheduled {{count}} reminders.",
+    "skippedTimes": "Skipped {{times}} — inside your quiet hours.",
+    "permissionDenied": "Notifications are turned off for Kindwords in your phone's settings. Please allow them there, then try saving again.",
+    "resetOnboarding": "Redo welcome setup"
+  },
+  "events": {
+    "title": "Calendar",
+    "subtitle": "Add a date that matters, and we'll send a kind word the day before and the day after.",
+    "emptyText": "No events yet.",
+    "addEvent": "+ Add event",
+    "editEventTitle": "Edit event",
+    "newEventTitle": "New event",
+    "whatIsIt": "What is it?",
+    "titlePlaceholder": "e.g. Math final, Dad's checkup",
+    "typeLabel": "Type",
+    "dateLabel": "Date",
+    "eventDateLabel": "Event date",
+    "deleteConfirmTitle": "Delete this event?",
+    "deleteButton": "Delete",
+    "deleteEventLink": "Delete event"
+  },
+  "favorites": {
+    "title": "Favorites",
+    "subtitle": "Kind words you've saved to come back to.",
+    "emptyText": "No favorites yet. Tap the heart under a quote on Home to save it here."
+  },
+  "kindWord": {
+    "headerTitle": "Kind word",
+    "closeLabel": "Close",
+    "missingText": "This kind word isn't available anymore.",
+    "snoozeDoneTitle": "Done",
+    "hideQuoteTitle": "Got it",
+    "hideQuoteMessage": "We won't send that one again."
+  },
+  "quoteActions": {
+    "save": "Save",
+    "saved": "Saved",
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites",
+    "share": "Share",
+    "shareAccessibility": "Share this quote as an image",
+    "snooze": "Snooze",
+    "snoozeAccessibility": "Snooze kind words or hide this quote"
+  },
+  "snoozeMenu": {
+    "hour": "Pause kind words for 1 hour",
+    "tomorrow": "Pause kind words until tomorrow",
+    "threeDays": "Pause kind words for 3 days",
+    "dontShowAgain": "Don't show me this quote again"
+  },
+  "notifications": {
+    "channelName": "Kind words",
+    "title": "A kind word for you",
+    "beforeEventTitle": "Thinking of you",
+    "afterEventTitle": "Checking in on you",
+    "snoozedHour": "Paused kind words for 1 hour.",
+    "snoozedTomorrow": "Paused kind words until tomorrow.",
+    "snoozedThreeDays": "Paused kind words for 3 days."
+  },
+  "circumstances": {
+    "student": "Student",
+    "worker": "Working",
+    "parent": "Parent",
+    "widowed": "Widow / Widower",
+    "living_alone": "Living alone",
+    "patient": "Managing an illness",
+    "religious": "Religious / Spiritual",
+    "caregiver": "Caregiver",
+    "grieving": "Grieving a loss",
+    "breakup": "Breakup or divorce",
+    "new_parent": "New parent / expecting",
+    "far_from_home": "Far from home",
+    "overwhelmed": "Anxious or overwhelmed",
+    "job_searching": "Job searching",
+    "older_adult": "Older adult / retired",
+    "other": "Just here for kind words"
+  },
+  "eventTypes": {
+    "exam": "Exam",
+    "job_interview": "Job interview",
+    "medical_appointment": "Medical appointment",
+    "grief_anniversary": "Anniversary / grief day",
+    "family_event": "Family event",
+    "other": "Other"
+  },
+  "worlds": {
+    "simple": "Simple",
+    "nature": "Nature",
+    "space": "Space",
+    "medieval": "Medieval",
+    "desert": "Desert",
+    "ocean": "Ocean",
+    "cabin": "Cozy Cabin",
+    "garden": "Japanese Garden",
+    "storybook": "Storybook",
+    "winter": "Winter",
+    "meadow": "Sunrise Meadow",
+    "letters": "Letters & Ink",
+    "clouds": "Soft Clouds",
+    "quilt": "Patchwork Quilt"
+  }
+}

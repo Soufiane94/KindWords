@@ -1,0 +1,157 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "shareErrorTitle": "No se pudo compartir",
+    "shareErrorMessage": "Inténtalo de nuevo en un momento."
+  },
+  "nav": {
+    "home": "Inicio",
+    "favorites": "Favoritos",
+    "events": "Calendario",
+    "settings": "Ajustes"
+  },
+  "onboarding": {
+    "title": "Bienvenido a Kindwords",
+    "subtitle": "¿Cuál de estas opciones se parece más a cómo te sientes ahora? Elige todas las que quieras — esto solo nos ayuda a elegir mejores palabras para ti.",
+    "continue": "Continuar"
+  },
+  "home": {
+    "heading": "Una palabra amable para ti",
+    "anotherKindWord": "Otra palabra amable"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "circumstancesTitle": "Tu situación",
+    "circumstancesSubtitle": "Esto cambia qué palabras amables aparecen en la app.",
+    "appearanceTitle": "Apariencia",
+    "appearanceSubtitle": "Elige lo que más se sienta como en casa.",
+    "languageTitle": "Idioma",
+    "uiLanguageLabel": "Idioma de la app",
+    "uiLanguageSubtitle": "El idioma en el que está escrita la app.",
+    "quoteLanguageLabel": "Idioma de las palabras amables",
+    "quoteLanguageSubtitle": "El idioma en que se eligen las citas — puede ser distinto del idioma de la app.",
+    "remindersTitle": "Recordatorios de palabras amables",
+    "howOften": "Con qué frecuencia",
+    "frequency": {
+      "daily": "Todos los días",
+      "three_per_week": "3 veces por semana",
+      "custom": "Personalizado"
+    },
+    "notificationTime": "Hora de la notificación",
+    "timeMonWedFri": "Hora (lun/mié/vie)",
+    "timeNumbered": "Hora {{number}}",
+    "addAnotherTime": "+ Añadir otro horario",
+    "quietHours": "Horas silenciosas",
+    "quietHoursSubtitle": "No programaremos recordatorios durante este horario.",
+    "quietHoursStarts": "Empieza",
+    "quietHoursEnds": "Termina",
+    "lockScreen": "Pantalla de bloqueo",
+    "visibility": {
+      "public": "Mostrar en la pantalla de bloqueo",
+      "private": "Ocultar en la pantalla de bloqueo"
+    },
+    "savedOff": "Guardado. Los recordatorios están desactivados.",
+    "scheduledOne": "Guardado. {{count}} recordatorio programado.",
+    "scheduledOther": "Guardado. {{count}} recordatorios programados.",
+    "skippedTimes": "Se omitió: {{times}} — dentro de tus horas silenciosas.",
+    "permissionDenied": "Las notificaciones están desactivadas para Kindwords en los ajustes de tu teléfono. Actívalas ahí y vuelve a intentar guardar.",
+    "resetOnboarding": "Repetir la configuración inicial"
+  },
+  "events": {
+    "title": "Calendario",
+    "subtitle": "Añade una fecha importante, y enviaremos una palabra amable el día antes y el día después.",
+    "emptyText": "Todavía no hay eventos.",
+    "addEvent": "+ Añadir evento",
+    "editEventTitle": "Editar evento",
+    "newEventTitle": "Nuevo evento",
+    "whatIsIt": "¿De qué se trata?",
+    "titlePlaceholder": "ej. Examen de matemáticas, revisión de papá",
+    "typeLabel": "Tipo",
+    "dateLabel": "Fecha",
+    "eventDateLabel": "Fecha del evento",
+    "deleteConfirmTitle": "¿Eliminar este evento?",
+    "deleteButton": "Eliminar",
+    "deleteEventLink": "Eliminar evento"
+  },
+  "favorites": {
+    "title": "Favoritos",
+    "subtitle": "Palabras amables que has guardado para volver a ellas.",
+    "emptyText": "Todavía no hay favoritos. Toca el corazón debajo de una cita en Inicio para guardarla aquí."
+  },
+  "kindWord": {
+    "headerTitle": "Palabra amable",
+    "closeLabel": "Cerrar",
+    "missingText": "Esta palabra amable ya no está disponible.",
+    "snoozeDoneTitle": "Hecho",
+    "hideQuoteTitle": "Entendido",
+    "hideQuoteMessage": "No volveremos a enviarte esa."
+  },
+  "quoteActions": {
+    "save": "Guardar",
+    "saved": "Guardado",
+    "addToFavorites": "Añadir a favoritos",
+    "removeFromFavorites": "Quitar de favoritos",
+    "share": "Compartir",
+    "shareAccessibility": "Compartir esta cita como imagen",
+    "snooze": "Pausar",
+    "snoozeAccessibility": "Pausar las palabras amables u ocultar esta cita"
+  },
+  "snoozeMenu": {
+    "hour": "Pausar las palabras amables por 1 hora",
+    "tomorrow": "Pausar las palabras amables hasta mañana",
+    "threeDays": "Pausar las palabras amables por 3 días",
+    "dontShowAgain": "No volver a mostrarme esta cita"
+  },
+  "notifications": {
+    "channelName": "Palabras amables",
+    "title": "Una palabra amable para ti",
+    "beforeEventTitle": "Pensando en ti",
+    "afterEventTitle": "Saber cómo estás",
+    "snoozedHour": "Palabras amables pausadas por 1 hora.",
+    "snoozedTomorrow": "Palabras amables pausadas hasta mañana.",
+    "snoozedThreeDays": "Palabras amables pausadas por 3 días."
+  },
+  "circumstances": {
+    "student": "Estudiante",
+    "worker": "Trabajando",
+    "parent": "Padre o madre",
+    "widowed": "Viudo / Viuda",
+    "living_alone": "Vive solo/a",
+    "patient": "Vive con una enfermedad",
+    "religious": "Religioso/a / Espiritual",
+    "caregiver": "Cuidador/a",
+    "grieving": "De duelo",
+    "breakup": "Ruptura o divorcio",
+    "new_parent": "Padre/madre reciente o en camino",
+    "far_from_home": "Lejos de casa",
+    "overwhelmed": "Ansioso/a o agobiado/a",
+    "job_searching": "Buscando trabajo",
+    "older_adult": "Adulto mayor / jubilado/a",
+    "other": "Solo aquí por las palabras amables"
+  },
+  "eventTypes": {
+    "exam": "Examen",
+    "job_interview": "Entrevista de trabajo",
+    "medical_appointment": "Cita médica",
+    "grief_anniversary": "Aniversario / día de duelo",
+    "family_event": "Evento familiar",
+    "other": "Otro"
+  },
+  "worlds": {
+    "simple": "Simple",
+    "nature": "Naturaleza",
+    "space": "Espacio",
+    "medieval": "Medieval",
+    "desert": "Desierto",
+    "ocean": "Océano",
+    "cabin": "Cabaña acogedora",
+    "garden": "Jardín japonés",
+    "storybook": "Cuento de hadas",
+    "winter": "Invierno",
+    "meadow": "Pradera al amanecer",
+    "letters": "Cartas y tinta",
+    "clouds": "Nubes suaves",
+    "quilt": "Colcha de retazos"
+  }
+}

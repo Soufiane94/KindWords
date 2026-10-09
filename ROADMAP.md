@@ -213,30 +213,90 @@ app (lonely, grieving, unwell, overwhelmed), not just look nice:
   misread as bleak rather than comforting for someone already feeling
   alone, which isn't a risk worth taking for a subtle code-drawn scene.
 
-## Phase 6 — Languages
+## Phase 6 — Languages ✅ done
 Languages: English, French, and Moroccan Arabic (Darija).
-- Add an i18n layer (`i18next` + `react-i18next`, `expo-localization` to
-  detect the phone language). Move every UI string out of the code into
-  translation files (`en`, `fr`, `ary`).
-- Language picker in Settings, defaulting to the phone language.
-- Quotes per language: the library is tagged with a `language` field and the
-  app only picks quotes in the chosen language. Quotes are written natively
-  in each language, not machine-translated, so they keep their warmth.
-  Have a native speaker review the French and Darija quotes.
-- Moroccan Darija decisions to make first:
-  - Script: Arabic script (right-to-left), Latin letters ("Arabizi"), or let
-    the user choose. Arabic script is the main target; Latin as an option
-    is a good idea since many Moroccans type Darija that way.
-  - Right-to-left layout: mirror the UI when Arabic script is selected
-    (`I18nManager.forceRTL`, which requires an app restart, so ask the user
-    first). Check every screen, tab order, icons with arrows, and the
-    shared quote image.
-  - Fonts: pick an Arabic-script font that suits each world.
-- Notification text, event types, circumstance names, dates and times follow
-  the chosen language.
-- Keep the quote language separate from the UI language in settings, so a
-  user can have a French interface with Darija quotes, for example.
-- Later, easy to add after this foundation: Arabic (MSA), Spanish, Tamazight.
+
+- **Script decision (made up front, as the roadmap asked):** Darija is
+  written in **Latin letters ("Arabizi")**, not Arabic script. This means no
+  `I18nManager.forceRTL`, no RTL layout auditing, and no Arabic-script font
+  hunting for this phase — every world's existing Latin font already covers
+  it. Arabic script + RTL remains a valid option to add later if wanted; see
+  "Not done" below.
+- i18n layer added: `i18next` + `react-i18next`, with `expo-localization` to
+  detect the phone's language at startup (`src/i18n/index.ts`). A device set
+  to French defaults to French; a device set to Arabic defaults to Darija
+  (this app's main audience is Moroccan); anything else defaults to English.
+  `expo-localization` has native code, so **this needs a new EAS dev-client
+  build** before testing on-device (see Testing section) — i18next and
+  react-i18next themselves are plain JS.
+- Every UI string moved out of components into `src/i18n/locales/{en,fr,ary}
+  .json`, looked up with `useTranslation()`. Circumstance names
+  (`src/data/circumstances.ts`), event type names (`src/data/eventTypes.ts`),
+  and world names (`src/data/worlds.ts`) all dropped their hardcoded English
+  `label`/`name` and are now looked up the same way (`circumstances.<id>`,
+  `eventTypes.<id>`, `worlds.<id>`) — those data files now only hold
+  ids/emoji, so adding a language never means touching them again.
+- Settings has a new "Language" section with **two separate pickers**, per
+  the roadmap: app language (drives every screen, button, and notification's
+  chrome text) and kind-words language (which quotes get picked), stored
+  under their own keys (`kindwords:uiLanguage` / `kindwords:quoteLanguage` in
+  storage.ts) so e.g. a French interface can show Darija quotes. Both
+  default to the phone's detected language until changed.
+- Quotes: every quote in `quotes.json` now has a `language` field. The
+  existing 80 are tagged `en`. Added 40 new **original** French quotes and
+  40 new original Darija (Latin-letter) quotes — written to match the same
+  warm/gentle tone and circumstance/eventType/mood spread as the English
+  set, not translations of it or of each other. `getRandomQuote()` /
+  `getRandomQuoteForEvent()` (services/quotes.ts) now filter by language
+  first, falling back in order: same-language "other"-tagged quotes → any
+  quote in that language → any quote in any language (so a thinner library
+  never shows nothing) → ignore "hidden" as the last resort, same as before.
+- Notification text follows the **app** language (title chrome like "A kind
+  word for you"/"Thinking of you", and the Android channel name — channel
+  *name* can be updated after creation even though importance/visibility
+  can't); the notification *body* is the quote text, which follows the
+  **kind-words** language. `rescheduleAllNotifications()` now takes the
+  chosen quote language explicitly; UI-language strings are read live off
+  the shared i18next instance since the app language and the UI language
+  are the same thing by definition.
+- Dates and times follow the chosen language, formatted by hand
+  (`src/i18n/dateNames.ts` + `DateRow`/`TimeRow`) instead of
+  `Date#toLocaleDateString` — there's no real device locale for "Darija in
+  Latin letters" for `Intl` to format against. English keeps its existing
+  "Mon, Jan 5" / 12-hour "9:00 AM" style; French and Darija use the day-first
+  order each actually uses ("lun. 5 janv." / "Tnin 5 Yanvir") and a plain
+  24-hour clock, with Darija's month names matching the French-derived ones
+  actually used in Morocco (Yanvir, Febrayer, ... Dejanbir), not the
+  Levantine Arabic set.
+- **Needs a native speaker's review before release**, exactly as this phase
+  already called for — both the French and, especially, the Darija content
+  (the 40 new quotes in `quotes.json` with `"language": "ary"`, and every
+  string in `src/i18n/locales/ary.json`) were written by Claude, not a
+  native speaker. Darija has no single standard spelling, and this pass
+  made a deliberate simplification around gendered 2nd-person address
+  (Darija verbs/pronouns inflect for the listener's gender; this content
+  defaults to one unmarked form throughout rather than alternating or
+  duplicating it) that a native speaker may want to revisit. Review the
+  `ary` entries first — they carry the most linguistic risk.
+- **Update:** added Spanish (`es`) — UI strings
+  (`src/i18n/locales/es.json`), 40 new original quotes in `quotes.json`, and
+  its own weekday/month names in `dateNames.ts` (day-first order, 24-hour
+  clock, same as French). Device detection now also maps an `es` phone
+  locale to it.
+- **Update:** temporarily hid Darija from both Settings language pickers
+  (commented out of `LANGUAGE_OPTIONS` in `src/data/languages.ts`, with a
+  comment explaining why) since the native-speaker review called for above
+  hadn't happened yet and the translation needs work first. The `ary`
+  language code, its quotes, and `src/i18n/locales/ary.json` all stay in the
+  codebase and keep working for anyone who already had it selected —
+  re-adding it to the picker is a one-line uncomment once it's been
+  reviewed.
+- Not done (deferred, matching the script decision above): Arabic script as
+  a second Darija option, RTL mirroring, and an Arabic-script font. All of
+  this app's date/time and quote-picking logic is already language-keyed, so
+  adding it later is mostly a script/layout problem, not a re-plumbing one.
+- Later, still easy to add after this foundation: Arabic (MSA),
+  Tamazight.
 
 ## Phase 7 — Personal touches
 - Thumbs-down on a quote ("not for me"): the quote is hidden for that user

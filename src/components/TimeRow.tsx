@@ -6,7 +6,9 @@ import React, { useState, useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { useTheme } from '../theme/ThemeContext';
+import { useUiLanguage } from '../i18n';
 import type { Palette } from '../data/worlds';
+import type { Language } from '../data/languages';
 
 type Props = {
   label: string;
@@ -27,8 +29,14 @@ function dateToHHMM(date: Date): string {
   return `${hour}:${minute}`;
 }
 
-function formatDisplay(hhmm: string): string {
+// English keeps the 12-hour "9:00 AM" it always had; French, Spanish, and
+// Darija use the plain 24-hour clock that's standard in all three, so
+// there's no AM/PM wording to translate.
+function formatDisplay(hhmm: string, language: Language): string {
   const [hour, minute] = hhmm.split(':').map(Number);
+  if (language !== 'en') {
+    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+  }
   const period = hour < 12 ? 'AM' : 'PM';
   const hour12 = hour % 12 === 0 ? 12 : hour % 12;
   return `${hour12}:${minute.toString().padStart(2, '0')} ${period}`;
@@ -37,6 +45,7 @@ function formatDisplay(hhmm: string): string {
 export default function TimeRow({ label, time, onChange }: Props) {
   const [showPicker, setShowPicker] = useState(false);
   const { colors } = useTheme();
+  const language = useUiLanguage();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   function handleChange(event: DateTimePickerEvent, selectedDate?: Date) {
@@ -50,7 +59,7 @@ export default function TimeRow({ label, time, onChange }: Props) {
     <View style={styles.row}>
       <Text style={styles.label}>{label}</Text>
       <Pressable style={styles.timeButton} onPress={() => setShowPicker(true)}>
-        <Text style={styles.timeText}>{formatDisplay(time)}</Text>
+        <Text style={styles.timeText}>{formatDisplay(time, language)}</Text>
       </Pressable>
       {showPicker && (
         <DateTimePicker value={hhmmToDate(time)} mode="time" onChange={handleChange} />

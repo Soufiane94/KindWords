@@ -1,0 +1,157 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "shareErrorTitle": "Impossible de partager",
+    "shareErrorMessage": "Merci de réessayer dans un instant."
+  },
+  "nav": {
+    "home": "Accueil",
+    "favorites": "Favoris",
+    "events": "Calendrier",
+    "settings": "Réglages"
+  },
+  "onboarding": {
+    "title": "Bienvenue sur Kindwords",
+    "subtitle": "Qu'est-ce qui te correspond en ce moment ? Choisis-en autant que tu veux — ça nous aide juste à te proposer des mots plus justes.",
+    "continue": "Continuer"
+  },
+  "home": {
+    "heading": "Un mot doux pour toi",
+    "anotherKindWord": "Un autre mot doux"
+  },
+  "settings": {
+    "title": "Réglages",
+    "circumstancesTitle": "Ta situation",
+    "circumstancesSubtitle": "Ça change les mots doux qui apparaissent dans l'app.",
+    "appearanceTitle": "Apparence",
+    "appearanceSubtitle": "Choisis ce qui te semble le plus chez toi.",
+    "languageTitle": "Langue",
+    "uiLanguageLabel": "Langue de l'app",
+    "uiLanguageSubtitle": "La langue dans laquelle l'app elle-même est écrite.",
+    "quoteLanguageLabel": "Langue des mots doux",
+    "quoteLanguageSubtitle": "La langue des citations elles-mêmes — peut être différente de la langue de l'app.",
+    "remindersTitle": "Rappels de mots doux",
+    "howOften": "À quelle fréquence",
+    "frequency": {
+      "daily": "Tous les jours",
+      "three_per_week": "3x par semaine",
+      "custom": "Personnalisé"
+    },
+    "notificationTime": "Heure de la notification",
+    "timeMonWedFri": "Heure (lun/mer/ven)",
+    "timeNumbered": "Heure {{number}}",
+    "addAnotherTime": "+ Ajouter un autre horaire",
+    "quietHours": "Heures silencieuses",
+    "quietHoursSubtitle": "Nous ne programmerons aucun rappel pendant cette période.",
+    "quietHoursStarts": "Début",
+    "quietHoursEnds": "Fin",
+    "lockScreen": "Écran verrouillé",
+    "visibility": {
+      "public": "Afficher sur l'écran verrouillé",
+      "private": "Masquer sur l'écran verrouillé"
+    },
+    "savedOff": "Enregistré. Les rappels sont désactivés.",
+    "scheduledOne": "Enregistré. {{count}} rappel programmé.",
+    "scheduledOther": "Enregistré. {{count}} rappels programmés.",
+    "skippedTimes": "Ignoré : {{times}} — pendant tes heures silencieuses.",
+    "permissionDenied": "Les notifications sont désactivées pour Kindwords dans les réglages de ton téléphone. Autorise-les là-bas, puis réessaie d'enregistrer.",
+    "resetOnboarding": "Refaire la configuration de bienvenue"
+  },
+  "events": {
+    "title": "Calendrier",
+    "subtitle": "Ajoute une date importante, et on enverra un mot doux la veille et le lendemain.",
+    "emptyText": "Pas encore d'événement.",
+    "addEvent": "+ Ajouter un événement",
+    "editEventTitle": "Modifier l'événement",
+    "newEventTitle": "Nouvel événement",
+    "whatIsIt": "De quoi s'agit-il ?",
+    "titlePlaceholder": "ex. Examen de maths, contrôle de papa",
+    "typeLabel": "Type",
+    "dateLabel": "Date",
+    "eventDateLabel": "Date de l'événement",
+    "deleteConfirmTitle": "Supprimer cet événement ?",
+    "deleteButton": "Supprimer",
+    "deleteEventLink": "Supprimer l'événement"
+  },
+  "favorites": {
+    "title": "Favoris",
+    "subtitle": "Les mots doux que tu as gardés pour y revenir.",
+    "emptyText": "Pas encore de favoris. Touche le cœur sous une citation sur l'accueil pour la garder ici."
+  },
+  "kindWord": {
+    "headerTitle": "Mot doux",
+    "closeLabel": "Fermer",
+    "missingText": "Ce mot doux n'est plus disponible.",
+    "snoozeDoneTitle": "C'est fait",
+    "hideQuoteTitle": "Compris",
+    "hideQuoteMessage": "On ne te renverra plus celle-là."
+  },
+  "quoteActions": {
+    "save": "Garder",
+    "saved": "Gardé",
+    "addToFavorites": "Ajouter aux favoris",
+    "removeFromFavorites": "Retirer des favoris",
+    "share": "Partager",
+    "shareAccessibility": "Partager cette citation en image",
+    "snooze": "Pause",
+    "snoozeAccessibility": "Mettre les mots doux en pause ou masquer cette citation"
+  },
+  "snoozeMenu": {
+    "hour": "Mettre les mots doux en pause pendant 1 heure",
+    "tomorrow": "Mettre les mots doux en pause jusqu'à demain",
+    "threeDays": "Mettre les mots doux en pause pendant 3 jours",
+    "dontShowAgain": "Ne plus me montrer cette citation"
+  },
+  "notifications": {
+    "channelName": "Mots doux",
+    "title": "Un mot doux pour toi",
+    "beforeEventTitle": "On pense à toi",
+    "afterEventTitle": "On prend de tes nouvelles",
+    "snoozedHour": "Mots doux mis en pause pendant 1 heure.",
+    "snoozedTomorrow": "Mots doux mis en pause jusqu'à demain.",
+    "snoozedThreeDays": "Mots doux mis en pause pendant 3 jours."
+  },
+  "circumstances": {
+    "student": "Étudiant(e)",
+    "worker": "En activité",
+    "parent": "Parent",
+    "widowed": "Veuf / Veuve",
+    "living_alone": "Vit seul(e)",
+    "patient": "Vit avec une maladie",
+    "religious": "Croyant(e) / Spirituel(le)",
+    "caregiver": "Aidant(e)",
+    "grieving": "En deuil",
+    "breakup": "Rupture ou divorce",
+    "new_parent": "Jeune parent / futur parent",
+    "far_from_home": "Loin de son pays",
+    "overwhelmed": "Anxieux(se) ou débordé(e)",
+    "job_searching": "En recherche d'emploi",
+    "older_adult": "Senior / retraité(e)",
+    "other": "Juste venu(e) pour les mots doux"
+  },
+  "eventTypes": {
+    "exam": "Examen",
+    "job_interview": "Entretien d'embauche",
+    "medical_appointment": "Rendez-vous médical",
+    "grief_anniversary": "Anniversaire / jour de deuil",
+    "family_event": "Événement familial",
+    "other": "Autre"
+  },
+  "worlds": {
+    "simple": "Simple",
+    "nature": "Nature",
+    "space": "Espace",
+    "medieval": "Médiéval",
+    "desert": "Désert",
+    "ocean": "Océan",
+    "cabin": "Cabane douillette",
+    "garden": "Jardin japonais",
+    "storybook": "Conte de fées",
+    "winter": "Hiver",
+    "meadow": "Prairie au levant",
+    "letters": "Lettres & Encre",
+    "clouds": "Nuages doux",
+    "quilt": "Courtepointe"
+  }
+}
