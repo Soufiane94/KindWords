@@ -140,11 +140,11 @@ export default function SendKindWordScreen({ route, navigation }: Props) {
           />
         )}
 
-        {/* Exactly what will be sent: the card as a picture, or the text as
-            it will arrive. */}
+        {/* Exactly what will be sent: the card as a picture, framed in the
+            user's world, or the text as it will arrive. */}
         <View style={styles.preview}>
           {message !== '' && format === 'picture' && (
-            <QuoteCard quote={{ text: message }} ref={cardRef} capturing={capturing} />
+            <QuoteCard quote={{ text: message }} framed ref={cardRef} capturing={capturing} />
           )}
           {message !== '' && format === 'text' && (
             <View style={styles.textBubble}>

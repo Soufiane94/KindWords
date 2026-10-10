@@ -1,11 +1,13 @@
 // A handful of leaves drifting in from the corners for the Nature world.
 // Simple pointed-oval shapes (not real botanical illustrations) kept at
 // low opacity so they never compete with the quote text on top.
+// NatureFrame: the same leaves, still, around a shared picture's card.
 
 import React from 'react';
 import { Animated, StyleSheet } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { useLoopingValue } from './useLoopingValue';
+import FramePiece, { FrameSpot } from './FramePiece';
 
 const LEAF_PATH = 'M0 25 Q12 0 25 0 Q38 0 50 25 Q38 50 25 50 Q12 50 0 25 Z';
 const VEIN_PATH = 'M3 25 Q25 16 47 25';
@@ -66,6 +68,37 @@ export default function NatureDecorations() {
     <>
       {LEAVES.map((spec, i) => (
         <Leaf key={i} spec={spec} />
+      ))}
+    </>
+  );
+}
+
+type FrameLeaf = FrameSpot & { width: number; height: number; rotate: number; color: string; vein: string };
+
+// Two sprigs of three leaves fan out from behind opposite corners of the
+// card (each leaf's base is hidden behind the corner), plus one leaf in
+// each other corner.
+const FRAME_LEAVES: FrameLeaf[] = [
+  { left: -14, top: 22, width: 48, height: 17, rotate: 12, color: '#A3C98F', vein: '#7AAE68' },
+  { left: -12, top: 7, width: 54, height: 19, rotate: 46, color: '#7AAE68', vein: '#5C8C4A' },
+  { left: 8, top: 5, width: 46, height: 16, rotate: 82, color: '#8FBF7A', vein: '#6B9A56' },
+  { right: -14, bottom: 22, width: 48, height: 17, rotate: 12, color: '#8FBF7A', vein: '#6B9A56' },
+  { right: -12, bottom: 7, width: 54, height: 19, rotate: 46, color: '#7AAE68', vein: '#5C8C4A' },
+  { right: 8, bottom: 5, width: 46, height: 16, rotate: 82, color: '#A3C98F', vein: '#7AAE68' },
+  { right: 4, top: 8, width: 36, height: 14, rotate: -42, color: '#A3C98F', vein: '#7AAE68' },
+  { left: 4, bottom: 8, width: 36, height: 14, rotate: -42, color: '#8FBF7A', vein: '#6B9A56' },
+];
+
+export function NatureFrame() {
+  return (
+    <>
+      {FRAME_LEAVES.map(({ rotate, color, vein, ...box }, i) => (
+        // Stretched to a long, narrow box, the round screen leaf becomes a
+        // slimmer one.
+        <FramePiece key={i} style={box} rotate={rotate} viewBox="0 0 50 50" stretch>
+          <Path d={LEAF_PATH} fill={color} opacity={0.7} />
+          <Path d={VEIN_PATH} stroke={vein} strokeWidth={1.5} fill="none" opacity={0.6} />
+        </FramePiece>
       ))}
     </>
   );

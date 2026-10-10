@@ -1,10 +1,13 @@
 // A firelight glow in one corner and a few rain streaks in the other, for
 // the Cozy Cabin world — warmth inside, weather outside.
+// CabinFrame: the same firelight and rain around a shared picture's card,
+// still, with a few embers rising from the fire.
 
 import React from 'react';
-import { Animated, StyleSheet } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 import Svg, { Ellipse, Line } from 'react-native-svg';
 import { useLoopingValue } from './useLoopingValue';
+import { FrameGlow, FrameSpot } from './FramePiece';
 
 function FireGlow() {
   const t = useLoopingValue(1400);
@@ -51,6 +54,38 @@ export default function CabinDecorations() {
   );
 }
 
+const FRAME_EMBERS: (FrameSpot & { size: number; opacity: number })[] = [
+  { left: 12, bottom: 64, size: 3, opacity: 0.8 },
+  { left: 20, bottom: 90, size: 2, opacity: 0.6 },
+  { left: 9, bottom: 112, size: 2.4, opacity: 0.5 },
+];
+
+const FRAME_RAIN: (FrameSpot & { length: number; opacity: number })[] = [
+  { right: 10, top: 10, length: 18, opacity: 0.5 },
+  { right: 19, top: 38, length: 14, opacity: 0.4 },
+  { right: 7, top: 60, length: 20, opacity: 0.45 },
+  { right: 44, top: 5, length: 12, opacity: 0.35 },
+  { right: 74, top: 11, length: 13, opacity: 0.3 },
+  { right: 15, top: 92, length: 12, opacity: 0.3 },
+];
+
+export function CabinFrame() {
+  return (
+    <>
+      <FrameGlow style={styles.frameGlow} color="#E08A3C" opacity={0.6} />
+      {FRAME_EMBERS.map(({ size, opacity, ...spot }, i) => (
+        <View
+          key={`ember${i}`}
+          style={[styles.ember, spot, { width: size, height: size, borderRadius: size / 2, opacity }]}
+        />
+      ))}
+      {FRAME_RAIN.map(({ length, opacity, ...spot }, i) => (
+        <View key={`rain${i}`} style={[styles.streak, spot, { height: length, opacity }]} />
+      ))}
+    </>
+  );
+}
+
 const styles = StyleSheet.create({
   glow: {
     position: 'absolute',
@@ -61,5 +96,23 @@ const styles = StyleSheet.create({
   },
   drop: {
     position: 'absolute',
+  },
+  // Centered on the picture's bottom-left corner.
+  frameGlow: {
+    left: -80,
+    bottom: -80,
+    width: 190,
+    height: 190,
+  },
+  ember: {
+    position: 'absolute',
+    backgroundColor: '#F2A65A',
+  },
+  streak: {
+    position: 'absolute',
+    width: 1.6,
+    borderRadius: 1,
+    backgroundColor: '#BFD4E0',
+    transform: [{ rotate: '12deg' }],
   },
 });

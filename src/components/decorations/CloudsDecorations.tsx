@@ -1,11 +1,14 @@
 // A couple of soft cloud shapes drifting sideways for the Soft Clouds
 // world — plain overlapping ellipses, kept very light so the screen stays
 // calm and uncluttered.
+// CloudsFrame: still clouds peeking out from behind a shared picture's
+// card.
 
 import React from 'react';
 import { Animated, StyleSheet } from 'react-native';
-import Svg, { Ellipse } from 'react-native-svg';
+import Svg, { Ellipse, G } from 'react-native-svg';
 import { useDriftingValue } from './useDriftingValue';
+import FramePiece, { FrameSpot } from './FramePiece';
 
 type Pct = `${number}%`;
 type CloudSpec = { top: Pct; size: number; opacity: number; duration: number; delay: number; reverse?: boolean };
@@ -40,6 +43,35 @@ export default function CloudsDecorations() {
     <>
       {CLOUDS.map((spec, i) => (
         <Cloud key={i} spec={spec} />
+      ))}
+    </>
+  );
+}
+
+const FRAME_CLOUDS: (FrameSpot & { size: number })[] = [
+  { left: -14, top: 4, size: 86 },
+  { right: -18, top: '26%', size: 66 },
+  { left: -12, bottom: 22, size: 58 },
+  { right: 26, bottom: -8, size: 76 },
+];
+
+export function CloudsFrame() {
+  return (
+    <>
+      {FRAME_CLOUDS.map(({ size, ...spot }, i) => (
+        <FramePiece key={i} style={[spot, { width: size, height: size * 0.6 }]} viewBox="0 0 90 54">
+          {/* A soft blue underside, so the white still shows where the sky
+              fades to almost white. */}
+          <G fill="#C9DAEA" opacity={0.7}>
+            <Ellipse cx="30" cy="37" rx="28" ry="17" />
+            <Ellipse cx="55" cy="29" rx="22" ry="15" />
+          </G>
+          <G fill="#FFFFFF">
+            <Ellipse cx="30" cy="34" rx="28" ry="18" />
+            <Ellipse cx="55" cy="26" rx="22" ry="16" />
+            <Ellipse cx="42" cy="20" rx="18" ry="14" />
+          </G>
+        </FramePiece>
       ))}
     </>
   );

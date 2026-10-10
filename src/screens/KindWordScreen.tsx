@@ -122,7 +122,7 @@ export default function KindWordScreen({ route, navigation }: Props) {
       {card ? (
         <>
           <View style={styles.content}>
-            <QuoteCard quote={card} ref={cardRef} capturing={capturing} />
+            <QuoteCard quote={card} />
             {quote ? (
               <QuoteActions
                 isFavorite={isFavorite}
@@ -135,6 +135,20 @@ export default function KindWordScreen({ route, navigation }: Props) {
               <QuoteActions onShare={share} onSnooze={() => setMenuVisible(true)} />
             )}
           </View>
+
+          {/* The picture a note's "Share" sends: the card framed in its
+              world, like on the Send screen. Kept out of sight, since on
+              this screen the card already sits in its world. */}
+          {!quote && (
+            <View
+              style={styles.offscreen}
+              pointerEvents="none"
+              importantForAccessibility="no-hide-descendants"
+              accessibilityElementsHidden
+            >
+              <QuoteCard quote={card} framed ref={cardRef} capturing={capturing} />
+            </View>
+          )}
 
           <SnoozeMenu visible={menuVisible} onClose={() => setMenuVisible(false)} onSnooze={handleSnooze} />
         </>
@@ -183,6 +197,16 @@ function createStyles(world: World) {
       fontSize: 15,
       color: colors.mutedText,
       textAlign: 'center',
+    },
+    // Just past the screen's right edge: laid out like any other view, so
+    // it can be captured, but never seen. As wide as the Send screen's
+    // preview, so pictures come out the same size from both.
+    offscreen: {
+      position: 'absolute',
+      top: 0,
+      left: '100%',
+      width: '100%',
+      paddingHorizontal: 24,
     },
   });
 }

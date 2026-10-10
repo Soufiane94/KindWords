@@ -538,6 +538,68 @@ Spanish, and Darija. As with Phases 6 and 7, the French, Spanish, and
 especially the Darija strings were written by Claude and need a native
 speaker's review before release.
 
+### 8D — Adjustments ✅ done
+- **Quotation marks removed from the card**, rather than adding a closing
+  one at the bottom. The single “ at the top looked unfinished, but a
+  matching ” would have made things worse:
+  - Since 8A the card also carries the user's own words to a friend, and
+    notes from loved ones. Quote marks around your own message make it
+    read like you're quoting someone else.
+  - None of the app's kind words has an author. They're the app's own
+    words, and a bare quotation mark only raises "who said this?".
+  - Quotation marks differ by language (“ ” in English, « » in French and
+    Spanish), so a big ” would have doubled down on the English ones.
+  - The new picture frame (below) already gives a shared picture its
+    ornament; quote marks on top of it would be clutter.
+
+  The palette's `quoteMark` color went with them.
+- **Pictures come framed in the sender's world.** A shared picture is now
+  the card on its world's gradient, with a few of the world's decorations,
+  kept still, around its sides and corners: leaves fanning out from behind
+  the corners (Nature), stars and a small ringed planet (Space), a candle
+  on each side (Medieval), dunes and a setting sun (Desert), waves and
+  bubbles (Ocean), firelight, embers and rain (Cozy Cabin), a blossoming
+  branch along the top (Japanese Garden), fairy lights across the top
+  (Storybook), snowflakes, two pines and a warm window glow (Winter), a low
+  sun, light motes and grass (Sunrise Meadow), ink flourishes and a wax
+  seal under the card's corner (Letters & Ink), clouds peeking out from
+  behind the card (Soft Clouds), and a stitched seam with patchwork
+  corners (Patchwork Quilt). Simple stays plain: just the card on its
+  cream background.
+  - `QuoteCard`'s new `framed` prop draws it, with `WorldFrame`
+    (`src/components/WorldFrame.tsx`) for the gradient and decorations,
+    like `WorldBackground` but sized to the picture. Each world's frame
+    (`NatureFrame`, …) lives in the same file as its screen decorations
+    and reuses their shapes. Pieces are placed from the frame's edges, so
+    they stay put however tall the card is.
+  - The frame has rounded corners on screen and square ones while the
+    picture is taken, since many apps show a picture's see-through corners
+    as black. This replaces the 5C fix's capture-time fill: the plain card
+    is never captured anymore.
+- **Only on pictures, not on the card everywhere.** On Home, Favorites and
+  the Kind word screen the card already sits inside its world (the
+  screen's gradient and animated decorations around it). Framing it there
+  too would double every decoration (two sets of leaves, four candles in
+  Medieval) and turn Favorites into a wall of ornaments. A picture leaves
+  that background behind, which is exactly why it needs to bring some of
+  the world along. So the framed card only appears where a picture is
+  made:
+  - The Send screen's preview, which still shows exactly what will be sent
+    (8A).
+  - A note's "Share" on the Kind word screen, which sends the same framed
+    picture. That copy is drawn just off screen for the capture, so the
+    card on screen doesn't change. `react-native-view-shot` draws the view
+    itself rather than taking a screenshot, so this works on Android. Check
+    it on an iPhone in Phase 11; if the picture comes out blank there,
+    view-shot's `useRenderInContext` option is the usual fix.
+- Fixed along the way: the Storybook moon's path drew nothing (its second
+  arc's radius was too small to reach its end point, so both arcs
+  collapsed onto the same half-circle). The screen's moon and the
+  picture's now share a proper crescent.
+- **No new EAS dev-client build needed:** `react-native-svg`,
+  `expo-linear-gradient` and `react-native-view-shot` are already linked,
+  and there are no new UI strings.
+
 ## Phase 9 — AI quotes
 - Small serverless backend that calls the Claude API to generate quotes from
   circumstance + event type + language, with safety guidelines. API key

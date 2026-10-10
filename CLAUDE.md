@@ -27,6 +27,9 @@ keep this tone in mind above all else.
   never sends anything to anyone by itself. Pictures use expo-sharing,
   which only shares files; plain text uses React Native's built-in `Share`
   API. `src/services/share.ts` holds both, plus the Kindwords store link.
+  A picture is a `framed` QuoteCard: the card on its world's gradient with
+  still decorations around it (`src/components/WorldFrame.tsx`). On screen
+  the card stays unframed, since it already sits in its world.
 - Quotes live in `src/data/quotes.json`: each quote has
   `{ id, text, author?, circumstances: [], eventTypes: [], mood, language }`.
   Only original or public-domain quotes — never fabricate an attribution to
