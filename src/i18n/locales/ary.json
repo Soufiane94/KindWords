@@ -6,7 +6,8 @@
     "shareDialogTitle": "Partagi had lklma l7elwa",
     "shareErrorTitle": "Ma9dernach npartagiw hadchi",
     "shareErrorMessage": "3awed 7awel m3a chwiya d wqt.",
-    "close": "Sded"
+    "close": "Sded",
+    "everyYear": "koul 3am"
   },
   "nav": {
     "home": "Dar",
@@ -107,10 +108,10 @@
   },
   "events": {
     "title": "Agenda",
-    "subtitle": "Zid date mohima, w ghadi nseftou klma 7lowa nhar 9bel w nhar b3d.",
+    "subtitle": "Zid date mohima, w ghadi nseftou lik klma 7elwa 9bel w b3d.",
     "emptyText": "Mazal ma kayn 7ta événement.",
     "remindersOffHint": "Tnbihat dyal lklam l7lou mwa99fin f L3dadat, donc walou ma ghadi ytseft daba.",
-    "quietHoursHint": "Sw9at skat dyalek fihom {{time}}, w hiya l wqt dyal lklam l7lou dyal events, donc kaytnehhaw daba.",
+    "quietHoursHint": "Sw9at skat dyalek fihom {{time}}, w hiya l wqt dyal lklam l7lou dyal events bla wqt, donc douk kaytnehhaw daba.",
     "reminderDates": "Lklam l7lou nhar {{dates}} m3a {{time}}",
     "noRemindersLeft": "Ma b9at 7ta klma 7elwa tseft l hada.",
     "addEvent": "+ Zid événement",
@@ -123,7 +124,14 @@
     "eventDateLabel": "Date dyal l événement",
     "deleteConfirmTitle": "Msse7 had l événement?",
     "deleteButton": "Msse7",
-    "deleteEventLink": "Msse7 l événement"
+    "deleteEventLink": "Msse7 l événement",
+    "reminderMoments": "Lklam l7lou: {{moments}}",
+    "timeToggle": "F wqt m7dded",
+    "timeLabel": "Wqt",
+    "timeHelp": "Klma 7elwa katji sa3a wla sa3tin 9bel, w wa7da khra f l3chiya.",
+    "noTimeHelp": "Klma 7elwa katji nhar 9bel w nhar b3d, m3a {{time}}.",
+    "repeatLabel": "Koul 3am",
+    "repeatHelp": "L dikra wla nhar mohim: lklam l7lou kayrje3 koul 3am."
   },
   "notes": {
     "title": "Notat",
@@ -168,7 +176,9 @@
     "someoneYouLove": "chi wa7ed kat7ebbo",
     "deleteConfirmTitle": "Msse7 had nota?",
     "deleteButton": "Msse7",
-    "deleteNoteLink": "Msse7 nota"
+    "deleteNoteLink": "Msse7 nota",
+    "repeatLabel": "Koul 3am",
+    "repeatHelp": "L 3id milad wla dikra: tnbih kayrje3 koul 3am."
   },
   "favorites": {
     "title": "Mfaddal",

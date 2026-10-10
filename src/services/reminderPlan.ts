@@ -5,14 +5,23 @@
 // notifications.
 
 import type { CalendarEvent, NotificationSettings, PersonalNote } from './storage';
-import { addDays, atTime, isoToDate, parseTime, timeOf } from './dates';
+import { addDays, addHours, atTime, isoToDate, isSameDay, parseTime, sameDayInYear, timeOf } from './dates';
 
 // Mon/Wed/Fri, as Date#getDay() numbers (0 = Sunday).
 const THREE_PER_WEEK_DAYS = [1, 3, 5];
 
-// Event reminders always arrive at this local time, so adding an event
-// doesn't mean picking yet another time.
+// Kind words for an event without a time, and reminders to send a note for
+// someone else's day, arrive at this local time, so adding one doesn't mean
+// picking yet another time.
 export const EVENT_REMINDER_TIME = '09:00';
+
+// An event with a time (9F): the "before" kind word comes this many hours
+// before it (the first that isn't past or inside quiet hours)...
+const HOURS_BEFORE_TIMED_EVENT = [2, 1];
+// ...or else the evening before, and the "after" one that evening: at this
+// time, or this many hours after the event if it's later in the day.
+const EVENING_TIME = '19:00';
+const HOURS_AFTER_TIMED_EVENT = 2;
 
 // Regular kind words are lined up as separate one-time notifications (each
 // with its own quote), up to this many days ahead and at most this many at
@@ -123,13 +132,43 @@ export function planRegularReminders(
 
 export type EventReminder = { date: Date; kind: 'before' | 'after' };
 
-// When the kind words for one calendar event arrive: the day before and the
-// day after, at 9:00. If the day-before one can't happen anymore — it's
-// already past (say the event was added the evening before) or it falls
-// inside a snooze — it comes on the morning of the event instead, rather
-// than being silently dropped. Nothing is sent if 9:00 is in quiet hours.
+// The days a yearly date (an event, or someone else's day) could fall on
+// right now: last year's, this year's and next year's, soonest first,
+// leaving out any before the date itself (a yearly date set in the future
+// starts there). Callers plan only the first one with something still to
+// come; the next is planned once it has passed, since the plan is rebuilt
+// every time the app opens.
+function yearlyDays(iso: string, now: Date): Date[] {
+  const first = isoToDate(iso);
+  const year = now.getFullYear();
+  return [year - 1, year, year + 1].map((y) => sameDayInYear(iso, y)).filter((day) => day >= first);
+}
+
+// When the kind words for one calendar event arrive. For an event that
+// comes back every year (9F), that's around its next time.
 export function planEventReminders(
   event: CalendarEvent,
+  settings: NotificationSettings,
+  now: Date,
+  snoozeUntil: number | null
+): EventReminder[] {
+  const days = event.repeatsYearly ? yearlyDays(event.date, now) : [isoToDate(event.date)];
+  for (const day of days) {
+    const reminders = event.time
+      ? planTimedEvent(day, event.time, settings, now, snoozeUntil)
+      : planAllDayEvent(day, settings, now, snoozeUntil);
+    if (reminders.length > 0) return reminders;
+  }
+  return [];
+}
+
+// An event without a time: the day before and the day after, at 9:00. If
+// the day-before one can't happen anymore — it's already past (say the
+// event was added the evening before) or it falls inside a snooze — it
+// comes on the morning of the event instead, rather than being silently
+// dropped. Nothing is sent if 9:00 is in quiet hours.
+function planAllDayEvent(
+  eventDay: Date,
   settings: NotificationSettings,
   now: Date,
   snoozeUntil: number | null
@@ -139,7 +178,6 @@ export function planEventReminders(
   }
 
   const canSend = (date: Date) => date > now && (snoozeUntil === null || date.getTime() >= snoozeUntil);
-  const eventDay = isoToDate(event.date);
   const reminders: EventReminder[] = [];
 
   const dayBefore = atTime(addDays(eventDay, -1), EVENT_REMINDER_TIME);
@@ -154,6 +192,41 @@ export function planEventReminders(
   if (canSend(dayAfter)) {
     reminders.push({ date: dayAfter, kind: 'after' });
   }
+  return reminders;
+}
+
+// An event with a time (9F): the "before" kind word two hours ahead of it,
+// or one hour if two would be past or inside quiet hours, or else at 19:00
+// the evening before. The "after" one that same evening, at 19:00 (or two
+// hours after the event, when it starts after 17:00), or else at 9:00 the
+// next morning. Every moment skips quiet hours and snoozes, and one that
+// can't be sent at all is left out.
+function planTimedEvent(
+  eventDay: Date,
+  time: string,
+  settings: NotificationSettings,
+  now: Date,
+  snoozeUntil: number | null
+): EventReminder[] {
+  const canSend = (date: Date) =>
+    date > now && (snoozeUntil === null || date.getTime() >= snoozeUntil) && !isQuiet(date, settings);
+  const start = atTime(eventDay, time);
+  const reminders: EventReminder[] = [];
+
+  const before = [
+    ...HOURS_BEFORE_TIMED_EVENT.map((hours) => addHours(start, -hours)),
+    atTime(addDays(eventDay, -1), EVENING_TIME),
+  ].find(canSend);
+  if (before) reminders.push({ date: before, kind: 'before' });
+
+  const evening = atTime(eventDay, EVENING_TIME);
+  const afterEnd = addHours(start, HOURS_AFTER_TIMED_EVENT);
+  const sameEvening = afterEnd > evening ? afterEnd : evening;
+  const after = [
+    ...(isSameDay(sameEvening, eventDay) ? [sameEvening] : []),
+    atTime(addDays(eventDay, 1), EVENT_REMINDER_TIME),
+  ].find(canSend);
+  if (after) reminders.push({ date: after, kind: 'after' });
   return reminders;
 }
 
@@ -193,13 +266,18 @@ export function planFutureNote(
 // still the whole day to send it. Like a note to future-you, it waits out
 // quiet hours rather than being dropped — but not a snooze: a pause is
 // about kind words for the user, and waiting one out could mean missing the
-// other person's day. Returns null once that moment has passed.
+// other person's day. Returns null once that moment has passed, except for
+// a day that comes back every year (a birthday, 9F): then it's next year's.
 export function planForSomeoneNote(
   note: PersonalNote,
   settings: NotificationSettings,
   now: Date
 ): Date | null {
   if (note.kind !== 'for_someone' || !note.deliverOn) return null;
-  const moment = nextFreeMoment(atTime(isoToDate(note.deliverOn), EVENT_REMINDER_TIME), settings, null);
-  return moment > now ? moment : null;
+  const days = note.repeatsYearly ? yearlyDays(note.deliverOn, now) : [isoToDate(note.deliverOn)];
+  for (const day of days) {
+    const moment = nextFreeMoment(atTime(day, EVENT_REMINDER_TIME), settings, null);
+    if (moment > now) return moment;
+  }
+  return null;
 }

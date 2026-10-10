@@ -152,6 +152,17 @@ instead:
   passed, and 9:00 the day after) are skipped the same way. Notes to
   future-you are the exception: they wait until quiet hours or a snooze
   end.
+- An event with a time (9F): 2 hours before (else 1 hour before, else
+  19:00 the evening before), and that evening at 19:00 (or 2 hours after
+  when it starts after 17:00, else 9:00 the next morning); each moment
+  skips quiet hours and snoozes. Yearly events and yearly notes for someone
+  else's day only plan their next time; the plan's rebuild on each open
+  picks up the one after.
+- No repeats (9F): picks prefer quotes not in the seen list, and a round
+  ends only when every quote that fits (circumstances, language, not
+  hidden) has been seen (`withSeen`). Home and the widget mark what they
+  show; a notification's quote is marked at the next rebuild once its time
+  has passed (the plan is kept in `kindwords:plannedQuotes`).
 - Regular kind words skip any slot within an hour of an event reminder or
   a note.
 - A snooze / "Not today" skips everything inside it and resumes on its own.

@@ -1,10 +1,12 @@
 // Calendar screen: add/edit/delete events (exams, appointments, grief days,
 // etc.) and get a kind word scheduled the day before and the day after each
-// one, picked to fit the event's type. Each event shows exactly when its
-// kind words will arrive, so it's never a guess whether one is coming.
+// one, picked to fit the event's type. Since 9F an event can have a time,
+// which brings its kind words close around it, and can come back every
+// year. Each event shows exactly when its kind words will arrive, so it's
+// never a guess whether one is coming.
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, TextInput, Modal, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, TextInput, Modal, Alert, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -21,19 +23,26 @@ import {
 } from '../services/storage';
 import { rescheduleAllNotifications } from '../services/notifications';
 import { EVENT_REMINDER_TIME, isWithinQuietHours, planEventReminders } from '../services/reminderPlan';
-import { dateToISO } from '../services/dates';
+import { dateToISO, nextYearlyDay } from '../services/dates';
 import CircumstanceChip from '../components/CircumstanceChip';
 import DateRow from '../components/DateRow';
 import Hint from '../components/Hint';
+import TimeRow from '../components/TimeRow';
 import WorldBackground from '../components/WorldBackground';
 import { useTheme } from '../theme/ThemeContext';
 import { useUiLanguage } from '../i18n';
-import { formatDateDisplay, formatTimeDisplay } from '../i18n/dateNames';
+import { formatDateDisplay, formatMomentDisplay, formatTimeDisplay } from '../i18n/dateNames';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
 
 function eventTypeFor(typeId: string): EventTypeOption {
   return EVENT_TYPES.find((opt) => opt.id === typeId) ?? EVENT_TYPES.find((opt) => opt.id === 'other')!;
+}
+
+// The day an event is shown under: its date, or for one that comes back
+// every year, its next time.
+function shownDate(event: CalendarEvent): string {
+  return event.repeatsYearly ? dateToISO(nextYearlyDay(event.date, new Date())) : event.date;
 }
 
 export default function EventsScreen() {
@@ -43,6 +52,11 @@ export default function EventsScreen() {
   const [title, setTitle] = useState('');
   const [type, setType] = useState(EVENT_TYPES[0].id);
   const [date, setDate] = useState(dateToISO(new Date()));
+  const [time, setTime] = useState<string | null>(null); // null: no time
+  const [repeatsYearly, setRepeatsYearly] = useState(false);
+  // Once the user sets "Every year" themselves, picking a type no longer
+  // changes it.
+  const [repeatTouched, setRepeatTouched] = useState(false);
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState<NotificationSettings | null>(null);
   const [snoozeUntil, setSnoozeUntil] = useState<number | null>(null);
@@ -56,7 +70,7 @@ export default function EventsScreen() {
   const loadEvents = useCallback(() => {
     Promise.all([getEvents(), getNotificationSettings(), getActiveSnoozeUntil()]).then(
       ([loaded, loadedSettings, snooze]) => {
-        const sorted = [...loaded].sort((a, b) => (a.date < b.date ? -1 : 1));
+        const sorted = [...loaded].sort((a, b) => (shownDate(a) < shownDate(b) ? -1 : 1));
         setEvents(sorted);
         setSettings(loadedSettings);
         setSnoozeUntil(snooze);
@@ -75,6 +89,9 @@ export default function EventsScreen() {
     setTitle('');
     setType(EVENT_TYPES[0].id);
     setDate(dateToISO(new Date()));
+    setTime(null);
+    setRepeatsYearly(false);
+    setRepeatTouched(false);
     setModalVisible(true);
   }
 
@@ -83,7 +100,17 @@ export default function EventsScreen() {
     setTitle(event.title);
     setType(event.type);
     setDate(event.date);
+    setTime(event.time ?? null);
+    setRepeatsYearly(event.repeatsYearly ?? false);
+    setRepeatTouched(true);
     setModalVisible(true);
+  }
+
+  // An anniversary or grief day usually comes back every year, so a new one
+  // starts with "Every year" on, until the user decides otherwise.
+  function chooseType(id: string) {
+    setType(id);
+    if (!repeatTouched) setRepeatsYearly(id === 'grief_anniversary');
   }
 
   async function reschedule() {
@@ -92,23 +119,40 @@ export default function EventsScreen() {
     });
   }
 
-  // Event reminders always arrive at the same time, so if quiet hours
-  // cover it, none of them can be sent — worth saying once, up top.
+  // Kind words for events without a time always arrive at the same time, so
+  // if quiet hours cover it, none of them can be sent — worth saying once,
+  // up top.
   const remindersBlockedByQuietHours =
     settings !== null &&
     isWithinQuietHours(EVENT_REMINDER_TIME, settings.quietHoursStart, settings.quietHoursEnd);
 
-  // "Kind words on Fri, Oct 10 & Sun, Oct 12 at 9:00 AM", or a note that
-  // there's nothing left to send. Nothing at all when reminders can't be
-  // sent anyway (the hints at the top explain why).
+  // "Kind words on Fri, Oct 10 & Sun, Oct 12 at 9:00 AM" (or each moment,
+  // for an event with a time), or a note that there's nothing left to send.
+  // Nothing at all when reminders can't be sent anyway (the hints at the top
+  // explain why).
   function describeReminders(event: CalendarEvent): string | null {
-    if (!settings?.enabled || remindersBlockedByQuietHours) return null;
+    if (!settings?.enabled) return null;
+    if (!event.time && remindersBlockedByQuietHours) return null;
     const reminders = planEventReminders(event, settings, new Date(), snoozeUntil);
     if (reminders.length === 0) return t('events.noRemindersLeft');
+    if (event.time) {
+      return t('events.reminderMoments', {
+        moments: reminders.map((reminder) => formatMomentDisplay(reminder.date, language)).join(' & '),
+      });
+    }
     return t('events.reminderDates', {
       dates: reminders.map((reminder) => formatDateDisplay(dateToISO(reminder.date), language)).join(' & '),
       time: formatTimeDisplay(EVENT_REMINDER_TIME, language),
     });
+  }
+
+  // "Exam · Mon, Oct 20, 9:00 AM", plus "every year" when it comes back.
+  function describeEvent(event: CalendarEvent, typeId: string): string {
+    const when = event.time
+      ? `${formatDateDisplay(shownDate(event), language)}, ${formatTimeDisplay(event.time, language)}`
+      : formatDateDisplay(shownDate(event), language);
+    const repeat = event.repeatsYearly ? ` · ${t('common.everyYear')}` : '';
+    return `${t(`eventTypes.${typeId}`)} · ${when}${repeat}`;
   }
 
   async function handleSave() {
@@ -117,10 +161,17 @@ export default function EventsScreen() {
     if (!trimmed || saving) return;
     setSaving(true);
 
+    const details = {
+      title: trimmed,
+      type,
+      date,
+      time: time ?? undefined,
+      repeatsYearly: repeatsYearly || undefined,
+    };
     if (editingId) {
-      await updateEvent({ id: editingId, title: trimmed, type, date });
+      await updateEvent({ id: editingId, ...details });
     } else {
-      await createEvent({ title: trimmed, type, date });
+      await createEvent(details);
     }
     await reschedule();
     setModalVisible(false);
@@ -165,7 +216,7 @@ export default function EventsScreen() {
           events.map((event) => {
             const { id, emoji } = eventTypeFor(event.type);
             const reminders = describeReminders(event);
-            const meta = `${t(`eventTypes.${id}`)} · ${formatDateDisplay(event.date, language)}`;
+            const meta = describeEvent(event, id);
             return (
               <Pressable
                 key={event.id}
@@ -228,13 +279,43 @@ export default function EventsScreen() {
                   label={t(`eventTypes.${opt.id}`)}
                   emoji={opt.emoji}
                   selected={type === opt.id}
-                  onPress={() => setType(opt.id)}
+                  onPress={() => chooseType(opt.id)}
                 />
               ))}
             </View>
 
             <Text style={[styles.label, { marginTop: 20 }]}>{t('events.dateLabel')}</Text>
             <DateRow label={t('events.eventDateLabel')} date={date} onChange={setDate} />
+
+            <View style={[styles.rowBetween, { marginTop: 8 }]}>
+              <Text style={styles.toggleLabel}>{t('events.timeToggle')}</Text>
+              <Switch
+                value={time !== null}
+                onValueChange={(on) => setTime(on ? EVENT_REMINDER_TIME : null)}
+                trackColor={{ true: colors.accent }}
+                accessibilityLabel={t('events.timeToggle')}
+              />
+            </View>
+            {time !== null && <TimeRow label={t('events.timeLabel')} time={time} onChange={setTime} />}
+            <Text style={styles.helpText}>
+              {time !== null
+                ? t('events.timeHelp')
+                : t('events.noTimeHelp', { time: formatTimeDisplay(EVENT_REMINDER_TIME, language) })}
+            </Text>
+
+            <View style={[styles.rowBetween, { marginTop: 16 }]}>
+              <Text style={styles.toggleLabel}>{t('events.repeatLabel')}</Text>
+              <Switch
+                value={repeatsYearly}
+                onValueChange={(on) => {
+                  setRepeatsYearly(on);
+                  setRepeatTouched(true);
+                }}
+                trackColor={{ true: colors.accent }}
+                accessibilityLabel={t('events.repeatLabel')}
+              />
+            </View>
+            <Text style={styles.helpText}>{t('events.repeatHelp')}</Text>
 
             <Pressable
               style={[styles.saveButton, (!title.trim() || saving) && styles.saveButtonDisabled]}
@@ -365,6 +446,23 @@ function createStyles(world: World) {
       flexDirection: 'row',
       flexWrap: 'wrap',
       marginHorizontal: -6,
+    },
+    rowBetween: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    toggleLabel: {
+      flex: 1,
+      fontSize: 15,
+      color: colors.primaryText,
+      marginRight: 12,
+    },
+    helpText: {
+      fontSize: 13,
+      color: colors.secondaryText,
+      lineHeight: 19,
+      marginTop: 4,
     },
     saveButton: {
       backgroundColor: colors.accent,

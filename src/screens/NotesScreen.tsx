@@ -3,11 +3,11 @@
 // messages are slipped in among the regular kind words now and then; a
 // note to future-you arrives once, on the day you pick, and joins the
 // others after that. Phase 8 adds a note for someone else's important day:
-// that morning, the app reminds you to send it. Everything stays on the
-// phone.
+// that morning, the app reminds you to send it (every year, since 9F, for a
+// birthday). Everything stays on the phone.
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, TextInput, Modal, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, TextInput, Modal, Alert, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -24,7 +24,7 @@ import {
 } from '../services/storage';
 import { rescheduleAllNotifications } from '../services/notifications';
 import { EVENT_REMINDER_TIME, planForSomeoneNote } from '../services/reminderPlan';
-import { addDays, dateToISO, todayISO } from '../services/dates';
+import { addDays, dateToISO, nextYearlyDay, todayISO } from '../services/dates';
 import CircumstanceChip from '../components/CircumstanceChip';
 import DateRow from '../components/DateRow';
 import Hint from '../components/Hint';
@@ -52,6 +52,7 @@ export default function NotesScreen() {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [deliverOn, setDeliverOn] = useState(defaultDeliveryDate());
+  const [repeatsYearly, setRepeatsYearly] = useState(false);
   const [saving, setSaving] = useState(false);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { world, colors } = useTheme();
@@ -85,6 +86,7 @@ export default function NotesScreen() {
     setFrom('');
     setTo('');
     setDeliverOn(defaultDeliveryDate());
+    setRepeatsYearly(false);
     setModalVisible(true);
   }
 
@@ -95,6 +97,7 @@ export default function NotesScreen() {
     setFrom(note.from ?? '');
     setTo(note.to ?? '');
     setDeliverOn(note.deliverOn ?? defaultDeliveryDate());
+    setRepeatsYearly(note.repeatsYearly ?? false);
     setModalVisible(true);
   }
 
@@ -118,6 +121,7 @@ export default function NotesScreen() {
       from: kind === 'loved_one' ? from.trim() || undefined : undefined,
       to: kind === 'for_someone' ? to.trim() || undefined : undefined,
       deliverOn: kind === 'future' || kind === 'for_someone' ? deliverOn : undefined,
+      repeatsYearly: kind === 'for_someone' && repeatsYearly ? true : undefined,
     };
     let id: string;
     if (editing) {
@@ -169,12 +173,15 @@ export default function NotesScreen() {
     }
     if (note.kind === 'for_someone') {
       const name = note.to || t('notes.someoneYouLove');
+      const repeat = note.repeatsYearly ? ` · ${t('common.everyYear')}` : '';
       const reminder = settings?.enabled ? planForSomeoneNote(note, settings, new Date()) : null;
       if (reminder) {
-        return `${emoji}${t('notes.metaForSomeone', { name, when: formatMomentDisplay(reminder, language) })}`;
+        return `${emoji}${t('notes.metaForSomeone', { name, when: formatMomentDisplay(reminder, language) })}${repeat}`;
       }
-      const date = formatDateDisplay(note.deliverOn ?? note.createdOn, language);
-      return `${emoji}${t('notes.metaForSomeoneDay', { name, date })}`;
+      // Their next day, for one that comes back every year.
+      const day = note.deliverOn ?? note.createdOn;
+      const shown = note.repeatsYearly ? dateToISO(nextYearlyDay(day, new Date())) : day;
+      return `${emoji}${t('notes.metaForSomeoneDay', { name, date: formatDateDisplay(shown, language) })}${repeat}`;
     }
     if (note.kind === 'future' && note.deliverOn) {
       const date = formatDateDisplay(note.deliverOn, language);
@@ -313,15 +320,27 @@ export default function NotesScreen() {
             {kind === 'for_someone' && (
               <>
                 <Text style={[styles.label, { marginTop: 20 }]}>{t('notes.forSomeoneDayLabel')}</Text>
+                {/* A yearly day can be one that's already been, like a
+                    birthday picked from its original date. */}
                 <DateRow
                   label={t('notes.forSomeoneDateLabel')}
                   date={deliverOn}
                   onChange={setDeliverOn}
-                  minimumDate={todayISO()}
+                  minimumDate={repeatsYearly ? undefined : todayISO()}
                 />
                 <Text style={styles.helpText}>
                   {t('notes.forSomeoneHelp', { time: formatTimeDisplay(EVENT_REMINDER_TIME, language) })}
                 </Text>
+                <View style={styles.rowBetween}>
+                  <Text style={styles.toggleLabel}>{t('notes.repeatLabel')}</Text>
+                  <Switch
+                    value={repeatsYearly}
+                    onValueChange={setRepeatsYearly}
+                    trackColor={{ true: colors.accent }}
+                    accessibilityLabel={t('notes.repeatLabel')}
+                  />
+                </View>
+                <Text style={styles.helpText}>{t('notes.repeatHelp')}</Text>
               </>
             )}
 
@@ -461,6 +480,18 @@ function createStyles(world: World) {
       color: colors.secondaryText,
       lineHeight: 19,
       marginTop: 4,
+    },
+    rowBetween: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginTop: 16,
+    },
+    toggleLabel: {
+      flex: 1,
+      fontSize: 15,
+      color: colors.primaryText,
+      marginRight: 12,
     },
     saveButton: {
       backgroundColor: colors.accent,

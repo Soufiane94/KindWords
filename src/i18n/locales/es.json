@@ -6,7 +6,8 @@
     "shareDialogTitle": "Compartir esta palabra amable",
     "shareErrorTitle": "No se pudo compartir",
     "shareErrorMessage": "Inténtalo de nuevo en un momento.",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "everyYear": "cada año"
   },
   "nav": {
     "home": "Inicio",
@@ -107,10 +108,10 @@
   },
   "events": {
     "title": "Calendario",
-    "subtitle": "Añade una fecha importante, y enviaremos una palabra amable el día antes y el día después.",
+    "subtitle": "Añade una fecha importante, y te enviaremos una palabra amable antes y después.",
     "emptyText": "Todavía no hay eventos.",
     "remindersOffHint": "Los recordatorios de palabras amables están desactivados en Ajustes, así que por ahora no se enviará nada.",
-    "quietHoursHint": "Tus horas silenciosas incluyen las {{time}}, la hora de las palabras amables de eventos, así que por ahora se omiten.",
+    "quietHoursHint": "Tus horas silenciosas incluyen las {{time}}, la hora de las palabras amables de los eventos sin hora, así que por ahora esas se omiten.",
     "reminderDates": "Palabras amables el {{dates}} a las {{time}}",
     "noRemindersLeft": "Ya no quedan palabras amables por enviar para este.",
     "addEvent": "+ Añadir evento",
@@ -123,7 +124,14 @@
     "eventDateLabel": "Fecha del evento",
     "deleteConfirmTitle": "¿Eliminar este evento?",
     "deleteButton": "Eliminar",
-    "deleteEventLink": "Eliminar evento"
+    "deleteEventLink": "Eliminar evento",
+    "reminderMoments": "Palabras amables: {{moments}}",
+    "timeToggle": "A una hora concreta",
+    "timeLabel": "Hora",
+    "timeHelp": "Una palabra amable llega una o dos horas antes, y otra esa misma tarde.",
+    "noTimeHelp": "Una palabra amable llega el día antes y el día después, a las {{time}}.",
+    "repeatLabel": "Cada año",
+    "repeatHelp": "Para un aniversario o un día de recuerdo: las palabras amables vuelven cada año."
   },
   "notes": {
     "title": "Notas",
@@ -168,7 +176,9 @@
     "someoneYouLove": "alguien que quieres",
     "deleteConfirmTitle": "¿Eliminar esta nota?",
     "deleteButton": "Eliminar",
-    "deleteNoteLink": "Eliminar nota"
+    "deleteNoteLink": "Eliminar nota",
+    "repeatLabel": "Cada año",
+    "repeatHelp": "Para un cumpleaños o un aniversario: el aviso vuelve cada año."
   },
   "favorites": {
     "title": "Favoritos",

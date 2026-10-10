@@ -14,7 +14,7 @@ import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import CheckInPrompt from '../components/CheckInPrompt';
 import WorldBackground from '../components/WorldBackground';
-import { getRandomQuote, loadQuotePrefs, Quote, QuotePrefs } from '../services/quotes';
+import { getRandomQuote, loadQuotePrefs, markQuotesSeen, Quote, QuotePrefs } from '../services/quotes';
 import {
   getActiveSnoozeUntil,
   getCheckInEnabled,
@@ -97,6 +97,7 @@ export default function HomeScreen() {
         const next = keep ? current : getRandomQuote(ids, language, loadedPrefs);
         setQuote(next);
         setIsFavorite(favoriteIds.includes(next.id));
+        if (!keep) countAsSeen(next);
       });
       return () => {
         active = false;
@@ -106,9 +107,17 @@ export default function HomeScreen() {
 
   useEffect(() => () => clearTimeout(thanksTimer.current), []);
 
+  // No repeats (9F): a quote shown here won't come back, here or in a
+  // notification or on the widget, before the others that fit have had
+  // their turn.
+  function countAsSeen(shown: Quote) {
+    markQuotesSeen([shown]).then((seenIds) => setPrefs((current) => ({ ...current, seenIds })));
+  }
+
   function showQuote(next: Quote) {
     setQuote(next);
     getFavoriteIds().then((ids) => setIsFavorite(ids.includes(next.id)));
+    countAsSeen(next);
   }
 
   function showAnotherQuote() {

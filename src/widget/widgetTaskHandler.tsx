@@ -9,7 +9,7 @@ import { Platform } from 'react-native';
 import { requestWidgetUpdate, WidgetTaskHandlerProps } from 'react-native-android-widget';
 import { KindWordWidget } from './KindWordWidget';
 import { WORLDS } from '../data/worlds';
-import { getQuoteById, getRandomQuote, loadQuotePrefs } from '../services/quotes';
+import { getQuoteById, getRandomQuote, loadQuotePrefs, markQuotesSeen } from '../services/quotes';
 import {
   getCircumstances,
   getPlainFont,
@@ -46,6 +46,8 @@ async function renderKindWordWidget(keepQuote: boolean) {
     ? current
     : getRandomQuote(circumstances, quoteLanguage, { ...prefs, avoidIds: currentId ? [currentId] : [] });
   await setWidgetQuoteId(quote.id);
+  // A new quote on the home screen counts as seen, like on Home (9F).
+  if (!canKeep) await markQuotesSeen([quote]);
 
   // The app's saved language override is normally applied when the app
   // starts (App.tsx), which may not have happened in a headless task.

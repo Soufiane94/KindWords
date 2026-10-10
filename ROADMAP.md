@@ -3,7 +3,7 @@
 Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
-**Current:** Phase 9 — Release readiness. **Next:** 9F (9A's research is
+**Current:** Phase 9 — Release readiness. **Next:** 9G (9A's research is
 done; the name decision is yours).
 
 Each sub-phase is done on its own, one commit each.
@@ -111,18 +111,11 @@ adds. Details in CHANGELOG.md.
 - [ ] Export on one phone, import on another (or after "Delete all my
   data"), and import the same file twice: nothing should double.
 
-### 9F — Quick product fixes before the test
-- No repeats: go through the whole matching pool before a quote comes back
-  (per language, still respecting "not for me", hidden quotes and check-in
-  weights).
-- Events closer to the original idea (here if quick, otherwise first thing
-  in Phase 11):
-  - Optional event time. With a time, the "before" kind word comes an hour
-    or two before and the "after" one that same evening. Without a time,
-    keep today's behavior (9:00 the day before and the day after).
-  - Yearly repeat for anniversaries and grief days, and for notes for
-    someone else's day (birthdays, from 8C).
-  - Quiet hours still apply.
+### 9F — Quick product fixes before the test ✅
+No repeats until every kind word that fits has had its turn (per language,
+across Home, the widget and notifications). Events can have a time, and
+events and notes for someone else's day can come back every year. Details
+in CHANGELOG.md.
 
 ### 9G — Scheduling tests and reliability
 - Jest unit tests for reminderPlan.ts (pure date math) and quote picking:
@@ -178,7 +171,6 @@ adds. Details in CHANGELOG.md.
   eventTypes, mood, language). A person reviews every quote before it
   ships (same process as 9B). New quote files can reach users through EAS
   Update, without a store release.
-- Event improvements, if not done in 9F.
 - Keep kind words coming for people who stop opening the app (today they
   stop after about two months): a daily background task
   (expo-background-task) that tops up the plan at the weekly pace. New

@@ -14,16 +14,26 @@
 
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
-import { getRandomQuote, getRandomQuoteForEvent, loadQuotePrefs } from './quotes';
+import {
+  getQuoteById,
+  getRandomQuote,
+  getRandomQuoteForEvent,
+  loadQuotePrefs,
+  markQuotesSeen,
+  withSeen,
+} from './quotes';
+import type { Quote, QuotePrefs } from './quotes';
 import {
   getActiveSnoozeUntil,
   getCircumstances,
   getEvents,
   getNotes,
   getNotificationSettings,
+  getPlannedQuotes,
   getQuoteLanguage,
+  setPlannedQuotes,
 } from './storage';
-import type { NotificationSettings, PersonalNote } from './storage';
+import type { NotificationSettings, PersonalNote, PlannedQuote } from './storage';
 import {
   planEventReminders,
   planForSomeoneNote,
@@ -198,8 +208,23 @@ export function rescheduleAllNotifications(
   return run;
 }
 
+// Kind words from the last plan whose time has come were delivered, so they
+// count as seen (9F). That plan is then forgotten: everything still to come
+// in it has just been cancelled. Returns the updated seen list.
+async function recordDeliveredQuotes(): Promise<string[]> {
+  const now = Date.now();
+  const delivered = (await getPlannedQuotes())
+    .filter((planned) => planned.at <= now)
+    .sort((a, b) => a.at - b.at)
+    .map((planned) => getQuoteById(planned.id))
+    .filter((quote): quote is Quote => quote !== undefined);
+  await setPlannedQuotes([]);
+  return markQuotesSeen(delivered);
+}
+
 async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> {
   await Notifications.cancelAllScheduledNotificationsAsync();
+  const seenIds = await recordDeliveredQuotes();
 
   const settings = await getNotificationSettings();
   if (!settings.enabled) return { status: 'off' };
@@ -221,9 +246,20 @@ async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> 
   const now = new Date();
   const scheduledDates: Date[] = [];
 
-  // Today's check-in only describes today, so kind words on later days
-  // don't lean on it.
-  const prefsFor = (date: Date) => ({ ...prefs, checkInMood: isSameDay(date, now) ? prefs.checkInMood : null });
+  // Picks the quote for one notification. Today's check-in only describes
+  // today, so kind words on later days don't lean on it. Each quote picked
+  // counts as seen for the rest of the plan, so the plan doesn't repeat one
+  // before the others have had their turn either (9F), and is remembered
+  // so the next reschedule knows what was delivered.
+  let planSeenIds = seenIds;
+  const planned: PlannedQuote[] = [];
+  function pickQuote(date: Date, pick: (prefs: QuotePrefs) => Quote): Quote {
+    const checkInMood = isSameDay(date, now) ? prefs.checkInMood : null;
+    const quote = pick({ ...prefs, checkInMood, seenIds: planSeenIds });
+    planSeenIds = withSeen(planSeenIds, quote, circumstances, prefs.hiddenIds ?? []);
+    planned.push({ id: quote.id, at: date.getTime() });
+    return quote;
+  }
 
   // Event reminders and notes tied to a day (to future-you, or for someone
   // else) are placed first, and regular kind words make room around them.
@@ -231,7 +267,7 @@ async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> 
     planEventReminders(event, settings, now, snoozeUntil).map((reminder) => ({ event, ...reminder }))
   );
   for (const { event, date, kind } of eventReminders) {
-    const quote = getRandomQuoteForEvent(event.type, quoteLanguage, prefsFor(date));
+    const quote = pickQuote(date, (quotePrefs) => getRandomQuoteForEvent(event.type, quoteLanguage, quotePrefs));
     await scheduleAt(
       date,
       {
@@ -283,7 +319,6 @@ async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> 
   );
 
   const regularDates = planRegularReminders(settings, now, snoozeUntil, [...scheduledDates]);
-  const usedQuoteIds: string[] = [];
   let lastWasNote = false;
   for (const date of regularDates) {
     if (personalNotes.length > 0 && !lastWasNote && Math.random() < PERSONAL_NOTE_CHANCE) {
@@ -291,9 +326,7 @@ async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> 
       await scheduleAt(date, { title: noteTitle(note), body: note.text, data: { noteId: note.id } }, channelId);
       lastWasNote = true;
     } else {
-      // Avoid repeating a quote within the plan until the matching ones run out.
-      const quote = getRandomQuote(circumstances, quoteLanguage, { ...prefsFor(date), avoidIds: usedQuoteIds });
-      usedQuoteIds.push(quote.id);
+      const quote = pickQuote(date, (quotePrefs) => getRandomQuote(circumstances, quoteLanguage, quotePrefs));
       await scheduleAt(
         date,
         { title: i18n.t('notifications.title'), body: quote.text, data: { quoteId: quote.id } },
@@ -303,6 +336,7 @@ async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> 
     }
     scheduledDates.push(date);
   }
+  await setPlannedQuotes(planned);
 
   const times = scheduledDates.map((date) => date.getTime());
   return {

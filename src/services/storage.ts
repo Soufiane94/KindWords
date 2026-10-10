@@ -29,6 +29,8 @@ const KEYS = {
   CHECK_IN_ENABLED: 'kindwords:checkInEnabled',
   WIDGET_QUOTE_ID: 'kindwords:widgetQuoteId',
   PLAIN_FONT: 'kindwords:plainFont',
+  SEEN_QUOTES: 'kindwords:seenQuotes',
+  PLANNED_QUOTES: 'kindwords:plannedQuotes',
 };
 
 export type Frequency = 'daily' | 'three_per_week' | 'custom';
@@ -100,13 +102,16 @@ export async function setCircumstances(ids: string[]): Promise<void> {
 }
 
 // A date someone wants a kind word around, e.g. an exam or a grief
-// anniversary. `date` is a plain "YYYY-MM-DD" (no time) since reminders are
-// scheduled relative to the day, not a specific hour.
+// anniversary. `date` is a plain "YYYY-MM-DD". Since 9F an event can also
+// have a time, which moves its kind words close around it, and can come
+// back every year (anniversaries, days of remembrance).
 export type CalendarEvent = {
   id: string;
   title: string;
   type: string; // matches an id in src/data/eventTypes.ts
   date: string;
+  time?: string; // "HH:mm"
+  repeatsYearly?: boolean;
 };
 
 function generateId(): string {
@@ -157,6 +162,8 @@ export type PersonalNote = {
   // 'future': the "YYYY-MM-DD" it should arrive on.
   // 'for_someone': the other person's day, when the user is reminded to send it.
   deliverOn?: string;
+  // 'for_someone' only (9F): their day comes back every year, like a birthday.
+  repeatsYearly?: boolean;
   createdOn: string; // "YYYY-MM-DD"
 };
 
@@ -334,6 +341,41 @@ export async function getCheckInEnabled(): Promise<boolean> {
 
 export async function setCheckInEnabled(enabled: boolean): Promise<void> {
   await AsyncStorage.setItem(KEYS.CHECK_IN_ENABLED, enabled ? 'true' : 'false');
+}
+
+// No repeats (9F): the quotes shown or delivered since their round started,
+// so the rest of the quotes that fit come first (see withSeen in
+// quotes.ts). Only ever quote ids, never when or where they were seen.
+export async function getSeenQuoteIds(): Promise<string[]> {
+  const value = await AsyncStorage.getItem(KEYS.SEEN_QUOTES);
+  if (!value) return [];
+  try {
+    return JSON.parse(value) as string[];
+  } catch {
+    return [];
+  }
+}
+
+export async function setSeenQuoteIds(ids: string[]): Promise<void> {
+  await AsyncStorage.setItem(KEYS.SEEN_QUOTES, JSON.stringify(ids));
+}
+
+// The quotes the current notification plan will deliver, and when, so the
+// next reschedule can count the ones whose time has come as seen.
+export type PlannedQuote = { id: string; at: number };
+
+export async function getPlannedQuotes(): Promise<PlannedQuote[]> {
+  const value = await AsyncStorage.getItem(KEYS.PLANNED_QUOTES);
+  if (!value) return [];
+  try {
+    return JSON.parse(value) as PlannedQuote[];
+  } catch {
+    return [];
+  }
+}
+
+export async function setPlannedQuotes(planned: PlannedQuote[]): Promise<void> {
+  await AsyncStorage.setItem(KEYS.PLANNED_QUOTES, JSON.stringify(planned));
 }
 
 // The quote the home screen widget is showing, so resizing the widget

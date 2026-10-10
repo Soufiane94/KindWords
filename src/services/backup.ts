@@ -105,7 +105,14 @@ function stringList(value: unknown): string[] {
 function toEvent(value: unknown): CalendarEvent | null {
   if (!isObject(value) || !isString(value.id) || !isString(value.title)) return null;
   if (!isString(value.type) || !isDay(value.date)) return null;
-  return { id: value.id, title: value.title, type: value.type, date: value.date };
+  return {
+    id: value.id,
+    title: value.title,
+    type: value.type,
+    date: value.date,
+    time: isTime(value.time) ? value.time : undefined,
+    repeatsYearly: value.repeatsYearly === true ? true : undefined,
+  };
 }
 
 function toNote(value: unknown): PersonalNote | null {
@@ -119,6 +126,7 @@ function toNote(value: unknown): PersonalNote | null {
     from: isString(value.from) ? value.from : undefined,
     to: isString(value.to) ? value.to : undefined,
     deliverOn: isDay(value.deliverOn) ? value.deliverOn : undefined,
+    repeatsYearly: value.repeatsYearly === true ? true : undefined,
     createdOn: value.createdOn,
   };
 }

@@ -839,3 +839,59 @@ Not done:
   privacy policy say to treat it like a private letter. A password option
   could come later.
 - iOS (Phase 12) backs up differently (iCloud), to check then.
+
+### 9F — Quick product fixes
+**No new EAS dev-client build needed:** plain JS, a Metro reload picks it
+up.
+
+**No repeats.** Before, every pick was random (weighted), only avoiding
+the quote already on screen, so the same kind word could come back the
+next day. Now:
+- A "seen" list (`kindwords:seenQuotes`, quote ids only) makes every pick
+  prefer quotes not seen yet in the current round, still weighted by
+  today's check-in and "not for me", and still leaving out hidden quotes.
+- A round is all the quotes that fit the user's circumstances in one
+  language. Once every one of them has been seen, that language's list
+  starts over, except the quote just shown, so it can't come straight back
+  (`withSeen` in quotes.ts).
+- What counts as seen: a new quote on Home, a new quote on the widget, and
+  kind words delivered as notifications. Notifications are lined up weeks
+  ahead and the plan is rebuilt often, so a planned quote only counts once
+  its time has come: each plan is remembered (`kindwords:plannedQuotes`,
+  ids and times), and the next rebuild marks the ones whose time has
+  passed. Within one plan, each quote picked counts as seen for the rest of
+  it, so a plan doesn't repeat itself either.
+- Event kind words come from their own pool (by event type); they prefer
+  unseen ones too, and count as seen. The Send screen's "Another one" also
+  prefers unseen ones, but browsing there marks nothing, since it's about
+  someone else.
+- Only quote ids are kept, never when something was read. The list isn't
+  part of "Export my data" (it's about this phone's present), and "Delete
+  all my data" erases it.
+
+**Events closer to the original idea**, done here since they turned out to
+be quick:
+- **An optional time** ("At a specific time"). With a time, the "before"
+  kind word comes two hours ahead of it, or one hour if two would be past
+  or inside quiet hours, or else at 19:00 the evening before; the "after"
+  one comes that evening at 19:00 (two hours after the event when it
+  starts after 17:00), or else at 9:00 the next morning. Quiet hours and
+  snoozes still apply to every moment, and one that can't be sent is left
+  out. Without a time, nothing changes: 9:00 the day before (or the
+  morning of, if that has passed) and 9:00 the day after.
+- **Every year**, for events (anniversaries, days of remembrance: on by
+  default for a new "Anniversary / grief day", until the user sets it
+  themselves) and for notes for someone else's day (birthdays). Only the
+  next time is planned: the plan is rebuilt whenever the app opens, so the
+  following year's is planned once this one has passed. February 29 falls
+  on February 28 in other years, and a yearly date set in the future
+  starts there. A yearly note's day can be in the past (the birthday
+  itself).
+- The Events list shows each event's next date, its time and "every year",
+  sorted by next date, and the exact moments of a timed event's kind words.
+  Notes for someone else show "every year" and the next reminder.
+- Export and import keep the new fields.
+
+Not done: an occasion type for notes (still in the backlog), and choosing
+how long before or after an event the kind words come (fixed, to keep it
+simple).

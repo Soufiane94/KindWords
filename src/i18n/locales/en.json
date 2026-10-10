@@ -6,7 +6,8 @@
     "shareDialogTitle": "Share this kind word",
     "shareErrorTitle": "Couldn't share that",
     "shareErrorMessage": "Please try again in a moment.",
-    "close": "Close"
+    "close": "Close",
+    "everyYear": "every year"
   },
   "nav": {
     "home": "Home",
@@ -107,10 +108,10 @@
   },
   "events": {
     "title": "Calendar",
-    "subtitle": "Add a date that matters, and we'll send a kind word the day before and the day after.",
+    "subtitle": "Add a date that matters, and we'll send a kind word before and after it.",
     "emptyText": "No events yet.",
     "remindersOffHint": "Kind word reminders are turned off in Settings, so these won't send anything for now.",
-    "quietHoursHint": "Your quiet hours include {{time}}, when event kind words are sent, so they're skipped for now.",
+    "quietHoursHint": "Your quiet hours include {{time}}, when kind words for events without a time are sent, so those are skipped for now.",
     "reminderDates": "Kind words on {{dates}} at {{time}}",
     "noRemindersLeft": "No kind words left to send for this one.",
     "addEvent": "+ Add event",
@@ -123,7 +124,14 @@
     "eventDateLabel": "Event date",
     "deleteConfirmTitle": "Delete this event?",
     "deleteButton": "Delete",
-    "deleteEventLink": "Delete event"
+    "deleteEventLink": "Delete event",
+    "reminderMoments": "Kind words: {{moments}}",
+    "timeToggle": "At a specific time",
+    "timeLabel": "Time",
+    "timeHelp": "A kind word comes an hour or two before, and another that evening.",
+    "noTimeHelp": "A kind word comes the day before and the day after, at {{time}}.",
+    "repeatLabel": "Every year",
+    "repeatHelp": "For an anniversary or a day of remembrance: the kind words come back each year."
   },
   "notes": {
     "title": "Notes",
@@ -168,7 +176,9 @@
     "someoneYouLove": "someone you love",
     "deleteConfirmTitle": "Delete this note?",
     "deleteButton": "Delete",
-    "deleteNoteLink": "Delete note"
+    "deleteNoteLink": "Delete note",
+    "repeatLabel": "Every year",
+    "repeatHelp": "For a birthday or an anniversary: the reminder comes back each year."
   },
   "favorites": {
     "title": "Favorites",

@@ -6,7 +6,8 @@
     "shareDialogTitle": "Partager ce mot doux",
     "shareErrorTitle": "Impossible de partager",
     "shareErrorMessage": "Merci de réessayer dans un instant.",
-    "close": "Fermer"
+    "close": "Fermer",
+    "everyYear": "chaque année"
   },
   "nav": {
     "home": "Accueil",
@@ -107,10 +108,10 @@
   },
   "events": {
     "title": "Calendrier",
-    "subtitle": "Ajoute une date importante, et on enverra un mot doux la veille et le lendemain.",
+    "subtitle": "Ajoute une date importante, et on t'enverra un mot doux avant et après.",
     "emptyText": "Pas encore d'événement.",
     "remindersOffHint": "Les rappels de mots doux sont désactivés dans les Réglages, donc rien ne sera envoyé pour l'instant.",
-    "quietHoursHint": "Tes heures silencieuses incluent {{time}}, l'heure des mots doux d'événement, donc ils sont ignorés pour l'instant.",
+    "quietHoursHint": "Tes heures silencieuses incluent {{time}}, l'heure des mots doux pour les événements sans heure, donc ceux-là sont ignorés pour l'instant.",
     "reminderDates": "Mots doux le {{dates}} à {{time}}",
     "noRemindersLeft": "Plus de mot doux à envoyer pour celui-ci.",
     "addEvent": "+ Ajouter un événement",
@@ -123,7 +124,14 @@
     "eventDateLabel": "Date de l'événement",
     "deleteConfirmTitle": "Supprimer cet événement ?",
     "deleteButton": "Supprimer",
-    "deleteEventLink": "Supprimer l'événement"
+    "deleteEventLink": "Supprimer l'événement",
+    "reminderMoments": "Mots doux : {{moments}}",
+    "timeToggle": "À une heure précise",
+    "timeLabel": "Heure",
+    "timeHelp": "Un mot doux arrive une ou deux heures avant, et un autre le soir même.",
+    "noTimeHelp": "Un mot doux arrive la veille et le lendemain, à {{time}}.",
+    "repeatLabel": "Chaque année",
+    "repeatHelp": "Pour un anniversaire ou un jour de souvenir : les mots doux reviennent chaque année."
   },
   "notes": {
     "title": "Notes",
@@ -168,7 +176,9 @@
     "someoneYouLove": "quelqu'un que tu aimes",
     "deleteConfirmTitle": "Supprimer cette note ?",
     "deleteButton": "Supprimer",
-    "deleteNoteLink": "Supprimer la note"
+    "deleteNoteLink": "Supprimer la note",
+    "repeatLabel": "Chaque année",
+    "repeatHelp": "Pour un anniversaire : le rappel revient chaque année."
   },
   "favorites": {
     "title": "Favoris",
