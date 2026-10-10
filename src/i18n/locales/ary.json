@@ -102,7 +102,8 @@
     "plainFontSubtitle": "Kayb9aw l'alwan w zwa9 dyal l3alam dyalek, w kolchi kayban b lkhatt dyal telephone dyalek.",
     "removeTime": "7ayed wqt {{number}}",
     "helpTitle": "Mosa3ada",
-    "supportLink": "Bghiti tehder m3a chi wa7ed?"
+    "supportLink": "Bghiti tehder m3a chi wa7ed?",
+    "privacyLink": "Lkhosousiya w ma3loumatek"
   },
   "events": {
     "title": "Agenda",
@@ -331,5 +332,25 @@
         "description": "Numéros d'écoute fabor w sirriyin f kter mn 175 blad, mt2akkdin menhom m3a mwaliha."
       }
     }
+  },
+  "privacy": {
+    "title": "Lkhosousiya w ma3loumatek",
+    "staysTitle": "Kolchi kayb9a f had telephone",
+    "staysBody": "Bla compte, bla pub, bla tatabbo3. Dakchi li katkteb w katkhtar f Kindwords kayt7fed ghir f had telephone, w 7ta wa7ed akhor ma ymken ychoufo, 7ta 7na.",
+    "leavesTitle": "Ma kaykhrej 7ta tkhtar nta",
+    "leavesBody": "Mnin katseft klma 7elwa, menu dyal partage f telephone dyalek kay3tiha l l'application w l chkhs li khtariti. Kindwords 3omro ma kayseft chi 7aja bou7do.",
+    "backupTitle": "Sauvegarde dyal telephone dyalek",
+    "backupBody": "Ila kanet sauvegarde mkhdma f l3dadat dyal telephone, Android ymken ydakhel fiha Kindwords, f compte Google dyalek. 7na ma ymkench lina nchoufoha.",
+    "notificationsTitle": "Tnbihat",
+    "notificationsBody": "Lklam l7lou kayt9ad w kayt7ell mn telephone dyalek rasso, bla 7ta serveur.",
+    "policyLink": "9ra politique de confidentialité kamla",
+    "yourDataTitle": "Ma3loumatek",
+    "deleteHelp": "Kaymse7 daba notat, l'événements, l'favoris, l3dadat w kolchi li kay7tafed bih Kindwords f had telephone.",
+    "deleteButton": "Mse7 ga3 ma3loumati",
+    "deleteConfirmTitle": "Nmse7o kolchi?",
+    "deleteConfirmMessage": "Kolchi li kay7tafed bih Kindwords f had telephone ghadi ytmse7, 7ta notat dyalek. Ma ymkench nrj3o.",
+    "deleteConfirmButton": "Mse7 kolchi",
+    "deletedTitle": "Tmse7 kolchi",
+    "deletedMessage": "Kindwords kaybda mn jdid."
   }
 }

@@ -11,4 +11,6 @@ export type RootStackParamList = {
   SendKindWord: { quoteId?: string; noteId?: string };
   // 9C: "Need to talk to someone?"
   Support: undefined;
+  // 9D: "Privacy and your data"
+  Privacy: undefined;
 };

@@ -102,7 +102,8 @@
     "plainFontSubtitle": "Mantiene los colores y la decoración de tu mundo, y muestra todo el texto con la letra de tu teléfono.",
     "removeTime": "Quitar la hora {{number}}",
     "helpTitle": "Ayuda",
-    "supportLink": "¿Necesitas hablar con alguien?"
+    "supportLink": "¿Necesitas hablar con alguien?",
+    "privacyLink": "Privacidad y tus datos"
   },
   "events": {
     "title": "Calendario",
@@ -331,5 +332,25 @@
         "description": "Líneas de ayuda gratuitas y confidenciales en más de 175 países, verificadas directamente con ellas."
       }
     }
+  },
+  "privacy": {
+    "title": "Privacidad y tus datos",
+    "staysTitle": "Todo se queda en este teléfono",
+    "staysBody": "Sin cuenta, sin anuncios, sin rastreo. Lo que escribes y eliges en Kindwords se guarda solo en este teléfono, y nadie más puede verlo, ni siquiera nosotros.",
+    "leavesTitle": "Solo sale cuando tú decides",
+    "leavesBody": "Cuando envías una palabra amable, el menú de compartir de tu teléfono se la pasa a la app y a la persona que elijas. Kindwords nunca envía nada por su cuenta.",
+    "backupTitle": "La copia de seguridad de tu teléfono",
+    "backupBody": "Si la copia de seguridad está activada en los ajustes de tu teléfono, Android puede incluir Kindwords en ella, en tu propia cuenta de Google. Nosotros no podemos verla.",
+    "notificationsTitle": "Notificaciones",
+    "notificationsBody": "Las palabras amables las programa y las envía tu propio teléfono, sin ningún servidor de por medio.",
+    "policyLink": "Leer la política de privacidad completa",
+    "yourDataTitle": "Tus datos",
+    "deleteHelp": "Borra al instante tus notas, eventos, favoritos, ajustes y todo lo que Kindwords guarda en este teléfono.",
+    "deleteButton": "Borrar todos mis datos",
+    "deleteConfirmTitle": "¿Borrarlo todo?",
+    "deleteConfirmMessage": "Se borrará todo lo que Kindwords guarda en este teléfono, incluidas tus notas. No se puede deshacer.",
+    "deleteConfirmButton": "Borrarlo todo",
+    "deletedTitle": "Todo borrado",
+    "deletedMessage": "Kindwords empieza de cero."
   }
 }

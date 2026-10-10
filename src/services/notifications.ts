@@ -172,6 +172,19 @@ async function scheduleAt(
 // Chaining them makes each wait for the previous one to finish.
 let rescheduleQueue: Promise<unknown> = Promise.resolve();
 
+// For "Delete all my data" (9D): cancels everything still to come and
+// clears kind words already sitting in the notification tray, since they
+// show quote and note text. Queued like a reschedule, so one that's halfway
+// through can't put notifications back afterwards.
+export function clearAllNotifications(): Promise<void> {
+  const run = rescheduleQueue.then(async () => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+    await Notifications.dismissAllNotificationsAsync();
+  });
+  rescheduleQueue = run.catch(() => {});
+  return run;
+}
+
 // Cancels every notification this app has scheduled, then lines up fresh
 // ones (with freshly-picked quotes) from the latest saved settings,
 // circumstances, events, and notes. Safe to call whenever any of those

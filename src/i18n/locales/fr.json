@@ -102,7 +102,8 @@
     "plainFontSubtitle": "Garde les couleurs et les décorations de ton univers, et affiche tout le texte avec la police de ton téléphone.",
     "removeTime": "Retirer l'heure {{number}}",
     "helpTitle": "Aide",
-    "supportLink": "Besoin de parler à quelqu'un ?"
+    "supportLink": "Besoin de parler à quelqu'un ?",
+    "privacyLink": "Confidentialité et données"
   },
   "events": {
     "title": "Calendrier",
@@ -331,5 +332,25 @@
         "description": "Des lignes d'écoute gratuites et confidentielles dans plus de 175 pays, vérifiées directement auprès d'elles."
       }
     }
+  },
+  "privacy": {
+    "title": "Confidentialité et données",
+    "staysTitle": "Tout reste sur ce téléphone",
+    "staysBody": "Pas de compte, pas de pub, aucun pistage. Ce que tu écris et choisis dans Kindwords est gardé uniquement sur ce téléphone, et personne d'autre ne peut le voir, nous compris.",
+    "leavesTitle": "Rien ne sort sans toi",
+    "leavesBody": "Quand tu envoies un mot doux, le menu de partage de ton téléphone le transmet à l'appli et à la personne que tu choisis. Kindwords n'envoie jamais rien tout seul.",
+    "backupTitle": "La sauvegarde de ton téléphone",
+    "backupBody": "Si la sauvegarde est activée dans les réglages de ton téléphone, Android peut y inclure Kindwords, dans ton propre compte Google. Nous ne pouvons pas la voir.",
+    "notificationsTitle": "Notifications",
+    "notificationsBody": "Les mots doux sont programmés et envoyés par ton téléphone lui-même, sans aucun serveur.",
+    "policyLink": "Lire la politique de confidentialité complète",
+    "yourDataTitle": "Tes données",
+    "deleteHelp": "Efface tout de suite tes notes, tes événements, tes favoris, tes réglages et tout ce que Kindwords garde sur ce téléphone.",
+    "deleteButton": "Supprimer toutes mes données",
+    "deleteConfirmTitle": "Tout supprimer ?",
+    "deleteConfirmMessage": "Tout ce que Kindwords garde sur ce téléphone sera effacé, y compris tes notes. C'est définitif.",
+    "deleteConfirmButton": "Tout supprimer",
+    "deletedTitle": "Tout est supprimé",
+    "deletedMessage": "Kindwords repart de zéro."
   }
 }

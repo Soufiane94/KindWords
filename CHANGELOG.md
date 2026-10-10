@@ -735,3 +735,50 @@ Not done:
 - A Moroccan listening line, until one can be checked against an official
   source. Worth asking a Moroccan health professional during 9B.
 - The support numbers will need checking again before each release.
+
+### 9D — Privacy and trust
+**No new EAS dev-client build needed:** plain JS, a Metro reload picks it
+up.
+
+- **"Privacy and your data"** (`PrivacyScreen`, from Settings > Help): four
+  short points (everything stays on this phone; it only leaves when you
+  choose; your phone's backup; notifications are planned on the phone), a
+  link to the full privacy policy, and "Delete all my data".
+- **"Delete all my data"**, after a confirmation that says it can't be
+  undone: cancels every notification still to come and clears the ones in
+  the tray (they show quote and note text), erases every storage key
+  starting with `kindwords:` (so keys added later are covered without
+  touching this code), puts the world, plain font and language back to a
+  fresh install's, redraws the widget, and returns to the welcome screen.
+  The phone's own backup is left alone: it belongs to the user's Google
+  account, and the policy says so.
+- **Privacy policy page**, `docs/privacy.html`, in English, French and
+  Spanish, plus a one-line `docs/index.html`. Plain language, written for
+  the people using the app: what's kept and where, when something leaves
+  the phone (only by the user's choice, plus the phone's own backup),
+  notifications, permissions, deleting, children, changes, contact. It
+  already describes "Export my data" (9E) and "which kind words you've seen
+  lately" (9F), since all three ship together.
+- **Play Console notes** in `store/`: `data-safety.md` (the Data safety
+  answers, "no data collected or shared", with Google's own definitions
+  showing why, and the list of changes that would make them false), and
+  `listing.md`, the English store listing draft, whose short description
+  ends "nothing leaves your phone".
+
+Decisions and why:
+- **GitHub Pages from `docs/`:** the repository is public, so Pages is free
+  and needs no other service or account. The same site can later host the
+  App Links file (Phase 12); `docs/.nojekyll` makes Pages serve
+  `.well-known/` as-is when that day comes.
+- **Placeholders for the developer's name and contact email.** Google
+  requires both in the policy, but publishing them is the developer's call,
+  so they're left as `[...]` to fill in before turning Pages on.
+- The French policy says "tu", like the app.
+- "Nothing leaves your phone" is fair as a headline because the details
+  name exactly when something does: when the user sends or exports it, and
+  the phone's own backup.
+
+Not done (manual, listed in ROADMAP.md): filling in the placeholders,
+turning on GitHub Pages, and entering the URL and Data safety answers in
+Play Console. Until Pages is on, the app's "Read the full privacy policy"
+link leads nowhere. No Darija version of the policy while Darija is hidden.

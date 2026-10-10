@@ -28,6 +28,9 @@ type ThemeContextValue = {
   setWorldId: (id: WorldId) => Promise<void>;
   plainFont: boolean;
   setPlainFont: (on: boolean) => Promise<void>;
+  // Back to the defaults without saving anything, after "Delete all my
+  // data" has emptied storage (9D).
+  resetTheme: () => void;
   reduceMotion: boolean;
 };
 
@@ -40,6 +43,7 @@ const ThemeContext = createContext<ThemeContextValue>({
   setWorldId: async () => {},
   plainFont: false,
   setPlainFont: async () => {},
+  resetTheme: () => {},
   reduceMotion: false,
 });
 
@@ -71,6 +75,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     return persistPlainFont(on);
   }
 
+  function resetTheme() {
+    setWorldIdState(DEFAULT_WORLD_ID);
+    setPlainFontState(false);
+  }
+
   // Memoized so screens that build their styles from `world` only rebuild
   // them when something about it actually changes.
   const world = useMemo(
@@ -80,7 +89,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ThemeContext.Provider
-      value={{ worldId, world, colors: world.colors, setWorldId, plainFont, setPlainFont, reduceMotion }}
+      value={{
+        worldId,
+        world,
+        colors: world.colors,
+        setWorldId,
+        plainFont,
+        setPlainFont,
+        resetTheme,
+        reduceMotion,
+      }}
     >
       {children}
     </ThemeContext.Provider>

@@ -20,7 +20,10 @@ users, especially people who feel alone. The goal is to bring a smile.
 - Local-first: the app must work offline, and personal data stays on the
   phone, with no analytics or tracking SDKs. Flag any change that would
   send data off the phone before making it, since it changes the privacy
-  policy and the Data safety form.
+  policy and the Data safety form. Those live in `docs/privacy.html` (the
+  public page), the in-app Privacy page (`privacy.*` strings) and
+  `store/data-safety.md`: keep all three true. EAS Update, push, crash
+  reporting and ads all count.
 - Quotes are short, original or public domain, never with a fake
   attribution. No medical advice, no "everything happens for a reason",
   nothing that dismisses someone's pain.
@@ -58,7 +61,10 @@ users, especially people who feel alone. The goal is to bring a smile.
   platform-specific when it's unavoidable.
 - All data is stored locally: AsyncStorage for now (keys in
   `src/services/storage.ts`); expo-sqlite may be added later if data gets
-  more relational.
+  more relational. Every key starts with `kindwords:`: "Delete all my data"
+  erases by that prefix.
+- `docs/` is the public website, served by GitHub Pages (the privacy policy
+  now, App Links files later). `store/` holds the Play Console texts.
 - Notifications use expo-notifications: local scheduled notifications only,
   no push server.
 - Sharing (Phase 8): pictures use expo-sharing, which only shares files;

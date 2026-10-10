@@ -1,6 +1,7 @@
 // Small wrapper around AsyncStorage for the settings this app needs so far.
 // Keeping all storage keys and shapes in one place makes it easy to change
-// how we persist things later without hunting through every screen.
+// how we persist things later without hunting through every screen. Every
+// key starts with "kindwords:", which "Delete all my data" relies on.
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { WorldId, WORLD_OPTIONS, DEFAULT_WORLD_ID } from '../data/worlds';
@@ -394,4 +395,12 @@ export async function getQuoteLanguage(): Promise<Language> {
 
 export async function setQuoteLanguage(language: Language): Promise<void> {
   await AsyncStorage.setItem(KEYS.QUOTE_LANGUAGE, language);
+}
+
+// "Delete all my data" (9D): erases everything Kindwords keeps on the
+// phone. Going by the "kindwords:" prefix rather than the KEYS list means
+// keys added later are covered too.
+export async function deleteAllData(): Promise<void> {
+  const keys = await AsyncStorage.getAllKeys();
+  await AsyncStorage.multiRemove(keys.filter((key) => key.startsWith('kindwords:')));
 }

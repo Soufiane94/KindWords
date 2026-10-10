@@ -18,6 +18,7 @@ import EventsScreen from '../screens/EventsScreen';
 import KindWordScreen from '../screens/KindWordScreen';
 import SendKindWordScreen from '../screens/SendKindWordScreen';
 import SupportScreen from '../screens/SupportScreen';
+import PrivacyScreen from '../screens/PrivacyScreen';
 import { getOnboardingDone, setOnboardingDone } from '../services/storage';
 import {
   rescheduleAllNotifications,
@@ -100,12 +101,13 @@ function MainTabs({ onResetOnboarding }: MainTabsProps) {
 
 type RootStackNavigatorProps = {
   onResetOnboarding: () => void;
+  onDataDeleted: () => void;
 };
 
 // Wraps the tab bar in a stack so the Kind word detail screen (when a
 // notification is tapped) and the Send screen can open full screen over
 // whichever tab is active.
-function RootStackNavigator({ onResetOnboarding }: RootStackNavigatorProps) {
+function RootStackNavigator({ onResetOnboarding, onDataDeleted }: RootStackNavigatorProps) {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
       <RootStack.Screen name="MainTabs">
@@ -122,6 +124,9 @@ function RootStackNavigator({ onResetOnboarding }: RootStackNavigatorProps) {
         options={{ presentation: 'modal' }}
       />
       <RootStack.Screen name="Support" component={SupportScreen} options={{ presentation: 'modal' }} />
+      <RootStack.Screen name="Privacy" options={{ presentation: 'modal' }}>
+        {(props) => <PrivacyScreen {...props} onDataDeleted={onDataDeleted} />}
+      </RootStack.Screen>
     </RootStack.Navigator>
   );
 }
@@ -233,6 +238,8 @@ export default function RootNavigator() {
             await setOnboardingDone(false);
             setOnboardingDoneState(false);
           }}
+          // Storage is already empty by then, so there's nothing to save.
+          onDataDeleted={() => setOnboardingDoneState(false)}
         />
       ) : (
         <OnboardingScreen onDone={() => setOnboardingDoneState(true)} />

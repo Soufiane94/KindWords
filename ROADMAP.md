@@ -3,7 +3,7 @@
 Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
-**Current:** Phase 9 — Release readiness. **Next:** 9D (9A's research is
+**Current:** Phase 9 — Release readiness. **Next:** 9E (9A's research is
 done; the name decision is yours).
 
 Each sub-phase is done on its own, one commit each.
@@ -65,6 +65,7 @@ CHANGELOG.md.
   and month names
 - [ ] First within those files: the "Need to talk to someone?" page
   (`support.*` and `checkIn.heavyLine`), since it's safety content (9C)
+- [ ] The French and Spanish privacy policy (`docs/privacy.html`, 9D)
 
 Review Darija first: it carries the most risk. It has no single standard
 spelling, and the text uses one unmarked form for the gendered "you"
@@ -81,15 +82,19 @@ Details in CHANGELOG.md.
 - [ ] Before each release: check the support numbers again
   (`src/data/supportLines.ts`).
 
-### 9D — Privacy and trust
-- Plain-language privacy policy on a simple public web page (Play Console
-  needs a URL; the same site can later host the App Links / Universal
-  Links files).
-- Play's Data safety form: "no data collected", as long as nothing leaves
-  the phone.
-- In the app: a short privacy page saying everything stays on the phone,
-  and a "Delete all my data" option.
-- In the store listing: "Nothing leaves your phone."
+### 9D — Privacy and trust ✅
+In-app "Privacy and your data" page with "Delete all my data"; a privacy
+policy page in English, French and Spanish (`docs/`, for GitHub Pages);
+Data safety answers and the English store listing in `store/`. Details in
+CHANGELOG.md.
+- [ ] Fill in the developer name and contact email in `docs/privacy.html`
+  (three places each).
+- [ ] Turn on GitHub Pages (repository Settings > Pages > Deploy from a
+  branch > `main`, `/docs`), then check that
+  https://soufiane94.github.io/KindWords/privacy.html opens. A new name or
+  domain means updating `PRIVACY_POLICY_URL` in `src/data/links.ts`.
+- [ ] Play Console: the privacy policy URL and the Data safety answers
+  (`store/data-safety.md`).
 
 ### 9E — Protect the notes
 - Notes, especially messages from loved ones, live only on the phone.

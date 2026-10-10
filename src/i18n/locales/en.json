@@ -102,7 +102,8 @@
     "plainFontSubtitle": "Keeps your world's colors and decorations, and shows all text in your phone's own font.",
     "removeTime": "Remove time {{number}}",
     "helpTitle": "Help",
-    "supportLink": "Need to talk to someone?"
+    "supportLink": "Need to talk to someone?",
+    "privacyLink": "Privacy and your data"
   },
   "events": {
     "title": "Calendar",
@@ -331,5 +332,25 @@
         "description": "Free, confidential helplines in more than 175 countries, checked with the helplines themselves."
       }
     }
+  },
+  "privacy": {
+    "title": "Privacy and your data",
+    "staysTitle": "Everything stays on this phone",
+    "staysBody": "No account, no ads, no tracking. What you write and choose in Kindwords is kept on this phone only, and nobody else can see it, us included.",
+    "leavesTitle": "It only leaves when you choose",
+    "leavesBody": "When you send a kind word, your phone's share menu passes it to the app and the person you pick. Kindwords never sends anything by itself.",
+    "backupTitle": "Your phone's backup",
+    "backupBody": "If backup is turned on in your phone's settings, Android can include Kindwords in it, in your own Google account. We can't see it.",
+    "notificationsTitle": "Notifications",
+    "notificationsBody": "Kind words are planned and sent by your phone itself, with no server in between.",
+    "policyLink": "Read the full privacy policy",
+    "yourDataTitle": "Your data",
+    "deleteHelp": "Erases your notes, events, favorites, settings and everything else Kindwords keeps on this phone, straight away.",
+    "deleteButton": "Delete all my data",
+    "deleteConfirmTitle": "Delete everything?",
+    "deleteConfirmMessage": "Everything Kindwords keeps on this phone will be erased, including your notes. This can't be undone.",
+    "deleteConfirmButton": "Delete everything",
+    "deletedTitle": "All deleted",
+    "deletedMessage": "Kindwords is starting fresh."
   }
 }

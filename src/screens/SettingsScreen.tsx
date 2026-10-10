@@ -480,6 +480,9 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
         <Pressable onPress={() => navigation.navigate('Support')} style={styles.helpLink} accessibilityRole="button">
           <Text style={styles.helpLinkText}>{t('settings.supportLink')}</Text>
         </Pressable>
+        <Pressable onPress={() => navigation.navigate('Privacy')} style={styles.helpLink} accessibilityRole="button">
+          <Text style={styles.helpLinkText}>{t('settings.privacyLink')}</Text>
+        </Pressable>
 
         <Pressable onPress={onResetOnboarding} style={styles.resetLink} accessibilityRole="button">
           <Text style={styles.resetLinkText}>{t('settings.resetOnboarding')}</Text>
