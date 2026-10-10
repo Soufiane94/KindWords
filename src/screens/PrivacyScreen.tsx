@@ -1,6 +1,7 @@
 // "Privacy and your data" (9D): a short, plain page about what Kindwords
 // keeps and why it stays on the phone, a link to the full privacy policy,
-// and "Delete all my data".
+// and "Delete all my data". Since 9E it also exports everything to a file
+// and imports it back: a backup without accounts.
 
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView, Alert, Linking } from 'react-native';
@@ -8,11 +9,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import WorldBackground from '../components/WorldBackground';
-import { deleteAllData } from '../services/storage';
-import { clearAllNotifications } from '../services/notifications';
+import { deleteAllData, restoreBackupData } from '../services/storage';
+import { clearBackupFiles, exportData, pickBackup, PickedBackup } from '../services/backup';
+import { clearAllNotifications, rescheduleAllNotifications } from '../services/notifications';
+import { dateToISO } from '../services/dates';
 import { refreshKindWordWidget } from '../widget/widgetTaskHandler';
 import { PRIVACY_POLICY_URL } from '../data/links';
-import i18n, { detectDeviceLanguage } from '../i18n';
+import i18n, { detectDeviceLanguage, useUiLanguage } from '../i18n';
+import { formatDateDisplay } from '../i18n/dateNames';
 import { useTheme } from '../theme/ThemeContext';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
@@ -29,10 +33,71 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Privacy'> & {
 const POINTS = ['stays', 'leaves', 'backup', 'notifications'] as const;
 
 export default function PrivacyScreen({ navigation, onDataDeleted }: Props) {
-  const [deleting, setDeleting] = useState(false);
-  const { world, resetTheme } = useTheme();
+  // Stops a second tap from starting anything while one action is running.
+  const [busy, setBusy] = useState(false);
+  const { world, setWorldId, setPlainFont, resetTheme } = useTheme();
   const { t } = useTranslation();
+  const language = useUiLanguage();
   const styles = useMemo(() => createStyles(world), [world]);
+
+  async function handleExport() {
+    setBusy(true);
+    try {
+      await exportData();
+    } catch {
+      Alert.alert(t('privacy.exportErrorTitle'), t('common.shareErrorMessage'));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleImport() {
+    setBusy(true);
+    try {
+      const picked = await pickBackup();
+      if (picked === 'invalid') {
+        Alert.alert(t('privacy.importInvalidTitle'), t('privacy.importInvalidMessage'));
+      } else if (picked !== 'canceled') {
+        confirmImport(picked);
+      }
+    } catch {
+      Alert.alert(t('privacy.importInvalidTitle'), t('privacy.importInvalidMessage'));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // Says what's in the file before anything changes.
+  function confirmImport({ data, exportedAt }: PickedBackup) {
+    const counts = { notes: data.notes.length, events: data.events.length, favorites: data.favorites.length };
+    const message = exportedAt
+      ? t('privacy.importConfirmMessage', { ...counts, date: formatDateDisplay(dateToISO(exportedAt), language) })
+      : t('privacy.importConfirmMessageNoDate', counts);
+    Alert.alert(t('privacy.importConfirmTitle'), message, [
+      { text: t('common.cancel'), style: 'cancel' },
+      { text: t('privacy.importConfirmButton'), onPress: () => importBackup(data) },
+    ]);
+  }
+
+  async function importBackup(data: PickedBackup['data']) {
+    await restoreBackupData(data);
+    // The app takes on the file's look and languages straight away.
+    if (data.worldId) await setWorldId(data.worldId);
+    if (data.plainFont !== undefined) await setPlainFont(data.plainFont);
+    if (data.uiLanguage) await i18n.changeLanguage(data.uiLanguage);
+    refreshKindWordWidget();
+    // Never asks for the notification permission from here (only Settings'
+    // Save does), so on a new phone, with reminders on in the file, the
+    // user is told where to allow them.
+    const result = await rescheduleAllNotifications().catch(() => null);
+    const needsPermission = result?.status === 'permission_denied';
+    Alert.alert(
+      t('privacy.importDoneTitle'),
+      needsPermission
+        ? `${t('privacy.importDoneMessage')} ${t('privacy.importPermissionNote')}`
+        : t('privacy.importDoneMessage')
+    );
+  }
 
   function handleDeleteAll() {
     Alert.alert(t('privacy.deleteConfirmTitle'), t('privacy.deleteConfirmMessage'), [
@@ -42,10 +107,11 @@ export default function PrivacyScreen({ navigation, onDataDeleted }: Props) {
   }
 
   async function deleteEverything() {
-    setDeleting(true);
+    setBusy(true);
     // Notifications first, so none still waiting can show a note's text.
     await clearAllNotifications().catch(() => {});
     await deleteAllData();
+    clearBackupFiles();
     // What's on screen goes back to how a fresh install looks.
     resetTheme();
     await i18n.changeLanguage(detectDeviceLanguage());
@@ -95,13 +161,33 @@ export default function PrivacyScreen({ navigation, onDataDeleted }: Props) {
         <Text style={styles.sectionTitle} accessibilityRole="header">
           {t('privacy.yourDataTitle')}
         </Text>
-        <Text style={styles.body}>{t('privacy.deleteHelp')}</Text>
+        <Text style={styles.body}>{t('privacy.exportHelp')}</Text>
         <Pressable
-          style={[styles.deleteButton, deleting && styles.disabled]}
-          onPress={handleDeleteAll}
-          disabled={deleting}
+          style={[styles.dataButton, busy && styles.disabled]}
+          onPress={handleExport}
+          disabled={busy}
           accessibilityRole="button"
-          accessibilityState={{ disabled: deleting }}
+          accessibilityState={{ disabled: busy }}
+        >
+          <Text style={styles.dataButtonText}>{t('privacy.exportButton')}</Text>
+        </Pressable>
+        <Pressable
+          style={[styles.dataButton, busy && styles.disabled]}
+          onPress={handleImport}
+          disabled={busy}
+          accessibilityRole="button"
+          accessibilityState={{ disabled: busy }}
+        >
+          <Text style={styles.dataButtonText}>{t('privacy.importButton')}</Text>
+        </Pressable>
+
+        <Text style={[styles.body, styles.deleteHelp]}>{t('privacy.deleteHelp')}</Text>
+        <Pressable
+          style={[styles.deleteButton, busy && styles.disabled]}
+          onPress={handleDeleteAll}
+          disabled={busy}
+          accessibilityRole="button"
+          accessibilityState={{ disabled: busy }}
         >
           <Text style={styles.deleteButtonText}>{t('privacy.deleteButton')}</Text>
         </Pressable>
@@ -177,8 +263,24 @@ function createStyles(world: World) {
       marginBottom: 8,
       ...headingFont(world),
     },
-    // Outlined rather than filled, so it never looks like the screen's
-    // main action.
+    dataButton: {
+      borderWidth: 1.5,
+      borderColor: colors.accent,
+      paddingVertical: 14,
+      borderRadius: 16,
+      alignItems: 'center',
+      marginTop: 12,
+    },
+    dataButtonText: {
+      color: colors.primaryText,
+      fontSize: 15,
+      fontWeight: '600',
+    },
+    deleteHelp: {
+      marginTop: 28,
+    },
+    // Outlined in the danger color rather than filled, so it never looks
+    // like the screen's main action.
     deleteButton: {
       borderWidth: 1.5,
       borderColor: colors.danger,

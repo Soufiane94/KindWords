@@ -3,7 +3,7 @@
 Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
-**Current:** Phase 9 — Release readiness. **Next:** 9E (9A's research is
+**Current:** Phase 9 — Release readiness. **Next:** 9F (9A's research is
 done; the name decision is yours).
 
 Each sub-phase is done on its own, one commit each.
@@ -96,14 +96,20 @@ CHANGELOG.md.
 - [ ] Play Console: the privacy policy URL and the Data safety answers
   (`store/data-safety.md`).
 
-### 9E — Protect the notes
-- Notes, especially messages from loved ones, live only on the phone.
-  Check that Android's automatic backup covers them (Expo's
-  `android.allowBackup`, on by default) and test a restore (reinstall, or
-  a second phone).
-- "Export my data" (notes, favorites, events, settings) to a file through
-  the share sheet, and "Import" to restore it. This gives a backup without
-  accounts.
+### 9E — Protect the notes ✅
+Android's automatic backup covers everything (checked: `allowBackup` is on,
+and AsyncStorage's database is included by default). "Export my data" and
+"Import from a file" give a backup without accounts; importing only ever
+adds. Details in CHANGELOG.md.
+- [ ] New EAS dev-client build (new native module: `expo-document-picker`).
+- [ ] Test a restore with adb, on a phone with a screen lock:
+  `adb shell bmgr enable true`, then
+  `adb shell bmgr backupnow com.kindwords.app` (should say "Success"), then
+  `adb shell pm uninstall --user 0 com.kindwords.app` and reinstall the APK
+  with `adb install -t <apk>`. Notes, events and settings should be back
+  before the app is opened.
+- [ ] Export on one phone, import on another (or after "Delete all my
+  data"), and import the same file twice: nothing should double.
 
 ### 9F — Quick product fixes before the test
 - No repeats: go through the whole matching pool before a quote comes back

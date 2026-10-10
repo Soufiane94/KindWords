@@ -65,6 +65,12 @@ users, especially people who feel alone. The goal is to bring a smile.
   erases by that prefix.
 - `docs/` is the public website, served by GitHub Pages (the privacy policy
   now, App Links files later). `store/` holds the Play Console texts.
+- Backups (9E): Android's Auto Backup (`allowBackup`, keep it on) plus
+  "Export my data" / "Import" (`src/services/backup.ts`, with expo-file-system
+  and expo-document-picker). A new kind of user data goes into
+  `BackupData`, `readBackupData` and `restoreBackupData` (storage.ts) and
+  `parseBackup` (backup.ts); anything that only describes the moment (like
+  today's check-in) stays out. Importing only ever adds, never deletes.
 - Notifications use expo-notifications: local scheduled notifications only,
   no push server.
 - Sharing (Phase 8): pictures use expo-sharing, which only shares files;

@@ -404,3 +404,120 @@ export async function deleteAllData(): Promise<void> {
   const keys = await AsyncStorage.getAllKeys();
   await AsyncStorage.multiRemove(keys.filter((key) => key.startsWith('kindwords:')));
 }
+
+// What "Export my data" saves (9E): the user's own things and choices. Left
+// out on purpose: today's check-in (never kept past today), a pause, and the
+// widget's current quote, which only describe this moment. In a file being
+// imported, a setting is left undefined when it's missing or unusable, so
+// the phone keeps its own.
+export type BackupData = {
+  notes: PersonalNote[];
+  events: CalendarEvent[];
+  favorites: string[];
+  hiddenQuotes: string[];
+  quoteFeedback: QuoteFeedback;
+  circumstances?: string[];
+  notificationSettings?: NotificationSettings;
+  worldId?: WorldId;
+  plainFont?: boolean;
+  uiLanguage?: Language;
+  quoteLanguage?: Language;
+  checkInEnabled?: boolean;
+};
+
+export async function readBackupData(): Promise<BackupData> {
+  const [
+    notes,
+    events,
+    favorites,
+    hiddenQuotes,
+    quoteFeedback,
+    circumstances,
+    notificationSettings,
+    worldId,
+    plainFont,
+    uiLanguage,
+    quoteLanguage,
+    checkInEnabled,
+  ] = await Promise.all([
+    getNotes(),
+    getEvents(),
+    getFavoriteIds(),
+    getHiddenQuoteIds(),
+    getQuoteFeedback(),
+    getCircumstances(),
+    getNotificationSettings(),
+    getWorldId(),
+    getPlainFont(),
+    getUiLanguage(),
+    getQuoteLanguage(),
+    getCheckInEnabled(),
+  ]);
+  return {
+    notes,
+    events,
+    favorites,
+    hiddenQuotes,
+    quoteFeedback,
+    circumstances,
+    notificationSettings,
+    worldId,
+    plainFont,
+    uiLanguage,
+    quoteLanguage,
+    checkInEnabled,
+  };
+}
+
+// Brings a backup back without losing anything already on the phone: its
+// notes, events, favorites and "not for me" choices are added to the
+// phone's (an id that's already here isn't added twice, so importing the
+// same file again changes nothing), and its settings replace the current
+// ones.
+export async function restoreBackupData(backup: BackupData): Promise<void> {
+  const [notes, events, favorites, hiddenQuotes, feedback] = await Promise.all([
+    getNotes(),
+    getEvents(),
+    getFavoriteIds(),
+    getHiddenQuoteIds(),
+    getQuoteFeedback(),
+  ]);
+
+  function addById<T extends { id: string }>(current: T[], incoming: T[]): T[] {
+    return [...current, ...incoming.filter((item) => !current.some((c) => c.id === item.id))];
+  }
+  function addIds(current: string[], incoming: string[]): string[] {
+    return [...current, ...incoming.filter((id) => !current.includes(id))];
+  }
+  // The larger count of the two, so importing twice doesn't double anything.
+  function maxCounts(current: Record<string, number>, incoming: Record<string, number>) {
+    const result = { ...current };
+    for (const [key, count] of Object.entries(incoming)) result[key] = Math.max(result[key] ?? 0, count);
+    return result;
+  }
+
+  const pairs: [string, string][] = [
+    [KEYS.NOTES, JSON.stringify(addById(notes, backup.notes))],
+    [KEYS.EVENTS, JSON.stringify(addById(events, backup.events))],
+    [KEYS.FAVORITES, JSON.stringify(addIds(favorites, backup.favorites))],
+    [KEYS.HIDDEN_QUOTES, JSON.stringify(addIds(hiddenQuotes, backup.hiddenQuotes))],
+    [
+      KEYS.QUOTE_FEEDBACK,
+      JSON.stringify({
+        moods: maxCounts(feedback.moods, backup.quoteFeedback.moods),
+        tags: maxCounts(feedback.tags, backup.quoteFeedback.tags),
+      }),
+    ],
+    [KEYS.ONBOARDING_DONE, 'true'],
+  ];
+  if (backup.circumstances) pairs.push([KEYS.CIRCUMSTANCES, JSON.stringify(backup.circumstances)]);
+  if (backup.notificationSettings) {
+    pairs.push([KEYS.NOTIFICATION_SETTINGS, JSON.stringify(backup.notificationSettings)]);
+  }
+  if (backup.worldId) pairs.push([KEYS.THEME, backup.worldId]);
+  if (backup.plainFont !== undefined) pairs.push([KEYS.PLAIN_FONT, String(backup.plainFont)]);
+  if (backup.uiLanguage) pairs.push([KEYS.UI_LANGUAGE, backup.uiLanguage]);
+  if (backup.quoteLanguage) pairs.push([KEYS.QUOTE_LANGUAGE, backup.quoteLanguage]);
+  if (backup.checkInEnabled !== undefined) pairs.push([KEYS.CHECK_IN_ENABLED, String(backup.checkInEnabled)]);
+  await AsyncStorage.multiSet(pairs);
+}

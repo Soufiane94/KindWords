@@ -782,3 +782,60 @@ Not done (manual, listed in ROADMAP.md): filling in the placeholders,
 turning on GitHub Pages, and entering the URL and Data safety answers in
 Play Console. Until Pages is on, the app's "Read the full privacy policy"
 link leads nowhere. No Darija version of the policy while Darija is hidden.
+
+### 9E — Protect the notes
+**Needs a new EAS dev-client build:** `expo-document-picker` is a new
+native module, and `expo-file-system` is now a direct dependency (it used
+to come only nested inside `expo`).
+
+**Android's automatic backup does cover the notes** (checked in the code
+and Android's documentation):
+- Expo turns `android:allowBackup` on unless told otherwise; app.json now
+  says `"allowBackup": true` explicitly, since the notes depend on it.
+- AsyncStorage keeps everything in one SQLite database, `RKStorage`, in the
+  app's databases folder, which Auto Backup includes by default. No library
+  in the app adds backup rules that would leave it out.
+- Backups only happen if the user's phone backup is on: about once a day,
+  when the phone is idle and on Wi-Fi, up to 25 MB per app (Kindwords' data
+  is a few KB). On Android 9 and later, with a screen lock, they're
+  end-to-end encrypted. Restoring happens when the app is installed (from
+  Play, or when setting up a new phone), before it first opens.
+- expo-notifications' own list of scheduled notifications is backed up
+  too. After a restore, those whose time has passed are dropped by
+  expo-notifications itself, and the plan is rebuilt on first open anyway,
+  so a restore can't bring a burst of old kind words.
+
+**"Export my data" and "Import from a file"**, on the Privacy and your data
+page (`src/services/backup.ts`, plus `readBackupData`/`restoreBackupData`
+in storage.ts):
+- Export writes one plain JSON file, `kindwords-backup-<date>.json`, with
+  the notes, events, favorites, "not for me" choices and every setting, and
+  hands it to the share menu, so the user picks where it goes. Left out on
+  purpose: today's check-in (never kept past today, so it never ends up in a
+  file), a pause, and the widget's current quote. The copy left in the
+  cache is deleted at the next export and by "Delete all my data" (not
+  right away, since the app receiving it may still be reading it).
+- Import accepts any file from the system picker (cloud drives and mail
+  apps don't always label JSON as JSON) and checks it: anything that isn't
+  a Kindwords backup gets a gentle "Pick a file made with Export my data",
+  and in a hand-edited file only the parts with the right shape are used.
+  Before changing anything it says what's in the file ("From Sat, Oct 10.
+  Notes: 12, events: 3, favorites: 8") and asks.
+- **Importing adds, it never replaces what's already there**: notes,
+  events, favorites and "not for me" choices from the file are added to the
+  phone's, by id, so importing the same file twice changes nothing and a
+  wrong import can't erase anything. Settings, which can only have one
+  value, come from the file. The world, plain font and language switch
+  straight away, and the widget and the notification plan are rebuilt.
+- An import never asks for the notification permission (only Settings'
+  Save does). On a new phone, with reminders on in the file, the "done"
+  message says to open Settings and tap Save.
+- "Delete all my data" now suggests exporting first.
+
+Not done:
+- Testing a backup restore and an export/import on a phone (steps in
+  ROADMAP.md).
+- The exported file isn't encrypted: it's plain text, so the app and the
+  privacy policy say to treat it like a private letter. A password option
+  could come later.
+- iOS (Phase 12) backs up differently (iCloud), to check then.
