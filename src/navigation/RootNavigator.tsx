@@ -16,8 +16,13 @@ import NotesScreen from '../screens/NotesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import EventsScreen from '../screens/EventsScreen';
 import KindWordScreen from '../screens/KindWordScreen';
+import SendKindWordScreen from '../screens/SendKindWordScreen';
 import { getOnboardingDone, setOnboardingDone } from '../services/storage';
-import { rescheduleAllNotifications, extractKindWordParams, KindWordParams } from '../services/notifications';
+import {
+  rescheduleAllNotifications,
+  extractNotificationTarget,
+  NotificationTarget,
+} from '../services/notifications';
 import { refreshKindWordWidget } from '../widget/widgetTaskHandler';
 import { useTheme } from '../theme/ThemeContext';
 import { navigationRef } from './navigationRef';
@@ -77,8 +82,9 @@ type RootStackNavigatorProps = {
   onResetOnboarding: () => void;
 };
 
-// Wraps the tab bar in a stack so the Kind word detail screen can open full
-// screen over whichever tab is active, when a notification is tapped.
+// Wraps the tab bar in a stack so the Kind word detail screen (when a
+// notification is tapped) and the Send screen can open full screen over
+// whichever tab is active.
 function RootStackNavigator({ onResetOnboarding }: RootStackNavigatorProps) {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
@@ -90,6 +96,11 @@ function RootStackNavigator({ onResetOnboarding }: RootStackNavigatorProps) {
         component={KindWordScreen}
         options={{ presentation: 'modal' }}
       />
+      <RootStack.Screen
+        name="SendKindWord"
+        component={SendKindWordScreen}
+        options={{ presentation: 'modal' }}
+      />
     </RootStack.Navigator>
   );
 }
@@ -97,7 +108,7 @@ function RootStackNavigator({ onResetOnboarding }: RootStackNavigatorProps) {
 export default function RootNavigator() {
   const [loading, setLoading] = useState(true);
   const [onboardingDone, setOnboardingDoneState] = useState(false);
-  const [pendingParams, setPendingParams] = useState<KindWordParams | undefined>();
+  const [pendingTarget, setPendingTarget] = useState<NotificationTarget | undefined>();
   const lastRefreshAt = useRef(0);
   const { colors } = useTheme();
 
@@ -107,24 +118,28 @@ export default function RootNavigator() {
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
 
   useEffect(() => {
-    const params = extractKindWordParams(lastNotificationResponse);
-    if (params) setPendingParams(params);
+    const target = extractNotificationTarget(lastNotificationResponse);
+    if (target) setPendingTarget(target);
   }, [lastNotificationResponse]);
 
-  // Navigates to the pending kind word once both it and the navigator are
-  // ready. Called from an effect (re-checked on every relevant change,
-  // since the two can become ready in either order) and from
+  // Opens the screen a tapped notification leads to once both it and the
+  // navigator are ready. Called from an effect (re-checked on every relevant
+  // change, since the two can become ready in either order) and from
   // NavigationContainer's onReady below, which catches the one case the
   // effect can't: the container becoming ready without any further state
   // change afterwards to re-run the effect.
-  function navigateToPendingKindWordIfReady() {
-    if (pendingParams && onboardingDone && navigationRef.isReady()) {
-      navigationRef.navigate('KindWord', pendingParams);
-      setPendingParams(undefined);
+  function navigateToPendingTargetIfReady() {
+    if (pendingTarget && onboardingDone && navigationRef.isReady()) {
+      if (pendingTarget.screen === 'SendKindWord') {
+        navigationRef.navigate('SendKindWord', pendingTarget.params);
+      } else {
+        navigationRef.navigate('KindWord', pendingTarget.params);
+      }
+      setPendingTarget(undefined);
     }
   }
 
-  useEffect(navigateToPendingKindWordIfReady, [pendingParams, onboardingDone, loading]);
+  useEffect(navigateToPendingTargetIfReady, [pendingTarget, onboardingDone, loading]);
 
   // Refreshes scheduled notifications (new random quotes, latest settings)
   // and the home screen widget, so neither goes stale.
@@ -189,7 +204,7 @@ export default function RootNavigator() {
     <NavigationContainer
       ref={navigationRef}
       theme={navigationTheme}
-      onReady={navigateToPendingKindWordIfReady}
+      onReady={navigateToPendingTargetIfReady}
     >
       {onboardingDone ? (
         <RootStackNavigator

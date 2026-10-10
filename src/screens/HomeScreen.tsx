@@ -1,18 +1,18 @@
 // Main screen: shows one quote matched to the user's circumstances, with a
-// button to see another one and actions to save, share, or say "not for
-// me". Phase 7 adds the optional daily check-in at the top and a gentle
-// "Not today" at the bottom to pause reminders until tomorrow.
+// button to see another one and actions to save, send to someone, or say
+// "not for me". Phase 7 adds the optional daily check-in at the top and a
+// gentle "Not today" at the bottom to pause reminders until tomorrow.
 
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import CheckInPrompt from '../components/CheckInPrompt';
 import WorldBackground from '../components/WorldBackground';
-import { useCardShare } from '../components/useCardShare';
 import { getRandomQuote, loadQuotePrefs, Quote, QuotePrefs } from '../services/quotes';
 import {
   getActiveSnoozeUntil,
@@ -35,6 +35,7 @@ import type { World } from '../data/worlds';
 import type { Language } from '../data/languages';
 import type { CheckInMood } from '../data/checkIn';
 import { headingFont } from '../theme/fontStyle';
+import type { RootStackParamList } from '../navigation/types';
 
 // How long the little "Got it" line stays after "Not for me".
 const THANKS_VISIBLE_MS = 4000;
@@ -52,7 +53,7 @@ export default function HomeScreen() {
   const [showNotForMeThanks, setShowNotForMeThanks] = useState(false);
   const quoteRef = useRef<Quote | null>(null);
   const thanksTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const { cardRef, capturing, share } = useCardShare();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { world } = useTheme();
   const { t } = useTranslation();
   const styles = useMemo(() => createStyles(world), [world]);
@@ -119,6 +120,10 @@ export default function HomeScreen() {
     setIsFavorite(nowFavorite);
   }
 
+  function handleSend() {
+    if (quote) navigation.navigate('SendKindWord', { quoteId: quote.id });
+  }
+
   async function handleNotForMe() {
     if (!quote) return;
     await markNotForMe(quote);
@@ -178,11 +183,11 @@ export default function HomeScreen() {
         <Text style={styles.heading}>{t('home.heading')}</Text>
         {quote ? (
           <>
-            <QuoteCard quote={quote} ref={cardRef} capturing={capturing} />
+            <QuoteCard quote={quote} />
             <QuoteActions
               isFavorite={isFavorite}
               onToggleFavorite={handleToggleFavorite}
-              onShare={share}
+              onSend={handleSend}
               onNotForMe={handleNotForMe}
             />
             {showNotForMeThanks && <Text style={styles.thanks}>{t('home.notForMeThanks')}</Text>}

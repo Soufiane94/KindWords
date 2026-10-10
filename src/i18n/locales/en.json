@@ -90,6 +90,8 @@
     "eventRemindersOther": "Plus {{count}} event reminders coming up.",
     "futureNotesOne": "Plus {{count}} note waiting for future you.",
     "futureNotesOther": "Plus {{count}} notes waiting for future you.",
+    "forSomeoneOne": "Plus {{count}} reminder to send a note to someone else.",
+    "forSomeoneOther": "Plus {{count}} reminders to send notes to others.",
     "nextAt": "Next one: {{when}}.",
     "skippedTimes": "Skipped {{times}} — inside your quiet hours.",
     "permissionDenied": "Notifications are turned off for Kindwords in your phone's settings. Please allow them there, then try saving again.",
@@ -117,7 +119,7 @@
   },
   "notes": {
     "title": "Notes",
-    "subtitle": "Write a note to yourself or to future you, or keep a message from someone you love. We'll slip them in among your kind words now and then.",
+    "subtitle": "Write a note to yourself or to future you, keep a message from someone you love, or write one for someone else's important day. Notes for you are slipped in among your kind words now and then.",
     "emptyText": "No notes yet.",
     "remindersOffHint": "Kind word reminders are turned off in Settings, so notes won't be sent for now.",
     "addNote": "+ Add a note",
@@ -127,23 +129,35 @@
     "kinds": {
       "self": "To me",
       "future": "To future me",
-      "loved_one": "From someone I love"
+      "loved_one": "From someone I love",
+      "for_someone": "For someone I love"
     },
     "fromLabel": "Who is it from?",
     "fromPlaceholder": "e.g. Mom, my best friend",
+    "toLabel": "Who is it for?",
+    "toPlaceholder": "e.g. Yasmine, my brother",
     "textLabel": "Your note",
     "textLabelLovedOne": "Their message",
+    "textLabelForSomeone": "Your note for them",
     "placeholders": {
       "self": "e.g. You've made it through hard days before.",
       "future": "e.g. I hope you're being gentle with yourself.",
-      "loved_one": "e.g. Thinking of you, always."
+      "loved_one": "e.g. Thinking of you, always.",
+      "for_someone": "e.g. Thinking of you today. I'm here if you need anything."
     },
     "deliverLabel": "When should it arrive?",
     "deliverDateLabel": "Arrives on",
+    "forSomeoneDayLabel": "Which day is it?",
+    "forSomeoneDateLabel": "Their day",
+    "forSomeoneHelp": "We'll remind you at {{time}} that day, so you can send it to them.",
+    "sendNow": "Send it now",
     "metaLovedOne": "From {{name}}",
     "metaFuture": "To future me · arrives {{date}}",
     "metaFutureArrived": "To future me · arrived {{date}}",
+    "metaForSomeone": "For {{name}} · reminder {{when}}",
+    "metaForSomeoneDay": "For {{name}} · {{date}}",
     "someoneWhoLovesYou": "someone who loves you",
+    "someoneYouLove": "someone you love",
     "deleteConfirmTitle": "Delete this note?",
     "deleteButton": "Delete",
     "deleteNoteLink": "Delete note"
@@ -162,11 +176,34 @@
     "notForMeMessage": "We won't send that one again, and we'll send fewer like it.",
     "fromYouOn": "You, {{date}}"
   },
+  "send": {
+    "title": "Send a kind word",
+    "subtitle": "Pick one or write your own, then choose who it's for.",
+    "forName": "For {{name}}",
+    "sources": {
+      "pick": "A kind word",
+      "write": "My own words"
+    },
+    "writePlaceholder": "e.g. Just wanted you to know I'm thinking of you.",
+    "emptyPreview": "Write something above to see how it will look.",
+    "another": "Another one",
+    "formatLabel": "Send as",
+    "formats": {
+      "picture": "Picture",
+      "text": "Text"
+    },
+    "includeLink": "Add a link to Kindwords",
+    "includeLinkSubtitle": "So they can get kind words now and then too, if they'd like.",
+    "linkLine": "Sent with Kindwords. If you'd like kind words now and then too: {{url}}",
+    "sendButton": "Send"
+  },
   "quoteActions": {
     "save": "Save",
     "saved": "Saved",
     "addToFavorites": "Add to favorites",
     "removeFromFavorites": "Remove from favorites",
+    "send": "Send",
+    "sendAccessibility": "Send this kind word to someone",
     "share": "Share",
     "shareAccessibility": "Share this quote as an image",
     "notForMe": "Not for me",
@@ -187,6 +224,7 @@
     "selfNoteTitle": "A note from you",
     "futureNoteTitle": "A note from past you",
     "lovedOneTitle": "A message from {{name}}",
+    "forSomeoneTitle": "Your note for {{name}} is ready to send",
     "snoozedHour": "Paused kind words for 1 hour.",
     "snoozedTomorrow": "Paused kind words until tomorrow.",
     "snoozedThreeDays": "Paused kind words for 3 days.",

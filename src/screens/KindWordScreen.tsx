@@ -1,7 +1,8 @@
 // Shown when the user taps a notification: the exact quote that was sent
 // (never a new random one) — or, since Phase 7, the personal note — with
-// save/share actions like Home, "Not for me", and a way to pause reminders
-// for a while.
+// save/send actions like Home, "Not for me", and a way to pause reminders
+// for a while. A personal note keeps a plain "Share" (as a picture) instead
+// of "Send", since it's the user's own and not a kind word to pass on.
 //
 // If the lock screen was set to hide notification text, Android already
 // keeps it hidden there — this screen only ever opens after the phone is
@@ -126,7 +127,7 @@ export default function KindWordScreen({ route, navigation }: Props) {
               <QuoteActions
                 isFavorite={isFavorite}
                 onToggleFavorite={handleToggleFavorite}
-                onShare={share}
+                onSend={() => navigation.navigate('SendKindWord', { quoteId: quote.id })}
                 onNotForMe={handleNotForMe}
                 onSnooze={() => setMenuVisible(true)}
               />

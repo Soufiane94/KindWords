@@ -195,6 +195,13 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
         })
       );
     }
+    if (result.forSomeoneCount > 0) {
+      lines.push(
+        t(result.forSomeoneCount === 1 ? 'settings.forSomeoneOne' : 'settings.forSomeoneOther', {
+          count: result.forSomeoneCount,
+        })
+      );
+    }
     if (result.nextAt) {
       lines.push(t('settings.nextAt', { when: formatMomentDisplay(new Date(result.nextAt), language) }));
     }

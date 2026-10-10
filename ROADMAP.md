@@ -449,13 +449,94 @@ Spanish, and Darija. As with Phase 6, the French, Spanish, and especially
 the Darija strings were written by Claude and need a native speaker's
 review before release.
 
-## Phase 8 — Spread kindness
+## Phase 8 — Spread kindness ✅ done
+Goal, as planned:
 - "Send a kind word": pick or write a message and send it to a friend or
   relative through the native share sheet, as text or as a themed image.
 - A link that opens the app store page (or the app, if installed) so
   recipients can try Kindwords.
 - Optional "Thinking of you" note users can schedule for someone else's
   important date (birthday, exam, appointment).
+
+**No new EAS dev-client build needed:** sending as text uses React
+Native's built-in `Share` API, and everything else reuses native modules
+that were already linked (`expo-sharing`, `react-native-view-shot`,
+`expo-notifications`). A Metro reload picks it all up.
+
+### 8A — Send a kind word ✅ done
+- New "Send a kind word" screen (`SendKindWordScreen`), opened full screen
+  over the tabs like the Kind word screen.
+- The "Share" button under quotes is now "Send" (paper plane) on Home,
+  Favorites, and the Kind word screen, and opens this screen with that
+  quote. One button rather than two doing nearly the same thing (the same
+  call as in 7A): sending a picture is still the default, one tap further
+  along. A personal note on the Kind word screen keeps its plain picture
+  "Share", since it's the user's own and not a kind word to pass on.
+- What to send: "A kind word" starts from the quote it came from, and
+  "Another one" picks from the kind words meant for anyone (circumstance
+  "other"), since the sender's own circumstances say nothing about the
+  person receiving it. "Not for me" choices still count; today's check-in
+  doesn't (it's about the sender). Or "My own words", typed in a box.
+- How to send it: as a picture (the same themed card capture as before,
+  previewed live, so your own words show up in your world's card) or as
+  text, through React Native's own `Share` API, since `expo-sharing` only
+  shares files. The preview always shows exactly what will be sent.
+- The app never sends anything itself: it always goes through the phone's
+  share sheet, so the user chooses who gets it and on which app.
+
+### 8B — A link to Kindwords ✅ done (works once the app is published)
+- When sending as text, an optional "Add a link to Kindwords" switch adds
+  one line at the end: "Sent with Kindwords. If you'd like kind words now
+  and then too: <link>". Off by default, so a kind word to a grieving
+  friend never comes with an ad attached unless the sender wants it to.
+- Text only: `expo-sharing` can't send text along with an image, and a
+  link inside a picture couldn't be tapped anyway.
+- The link is the Play Store listing (`KINDWORDS_LINK` in
+  `src/services/share.ts`, built from the `com.kindwords.app` package in
+  app.json). On Android it opens in the Play Store app, which shows
+  "Install", or "Open" if Kindwords is already installed. **Until the app
+  is published (Phase 11) the Play Store can't find it**, so for now the
+  link can be checked in the message but not followed.
+- Not done (needs Phase 11): a link that opens the app straight away when
+  it's installed and goes to the right store on an iPhone. That needs a
+  page on our own website domain with Android App Links
+  (`assetlinks.json`) and iOS Universal Links, plus the App Store id, none
+  of which exist before release. Switching to it later only means changing
+  `KINDWORDS_LINK`.
+
+### 8C — Notes for someone else's day ✅ done
+- A fourth kind of note in the Notes tab: "For someone I love" (💐): who
+  it's for (optional; "someone you love" otherwise), the note itself, and
+  their day (today or later). Stored with the other notes
+  (`kindwords:notes`), with a new `to` field.
+- The app can't message anyone by itself (there's no server, and phones
+  don't let apps send messages silently), so on the day it reminds the
+  user instead: a notification at 9:00, "Your note for Yasmine is ready to
+  send", with the note as its text. Tapping it opens the Send screen with
+  the note already filled in, ready to go as a picture or text.
+- Timing (`planForSomeoneNote` in reminderPlan.ts): 9:00 like event
+  reminders, so there's the whole day left to send it. It waits out quiet
+  hours like a note to future-you, but not a snooze: a pause is about kind
+  words for the user, and waiting one out could mean missing the other
+  person's day. Like everything else, nothing is sent while reminders are
+  off in Settings.
+- These notes are never mixed in with the user's own kind words and never
+  appear on the widget. They count as "busy" moments, so no regular kind
+  word lands within the same hour.
+- Each one shows when its reminder comes ("For Yasmine · reminder Mon,
+  Oct 20, 9:00 AM"), or just its day once that has passed. The note editor
+  also has "Send it now", which saves and opens the Send screen: for a day
+  that's already here, or a reminder that was missed.
+- Settings' save summary mentions them too ("Plus 1 reminder to send a
+  note to someone else.").
+- Not done: repeating every year (for birthdays), and an occasion type
+  (birthday/exam/appointment). The note's own words say what it's for, and
+  the reminder doesn't need to know.
+
+New UI strings for all of the above were added in English, French,
+Spanish, and Darija. As with Phases 6 and 7, the French, Spanish, and
+especially the Darija strings were written by Claude and need a native
+speaker's review before release.
 
 ## Phase 9 — AI quotes
 - Small serverless backend that calls the Claude API to generate quotes from
@@ -492,6 +573,9 @@ review before release.
 - EAS Build for production builds and EAS Submit for publishing.
 - Check name availability ("Kindwords") on the stores and as a trademark
   before committing to marketing.
+- A small website on our own domain, so the "Add a link to Kindwords" link
+  from Phase 8B can open the app directly when it's installed (Android App
+  Links + iOS Universal Links) and send everyone else to the right store.
 - Test on several real Android phones (Samsung, Xiaomi, etc.) for
   notification behavior, plus an iPhone before the iOS launch.
 

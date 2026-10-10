@@ -1,20 +1,21 @@
-// Shows every quote the user has saved from Home, with the same save/share
-// actions so they can unsave or share straight from here too.
+// Shows every quote the user has saved from Home, with the same save/send
+// actions so they can unsave one or send it to someone straight from here.
 
 import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import WorldBackground from '../components/WorldBackground';
-import { useCardShare } from '../components/useCardShare';
 import { getQuoteById, Quote } from '../services/quotes';
 import { getFavoriteIds, toggleFavorite } from '../services/storage';
 import { useTheme } from '../theme/ThemeContext';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
+import type { RootStackParamList } from '../navigation/types';
 
 type ItemProps = {
   quote: Quote;
@@ -23,7 +24,7 @@ type ItemProps = {
 };
 
 function FavoriteItem({ quote, onRemoved, styles }: ItemProps) {
-  const { cardRef, capturing, share } = useCardShare();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   async function handleUnfavorite() {
     await toggleFavorite(quote.id);
@@ -32,8 +33,12 @@ function FavoriteItem({ quote, onRemoved, styles }: ItemProps) {
 
   return (
     <View style={styles.item}>
-      <QuoteCard quote={quote} ref={cardRef} capturing={capturing} />
-      <QuoteActions isFavorite onToggleFavorite={handleUnfavorite} onShare={share} />
+      <QuoteCard quote={quote} />
+      <QuoteActions
+        isFavorite
+        onToggleFavorite={handleUnfavorite}
+        onSend={() => navigation.navigate('SendKindWord', { quoteId: quote.id })}
+      />
     </View>
   );
 }

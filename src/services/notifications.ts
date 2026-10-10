@@ -8,7 +8,9 @@
 // a personal note now and then, ease off gently when the app goes unopened,
 // and pick back up on its own after a pause. The whole plan is cancelled and
 // rebuilt from scratch whenever the app opens or something changes, so
-// there are no individual notification ids to keep track of.
+// there are no individual notification ids to keep track of. Since Phase 8
+// it also reminds the user, on the day, to send a note they wrote for
+// someone else.
 
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
@@ -24,6 +26,7 @@ import {
 import type { NotificationSettings, PersonalNote } from './storage';
 import {
   planEventReminders,
+  planForSomeoneNote,
   planFutureNote,
   planRegularReminders,
   quietRegularTimes,
@@ -91,6 +94,7 @@ export type RescheduleResult =
       regularCount: number; // regular kind words lined up (quotes and notes)
       eventReminderCount: number;
       futureNoteCount: number;
+      forSomeoneCount: number; // reminders to send a note to someone else
       skippedTimes: string[]; // regular times never sent, for falling inside quiet hours
       pausedUntil: number | null; // an active snooze / "Not today", if any
       nextAt: number | null; // when the very next notification will arrive
@@ -120,16 +124,25 @@ export function describePausedUntil(until: number): string {
   });
 }
 
-// What a tapped notification should open on the Kind word screen: the
-// exact quote that was sent (never a new random one), or the personal note.
+// What a tapped notification should open: the Kind word screen with the
+// exact quote that was sent (never a new random one) or the personal note —
+// or, for a note the user wrote for someone else (Phase 8), the Send
+// screen, ready to pass it on.
 export type KindWordParams = { quoteId?: string; noteId?: string };
 
-export function extractKindWordParams(
+export type NotificationTarget =
+  | { screen: 'KindWord'; params: KindWordParams }
+  | { screen: 'SendKindWord'; params: { noteId: string } };
+
+export function extractNotificationTarget(
   response: Notifications.MaybeNotificationResponse
-): KindWordParams | undefined {
+): NotificationTarget | undefined {
   const data = response?.notification.request.content.data;
-  if (typeof data?.quoteId === 'string') return { quoteId: data.quoteId };
-  if (typeof data?.noteId === 'string') return { noteId: data.noteId };
+  if (typeof data?.quoteId === 'string') return { screen: 'KindWord', params: { quoteId: data.quoteId } };
+  if (typeof data?.noteId === 'string') return { screen: 'KindWord', params: { noteId: data.noteId } };
+  if (typeof data?.sendNoteId === 'string') {
+    return { screen: 'SendKindWord', params: { noteId: data.sendNoteId } };
+  }
   return undefined;
 }
 
@@ -199,8 +212,8 @@ async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> 
   // don't lean on it.
   const prefsFor = (date: Date) => ({ ...prefs, checkInMood: isSameDay(date, now) ? prefs.checkInMood : null });
 
-  // Event reminders and notes to future-you are tied to specific days, so
-  // they're placed first and regular kind words make room around them.
+  // Event reminders and notes tied to a day (to future-you, or for someone
+  // else) are placed first, and regular kind words make room around them.
   const eventReminders = events.flatMap((event) =>
     planEventReminders(event, settings, now, snoozeUntil).map((reminder) => ({ event, ...reminder }))
   );
@@ -227,12 +240,33 @@ async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> 
     futureNoteCount++;
   }
 
+  // A note for someone else is the user's to send, so on that person's day
+  // it comes as a reminder that opens the Send screen (see
+  // extractNotificationTarget) rather than as a kind word for the user.
+  let forSomeoneCount = 0;
+  for (const note of notes) {
+    const date = planForSomeoneNote(note, settings, now);
+    if (!date) continue;
+    const name = note.to || i18n.t('notes.someoneYouLove');
+    await scheduleAt(
+      date,
+      { title: i18n.t('notifications.forSomeoneTitle', { name }), body: note.text, data: { sendNoteId: note.id } },
+      channelId
+    );
+    scheduledDates.push(date);
+    forSomeoneCount++;
+  }
+
   // Notes to yourself and loved ones' messages can show up any time; a note
   // to future-you joins them once its own day has passed, so it can't turn
-  // up early and spoil the surprise.
+  // up early and spoil the surprise. Notes for someone else never do —
+  // they were written for another person.
   const today = todayISO();
   const personalNotes = notes.filter(
-    (note) => note.kind !== 'future' || (note.deliverOn !== undefined && note.deliverOn < today)
+    (note) =>
+      note.kind === 'self' ||
+      note.kind === 'loved_one' ||
+      (note.kind === 'future' && note.deliverOn !== undefined && note.deliverOn < today)
   );
 
   const regularDates = planRegularReminders(settings, now, snoozeUntil, [...scheduledDates]);
@@ -263,6 +297,7 @@ async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> 
     regularCount: regularDates.length,
     eventReminderCount: eventReminders.length,
     futureNoteCount,
+    forSomeoneCount,
     skippedTimes: quietRegularTimes(settings),
     pausedUntil: snoozeUntil,
     nextAt: times.length > 0 ? Math.min(...times) : null,

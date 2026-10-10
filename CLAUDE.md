@@ -23,6 +23,10 @@ keep this tone in mind above all else.
   more relational).
 - Notifications use expo-notifications (local scheduled notifications only,
   no push server, until Phase 5).
+- Sharing (Phase 8) always goes through the phone's share sheet — the app
+  never sends anything to anyone by itself. Pictures use expo-sharing,
+  which only shares files; plain text uses React Native's built-in `Share`
+  API. `src/services/share.ts` holds both, plus the Kindwords store link.
 - Quotes live in `src/data/quotes.json`: each quote has
   `{ id, text, author?, circumstances: [], eventTypes: [], mood, language }`.
   Only original or public-domain quotes — never fabricate an attribution to
@@ -50,7 +54,7 @@ keep this tone in mind above all else.
   code over clever generalization.
 
 ## Current phase status
-See ROADMAP.md. Phases 1 through 7 are complete.
+See ROADMAP.md. Phases 1 through 8 are complete.
 
 ## Testing on a device
 As of Phase 2, **Expo Go can no longer run this app** — `expo-notifications`
@@ -96,6 +100,12 @@ instead:
 - A snooze / "Not today" skips everything inside it and resumes on its own.
   Gentle pacing assumes the app stays unopened from the moment the plan is
   built, and starts over each time it's rebuilt.
+- Notes for someone else (Phase 8) are a reminder to the user, not a kind
+  word for them: 9:00 on that person's day, waiting out quiet hours but
+  never held back by a snooze (that could mean missing their day). Their
+  notification carries `sendNoteId` rather than `noteId`, so a tap opens
+  the Send screen instead of the Kind word screen, and they're never mixed
+  in with the regular kind words.
 - `SCHEDULE_EXACT_ALARM` is declared in app.json so Android 12+ can deliver
   on time. Android 14+ users must still allow it in system settings
   (Phase 10).

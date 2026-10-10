@@ -187,3 +187,19 @@ export function planFutureNote(
   if (onItsDay <= now) return null;
   return nextFreeMoment(onItsDay, settings, snoozeUntil);
 }
+
+// When the user is reminded to send a note they wrote for someone else's
+// day (Phase 8): at 9:00 that morning, like event reminders, so there's
+// still the whole day to send it. Like a note to future-you, it waits out
+// quiet hours rather than being dropped — but not a snooze: a pause is
+// about kind words for the user, and waiting one out could mean missing the
+// other person's day. Returns null once that moment has passed.
+export function planForSomeoneNote(
+  note: PersonalNote,
+  settings: NotificationSettings,
+  now: Date
+): Date | null {
+  if (note.kind !== 'for_someone' || !note.deliverOn) return null;
+  const moment = nextFreeMoment(atTime(isoToDate(note.deliverOn), EVENT_REMINDER_TIME), settings, null);
+  return moment > now ? moment : null;
+}

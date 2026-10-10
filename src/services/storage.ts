@@ -143,14 +143,18 @@ export async function deleteEvent(id: string): Promise<void> {
 }
 
 // A personal note (Phase 7): something the user wrote to themselves or to
-// future-them, or a message from someone they love. Like events, these
+// future-them, or a message from someone they love — or, since Phase 8, a
+// note they wrote for someone else's important day. Like events, these
 // only ever live on the phone.
 export type PersonalNote = {
   id: string;
   kind: NoteKind;
   text: string;
   from?: string; // 'loved_one' only: who the message is from
-  deliverOn?: string; // 'future' only: the "YYYY-MM-DD" it should arrive on
+  to?: string; // 'for_someone' only: who the note is for
+  // 'future': the "YYYY-MM-DD" it should arrive on.
+  // 'for_someone': the other person's day, when the user is reminded to send it.
+  deliverOn?: string;
   createdOn: string; // "YYYY-MM-DD"
 };
 

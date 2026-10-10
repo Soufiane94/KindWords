@@ -1,8 +1,8 @@
 // A small row of actions that go under a QuoteCard: save as a favorite,
-// share as an image, "not for me", and snooze. Kept separate from QuoteCard
-// itself so the card stays exactly what gets captured when sharing. Each
-// action only shows up if its handler is passed, so every screen picks the
-// ones that make sense there.
+// send to someone (Phase 8) or share as an image, "not for me", and snooze.
+// Kept separate from QuoteCard itself so the card stays exactly what gets
+// captured when sharing. Each action only shows up if its handler is
+// passed, so every screen picks the ones that make sense there.
 
 import React, { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
@@ -14,12 +14,20 @@ import type { Palette } from '../data/worlds';
 type Props = {
   isFavorite?: boolean;
   onToggleFavorite?: () => void;
+  onSend?: () => void;
   onShare?: () => void;
   onNotForMe?: () => void;
   onSnooze?: () => void;
 };
 
-export default function QuoteActions({ isFavorite = false, onToggleFavorite, onShare, onNotForMe, onSnooze }: Props) {
+export default function QuoteActions({
+  isFavorite = false,
+  onToggleFavorite,
+  onSend,
+  onShare,
+  onNotForMe,
+  onSnooze,
+}: Props) {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -33,6 +41,14 @@ export default function QuoteActions({ isFavorite = false, onToggleFavorite, onS
           accessibilityLabel={isFavorite ? t('quoteActions.removeFromFavorites') : t('quoteActions.addToFavorites')}
           onPress={onToggleFavorite}
           selected={isFavorite}
+        />
+      )}
+      {onSend && (
+        <ActionButton
+          icon="paper-plane-outline"
+          label={t('quoteActions.send')}
+          accessibilityLabel={t('quoteActions.sendAccessibility')}
+          onPress={onSend}
         />
       )}
       {onShare && (

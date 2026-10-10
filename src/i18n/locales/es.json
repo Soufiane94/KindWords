@@ -90,6 +90,8 @@
     "eventRemindersOther": "Además, {{count}} recordatorios de eventos próximos.",
     "futureNotesOne": "Además, {{count}} nota esperando a tu yo del futuro.",
     "futureNotesOther": "Además, {{count}} notas esperando a tu yo del futuro.",
+    "forSomeoneOne": "Además, {{count}} aviso para enviarle una nota a otra persona.",
+    "forSomeoneOther": "Además, {{count}} avisos para enviar notas a otras personas.",
     "nextAt": "La próxima: {{when}}.",
     "skippedTimes": "Se omitió: {{times}} — dentro de tus horas silenciosas.",
     "permissionDenied": "Las notificaciones están desactivadas para Kindwords en los ajustes de tu teléfono. Actívalas ahí y vuelve a intentar guardar.",
@@ -117,7 +119,7 @@
   },
   "notes": {
     "title": "Notas",
-    "subtitle": "Escribe una nota para ti o para tu yo del futuro, o guarda un mensaje de alguien que quieres. Las iremos mezclando de vez en cuando con tus palabras amables.",
+    "subtitle": "Escribe una nota para ti o para tu yo del futuro, guarda un mensaje de alguien que quieres, o escribe una para el día importante de otra persona. Las notas para ti las iremos mezclando de vez en cuando con tus palabras amables.",
     "emptyText": "Todavía no hay notas.",
     "remindersOffHint": "Los recordatorios de palabras amables están desactivados en Ajustes, así que por ahora no se enviarán notas.",
     "addNote": "+ Añadir una nota",
@@ -127,23 +129,35 @@
     "kinds": {
       "self": "Para mí",
       "future": "Para mi yo del futuro",
-      "loved_one": "De alguien que quiero"
+      "loved_one": "De alguien que quiero",
+      "for_someone": "Para alguien que quiero"
     },
     "fromLabel": "¿De quién es?",
     "fromPlaceholder": "ej. Mamá, mi mejor amiga",
+    "toLabel": "¿Para quién es?",
+    "toPlaceholder": "ej. Yasmine, mi hermano",
     "textLabel": "Tu nota",
     "textLabelLovedOne": "Su mensaje",
+    "textLabelForSomeone": "Tu nota para esa persona",
     "placeholders": {
       "self": "ej. Ya has superado días difíciles antes.",
       "future": "ej. Espero que te estés cuidando.",
-      "loved_one": "ej. Pienso mucho en ti."
+      "loved_one": "ej. Pienso mucho en ti.",
+      "for_someone": "ej. Pienso en ti hoy. Aquí estoy para lo que necesites."
     },
     "deliverLabel": "¿Cuándo debe llegar?",
     "deliverDateLabel": "Llega el",
+    "forSomeoneDayLabel": "¿Qué día es?",
+    "forSomeoneDateLabel": "El día",
+    "forSomeoneHelp": "Te lo recordaremos ese día a las {{time}}, para que se la puedas enviar.",
+    "sendNow": "Enviarla ahora",
     "metaLovedOne": "De {{name}}",
     "metaFuture": "Para mi yo del futuro · llega el {{date}}",
     "metaFutureArrived": "Para mi yo del futuro · llegó el {{date}}",
+    "metaForSomeone": "Para {{name}} · aviso el {{when}}",
+    "metaForSomeoneDay": "Para {{name}} · {{date}}",
     "someoneWhoLovesYou": "alguien que te quiere",
+    "someoneYouLove": "alguien que quieres",
     "deleteConfirmTitle": "¿Eliminar esta nota?",
     "deleteButton": "Eliminar",
     "deleteNoteLink": "Eliminar nota"
@@ -162,11 +176,34 @@
     "notForMeMessage": "No volveremos a enviarte esa, y te enviaremos menos como ella.",
     "fromYouOn": "Tú, {{date}}"
   },
+  "send": {
+    "title": "Enviar una palabra amable",
+    "subtitle": "Elige una o escribe la tuya, y luego decide para quién es.",
+    "forName": "Para {{name}}",
+    "sources": {
+      "pick": "Una palabra amable",
+      "write": "Mis propias palabras"
+    },
+    "writePlaceholder": "ej. Solo quería decirte que estoy pensando en ti.",
+    "emptyPreview": "Escribe algo arriba para ver cómo quedará.",
+    "another": "Otra",
+    "formatLabel": "Enviar como",
+    "formats": {
+      "picture": "Imagen",
+      "text": "Texto"
+    },
+    "includeLink": "Añadir un enlace a Kindwords",
+    "includeLinkSubtitle": "Para que esa persona también pueda recibir palabras amables de vez en cuando, si quiere.",
+    "linkLine": "Enviado con Kindwords. Si tú también quieres recibir palabras amables de vez en cuando: {{url}}",
+    "sendButton": "Enviar"
+  },
   "quoteActions": {
     "save": "Guardar",
     "saved": "Guardado",
     "addToFavorites": "Añadir a favoritos",
     "removeFromFavorites": "Quitar de favoritos",
+    "send": "Enviar",
+    "sendAccessibility": "Enviar esta palabra amable a alguien",
     "share": "Compartir",
     "shareAccessibility": "Compartir esta cita como imagen",
     "notForMe": "No es para mí",
@@ -187,6 +224,7 @@
     "selfNoteTitle": "Una nota tuya",
     "futureNoteTitle": "Una nota que te escribiste",
     "lovedOneTitle": "Un mensaje de {{name}}",
+    "forSomeoneTitle": "Tu nota para {{name}} está lista para enviar",
     "snoozedHour": "Palabras amables pausadas por 1 hora.",
     "snoozedTomorrow": "Palabras amables pausadas hasta mañana.",
     "snoozedThreeDays": "Palabras amables pausadas por 3 días.",

@@ -90,6 +90,8 @@
     "eventRemindersOther": "W zid {{count}} tnbihat dyal événements jayin.",
     "futureNotesOne": "W zid {{count}} risala katsenna fik f lmosta9bal.",
     "futureNotesOther": "W zid {{count}} rasa2il katsennaw fik f lmosta9bal.",
+    "forSomeoneOne": "W zid {{count}} tnbih bach tseft nota l chi wa7ed akhor.",
+    "forSomeoneOther": "W zid {{count}} tnbihat bach tseft notat l nas khrin.",
     "nextAt": "Jaya: {{when}}.",
     "skippedTimes": "Tnehhaw: {{times}} — dakhel sw9at skat.",
     "permissionDenied": "Tnbihat msakrin l Kindwords f l3dadat dyal telephone dyalek. Smeh liha mn tma, mn b3d 3awed 7awel tsejjel.",
@@ -117,7 +119,7 @@
   },
   "notes": {
     "title": "Notat",
-    "subtitle": "Kteb klma l rasek wla l rasek f lmosta9bal, wla 7fed risala mn chi wa7ed kat7ebbo. Ghadi ndakhlouhom m3a lklam l7lou mn wqt l wqt.",
+    "subtitle": "Kteb klma l rasek wla l rasek f lmosta9bal, 7fed risala mn chi wa7ed kat7ebbo, wla kteb wa7da l nhar mohim dyal chi wa7ed akhor. Notat li lik ghadi ndakhlouhom m3a lklam l7lou mn wqt l wqt.",
     "emptyText": "Mazal ma kayn 7ta nota.",
     "remindersOffHint": "Tnbihat dyal lklam l7lou mwa99fin f L3dadat, donc notat ma ghadi ytseftou daba.",
     "addNote": "+ Zid nota",
@@ -127,23 +129,35 @@
     "kinds": {
       "self": "Lia ana",
       "future": "Lia f lmosta9bal",
-      "loved_one": "Mn chi wa7ed kan7ebbo"
+      "loved_one": "Mn chi wa7ed kan7ebbo",
+      "for_someone": "L chi wa7ed kan7ebbo"
     },
     "fromLabel": "Mn 3and chkoun?",
     "fromPlaceholder": "mithal: Mama, khouya",
+    "toLabel": "L chkoun?",
+    "toPlaceholder": "mithal: Yasmine, khouya",
     "textLabel": "Nota dyalek",
     "textLabelLovedOne": "Risala",
+    "textLabelForSomeone": "Nota dyalek lih",
     "placeholders": {
       "self": "mithal: Douzti iyam s3ab 9bel, w ghadi tdouz hadi.",
       "future": "mithal: Nchallah koulchi bikhir 3ndek.",
-      "loved_one": "mithal: Dima kanfkker fik."
+      "loved_one": "mithal: Dima kanfkker fik.",
+      "for_someone": "mithal: Kanfkker fik lyoum. Ana hna ila 7tajiti chi 7aja."
     },
     "deliverLabel": "Imta khasha towsel?",
     "deliverDateLabel": "Katwsel nhar",
+    "forSomeoneDayLabel": "Ach men nhar?",
+    "forSomeoneDateLabel": "Nhar",
+    "forSomeoneHelp": "Ghadi nfkkrouk dak nhar m3a {{time}}, bach tseftha lih.",
+    "sendNow": "Seftha daba",
     "metaLovedOne": "Mn {{name}}",
     "metaFuture": "Lia f lmosta9bal · katwsel {{date}}",
     "metaFutureArrived": "Lia f lmosta9bal · wslat {{date}}",
+    "metaForSomeone": "L {{name}} · tnbih {{when}}",
+    "metaForSomeoneDay": "L {{name}} · {{date}}",
     "someoneWhoLovesYou": "chi wa7ed kay7ebbek",
+    "someoneYouLove": "chi wa7ed kat7ebbo",
     "deleteConfirmTitle": "Msse7 had nota?",
     "deleteButton": "Msse7",
     "deleteNoteLink": "Msse7 nota"
@@ -162,11 +176,34 @@
     "notForMeMessage": "Maghadi nseftouhach 3awtani, w ghadi nseftou 9el mn bhalha.",
     "fromYouOn": "Mnek, {{date}}"
   },
+  "send": {
+    "title": "Seft klma 7elwa",
+    "subtitle": "Khtar wa7da wla kteb klamek, w mn b3d khtar l chkoun.",
+    "forName": "L {{name}}",
+    "sources": {
+      "pick": "Klma 7elwa",
+      "write": "Klami ana"
+    },
+    "writePlaceholder": "mithal: Bghit ghir ngoul lik rani kanfkker fik.",
+    "emptyPreview": "Kteb chi 7aja lfou9 bach tchouf kifach ghadi tban.",
+    "another": "Wa7da khra",
+    "formatLabel": "Seftha b",
+    "formats": {
+      "picture": "Tsawira",
+      "text": "Ktaba"
+    },
+    "includeLink": "Zid lien dyal Kindwords",
+    "includeLinkSubtitle": "Bach 7ta howa ywslo klam 7lou mn wqt l wqt, ila bgha.",
+    "linkLine": "Tseftat b Kindwords. Ila bghiti 7ta nta klam 7lou mn wqt l wqt: {{url}}",
+    "sendButton": "Seft"
+  },
   "quoteActions": {
     "save": "7fed",
     "saved": "M7affed",
     "addToFavorites": "Zid l favorite",
     "removeFromFavorites": "N9ess mn favorite",
+    "send": "Seft",
+    "sendAccessibility": "Seft had lklma l7elwa l chi wa7ed",
     "share": "Partagi",
     "shareAccessibility": "Partagi hadi lklma b chi tsawira",
     "notForMe": "Machi lia",
@@ -187,6 +224,7 @@
     "selfNoteTitle": "Klma mnek",
     "futureNoteTitle": "Risala li ktebti l rasek",
     "lovedOneTitle": "Risala mn {{name}}",
+    "forSomeoneTitle": "Nota dyalek l {{name}} wajda bach tseftha",
     "snoozedHour": "Lklam l7lou twa99fo sa3a wahda.",
     "snoozedTomorrow": "Lklam l7lou twa99fo l ghda.",
     "snoozedThreeDays": "Lklam l7lou twa99fo tlat iyam.",
