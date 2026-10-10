@@ -104,7 +104,8 @@
     "removeTime": "7ayed wqt {{number}}",
     "helpTitle": "Mosa3ada",
     "supportLink": "Bghiti tehder m3a chi wa7ed?",
-    "privacyLink": "Lkhosousiya w ma3loumatek"
+    "privacyLink": "Lkhosousiya w ma3loumatek",
+    "deliveryHelpLink": "Ila lklam l7lou kaywsel m3atel"
   },
   "events": {
     "title": "Agenda",
@@ -376,5 +377,27 @@
     "importPermissionNote": "Bach ywslok lklam l7lou f had telephone, 7el L3dadat w dess 3la 7fed.",
     "importInvalidTitle": "Hada machi fichier dyal Kindwords",
     "importInvalidMessage": "Khtar fichier li tsawb b \"Khrrej ma3loumati\"."
+  },
+  "deliveryHelp": {
+    "title": "Ila lklam l7lou kaywsel m3atel",
+    "intro": "Bach y9ellel mn batterie, chi telephonat kay7bsou notifications dyal l'applications, w lklam l7lou ymken ywsel m3atel wla ma ywselch. Had l3dadat ymken y3awnou. 7ta wa7da fihom machi daroriya.",
+    "exactTitle": "F lwe9t",
+    "exactBody": "\"Alarmes et rappels\" kaykhelli Kindwords yseft koul klma 7elwa f nafs lwe9t li khtariti. Ila kan msdoud, Android ymken yseftha chwiya mn b3d.",
+    "exactButton": "7el Alarmes et rappels",
+    "batteryTitle": "Batterie",
+    "batteryBody": "F l3dadat dyal Kindwords, dir batterie 3la \"Non restreinte\" (f chi telephonat: \"Ne pas optimiser\").",
+    "batteryButton": "7el l3dadat dyal Kindwords",
+    "notificationsTitle": "Tnbihat",
+    "notificationsBody": "Tchouf wach tnbihat m9boulin l Kindwords, 7ta l catégorie \"Lklam l7lou\".",
+    "notificationsButton": "7el l3dadat dyal tnbihat",
+    "brandsTitle": "Chi telephonat khasshom khatwa khra",
+    "brands": {
+      "samsung": "Samsung: Paramètres > Batterie > Limites d'utilisation en arrière-plan > Applications jamais en veille, w zid Kindwords.",
+      "xiaomi": "Xiaomi, Redmi, POCO: 7el démarrage automatique l Kindwords, w dir économiseur de batterie dyalo 3la \"Aucune restriction\".",
+      "huawei": "Huawei, Honor: Paramètres > Batterie > Lancement d'applications, sedd \"Gérer automatiquement\" l Kindwords w khalli kolchi mkhdem.",
+      "other": "Telephonat khrin: 9elleb 3la Kindwords f l3dadat dyal batterie w sedd l'optimisation."
+    },
+    "guidesLink": "Guides khatwa b khatwa l koul marque (dontkillmyapp.com, b l'anglais)",
+    "footer": "Kindwords khddam f jmi3 l7alat: lklam l7lou ymken ghir ywsel chwiya m3atel."
   }
 }

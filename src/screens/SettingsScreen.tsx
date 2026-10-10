@@ -5,7 +5,7 @@
 // me" — and, at the bottom, quiet links to help pages (9C on).
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Switch, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Switch, Alert, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -471,6 +471,17 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
           </View>
         )}
 
+        {/* Android phones may hold kind words back to save battery (9G). */}
+        {Platform.OS === 'android' && settings.enabled && (
+          <Pressable
+            onPress={() => navigation.navigate('DeliveryHelp')}
+            style={styles.lateLink}
+            accessibilityRole="button"
+          >
+            <Text style={styles.inlineLinkText}>{t('settings.deliveryHelpLink')}</Text>
+          </Pressable>
+        )}
+
         <View style={styles.divider} />
 
         {/* Quiet links to pages that are there when they're needed. */}
@@ -483,6 +494,15 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
         <Pressable onPress={() => navigation.navigate('Privacy')} style={styles.helpLink} accessibilityRole="button">
           <Text style={styles.helpLinkText}>{t('settings.privacyLink')}</Text>
         </Pressable>
+        {Platform.OS === 'android' && (
+          <Pressable
+            onPress={() => navigation.navigate('DeliveryHelp')}
+            style={styles.helpLink}
+            accessibilityRole="button"
+          >
+            <Text style={styles.helpLinkText}>{t('settings.deliveryHelpLink')}</Text>
+          </Pressable>
+        )}
 
         <Pressable onPress={onResetOnboarding} style={styles.resetLink} accessibilityRole="button">
           <Text style={styles.resetLinkText}>{t('settings.resetOnboarding')}</Text>
@@ -617,6 +637,11 @@ function createStyles(world: World) {
       alignSelf: 'flex-start',
       paddingVertical: 8,
       marginTop: 4,
+    },
+    lateLink: {
+      alignSelf: 'center',
+      paddingVertical: 6,
+      marginTop: 12,
     },
     helpLinkText: {
       fontSize: 15,

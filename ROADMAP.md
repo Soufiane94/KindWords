@@ -3,7 +3,7 @@
 Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
-**Current:** Phase 9 — Release readiness. **Next:** 9G (9A's research is
+**Current:** Phase 9 — Release readiness. **Next:** 9H (9A's research is
 done; the name decision is yours).
 
 Each sub-phase is done on its own, one commit each.
@@ -117,25 +117,14 @@ across Home, the widget and notifications). Events can have a time, and
 events and notes for someone else's day can come back every year. Details
 in CHANGELOG.md.
 
-### 9G — Scheduling tests and reliability
-- Jest unit tests for reminderPlan.ts (pure date math) and quote picking:
-  quiet hours, snooze, "not today", gentle pacing, events (day before,
-  morning-of fallback, day after, event times if 9F is done), notes
-  (future-you, someone else's day), duplicate custom times, the 50-item
-  cap. The Phase 2 and 3 fixes were scheduling bugs, and 7D rebuilt the
-  scheduler, so this matters.
-- Clock changes: run the tests in both the Europe/Paris and
-  Africa/Casablanca time zones. Cover France's changes (back an hour in the
-  night of Oct 24–25, 2026; forward on Mar 28, 2027) and Morocco's clock
-  change around Ramadan (the time zone database has the dates). Compute
-  times with calendar dates in local time, never by adding 24 hours in
-  milliseconds.
-- Android 14+ doesn't grant `SCHEDULE_EXACT_ALARM` by default: explain it
-  gently and link to Settings > Alarms & reminders. The app must still work
-  if the user says no.
-- A short in-app guide for phones that kill background notifications
-  (Samsung, Xiaomi, etc.): how to exempt Kindwords from battery
-  optimization.
+### 9G — Scheduling tests and reliability ✅
+`npm test` runs 58 tests twice, in Paris and Casablanca time, through
+France's and Morocco's clock changes. "If kind words arrive late" explains
+"Alarms & reminders" and battery settings, with buttons to the right
+pages. Details in CHANGELOG.md.
+- [ ] New EAS dev-client build (new native module: `expo-intent-launcher`).
+- [ ] On an Android 14+ phone: "Open Alarms & reminders" lands on
+  Kindwords' own switch, and kind words still arrive with it off.
 
 ### 9H — Store assets and real phones
 - App icon and splash screen (replacing the Expo defaults), matching the

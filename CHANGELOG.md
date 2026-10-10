@@ -895,3 +895,68 @@ be quick:
 Not done: an occasion type for notes (still in the backlog), and choosing
 how long before or after an event the kind words come (fixed, to keep it
 simple).
+
+### 9G — Scheduling tests and reliability
+**Needs a new EAS dev-client build:** `expo-intent-launcher` is a new
+native module (one build covers 9E's and this one).
+
+**Tests: `npm test`.** Jest with jest-expo (set up as Expo's SDK 57 guide
+says), tests in `__tests__/`, 58 of them:
+- `reminderPlan`: quiet hours (wrapping past midnight, an empty window),
+  daily / 3x a week / custom times, duplicate times, the 50-item cap,
+  snoozes and "Not today", no kind word within an hour of a reminder or a
+  note, the exact gentle-pacing sequence, events without a time (day
+  before, morning-of fallback, day after, a snooze moving "before", quiet
+  hours covering 9:00), every fallback for events with a time, yearly
+  events (the day after New Year's Eve, February 29, a yearly date that
+  starts in the future), notes to future-you and for someone else's day.
+- `dates`, quote picking (no repeats, rounds per language, the quote on
+  screen, hidden quotes, today's check-in, "not for me", event types; with
+  seeded randomness, so counts never flake), the scheduler itself with
+  expo-notifications replaced by a recorder (a plan doesn't repeat itself;
+  delivered kind words count as seen at the next rebuild), and backups
+  (reading files safely, importing only adds, deleting only Kindwords'
+  keys).
+- **Clock changes:** `npm test` runs everything twice, in Europe/Paris and
+  Africa/Casablanca time. The clock-change tests read the changes from the
+  time zone database itself (France: October 25, 2026 and March 28, 2027;
+  Morocco: February 7 and March 14, 2027, around Ramadan, as the database
+  predicts them) and check that kind words, quiet hours and event
+  reminders keep their local time through each one.
+- On Windows, Node ignores a time zone set before it starts, and Jest test
+  files only see a copy of the environment, so a small test environment
+  (`jest/timeZoneEnvironment.js`, built on React Native's own) sets the
+  zone inside each test worker. `timeZone-test.ts` fails if the zone isn't
+  really in effect, so the clock-change tests can't silently test the
+  computer's own zone instead.
+- TypeScript 6 no longer loads every `@types` package by itself, so
+  tsconfig.json now lists `jest`.
+- Writing them turned up no bug, and one thing worth knowing: a pause is
+  over at the very moment it ends, so a kind word due at exactly that time
+  is sent. That's the same for every kind of reminder.
+
+**"If kind words arrive late"** (`DeliveryHelpScreen`, Android only), from
+Settings > Help and from a quiet link under the reminders when they're on:
+- "Alarms & reminders" (Android 12 and later), in plain words, with a
+  button straight to Kindwords' own switch. That needs Android's `package:`
+  address, which React Native's `Linking` can't pass, hence
+  `expo-intent-launcher`.
+- Battery ("Unrestricted", or "Don't optimize" on some phones) through the
+  app's settings page, notifications through its notification settings,
+  then one short tip each for Samsung, Xiaomi / Redmi / POCO, Huawei /
+  Honor and other phones, and a link to dontkillmyapp.com for step-by-step
+  guides.
+- Every step is optional. Without exact alarms, expo-notifications
+  schedules inexact ones by itself (checked in its Android code), so kind
+  words still come, maybe a little late.
+- It doesn't say whether exact alarms are on: neither React Native nor
+  expo-notifications can tell, and finding out would need a custom native
+  module. A quiet page that's always there seemed better than a warning
+  that could be wrong. Worth revisiting if testers report late kind words.
+- No "ignore battery optimizations" prompt: Google Play only allows that
+  permission for apps whose core function needs it.
+- The Android package name now lives in `src/data/links.ts` with the other
+  addresses, and the Play Store link is built from it.
+
+Not done: knowing whether exact alarms are allowed (above), and checking
+the brand tips on real Samsung and Xiaomi phones (9H).

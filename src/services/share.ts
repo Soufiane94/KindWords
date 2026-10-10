@@ -8,13 +8,14 @@ import { Share, View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
 import * as Sharing from 'expo-sharing';
 import i18n from '../i18n';
+import { ANDROID_PACKAGE } from '../data/links';
 
 // Where "Add a link to Kindwords" points: the Play Store listing for the
 // package name in app.json. On Android it opens in the Play Store app,
 // which offers "Install", or "Open" if Kindwords is already installed. It
-// only leads somewhere once the app is published (Phase 11); a link on our
+// only leads somewhere once the app is published (Phase 10); a link on our
 // own website could later open the app directly and suit iPhones too.
-export const KINDWORDS_LINK = 'https://play.google.com/store/apps/details?id=com.kindwords.app';
+export const KINDWORDS_LINK = `https://play.google.com/store/apps/details?id=${ANDROID_PACKAGE}`;
 
 export async function captureViewAsImage(viewRef: RefObject<View | null>): Promise<string | null> {
   if (!viewRef.current) return null;

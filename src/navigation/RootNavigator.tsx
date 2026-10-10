@@ -19,6 +19,7 @@ import KindWordScreen from '../screens/KindWordScreen';
 import SendKindWordScreen from '../screens/SendKindWordScreen';
 import SupportScreen from '../screens/SupportScreen';
 import PrivacyScreen from '../screens/PrivacyScreen';
+import DeliveryHelpScreen from '../screens/DeliveryHelpScreen';
 import { getOnboardingDone, setOnboardingDone } from '../services/storage';
 import {
   rescheduleAllNotifications,
@@ -127,6 +128,7 @@ function RootStackNavigator({ onResetOnboarding, onDataDeleted }: RootStackNavig
       <RootStack.Screen name="Privacy" options={{ presentation: 'modal' }}>
         {(props) => <PrivacyScreen {...props} onDataDeleted={onDataDeleted} />}
       </RootStack.Screen>
+      <RootStack.Screen name="DeliveryHelp" component={DeliveryHelpScreen} options={{ presentation: 'modal' }} />
     </RootStack.Navigator>
   );
 }

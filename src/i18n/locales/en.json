@@ -104,7 +104,8 @@
     "removeTime": "Remove time {{number}}",
     "helpTitle": "Help",
     "supportLink": "Need to talk to someone?",
-    "privacyLink": "Privacy and your data"
+    "privacyLink": "Privacy and your data",
+    "deliveryHelpLink": "If kind words arrive late"
   },
   "events": {
     "title": "Calendar",
@@ -376,5 +377,27 @@
     "importPermissionNote": "To get kind words on this phone, open Settings and tap Save.",
     "importInvalidTitle": "This isn't a Kindwords file",
     "importInvalidMessage": "Pick a file made with \"Export my data\"."
+  },
+  "deliveryHelp": {
+    "title": "If kind words arrive late",
+    "intro": "To save battery, some phones hold back apps' notifications, so kind words can come late, or not at all. These settings can help. None of them is required.",
+    "exactTitle": "On time",
+    "exactBody": "\"Alarms & reminders\" lets Kindwords send each kind word right at the time you chose. If it's off, Android may send them a little later.",
+    "exactButton": "Open Alarms & reminders",
+    "batteryTitle": "Battery",
+    "batteryBody": "In Kindwords' settings, set battery use to \"Unrestricted\" (on some phones: \"Don't optimize\").",
+    "batteryButton": "Open Kindwords' settings",
+    "notificationsTitle": "Notifications",
+    "notificationsBody": "Check that notifications are allowed for Kindwords, including the \"Kind words\" category.",
+    "notificationsButton": "Open notification settings",
+    "brandsTitle": "Some phones need one more step",
+    "brands": {
+      "samsung": "Samsung: Settings > Battery > Background usage limits > Never sleeping apps, then add Kindwords.",
+      "xiaomi": "Xiaomi, Redmi, POCO: turn on Autostart for Kindwords, and set its battery saver to \"No restrictions\".",
+      "huawei": "Huawei, Honor: Settings > Battery > App launch, turn off \"Manage automatically\" for Kindwords and leave everything on.",
+      "other": "Other phones: look for Kindwords in the battery settings and turn off battery optimization."
+    },
+    "guidesLink": "Step-by-step guides for each brand (dontkillmyapp.com)",
+    "footer": "Kindwords keeps working either way: kind words may just arrive a little late."
   }
 }

@@ -44,9 +44,11 @@ users, especially people who feel alone. The goal is to bring a smile.
   reload. We test with a development build, not Expo Go (see "Testing on a
   device").
 - Scheduling: compute times with calendar dates in local time (never add
-  24 hours in milliseconds; `addDays`/`atTime` in `src/services/dates.ts`
-  do this), keep reminderPlan.ts pure, and run its tests after every
-  scheduling change (the tests arrive in 9G).
+  24 hours in milliseconds; `addDays`/`addHours`/`atTime` in
+  `src/services/dates.ts` do this), keep reminderPlan.ts pure, and run
+  `npm test` after every scheduling change: it runs the tests (in
+  `__tests__/`) in both Europe/Paris and Africa/Casablanca time. A new
+  scheduling rule gets a test.
 - Never change the Android package name (com.kindwords.app) once a build
   has been uploaded to Play Console.
 - After each phase or sub-phase: a ✅ line in ROADMAP.md and an updated
@@ -98,6 +100,8 @@ users, especially people who feel alone. The goal is to bring a smile.
   - `src/navigation` — navigators
   - `src/widget` — the Android home screen widget (Phase 7), built from
     react-native-android-widget's own primitives, not regular views
+  - `__tests__` — Jest tests, named `*-test.ts`; `jest/` holds their setup
+    and helpers, `scripts/` small Node scripts like `npm test`'s
 - Comment for a beginner: explain *why*, not *what*, and keep comments short.
 - No unnecessary abstractions — this is a small app, prefer straightforward
   code over clever generalization.
@@ -175,8 +179,11 @@ instead:
   the Send screen instead of the Kind word screen, and they're never mixed
   in with the regular kind words.
 - `SCHEDULE_EXACT_ALARM` is declared in app.json so Android 12+ can deliver
-  on time. Android 14+ doesn't grant it by default: users must allow it in
-  system settings, and the app must still work if they don't (9G).
+  on time. Android 14+ doesn't grant it by default: users can allow it from
+  "If kind words arrive late" (`DeliveryHelpScreen`, 9G), and without it
+  expo-notifications falls back to inexact alarms, so the app still works.
+  Never use `USE_EXACT_ALARM` or ask to ignore battery optimizations: Play
+  only allows those for alarm and similar apps.
 
 ### Worlds and pictures
 - Colors always come from the active world via `ThemeContext` (`colors`,

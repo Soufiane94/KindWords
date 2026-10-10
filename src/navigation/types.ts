@@ -13,4 +13,6 @@ export type RootStackParamList = {
   Support: undefined;
   // 9D: "Privacy and your data"
   Privacy: undefined;
+  // 9G: "If kind words arrive late" (Android only)
+  DeliveryHelp: undefined;
 };

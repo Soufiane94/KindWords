@@ -104,7 +104,8 @@
     "removeTime": "Quitar la hora {{number}}",
     "helpTitle": "Ayuda",
     "supportLink": "¿Necesitas hablar con alguien?",
-    "privacyLink": "Privacidad y tus datos"
+    "privacyLink": "Privacidad y tus datos",
+    "deliveryHelpLink": "Si las palabras amables llegan tarde"
   },
   "events": {
     "title": "Calendario",
@@ -376,5 +377,27 @@
     "importPermissionNote": "Para recibir palabras amables en este teléfono, abre Ajustes y toca Guardar.",
     "importInvalidTitle": "Este no es un archivo de Kindwords",
     "importInvalidMessage": "Elige un archivo creado con «Exportar mis datos»."
+  },
+  "deliveryHelp": {
+    "title": "Si las palabras amables llegan tarde",
+    "intro": "Para ahorrar batería, algunos teléfonos retienen las notificaciones de las apps, así que las palabras amables pueden llegar tarde, o no llegar. Estos ajustes pueden ayudar. Ninguno es obligatorio.",
+    "exactTitle": "A su hora",
+    "exactBody": "«Alarmas y recordatorios» permite a Kindwords enviar cada palabra amable justo a la hora que elegiste. Si está desactivado, Android puede enviarlas un poco más tarde.",
+    "exactButton": "Abrir Alarmas y recordatorios",
+    "batteryTitle": "Batería",
+    "batteryBody": "En los ajustes de Kindwords, pon el uso de batería en «Sin restricciones» (en algunos teléfonos: «No optimizar»).",
+    "batteryButton": "Abrir los ajustes de Kindwords",
+    "notificationsTitle": "Notificaciones",
+    "notificationsBody": "Comprueba que las notificaciones de Kindwords están permitidas, incluida la categoría «Palabras amables».",
+    "notificationsButton": "Abrir los ajustes de notificaciones",
+    "brandsTitle": "Algunos teléfonos necesitan un paso más",
+    "brands": {
+      "samsung": "Samsung: Ajustes > Batería > Límites de uso en segundo plano > Aplicaciones que nunca entran en suspensión, y añade Kindwords.",
+      "xiaomi": "Xiaomi, Redmi, POCO: activa el inicio automático de Kindwords y pon su ahorro de batería en «Sin restricciones».",
+      "huawei": "Huawei, Honor: Ajustes > Batería > Inicio de aplicaciones, desactiva «Gestionar automáticamente» para Kindwords y déjalo todo activado.",
+      "other": "Otros teléfonos: busca Kindwords en los ajustes de batería y desactiva la optimización de batería."
+    },
+    "guidesLink": "Guías paso a paso para cada marca (dontkillmyapp.com, en inglés)",
+    "footer": "Kindwords funciona igual: las palabras amables pueden llegar solo un poco tarde."
   }
 }

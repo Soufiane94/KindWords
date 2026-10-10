@@ -104,7 +104,8 @@
     "removeTime": "Retirer l'heure {{number}}",
     "helpTitle": "Aide",
     "supportLink": "Besoin de parler à quelqu'un ?",
-    "privacyLink": "Confidentialité et données"
+    "privacyLink": "Confidentialité et données",
+    "deliveryHelpLink": "Si les mots doux arrivent en retard"
   },
   "events": {
     "title": "Calendrier",
@@ -376,5 +377,27 @@
     "importPermissionNote": "Pour recevoir des mots doux sur ce téléphone, ouvre les Réglages et touche Enregistrer.",
     "importInvalidTitle": "Ce n'est pas un fichier Kindwords",
     "importInvalidMessage": "Choisis un fichier créé avec « Exporter mes données »."
+  },
+  "deliveryHelp": {
+    "title": "Si les mots doux arrivent en retard",
+    "intro": "Pour économiser la batterie, certains téléphones retiennent les notifications des applis : les mots doux peuvent alors arriver en retard, ou pas du tout. Ces réglages peuvent aider. Aucun n'est obligatoire.",
+    "exactTitle": "À l'heure",
+    "exactBody": "« Alarmes et rappels » permet à Kindwords d'envoyer chaque mot doux pile à l'heure choisie. Si c'est désactivé, Android peut les envoyer un peu plus tard.",
+    "exactButton": "Ouvrir Alarmes et rappels",
+    "batteryTitle": "Batterie",
+    "batteryBody": "Dans les réglages de Kindwords, mets l'utilisation de la batterie sur « Non restreinte » (sur certains téléphones : « Ne pas optimiser »).",
+    "batteryButton": "Ouvrir les réglages de Kindwords",
+    "notificationsTitle": "Notifications",
+    "notificationsBody": "Vérifie que les notifications sont autorisées pour Kindwords, y compris la catégorie « Mots doux ».",
+    "notificationsButton": "Ouvrir les réglages des notifications",
+    "brandsTitle": "Certains téléphones demandent une étape de plus",
+    "brands": {
+      "samsung": "Samsung : Paramètres > Batterie > Limites d'utilisation en arrière-plan > Applications jamais en veille, puis ajoute Kindwords.",
+      "xiaomi": "Xiaomi, Redmi, POCO : active le démarrage automatique de Kindwords, et règle son économiseur de batterie sur « Aucune restriction ».",
+      "huawei": "Huawei, Honor : Paramètres > Batterie > Lancement d'applications, désactive « Gérer automatiquement » pour Kindwords et laisse tout activé.",
+      "other": "Autres téléphones : cherche Kindwords dans les réglages de la batterie et désactive l'optimisation de la batterie."
+    },
+    "guidesLink": "Guides pas à pas pour chaque marque (dontkillmyapp.com, en anglais)",
+    "footer": "Kindwords fonctionne dans tous les cas : les mots doux peuvent juste arriver un peu en retard."
   }
 }
