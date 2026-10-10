@@ -118,6 +118,11 @@ instead:
 - Build once with `eas build --platform android --profile development`,
   install the resulting APK on the test device, then run
   `npx expo start --dev-client` for day-to-day iteration — no Expo Go.
+- The splash screen can't be fully seen in a development build: check it
+  in a `preview` or `production` build. `production` makes the AAB for
+  Play, and EAS raises its version code by itself.
+- The icon, splash image, widget preview and Play graphics are drawn by
+  `scripts/make-assets.js`; changing them needs a new build too.
 - Only rebuild the APK for the native changes listed in Working rules.
   Plain JS/TS changes just need a Metro reload via
   `npx expo start --dev-client`, and so do new `@expo-google-fonts/*`

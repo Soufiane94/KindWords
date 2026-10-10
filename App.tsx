@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 import { Quicksand_400Regular, Quicksand_700Bold } from '@expo-google-fonts/quicksand';
 import { SpaceMono_400Regular, SpaceMono_700Bold } from '@expo-google-fonts/space-mono';
 import { MedievalSharp_400Regular } from '@expo-google-fonts/medievalsharp';
@@ -23,6 +24,11 @@ import { ThemeProvider, useTheme } from './src/theme/ThemeContext';
 import i18n from './src/i18n';
 import { getUiLanguage } from './src/services/storage';
 
+// The splash screen (9H) stays up until the fonts are ready, so the app
+// goes straight from it to the first screen, without a blank one between
+// (which, in a dark world, would flash).
+SplashScreen.preventAutoHideAsync().catch(() => {});
+
 // Split out so it can read the chosen world — the StatusBar needs to know
 // whether the current world counts as light or dark, which only exists
 // once ThemeProvider has loaded it. Also loads every world's fonts up
@@ -40,7 +46,7 @@ function AppContent() {
     });
   }, []);
 
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     Quicksand_400Regular,
     Quicksand_700Bold,
     SpaceMono_400Regular,
@@ -67,7 +73,15 @@ function AppContent() {
     Mali_700Bold,
   });
 
-  if (!fontsLoaded) {
+  // If a font can't load, the app still opens: that text just falls back
+  // to the phone's own font.
+  const ready = fontsLoaded || fontError !== null;
+
+  useEffect(() => {
+    if (ready) SplashScreen.hideAsync().catch(() => {});
+  }, [ready]);
+
+  if (!ready) {
     return <View style={{ flex: 1, backgroundColor: colors.background }} />;
   }
 

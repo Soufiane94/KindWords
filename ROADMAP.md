@@ -3,8 +3,9 @@
 Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
-**Current:** Phase 9 — Release readiness. **Next:** 9H (9A's research is
-done; the name decision is yours).
+**Current:** Phase 9 — Release readiness: everything but 9B is built.
+**Next:** 9B (content review), the name decision (9A), and the checks on a
+phone listed under each sub-phase; then Phase 10.
 
 Each sub-phase is done on its own, one commit each.
 
@@ -66,6 +67,7 @@ CHANGELOG.md.
 - [ ] First within those files: the "Need to talk to someone?" page
   (`support.*` and `checkIn.heavyLine`), since it's safety content (9C)
 - [ ] The French and Spanish privacy policy (`docs/privacy.html`, 9D)
+- [ ] The French and Spanish store listings (`store/listing.md`, 9H)
 
 Review Darija first: it carries the most risk. It has no single standard
 spelling, and the text uses one unmarked form for the gendered "you"
@@ -126,16 +128,16 @@ pages. Details in CHANGELOG.md.
 - [ ] On an Android 14+ phone: "Open Alarms & reminders" lands on
   Kindwords' own switch, and kind words still arrive with it off.
 
-### 9H — Store assets and real phones
-- App icon and splash screen (replacing the Expo defaults), matching the
-  worlds' look.
-- Widget preview image for the widget picker (the 7C "Not done").
-- Store listing text and screenshots in the languages that actually ship
-  (the old roadmap said "English, French and Arabic", which no longer
-  matches).
-- An EAS production build (AAB), tested on a few real phones: a Samsung, a
-  Xiaomi, and an older low-end Android. Check notification behavior on
-  each.
+### 9H — Store assets ✅ · real phones pending (yours)
+New app icon, splash screen and widget preview (no lettering, so they
+survive a new name), Play's icon and feature graphic, the store listing in
+English, French and Spanish, and a production build profile (AAB). Details
+in CHANGELOG.md.
+- [ ] Screenshots (the plan is in `store/listing.md`).
+- [ ] `eas build --platform android --profile production`, then test it on
+  a Samsung, a Xiaomi and an older low-end Android: notifications on time,
+  with "Alarms & reminders" off, after a reboot; the widget; the splash
+  screen; a backup restore.
 
 ## Phase 10 — Android launch
 - Google Play: personal developer accounts created after November 13, 2023

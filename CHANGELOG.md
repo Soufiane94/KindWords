@@ -960,3 +960,46 @@ Settings > Help and from a quiet link under the reminders when they're on:
 
 Not done: knowing whether exact alarms are allowed (above), and checking
 the brand tips on real Samsung and Xiaomi phones (9H).
+
+### 9H — Store assets (the real phones are yours)
+**Needs a new EAS build:** the icon, splash screen and widget preview are
+built into the app, and `expo-splash-screen` is a new native module.
+Expo notes that development builds can't fully show the splash screen, so
+judge it in a preview or production build.
+
+- **App icon:** a soft speech bubble holding a heart, on a sunrise gradient
+  (gold to apricot, the warmth of Sunrise Meadow and Desert), with a cream
+  bubble like Simple's cards and a coral heart. No lettering, so it stays
+  right whatever the name becomes (9A). As an Android adaptive icon: the
+  mark inside the safe zone every launcher mask keeps, the gradient
+  behind, and a one-color version (heart cut out) for Android 13's themed
+  icons. Checked in round and rounded-square masks, and at small size.
+- **Splash screen:** the mark the other way round (a sunrise bubble with a
+  cream heart) on Simple's cream, the color the app opens on. It now stays
+  up until the fonts are loaded, so there's no blank screen in between,
+  which used to flash in dark worlds. Found on the way: if a font ever
+  failed to load, the app stayed blank for good; it now opens anyway, with
+  the phone's font for that text.
+- **Widget preview** (7C's "Not done"): the widget as a new user sees it,
+  in Simple, with "You don't have to earn rest by finishing everything
+  first.", drawn to match `KindWordWidget.tsx` (Nunito stands in for the
+  phone's font). A real screenshot can replace it later.
+- **Play graphics** in `store/graphics/`: the 512 x 512 icon and the
+  1024 x 500 feature graphic, without words, so they suit every language
+  and any name. The feature graphic is written as a plain RGB PNG, since
+  Play refuses one with transparency.
+- All of it is drawn in code by `scripts/make-assets.js` (SVG rendered with
+  resvg, which isn't an app dependency; how to run it is at the top of the
+  script), so colors or shapes can be changed and everything redrawn.
+- **Store listing:** English (from 9D), French and Spanish in
+  `store/listing.md`, within Play's limits, plus which screenshots to take.
+  The French and Spanish listings need the same review as the app (9B),
+  and only ship with their languages.
+- **Production build:** eas.json's `production` profile builds an AAB with
+  `autoIncrement`, and EAS now keeps the version code
+  (`appVersionSource: remote`): Play refuses an upload whose version code
+  was already used, and nobody has to remember to raise it.
+
+Not done (needs phones and accounts): the screenshots, the production
+build, and testing it on a Samsung, a Xiaomi and an older low-end Android,
+notifications included.
