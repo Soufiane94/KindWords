@@ -576,3 +576,62 @@ speaker's review before release (tracked under 9B in ROADMAP.md).
 - **No new EAS dev-client build needed:** `react-native-svg`,
   `expo-linear-gradient` and `react-native-view-shot` are already linked,
   and there are no new UI strings.
+
+## Phase 9 — Release readiness
+Goal, as planned: make the existing app ready for real users, with no big
+new features. One sub-phase at a time, one commit each. 9B (native-speaker
+and sensitivity review) is left for later, by choice.
+
+### 9A — Name check (research done; the decision is yours)
+Checked from here on October 10, 2026:
+- **Google Play, a direct conflict.** "Kind Words - The Kindest App"
+  (package `com.nutsoft.kindwords32`) has been on Google Play since
+  September 2025: an anonymous community where people send and receive
+  kind words from strangers, pitched for mental health and self-care, with
+  ads. Its own description calls it "KindWords", in one word. Same store,
+  same category, nearly the same name and the same promise, so a search
+  for "Kindwords" on Play would show both.
+- **The game.** Popcannibal's "Kind Words (lo fi chill beats to write to)"
+  (2019, Windows/macOS/Linux; BAFTA Games Award 2020, "Game Beyond
+  Entertainment") and "Kind Words 2 (lofi city pop)" (October 7, 2024):
+  players exchange worries and comforting letters. PC only for now, but
+  players keep asking for a mobile version.
+- **App Store.** "Kind Words" by XME Inc. (2015, affirmations to fall
+  asleep and wake up to) and "KindLetters" by Journey Inc. (a community of
+  kind letters).
+- "KindWords" was also a 1980s Amiga word processor. Old, unlikely to
+  matter.
+- **Trademark databases** (TMview for EUIPO and the EU national offices,
+  INPI, OMPIC, WIPO Global Brand Database, USPTO) only work in a browser,
+  so they couldn't be searched from here. The game's logo is marked
+  "© Popcannibal LLC"; whether "Kind Words" is a registered trademark is
+  still unknown.
+
+**Recommendation: rename before the store listing and the first upload.**
+The space is crowded with exactly this idea: on Play the app would sit
+next to another one making the same promise, and the BAFTA-winning game
+owns "kind words + comforting letters" for many people. Even without a
+registered trademark, a listing that's easy to confuse with another app is
+hard to find and can be reported. Nothing in the app depends on the name
+yet: the icon designed in 9H has no lettering.
+
+Still to do by hand:
+1. Pick two or three candidate names.
+2. For each one, search Google Play and the App Store by name, then the
+   trademark databases: [TMview](https://www.tmdn.org/tmview/) (EUIPO and
+   EU national offices, France included), [INPI](https://data.inpi.fr/),
+   [OMPIC](http://www.ompic.ma/fr/content/recherche-de-marque) (Morocco),
+   the [WIPO Global Brand Database](https://branddb.wipo.int/) and the
+   USPTO. Nice classes to look at: 9 (apps), 41 (education and
+   entertainment), 44 (wellbeing) and 45 (personal and social services).
+   Check the domain name too (needed for the privacy policy page in 9D and
+   for App Links in Phase 12).
+3. Decide. While no build has been uploaded to Play Console, the package
+   name can still change with it.
+
+Renaming touches: `name`/`slug` and `android.package` in app.json,
+`KINDWORDS_LINK` in `src/services/share.ts`, every "Kindwords" in the four
+locale files, the privacy policy page and store listing drafts (9D, 9H),
+CLAUDE.md and ROADMAP.md. app.json's display name is "KindWords" (capital
+W) while the app's own text says "Kindwords": settle on one spelling at the
+same time.

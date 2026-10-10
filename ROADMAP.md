@@ -3,7 +3,8 @@
 Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
-**Current:** Phase 9 — Release readiness. **Next:** 9A.
+**Current:** Phase 9 — Release readiness. **Next:** 9C (9A's research is
+done; the name decision is yours).
 
 Each sub-phase is done on its own, one commit each.
 
@@ -22,16 +23,16 @@ Details in CHANGELOG.md.
 ## Phase 9 — Release readiness
 Goal: make the existing app ready for real users. No big new features.
 
-### 9A — Name check (do first; mostly manual for me)
-- Check "Kindwords" on Google Play, the App Store, and trademark databases
-  (EUIPO, INPI for France, OMPIC for Morocco, WIPO Global Brand Database).
-- Known conflict: Kind Words (2019, by Popcannibal) is a BAFTA-winning
-  game, with a sequel, where players exchange worries and comforting
-  letters. Very close concept.
-- Decide the final name before the icon, store listing and first test
-  build.
-- The package name com.kindwords.app can't be changed once a build is
-  uploaded to Play Console. Confirm it before then.
+### 9A — Name check ✅ research done · name decision pending (yours)
+"Kindwords" is crowded: "Kind Words - The Kindest App" has been on Google
+Play since September 2025 with the same promise, on top of Popcannibal's
+BAFTA-winning Kind Words games. Recommendation: rename before the store
+listing and the first upload. Details and the rename checklist in
+CHANGELOG.md.
+- [ ] Trademark searches for the candidate names (TMview, INPI, OMPIC,
+  WIPO, USPTO): they only work in a browser.
+- [ ] Decide the name, and confirm the package name (com.kindwords.app or
+  a new one) before any upload to Play Console.
 
 ### 9B — Content review (the real release blocker)
 - Native-speaker review of the French, Spanish and Darija UI strings and
