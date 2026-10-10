@@ -30,19 +30,26 @@ export default function SnoozeMenu({ visible, onClose, onSnooze }: Props) {
 
   return (
     <Modal visible={visible} animationType="fade" transparent onRequestClose={onClose}>
-      <Pressable style={styles.overlay} onPress={onClose}>
+      {/* The dim overlay isn't a button for screen readers: they close the
+          menu with Cancel or the back gesture instead. */}
+      <Pressable style={styles.overlay} onPress={onClose} accessible={false}>
         {/* Swallows taps on blank space inside the sheet so only the dim
             overlay behind it closes the menu. */}
-        <Pressable style={styles.sheet} onPress={() => {}}>
+        <Pressable style={styles.sheet} onPress={() => {}} accessible={false}>
           {SNOOZE_OPTIONS.map((option) => (
-            <Pressable key={option.value} style={styles.row} onPress={() => onSnooze(option.value)}>
+            <Pressable
+              key={option.value}
+              style={styles.row}
+              onPress={() => onSnooze(option.value)}
+              accessibilityRole="button"
+            >
               <Text style={styles.rowText}>{option.label}</Text>
             </Pressable>
           ))}
 
           <View style={styles.divider} />
 
-          <Pressable style={styles.row} onPress={onClose}>
+          <Pressable style={styles.row} onPress={onClose} accessibilityRole="button">
             <Text style={[styles.rowText, styles.cancelText]}>{t('common.cancel')}</Text>
           </Pressable>
         </Pressable>

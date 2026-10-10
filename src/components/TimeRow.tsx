@@ -33,7 +33,12 @@ export default function TimeRow({ label, time, onChange }: Props) {
   return (
     <View style={styles.row}>
       <Text style={styles.label}>{label}</Text>
-      <Pressable style={styles.timeButton} onPress={() => setShowPicker(true)}>
+      <Pressable
+        style={styles.timeButton}
+        onPress={() => setShowPicker(true)}
+        accessibilityRole="button"
+        accessibilityLabel={`${label}, ${formatTimeDisplay(time, language)}`}
+      >
         <Text style={styles.timeText}>{formatTimeDisplay(time, language)}</Text>
       </Pressable>
       {showPicker && (
@@ -55,6 +60,7 @@ function createStyles(colors: Palette) {
       fontSize: 15,
       color: colors.primaryText,
       flex: 1,
+      marginRight: 12,
     },
     timeButton: {
       paddingVertical: 8,

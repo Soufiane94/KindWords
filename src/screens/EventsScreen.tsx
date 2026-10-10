@@ -149,7 +149,9 @@ export default function EventsScreen() {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>{t('events.title')}</Text>
+        <Text style={styles.title} accessibilityRole="header">
+          {t('events.title')}
+        </Text>
         <Text style={styles.subtitle}>{t('events.subtitle')}</Text>
 
         {settings && !settings.enabled && <Hint text={t('events.remindersOffHint')} />}
@@ -163,18 +165,20 @@ export default function EventsScreen() {
           events.map((event) => {
             const { id, emoji } = eventTypeFor(event.type);
             const reminders = describeReminders(event);
+            const meta = `${t(`eventTypes.${id}`)} · ${formatDateDisplay(event.date, language)}`;
             return (
               <Pressable
                 key={event.id}
                 style={styles.eventRow}
                 onPress={() => openEditModal(event)}
+                accessibilityRole="button"
+                // Read without the emoji's name.
+                accessibilityLabel={[event.title, meta, reminders].filter(Boolean).join('. ')}
               >
                 <Text style={styles.eventEmoji}>{emoji}</Text>
                 <View style={styles.eventInfo}>
                   <Text style={styles.eventTitle}>{event.title}</Text>
-                  <Text style={styles.eventMeta}>
-                    {t(`eventTypes.${id}`)} · {formatDateDisplay(event.date, language)}
-                  </Text>
+                  <Text style={styles.eventMeta}>{meta}</Text>
                   {reminders && <Text style={styles.eventReminders}>{reminders}</Text>}
                 </View>
               </Pressable>
@@ -184,7 +188,7 @@ export default function EventsScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Pressable style={styles.addButton} onPress={openAddModal}>
+        <Pressable style={styles.addButton} onPress={openAddModal} accessibilityRole="button">
           <Text style={styles.addButtonText}>{t('events.addEvent')}</Text>
         </Pressable>
       </View>
@@ -194,8 +198,15 @@ export default function EventsScreen() {
           <WorldBackground />
           <ScrollView contentContainerStyle={styles.content}>
             <View style={styles.modalHeader}>
-              <Text style={styles.title}>{editingId ? t('events.editEventTitle') : t('events.newEventTitle')}</Text>
-              <Pressable onPress={() => setModalVisible(false)}>
+              <Text style={[styles.title, styles.modalTitle]} accessibilityRole="header">
+                {editingId ? t('events.editEventTitle') : t('events.newEventTitle')}
+              </Text>
+              <Pressable
+                onPress={() => setModalVisible(false)}
+                accessibilityRole="button"
+                accessibilityLabel={t('common.close')}
+                hitSlop={8}
+              >
                 <Text style={styles.closeText}>✕</Text>
               </Pressable>
             </View>
@@ -229,12 +240,14 @@ export default function EventsScreen() {
               style={[styles.saveButton, (!title.trim() || saving) && styles.saveButtonDisabled]}
               onPress={handleSave}
               disabled={!title.trim() || saving}
+              accessibilityRole="button"
+              accessibilityState={{ disabled: !title.trim() || saving }}
             >
               <Text style={styles.saveButtonText}>{t('common.save')}</Text>
             </Pressable>
 
             {editingId && (
-              <Pressable onPress={handleDelete} style={styles.deleteLink}>
+              <Pressable onPress={handleDelete} style={styles.deleteLink} accessibilityRole="button">
                 <Text style={styles.deleteLinkText}>{t('events.deleteEventLink')}</Text>
               </Pressable>
             )}
@@ -323,6 +336,10 @@ function createStyles(world: World) {
       alignItems: 'center',
       justifyContent: 'space-between',
       marginBottom: 20,
+    },
+    modalTitle: {
+      flexShrink: 1,
+      marginRight: 12,
     },
     closeText: {
       fontSize: 20,

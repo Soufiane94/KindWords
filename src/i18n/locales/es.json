@@ -5,7 +5,8 @@
     "ok": "Aceptar",
     "shareDialogTitle": "Compartir esta palabra amable",
     "shareErrorTitle": "No se pudo compartir",
-    "shareErrorMessage": "Inténtalo de nuevo en un momento."
+    "shareErrorMessage": "Inténtalo de nuevo en un momento.",
+    "close": "Cerrar"
   },
   "nav": {
     "home": "Inicio",
@@ -38,7 +39,8 @@
       "tired": "Cansancio",
       "okay": "Normal",
       "good": "Bien"
-    }
+    },
+    "heavyLine": "¿Necesitas hablar con alguien? Hay personas dispuestas a escucharte."
   },
   "settings": {
     "title": "Ajustes",
@@ -95,7 +97,12 @@
     "nextAt": "La próxima: {{when}}.",
     "skippedTimes": "Se omitió: {{times}} — dentro de tus horas silenciosas.",
     "permissionDenied": "Las notificaciones están desactivadas para Kindwords en los ajustes de tu teléfono. Actívalas ahí y vuelve a intentar guardar.",
-    "resetOnboarding": "Repetir la configuración inicial"
+    "resetOnboarding": "Repetir la configuración inicial",
+    "plainFontLabel": "Letra sencilla y fácil de leer",
+    "plainFontSubtitle": "Mantiene los colores y la decoración de tu mundo, y muestra todo el texto con la letra de tu teléfono.",
+    "removeTime": "Quitar la hora {{number}}",
+    "helpTitle": "Ayuda",
+    "supportLink": "¿Necesitas hablar con alguien?"
   },
   "events": {
     "title": "Calendario",
@@ -169,7 +176,6 @@
   },
   "kindWord": {
     "headerTitle": "Palabra amable",
-    "closeLabel": "Cerrar",
     "missingText": "Esta palabra amable ya no está disponible.",
     "snoozeDoneTitle": "Hecho",
     "notForMeTitle": "Entendido",
@@ -275,5 +281,55 @@
     "letters": "Cartas y tinta",
     "clouds": "Nubes suaves",
     "quilt": "Colcha de retazos"
+  },
+  "support": {
+    "title": "¿Necesitas hablar con alguien?",
+    "intro": "Hay días demasiado pesados para llevarlos a solas. Las personas que atienden estas líneas están ahí para escucharte, y lo que les cuentes es confidencial.",
+    "emergencyLabel": "En caso de emergencia:",
+    "callHint": "Abre la app Teléfono con este número",
+    "siteHint": "Abre la página web",
+    "footer": "Kindwords no guarda ningún registro de esta página.",
+    "countries": {
+      "fr": "Francia",
+      "ma": "Marruecos",
+      "es": "España",
+      "other": "Otros países"
+    },
+    "lines": {
+      "fr_3114": {
+        "description": "La línea nacional francesa de prevención del suicidio, para cualquier persona en apuros o preocupada por alguien. Atienden profesionales sanitarios formados.",
+        "hours": "Día y noche · gratuita"
+      },
+      "fr_sos_amitie": {
+        "description": "Voluntarios que escuchan, sin juzgar, a cualquiera que esté pasando por un momento difícil.",
+        "hours": "Día y noche · precio de una llamada local"
+      },
+      "fr_112": {
+        "description": "emergencias"
+      },
+      "ma_findahelpline": {
+        "description": "Una lista verificada y actualizada de líneas de ayuda gratuitas en Marruecos."
+      },
+      "ma_15": {
+        "description": "ambulancia"
+      },
+      "ma_19": {
+        "description": "policía"
+      },
+      "es_024": {
+        "description": "La línea para personas con pensamientos suicidas, y para sus familiares y allegados.",
+        "hours": "Día y noche · gratuita"
+      },
+      "es_esperanza": {
+        "description": "Escucha y apoyo para cualquier persona que esté pasando por una crisis.",
+        "hours": "Día y noche · tarifa normal de llamada"
+      },
+      "es_112": {
+        "description": "emergencias"
+      },
+      "findahelpline": {
+        "description": "Líneas de ayuda gratuitas y confidenciales en más de 175 países, verificadas directamente con ellas."
+      }
+    }
   }
 }

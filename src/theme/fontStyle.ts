@@ -13,3 +13,10 @@ export function headingFont(world: World): TextStyle {
 export function bodyFont(world: World): TextStyle {
   return world.fonts.body ? { fontFamily: world.fonts.body } : {};
 }
+
+// "Plain font" (9C): the same world without its own fonts, so everything is
+// drawn in the phone's font, the way Simple always has been. Used by
+// ThemeContext and by the home screen widget, which can't read context.
+export function withPlainFont(world: World): World {
+  return { ...world, fonts: {} };
+}

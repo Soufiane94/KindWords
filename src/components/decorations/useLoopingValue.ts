@@ -2,14 +2,25 @@
 // pulse behind every world's small ambient animations (twinkling stars,
 // swaying leaves, flickering candles). useNativeDriver means once the
 // loop starts, it runs on the native side rather than the JS thread.
+//
+// When the phone's "remove animations" setting is on (9C), the value just
+// rests at `restAt` instead, so the decoration stays still. Every world's
+// decorations go through this hook or useDriftingValue, which is what
+// keeps them all respecting that setting.
 
 import { useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
+import { useTheme } from '../../theme/ThemeContext';
 
-export function useLoopingValue(durationMs: number, delayMs = 0): Animated.Value {
+export function useLoopingValue(durationMs: number, delayMs = 0, restAt = 0.5): Animated.Value {
   const value = useRef(new Animated.Value(0)).current;
+  const { reduceMotion } = useTheme();
 
   useEffect(() => {
+    if (reduceMotion) {
+      value.setValue(restAt);
+      return;
+    }
     const loop = Animated.loop(
       Animated.sequence([
         Animated.delay(delayMs),
@@ -29,7 +40,7 @@ export function useLoopingValue(durationMs: number, delayMs = 0): Animated.Value
     );
     loop.start();
     return () => loop.stop();
-  }, [value, durationMs, delayMs]);
+  }, [value, durationMs, delayMs, restAt, reduceMotion]);
 
   return value;
 }

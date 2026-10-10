@@ -11,18 +11,19 @@ import { useDriftingValue } from './useDriftingValue';
 import FramePiece, { FrameGlow, FrameSpot } from './FramePiece';
 
 type Pct = `${number}%`;
-type FlakeSpec = { left: Pct; size: number; duration: number; delay: number };
+// `rest`: how far down a flake stays when animations are off.
+type FlakeSpec = { left: Pct; size: number; duration: number; delay: number; rest: number };
 
 const FLAKES: FlakeSpec[] = [
-  { left: '12%', size: 5, duration: 6200, delay: 0 },
-  { left: '30%', size: 4, duration: 5600, delay: 1400 },
-  { left: '55%', size: 6, duration: 6600, delay: 600 },
-  { left: '72%', size: 4, duration: 5800, delay: 2100 },
-  { left: '88%', size: 5, duration: 6400, delay: 900 },
+  { left: '12%', size: 5, duration: 6200, delay: 0, rest: 0.15 },
+  { left: '30%', size: 4, duration: 5600, delay: 1400, rest: 0.55 },
+  { left: '55%', size: 6, duration: 6600, delay: 600, rest: 0.3 },
+  { left: '72%', size: 4, duration: 5800, delay: 2100, rest: 0.75 },
+  { left: '88%', size: 5, duration: 6400, delay: 900, rest: 0.45 },
 ];
 
 function Flake({ spec }: { spec: FlakeSpec }) {
-  const t = useDriftingValue(spec.duration, spec.delay);
+  const t = useDriftingValue(spec.duration, spec.delay, spec.rest);
   const translateY = t.interpolate({ inputRange: [0, 1], outputRange: [-10, 500] });
   const opacity = t.interpolate({ inputRange: [0, 0.1, 0.9, 1], outputRange: [0, 0.8, 0.8, 0] });
 

@@ -1,12 +1,14 @@
-// Settings screen: circumstances (Phase 1), appearance (Phase 4/5C),
-// languages (Phase 6), notification preferences (Phase 2) — frequency,
-// quiet hours, lock-screen visibility, gentle pacing — and personal
-// touches (Phase 7): the daily check-in and undoing "not for me".
+// Settings screen: circumstances (Phase 1), appearance (Phase 4/5C, plus
+// the plain font from 9C), languages (Phase 6), notification preferences
+// (Phase 2) — frequency, quiet hours, lock-screen visibility, gentle pacing
+// — personal touches (Phase 7): the daily check-in and undoing "not for
+// me" — and, at the bottom, quiet links to help pages (9C on).
 
 import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Switch, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 import { CIRCUMSTANCES } from '../data/circumstances';
 import { LANGUAGE_OPTIONS, Language } from '../data/languages';
@@ -40,6 +42,7 @@ import { useTheme, WORLD_OPTIONS, WorldId } from '../theme/ThemeContext';
 import { formatMomentDisplay, formatTimeDisplay } from '../i18n/dateNames';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
+import type { RootStackParamList } from '../navigation/types';
 
 const FREQUENCY_VALUES: Frequency[] = ['daily', 'three_per_week', 'custom'];
 const VISIBILITY_VALUES: LockScreenVisibility[] = ['private', 'public'];
@@ -62,7 +65,8 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   const [quoteLanguage, setQuoteLanguageState] = useState<Language>('en');
   const [checkInEnabled, setCheckInEnabledState] = useState(true);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ kind: 'idle' });
-  const { world, colors, worldId, setWorldId } = useTheme();
+  const { world, colors, worldId, setWorldId, plainFont, setPlainFont } = useTheme();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { t } = useTranslation();
   const language = useUiLanguage();
   const styles = useMemo(() => createStyles(world), [world]);
@@ -96,10 +100,16 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
     await setCircumstances(safeNext);
   }
 
-  // The home screen widget shows the world's colors and the chosen
-  // languages, so it's redrawn whenever one of those changes.
-  function handleWorldChange(id: WorldId) {
-    setWorldId(id);
+  // The home screen widget shows the world's colors and font and the chosen
+  // languages, so it's redrawn whenever one of those changes (once saved,
+  // since it reads them from storage).
+  async function handleWorldChange(id: WorldId) {
+    await setWorldId(id);
+    refreshKindWordWidget();
+  }
+
+  async function handlePlainFontChange(on: boolean) {
+    await setPlainFont(on);
     refreshKindWordWidget();
   }
 
@@ -240,9 +250,13 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>{t('settings.title')}</Text>
+        <Text style={styles.title} accessibilityRole="header">
+          {t('settings.title')}
+        </Text>
 
-        <Text style={styles.sectionTitle}>{t('settings.circumstancesTitle')}</Text>
+        <Text style={styles.sectionTitle} accessibilityRole="header">
+          {t('settings.circumstancesTitle')}
+        </Text>
         <Text style={styles.subtitle}>{t('settings.circumstancesSubtitle')}</Text>
         <View style={styles.chipRow}>
           {CIRCUMSTANCES.map((c) => (
@@ -258,7 +272,9 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
         <View style={styles.divider} />
 
-        <Text style={styles.sectionTitle}>{t('settings.appearanceTitle')}</Text>
+        <Text style={styles.sectionTitle} accessibilityRole="header">
+          {t('settings.appearanceTitle')}
+        </Text>
         <Text style={styles.subtitle}>{t('settings.appearanceSubtitle')}</Text>
         <View style={styles.chipRow}>
           {WORLD_OPTIONS.map((w) => (
@@ -271,10 +287,22 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
             />
           ))}
         </View>
+        <View style={[styles.rowBetween, { marginTop: 16, marginBottom: 0 }]}>
+          <Text style={styles.toggleLabel}>{t('settings.plainFontLabel')}</Text>
+          <Switch
+            value={plainFont}
+            onValueChange={handlePlainFontChange}
+            trackColor={{ true: colors.accent }}
+            accessibilityLabel={t('settings.plainFontLabel')}
+          />
+        </View>
+        <Text style={styles.subtitle}>{t('settings.plainFontSubtitle')}</Text>
 
         <View style={styles.divider} />
 
-        <Text style={styles.sectionTitle}>{t('settings.languageTitle')}</Text>
+        <Text style={styles.sectionTitle} accessibilityRole="header">
+          {t('settings.languageTitle')}
+        </Text>
         <Text style={styles.label}>{t('settings.uiLanguageLabel')}</Text>
         <Text style={styles.subtitle}>{t('settings.uiLanguageSubtitle')}</Text>
         <View style={styles.chipRow}>
@@ -305,28 +333,35 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
         <View style={styles.divider} />
 
-        <Text style={styles.sectionTitle}>{t('settings.personalTitle')}</Text>
+        <Text style={styles.sectionTitle} accessibilityRole="header">
+          {t('settings.personalTitle')}
+        </Text>
         <View style={[styles.rowBetween, { marginTop: 12, marginBottom: 0 }]}>
           <Text style={styles.toggleLabel}>{t('settings.checkInLabel')}</Text>
           <Switch
             value={checkInEnabled}
             onValueChange={handleCheckInToggle}
             trackColor={{ true: colors.accent }}
+            accessibilityLabel={t('settings.checkInLabel')}
           />
         </View>
         <Text style={styles.subtitle}>{t('settings.checkInSubtitle')}</Text>
-        <Pressable onPress={handleForgetNotForMe} style={styles.inlineLink}>
+        <Pressable onPress={handleForgetNotForMe} style={styles.inlineLink} accessibilityRole="button">
           <Text style={styles.inlineLinkText}>{t('settings.forgetNotForMe')}</Text>
         </Pressable>
 
         <View style={styles.divider} />
 
         <View style={styles.rowBetween}>
-          <Text style={styles.sectionTitle}>{t('settings.remindersTitle')}</Text>
+          {/* Can shrink and wrap, so large text never pushes the switch off screen. */}
+          <Text style={[styles.sectionTitle, styles.rowTitle]} accessibilityRole="header">
+            {t('settings.remindersTitle')}
+          </Text>
           <Switch
             value={settings.enabled}
             onValueChange={(enabled) => updateSettings({ enabled })}
             trackColor={{ true: colors.accent }}
+            accessibilityLabel={t('settings.remindersTitle')}
           />
         </View>
 
@@ -359,14 +394,19 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
                       />
                     </View>
                     {settings.times.length > 1 && (
-                      <Pressable onPress={() => removeCustomTime(index)} style={styles.removeButton}>
+                      <Pressable
+                        onPress={() => removeCustomTime(index)}
+                        style={styles.removeButton}
+                        accessibilityRole="button"
+                        accessibilityLabel={t('settings.removeTime', { number: index + 1 })}
+                      >
                         <Text style={styles.removeButtonText}>✕</Text>
                       </Pressable>
                     )}
                   </View>
                 ))}
                 {settings.times.length < 5 && (
-                  <Pressable onPress={addCustomTime} style={styles.addTimeButton}>
+                  <Pressable onPress={addCustomTime} style={styles.addTimeButton} accessibilityRole="button">
                     <Text style={styles.addTimeButtonText}>{t('settings.addAnotherTime')}</Text>
                   </Pressable>
                 )}
@@ -392,6 +432,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
                 value={settings.gentlePacing}
                 onValueChange={(gentlePacing) => updateSettings({ gentlePacing })}
                 trackColor={{ true: colors.accent }}
+                accessibilityLabel={t('settings.gentlePacingLabel')}
               />
             </View>
             <Text style={styles.subtitle}>{t('settings.gentlePacingSubtitle')}</Text>
@@ -405,7 +446,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
           </>
         )}
 
-        <Pressable style={styles.saveButton} onPress={handleSave}>
+        <Pressable style={styles.saveButton} onPress={handleSave} accessibilityRole="button">
           <Text style={styles.saveButtonText}>{t('common.save')}</Text>
         </Pressable>
 
@@ -430,7 +471,17 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
           </View>
         )}
 
-        <Pressable onPress={onResetOnboarding} style={styles.resetLink}>
+        <View style={styles.divider} />
+
+        {/* Quiet links to pages that are there when they're needed. */}
+        <Text style={styles.sectionTitle} accessibilityRole="header">
+          {t('settings.helpTitle')}
+        </Text>
+        <Pressable onPress={() => navigation.navigate('Support')} style={styles.helpLink} accessibilityRole="button">
+          <Text style={styles.helpLinkText}>{t('settings.supportLink')}</Text>
+        </Pressable>
+
+        <Pressable onPress={onResetOnboarding} style={styles.resetLink} accessibilityRole="button">
           <Text style={styles.resetLinkText}>{t('settings.resetOnboarding')}</Text>
         </Pressable>
       </ScrollView>
@@ -482,6 +533,10 @@ function createStyles(world: World) {
       alignItems: 'center',
       justifyContent: 'space-between',
       marginBottom: 12,
+    },
+    rowTitle: {
+      flex: 1,
+      marginRight: 12,
     },
     label: {
       fontSize: 14,
@@ -554,6 +609,16 @@ function createStyles(world: World) {
       color: colors.danger,
       textAlign: 'center',
       marginTop: 4,
+    },
+    helpLink: {
+      alignSelf: 'flex-start',
+      paddingVertical: 8,
+      marginTop: 4,
+    },
+    helpLinkText: {
+      fontSize: 15,
+      color: colors.primaryText,
+      textDecorationLine: 'underline',
     },
     resetLink: {
       marginTop: 32,

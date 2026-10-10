@@ -110,11 +110,13 @@ export default function SendKindWordScreen({ route, navigation }: Props) {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>{t('send.title')}</Text>
+        <Text style={styles.headerTitle} accessibilityRole="header">
+          {t('send.title')}
+        </Text>
         <Pressable
           onPress={() => navigation.goBack()}
           accessibilityRole="button"
-          accessibilityLabel={t('kindWord.closeLabel')}
+          accessibilityLabel={t('common.close')}
           style={styles.closeButton}
         >
           <Text style={styles.closeText}>✕</Text>
@@ -170,7 +172,12 @@ export default function SendKindWordScreen({ route, navigation }: Props) {
           <>
             <View style={styles.linkRow}>
               <Text style={styles.toggleLabel}>{t('send.includeLink')}</Text>
-              <Switch value={includeLink} onValueChange={setIncludeLink} trackColor={{ true: colors.accent }} />
+              <Switch
+                value={includeLink}
+                onValueChange={setIncludeLink}
+                trackColor={{ true: colors.accent }}
+                accessibilityLabel={t('send.includeLink')}
+              />
             </View>
             <Text style={styles.hint}>{t('send.includeLinkSubtitle')}</Text>
           </>
@@ -182,6 +189,8 @@ export default function SendKindWordScreen({ route, navigation }: Props) {
           style={[styles.sendButton, (!message || sending) && styles.sendButtonDisabled]}
           onPress={handleSend}
           disabled={!message || sending}
+          accessibilityRole="button"
+          accessibilityState={{ disabled: !message || sending }}
         >
           <Text style={styles.sendButtonText}>{t('send.sendButton')}</Text>
         </Pressable>
@@ -205,12 +214,14 @@ function createStyles(world: World) {
       paddingTop: 12,
     },
     headerTitle: {
+      flexShrink: 1,
       fontSize: 17,
       color: colors.primaryText,
       ...headingFont(world),
     },
     closeButton: {
       padding: 6,
+      marginLeft: 12,
     },
     closeText: {
       fontSize: 20,

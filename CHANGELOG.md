@@ -635,3 +635,103 @@ locale files, the privacy policy page and store listing drafts (9D, 9H),
 CLAUDE.md and ROADMAP.md. app.json's display name is "KindWords" (capital
 W) while the app's own text says "Kindwords": settle on one spelling at the
 same time.
+
+### 9C — Care and accessibility
+**No new EAS dev-client build needed:** everything here uses React
+Native's own `AccessibilityInfo` and `Linking`, and `expo-localization`,
+which was already linked. A Metro reload picks it up.
+
+**"Need to talk to someone?"** (`SupportScreen`, data in
+`src/data/supportLines.ts`): a quiet page of listening lines, opened from
+Settings > Help or from one small underlined line under a "Heavy" check-in
+("Need to talk to someone? People are there to listen."). Never a pop-up,
+and nothing about it is stored: the line under the check-in only depends on
+today's answer, which was already kept (and only for today). Countries are
+listed with the phone's own region first (read from `expo-localization` on
+the page itself, never saved), then France, Morocco, Spain, and "Other
+countries" last. Tapping a number opens the phone app with it filled in,
+so calling is still the user's choice; a website opens in the browser.
+
+Every number was checked against an official source on 2026-10-10:
+- France: **3114**, the national suicide prevention line, run by the
+  Ministry of Health (3114.fr): day and night, free, answered by trained
+  health professionals. **SOS Amitié 09 72 39 40 50** (sosamitie.org): day
+  and night, the cost of a local call (not free, so the page says so).
+  Emergencies: **112**.
+- Spain: **024**, the Ministry of Health's line for suicidal thoughts
+  (sanidad.gob.es/linea024): day and night, free, also for family and
+  friends. **Teléfono de la Esperanza 717 003 717** (listed on madrid.es):
+  24 hours; the service is free but the operator may charge a normal call.
+  Emergencies: **112** (on the same Ministry page).
+- Morocco: no national listening line could be checked. The page lists the
+  emergency numbers **15** (Protection civile: ambulance and fire) and
+  **19** (police), as given on the French embassy's official page
+  (ma.diplomatie.gouv.fr/fr/urgence), plus Find A Helpline's Morocco list.
+  Left out on purpose: Sourire de Reda's "Stop Silence" chat for young
+  people, which the press describes but whose site couldn't be confirmed
+  (sourire2reda.org now redirects to an unrelated site, and
+  stopsilence.net is an unrelated blog).
+- Everywhere else: **Find A Helpline** (findahelpline.com, by ThroughLine):
+  free helplines in 175+ countries, each verified with the helpline itself.
+
+**Reduce motion.** `ThemeContext` now follows the phone's "Remove
+animations" setting live (`AccessibilityInfo`). Every world's decorations
+already went through `useLoopingValue` or `useDriftingValue`, so the two
+hooks are the only place that handles it: with the setting on, the value
+rests instead of looping. Swaying and twinkling pieces rest at their
+midpoint; drifting ones (snowflakes, light motes, clouds) each get their
+own resting point, so they stay spread out rather than lined up.
+
+**Plain font** (Settings > Appearance, off by default): keeps the world's
+colors, gradient and decorations, and draws all text in the phone's own
+font. Chosen over bundling a "readable" font because the phone's font is
+the one people already read every day, it has real bold, it adds nothing
+to the app's size, and it follows the system's own font settings. It's done
+by giving screens the world without its fonts (`withPlainFont` in
+`fontStyle.ts`), the same way Simple has always worked, so no screen needed
+changing. It applies to shared pictures too, and to the widget (which
+reads the setting from storage and is redrawn when it changes).
+
+**Largest font size.** I couldn't run the app on a phone from here, so this
+was a pass over every screen's layout for what breaks with large text, and
+the fixes:
+- The Kind word screen didn't scroll: a long kind word with large text
+  pushed the buttons off screen. It scrolls now, and short ones stay
+  centered.
+- The check-in's five moods were cut to one line each ("Anxi…"). With
+  large text they wrap onto two rows of three, and names get two lines.
+- The actions under a quote ("Not for me", …) could only use two lines in a
+  narrow column. With large text they get three lines and the full width.
+- "Kind word reminders" and its switch: the title couldn't shrink, so a
+  long title could push the switch off screen. Same fix for the titles next
+  to ✕ in the Events and Notes editors and on the Kind word, Send and
+  Support screens.
+- Segmented controls ("Daily / 3x a week / Custom") keep wrapped labels
+  centered.
+- The five tab names are capped at 1.3x the normal size: at the largest
+  sizes, five names side by side can only be cut off. The icons, and what
+  screen readers say, carry the meaning at any size. "Large text" means a
+  phone font scale of 1.3 or more (`useLargeText`).
+
+**Screen readers.** Every button now says it's a button, and the ones whose
+text isn't enough have a label: the ✕ buttons ("Close", "Remove time 2"),
+switches (named after their label), time and date rows ("Notification
+time, 9:00 AM"). Chips, check-in moods, events and notes are read without
+their emoji's name (TalkBack would say "cloud with rain, Heavy"). Segmented
+controls are radio groups. Screen titles are headings, so they can be
+jumped between. World backgrounds and picture frames are hidden from
+screen readers, and the snooze menu's dim overlay is no longer a giant
+unlabeled button.
+
+New UI strings in all four languages; French, Spanish and Darija were
+written by me and need a native speaker's review (9B), the support page's
+first, since it's safety content. `kindWord.closeLabel` became
+`common.close`, now used by every ✕.
+
+Not done:
+- Checking every world on a real phone at the largest font size (Android
+  14 goes up to 200%), with TalkBack on, and with "Remove animations" on.
+  That needs a device: see ROADMAP.md.
+- A Moroccan listening line, until one can be checked against an official
+  source. Worth asking a Moroccan health professional during 9B.
+- The support numbers will need checking again before each release.

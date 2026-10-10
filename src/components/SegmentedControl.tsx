@@ -1,5 +1,6 @@
 // A row of options where exactly one is selected at a time, e.g. picking a
-// notification frequency or a lock-screen visibility mode.
+// notification frequency or a lock-screen visibility mode. Screen readers
+// hear it as a group of radio buttons.
 
 import React, { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
@@ -22,12 +23,14 @@ export default function SegmentedControl<T extends string>({ options, value, onC
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} accessibilityRole="radiogroup">
       {options.map((opt) => (
         <Pressable
           key={opt.value}
           style={[styles.segment, value === opt.value && styles.segmentSelected]}
           onPress={() => onChange(opt.value)}
+          accessibilityRole="radio"
+          accessibilityState={{ checked: value === opt.value }}
         >
           <Text style={[styles.segmentText, value === opt.value && styles.segmentTextSelected]}>
             {opt.label}
@@ -46,11 +49,15 @@ function createStyles(colors: Palette) {
       borderRadius: 14,
       padding: 4,
     },
+    // Labels may wrap onto two lines with large text, so they stay
+    // centered in their segment.
     segment: {
       flex: 1,
       paddingVertical: 10,
+      paddingHorizontal: 4,
       borderRadius: 10,
       alignItems: 'center',
+      justifyContent: 'center',
     },
     segmentSelected: {
       backgroundColor: colors.card,
@@ -63,6 +70,7 @@ function createStyles(colors: Palette) {
     segmentText: {
       fontSize: 13,
       color: colors.mutedText,
+      textAlign: 'center',
     },
     segmentTextSelected: {
       color: colors.primaryText,

@@ -166,6 +166,13 @@ instead:
   (`useNativeDriver`), kept light for battery. Prefer SVG and gradients
   drawn in code over image files, and check the license of any free asset
   or font.
+- Decorations only move through `useLoopingValue` / `useDriftingValue`:
+  those two hooks keep them still when the phone's "Remove animations"
+  (reduce motion) is on. A piece that drifts passes its own resting point,
+  so still pieces don't line up.
+- "Plain font" (9C): `world` from `ThemeContext` already has its fonts
+  removed when it's on, so always take fonts from it, never from `WORLDS`
+  directly. Code outside React (the widget) applies `withPlainFont` itself.
 - Headings, primary buttons and quote text use the world's fonts; smaller
   UI chrome (chips, inputs, pickers) stays on the system font, for
   legibility.
@@ -187,6 +194,20 @@ instead:
 - Darija is hidden from the language pickers until it's reviewed
   (commented out in `src/data/languages.ts`), but its strings and quotes
   stay in use, so it still gets every new string.
+
+### Accessibility and care (9C)
+- Every `Pressable` gets an `accessibilityRole`, plus an
+  `accessibilityLabel` whenever its visible content isn't plain words (✕,
+  icons, emoji, a value next to a separate label). Switches are labeled
+  after their row's text. Screen titles get `accessibilityRole="header"`,
+  and purely decorative layers are hidden from screen readers.
+- Large text: text sitting in a row next to a button or switch gets
+  `flex: 1` or `flexShrink: 1` so it wraps instead of pushing things off
+  screen; anything that can grow taller than the screen scrolls. Tight rows
+  switch layout with `useLargeText()`.
+- The support lines (`src/data/supportLines.ts`) were each checked against
+  an official source (CHANGELOG.md, 9C). Never add or change a number
+  without doing the same, and check them all again before each release.
 
 ### Widget
 - The widget runs headless, possibly with the app closed, and reads

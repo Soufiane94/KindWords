@@ -5,7 +5,8 @@
     "ok": "Wakha",
     "shareDialogTitle": "Partagi had lklma l7elwa",
     "shareErrorTitle": "Ma9dernach npartagiw hadchi",
-    "shareErrorMessage": "3awed 7awel m3a chwiya d wqt."
+    "shareErrorMessage": "3awed 7awel m3a chwiya d wqt.",
+    "close": "Sded"
   },
   "nav": {
     "home": "Dar",
@@ -38,7 +39,8 @@
       "tired": "3ya",
       "okay": "Labas",
       "good": "Bikhir"
-    }
+    },
+    "heavyLine": "Bghiti tehder m3a chi wa7ed? Kaynin nas wajdin ysem3ouk."
   },
   "settings": {
     "title": "L3dadat",
@@ -95,7 +97,12 @@
     "nextAt": "Jaya: {{when}}.",
     "skippedTimes": "Tnehhaw: {{times}} — dakhel sw9at skat.",
     "permissionDenied": "Tnbihat msakrin l Kindwords f l3dadat dyal telephone dyalek. Smeh liha mn tma, mn b3d 3awed 7awel tsejjel.",
-    "resetOnboarding": "3awed l bidaya"
+    "resetOnboarding": "3awed l bidaya",
+    "plainFontLabel": "Khatt basit w sahl f l9raya",
+    "plainFontSubtitle": "Kayb9aw l'alwan w zwa9 dyal l3alam dyalek, w kolchi kayban b lkhatt dyal telephone dyalek.",
+    "removeTime": "7ayed wqt {{number}}",
+    "helpTitle": "Mosa3ada",
+    "supportLink": "Bghiti tehder m3a chi wa7ed?"
   },
   "events": {
     "title": "Agenda",
@@ -169,7 +176,6 @@
   },
   "kindWord": {
     "headerTitle": "Klma 7lowa",
-    "closeLabel": "Sded",
     "missingText": "Hadi lklma 7lowa mabqat-ch mawjouda.",
     "snoozeDoneTitle": "Safi",
     "notForMeTitle": "Mefhoum",
@@ -275,5 +281,55 @@
     "letters": "Bra w Stilou",
     "clouds": "Sa7ab",
     "quilt": "Lizar"
+  },
+  "support": {
+    "title": "Bghiti tehder m3a chi wa7ed?",
+    "intro": "Kaynin iyam t9al bzzaf bach t7melhom bou7dek. Nas li kayjawbo f had les numéros kaynin bach ysem3ouk, w dakchi li katgoul lihom kayb9a sirr.",
+    "emergencyLabel": "F l'urgence:",
+    "callHint": "Kat7el l'application dyal telephone b had numéro",
+    "siteHint": "Kat7el site",
+    "footer": "Kindwords ma kay7tafed b 7ta 7aja 3la had safha.",
+    "countries": {
+      "fr": "Fransa",
+      "ma": "Lmaghrib",
+      "es": "Sbanya",
+      "other": "Bladat khrin"
+    },
+    "lines": {
+      "fr_3114": {
+        "description": "Numéro watani f Fransa l ay wa7ed f di9a wla khayf 3la chi wa7ed 3ziz 3lih. Kayjawbo mhniyin d se77a mkounin.",
+        "hours": "Lil w nhar · fabor"
+      },
+      "fr_sos_amitie": {
+        "description": "Bénévoles kaysem3o, bla ma y7kmo, l ay wa7ed kaydouz wqt s3ib.",
+        "hours": "Lil w nhar · taman appel local"
+      },
+      "fr_112": {
+        "description": "urgences"
+      },
+      "ma_findahelpline": {
+        "description": "Lista m9adda w jdida dyal les numéros d'écoute fabor f Lmaghrib."
+      },
+      "ma_15": {
+        "description": "l'ambulance"
+      },
+      "ma_19": {
+        "description": "lbolis"
+      },
+      "es_024": {
+        "description": "Numéro f Sbanya l nas li jathom afkar dyal l'intihar, w l 3a2ilathom w 7babhom.",
+        "hours": "Lil w nhar · fabor"
+      },
+      "es_esperanza": {
+        "description": "Tsennat w d3am l ay wa7ed kaydouz azma.",
+        "hours": "Lil w nhar · taman appel 3adi"
+      },
+      "es_112": {
+        "description": "urgences"
+      },
+      "findahelpline": {
+        "description": "Numéros d'écoute fabor w sirriyin f kter mn 175 blad, mt2akkdin menhom m3a mwaliha."
+      }
+    }
   }
 }

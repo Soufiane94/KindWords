@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, ActivityIndicator, AppState } from 'react-native';
+import { View, ActivityIndicator, AppState, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import EventsScreen from '../screens/EventsScreen';
 import KindWordScreen from '../screens/KindWordScreen';
 import SendKindWordScreen from '../screens/SendKindWordScreen';
+import SupportScreen from '../screens/SupportScreen';
 import { getOnboardingDone, setOnboardingDone } from '../services/storage';
 import {
   rescheduleAllNotifications,
@@ -46,6 +47,23 @@ const TAB_ICONS: Record<string, { active: keyof typeof Ionicons.glyphMap; inacti
 // hour doesn't need to redo it each time.
 const REFRESH_EVERY_MS = 60 * 60 * 1000;
 
+// Five tab names side by side get cut off at the largest text sizes, so
+// they only grow this much; the icons and screen reader labels carry the
+// meaning at any size (9C).
+const TAB_LABEL_MAX_SCALE = 1.3;
+
+function TabLabel({ color, children }: { color: string; children: string }) {
+  return (
+    <Text
+      style={{ color, fontSize: 10, fontWeight: '500' }}
+      numberOfLines={1}
+      maxFontSizeMultiplier={TAB_LABEL_MAX_SCALE}
+    >
+      {children}
+    </Text>
+  );
+}
+
 type MainTabsProps = {
   onResetOnboarding: () => void;
 };
@@ -65,13 +83,15 @@ function MainTabs({ onResetOnboarding }: MainTabsProps) {
           const icon = TAB_ICONS[route.name];
           return <Ionicons name={focused ? icon.active : icon.inactive} size={size} color={color} />;
         },
+        // Gets each tab's `title` below as its text.
+        tabBarLabel: TabLabel,
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: t('nav.home') }} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ tabBarLabel: t('nav.favorites') }} />
-      <Tab.Screen name="Notes" component={NotesScreen} options={{ tabBarLabel: t('nav.notes') }} />
-      <Tab.Screen name="Events" component={EventsScreen} options={{ tabBarLabel: t('nav.events') }} />
-      <Tab.Screen name="Settings" options={{ tabBarLabel: t('nav.settings') }}>
+      <Tab.Screen name="Home" component={HomeScreen} options={{ title: t('nav.home') }} />
+      <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ title: t('nav.favorites') }} />
+      <Tab.Screen name="Notes" component={NotesScreen} options={{ title: t('nav.notes') }} />
+      <Tab.Screen name="Events" component={EventsScreen} options={{ title: t('nav.events') }} />
+      <Tab.Screen name="Settings" options={{ title: t('nav.settings') }}>
         {() => <SettingsScreen onResetOnboarding={onResetOnboarding} />}
       </Tab.Screen>
     </Tab.Navigator>
@@ -101,6 +121,7 @@ function RootStackNavigator({ onResetOnboarding }: RootStackNavigatorProps) {
         component={SendKindWordScreen}
         options={{ presentation: 'modal' }}
       />
+      <RootStack.Screen name="Support" component={SupportScreen} options={{ presentation: 'modal' }} />
     </RootStack.Navigator>
   );
 }

@@ -5,7 +5,8 @@
     "ok": "OK",
     "shareDialogTitle": "Partager ce mot doux",
     "shareErrorTitle": "Impossible de partager",
-    "shareErrorMessage": "Merci de réessayer dans un instant."
+    "shareErrorMessage": "Merci de réessayer dans un instant.",
+    "close": "Fermer"
   },
   "nav": {
     "home": "Accueil",
@@ -38,7 +39,8 @@
       "tired": "Fatigue",
       "okay": "Ça va",
       "good": "Bien"
-    }
+    },
+    "heavyLine": "Besoin de parler à quelqu'un ? Des personnes sont là pour t'écouter."
   },
   "settings": {
     "title": "Réglages",
@@ -95,7 +97,12 @@
     "nextAt": "Prochain : {{when}}.",
     "skippedTimes": "Ignoré : {{times}} — pendant tes heures silencieuses.",
     "permissionDenied": "Les notifications sont désactivées pour Kindwords dans les réglages de ton téléphone. Autorise-les là-bas, puis réessaie d'enregistrer.",
-    "resetOnboarding": "Refaire la configuration de bienvenue"
+    "resetOnboarding": "Refaire la configuration de bienvenue",
+    "plainFontLabel": "Police simple et lisible",
+    "plainFontSubtitle": "Garde les couleurs et les décorations de ton univers, et affiche tout le texte avec la police de ton téléphone.",
+    "removeTime": "Retirer l'heure {{number}}",
+    "helpTitle": "Aide",
+    "supportLink": "Besoin de parler à quelqu'un ?"
   },
   "events": {
     "title": "Calendrier",
@@ -169,7 +176,6 @@
   },
   "kindWord": {
     "headerTitle": "Mot doux",
-    "closeLabel": "Fermer",
     "missingText": "Ce mot doux n'est plus disponible.",
     "snoozeDoneTitle": "C'est fait",
     "notForMeTitle": "Compris",
@@ -275,5 +281,55 @@
     "letters": "Lettres & Encre",
     "clouds": "Nuages doux",
     "quilt": "Courtepointe"
+  },
+  "support": {
+    "title": "Besoin de parler à quelqu'un ?",
+    "intro": "Certains jours sont trop lourds à porter seul(e). Les personnes qui répondent sur ces lignes sont là pour t'écouter, et ce que tu leur dis reste confidentiel.",
+    "emergencyLabel": "En cas d'urgence :",
+    "callHint": "Ouvre l'appli Téléphone avec ce numéro",
+    "siteHint": "Ouvre le site",
+    "footer": "Kindwords ne garde aucune trace de cette page.",
+    "countries": {
+      "fr": "France",
+      "ma": "Maroc",
+      "es": "Espagne",
+      "other": "Autres pays"
+    },
+    "lines": {
+      "fr_3114": {
+        "description": "Le numéro national de prévention du suicide, pour toute personne en détresse ou inquiète pour un proche. Des professionnels de santé formés répondent.",
+        "hours": "Jour et nuit · gratuit"
+      },
+      "fr_sos_amitie": {
+        "description": "Des bénévoles qui écoutent, sans jugement, toute personne qui traverse un moment difficile.",
+        "hours": "Jour et nuit · prix d'un appel local"
+      },
+      "fr_112": {
+        "description": "urgences"
+      },
+      "ma_findahelpline": {
+        "description": "Une liste vérifiée et à jour des lignes d'écoute gratuites au Maroc."
+      },
+      "ma_15": {
+        "description": "ambulance"
+      },
+      "ma_19": {
+        "description": "police"
+      },
+      "es_024": {
+        "description": "La ligne espagnole pour les personnes qui ont des pensées suicidaires, et pour leurs proches.",
+        "hours": "Jour et nuit · gratuit"
+      },
+      "es_esperanza": {
+        "description": "Écoute et soutien pour toute personne qui traverse une crise.",
+        "hours": "Jour et nuit · prix d'un appel normal"
+      },
+      "es_112": {
+        "description": "urgences"
+      },
+      "findahelpline": {
+        "description": "Des lignes d'écoute gratuites et confidentielles dans plus de 175 pays, vérifiées directement auprès d'elles."
+      }
+    }
   }
 }

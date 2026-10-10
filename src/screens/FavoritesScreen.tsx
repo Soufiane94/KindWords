@@ -69,7 +69,9 @@ export default function FavoritesScreen() {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>{t('favorites.title')}</Text>
+        <Text style={styles.title} accessibilityRole="header">
+          {t('favorites.title')}
+        </Text>
         <Text style={styles.subtitle}>{t('favorites.subtitle')}</Text>
 
         {quotes.length === 0 ? (

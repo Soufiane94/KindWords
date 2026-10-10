@@ -1,4 +1,6 @@
-// A selectable "chip" button used in onboarding to pick circumstances.
+// A selectable "chip" button used in onboarding to pick circumstances (and
+// in Settings for worlds and languages). Screen readers hear just its label,
+// not the emoji's name.
 
 import React, { useMemo } from 'react';
 import { Pressable, Text, StyleSheet } from 'react-native';
@@ -21,6 +23,7 @@ export default function CircumstanceChip({ label, emoji, selected, onPress }: Pr
       onPress={onPress}
       style={[styles.chip, selected && styles.chipSelected]}
       accessibilityRole="button"
+      accessibilityLabel={label}
       accessibilityState={{ selected }}
     >
       <Text style={styles.emoji}>{emoji}</Text>

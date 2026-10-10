@@ -2,14 +2,24 @@
 // the shared motion behind decorations that drift one way (falling snow,
 // drifting clouds, rising light), as opposed to useLoopingValue's back-
 // and-forth sway (which would look like snow falling back up).
+//
+// With "remove animations" on (9C), it rests at `restAt` instead. Pieces
+// that drift give each one a different resting point, so they stay spread
+// out over the screen rather than lined up at the same spot.
 
 import { useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
+import { useTheme } from '../../theme/ThemeContext';
 
-export function useDriftingValue(durationMs: number, delayMs = 0): Animated.Value {
+export function useDriftingValue(durationMs: number, delayMs = 0, restAt = 0.5): Animated.Value {
   const value = useRef(new Animated.Value(0)).current;
+  const { reduceMotion } = useTheme();
 
   useEffect(() => {
+    if (reduceMotion) {
+      value.setValue(restAt);
+      return;
+    }
     const loop = Animated.loop(
       Animated.sequence([
         Animated.delay(delayMs),
@@ -23,7 +33,7 @@ export function useDriftingValue(durationMs: number, delayMs = 0): Animated.Valu
     );
     loop.start();
     return () => loop.stop();
-  }, [value, durationMs, delayMs]);
+  }, [value, durationMs, delayMs, restAt, reduceMotion]);
 
   return value;
 }

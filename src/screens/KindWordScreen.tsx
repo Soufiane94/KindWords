@@ -10,7 +10,7 @@
 // the full text here.
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Alert, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -108,11 +108,13 @@ export default function KindWordScreen({ route, navigation }: Props) {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>{t('kindWord.headerTitle')}</Text>
+        <Text style={styles.headerTitle} accessibilityRole="header">
+          {t('kindWord.headerTitle')}
+        </Text>
         <Pressable
           onPress={() => navigation.goBack()}
           accessibilityRole="button"
-          accessibilityLabel={t('kindWord.closeLabel')}
+          accessibilityLabel={t('common.close')}
           style={styles.closeButton}
         >
           <Text style={styles.closeText}>✕</Text>
@@ -121,7 +123,8 @@ export default function KindWordScreen({ route, navigation }: Props) {
 
       {card ? (
         <>
-          <View style={styles.content}>
+          {/* Scrolls when a long kind word and large text don't fit. */}
+          <ScrollView contentContainerStyle={styles.content}>
             <QuoteCard quote={card} />
             {quote ? (
               <QuoteActions
@@ -134,7 +137,7 @@ export default function KindWordScreen({ route, navigation }: Props) {
             ) : (
               <QuoteActions onShare={share} onSnooze={() => setMenuVisible(true)} />
             )}
-          </View>
+          </ScrollView>
 
           {/* The picture a note's "Share" sends: the card framed in its
               world, like on the Send screen. Kept out of sight, since on
@@ -153,7 +156,7 @@ export default function KindWordScreen({ route, navigation }: Props) {
           <SnoozeMenu visible={menuVisible} onClose={() => setMenuVisible(false)} onSnooze={handleSnooze} />
         </>
       ) : noteLoaded ? (
-        <View style={styles.content}>
+        <View style={styles.missing}>
           <Text style={styles.missingText}>{t('kindWord.missingText')}</Text>
         </View>
       ) : null}
@@ -176,18 +179,28 @@ function createStyles(world: World) {
       paddingTop: 12,
     },
     headerTitle: {
+      flexShrink: 1,
       fontSize: 17,
       color: colors.primaryText,
       ...headingFont(world),
     },
     closeButton: {
       padding: 6,
+      marginLeft: 12,
     },
     closeText: {
       fontSize: 20,
       color: colors.mutedText,
     },
+    // Grows to fill the screen so a short kind word stays centered.
     content: {
+      flexGrow: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 24,
+      paddingVertical: 16,
+    },
+    missing: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',

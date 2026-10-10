@@ -26,16 +26,17 @@ function SunGlow() {
 }
 
 type Pct = `${number}%`;
-type MoteSpec = { left: Pct; size: number; duration: number; delay: number };
+// `rest`: how far up a mote stays when animations are off.
+type MoteSpec = { left: Pct; size: number; duration: number; delay: number; rest: number };
 
 const MOTES: MoteSpec[] = [
-  { left: '20%', size: 5, duration: 6200, delay: 0 },
-  { left: '48%', size: 4, duration: 5400, delay: 1500 },
-  { left: '75%', size: 6, duration: 6800, delay: 700 },
+  { left: '20%', size: 5, duration: 6200, delay: 0, rest: 0.3 },
+  { left: '48%', size: 4, duration: 5400, delay: 1500, rest: 0.6 },
+  { left: '75%', size: 6, duration: 6800, delay: 700, rest: 0.8 },
 ];
 
 function Mote({ spec }: { spec: MoteSpec }) {
-  const t = useDriftingValue(spec.duration, spec.delay);
+  const t = useDriftingValue(spec.duration, spec.delay, spec.rest);
   const translateY = t.interpolate({ inputRange: [0, 1], outputRange: [500, -20] });
   const opacity = t.interpolate({ inputRange: [0, 0.1, 0.9, 1], outputRange: [0, 0.7, 0.7, 0] });
 

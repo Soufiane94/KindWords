@@ -11,15 +11,24 @@ import { useDriftingValue } from './useDriftingValue';
 import FramePiece, { FrameSpot } from './FramePiece';
 
 type Pct = `${number}%`;
-type CloudSpec = { top: Pct; size: number; opacity: number; duration: number; delay: number; reverse?: boolean };
+// `rest`: where along its drift a cloud stays when animations are off.
+type CloudSpec = {
+  top: Pct;
+  size: number;
+  opacity: number;
+  duration: number;
+  delay: number;
+  rest: number;
+  reverse?: boolean;
+};
 
 const CLOUDS: CloudSpec[] = [
-  { top: '10%', size: 90, opacity: 0.5, duration: 26000, delay: 0 },
-  { top: '70%', size: 70, opacity: 0.4, duration: 32000, delay: 4000, reverse: true },
+  { top: '10%', size: 90, opacity: 0.5, duration: 26000, delay: 0, rest: 0.62 },
+  { top: '70%', size: 70, opacity: 0.4, duration: 32000, delay: 4000, rest: 0.2, reverse: true },
 ];
 
 function Cloud({ spec }: { spec: CloudSpec }) {
-  const t = useDriftingValue(spec.duration, spec.delay);
+  const t = useDriftingValue(spec.duration, spec.delay, spec.rest);
   const translateX = t.interpolate({
     inputRange: [0, 1],
     outputRange: spec.reverse ? [400, -400] : [-400, 400],

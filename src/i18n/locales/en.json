@@ -5,7 +5,8 @@
     "ok": "OK",
     "shareDialogTitle": "Share this kind word",
     "shareErrorTitle": "Couldn't share that",
-    "shareErrorMessage": "Please try again in a moment."
+    "shareErrorMessage": "Please try again in a moment.",
+    "close": "Close"
   },
   "nav": {
     "home": "Home",
@@ -38,7 +39,8 @@
       "tired": "Tired",
       "okay": "Okay",
       "good": "Good"
-    }
+    },
+    "heavyLine": "Need to talk to someone? People are there to listen."
   },
   "settings": {
     "title": "Settings",
@@ -95,7 +97,12 @@
     "nextAt": "Next one: {{when}}.",
     "skippedTimes": "Skipped {{times}} — inside your quiet hours.",
     "permissionDenied": "Notifications are turned off for Kindwords in your phone's settings. Please allow them there, then try saving again.",
-    "resetOnboarding": "Redo welcome setup"
+    "resetOnboarding": "Redo welcome setup",
+    "plainFontLabel": "Plain, easy-to-read font",
+    "plainFontSubtitle": "Keeps your world's colors and decorations, and shows all text in your phone's own font.",
+    "removeTime": "Remove time {{number}}",
+    "helpTitle": "Help",
+    "supportLink": "Need to talk to someone?"
   },
   "events": {
     "title": "Calendar",
@@ -169,7 +176,6 @@
   },
   "kindWord": {
     "headerTitle": "Kind word",
-    "closeLabel": "Close",
     "missingText": "This kind word isn't available anymore.",
     "snoozeDoneTitle": "Done",
     "notForMeTitle": "Got it",
@@ -275,5 +281,55 @@
     "letters": "Letters & Ink",
     "clouds": "Soft Clouds",
     "quilt": "Patchwork Quilt"
+  },
+  "support": {
+    "title": "Need to talk to someone?",
+    "intro": "Some days are too heavy to carry alone. The people on these lines are there to listen, and what you tell them stays confidential.",
+    "emergencyLabel": "In an emergency:",
+    "callHint": "Opens your phone app with this number",
+    "siteHint": "Opens the website",
+    "footer": "Kindwords doesn't keep any record of this page.",
+    "countries": {
+      "fr": "France",
+      "ma": "Morocco",
+      "es": "Spain",
+      "other": "Other countries"
+    },
+    "lines": {
+      "fr_3114": {
+        "description": "France's suicide prevention line, for anyone in distress or worried about someone. Trained health professionals answer.",
+        "hours": "Day and night · free"
+      },
+      "fr_sos_amitie": {
+        "description": "Volunteers who listen, without judging, to anyone going through a hard time.",
+        "hours": "Day and night · cost of a local call"
+      },
+      "fr_112": {
+        "description": "emergencies"
+      },
+      "ma_findahelpline": {
+        "description": "A checked, up-to-date list of free helplines in Morocco."
+      },
+      "ma_15": {
+        "description": "ambulance"
+      },
+      "ma_19": {
+        "description": "police"
+      },
+      "es_024": {
+        "description": "Spain's line for anyone having thoughts of suicide, and for the people close to them.",
+        "hours": "Day and night · free"
+      },
+      "es_esperanza": {
+        "description": "Listening and support for anyone going through a crisis.",
+        "hours": "Day and night · standard call rate"
+      },
+      "es_112": {
+        "description": "emergencies"
+      },
+      "findahelpline": {
+        "description": "Free, confidential helplines in more than 175 countries, checked with the helplines themselves."
+      }
+    }
   }
 }

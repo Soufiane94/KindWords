@@ -27,6 +27,7 @@ const KEYS = {
   CHECK_IN: 'kindwords:checkIn',
   CHECK_IN_ENABLED: 'kindwords:checkInEnabled',
   WIDGET_QUOTE_ID: 'kindwords:widgetQuoteId',
+  PLAIN_FONT: 'kindwords:plainFont',
 };
 
 export type Frequency = 'daily' | 'three_per_week' | 'custom';
@@ -355,6 +356,18 @@ export async function getWorldId(): Promise<WorldId> {
 
 export async function setWorldId(id: WorldId): Promise<void> {
   await AsyncStorage.setItem(KEYS.THEME, id);
+}
+
+// "Plain font" (9C): keeps the world's colors and decorations but shows all
+// text in the phone's own font, which is easier to read than handwriting or
+// old-style faces like Caveat and MedievalSharp. Off unless turned on.
+export async function getPlainFont(): Promise<boolean> {
+  const value = await AsyncStorage.getItem(KEYS.PLAIN_FONT);
+  return value === 'true';
+}
+
+export async function setPlainFont(on: boolean): Promise<void> {
+  await AsyncStorage.setItem(KEYS.PLAIN_FONT, on ? 'true' : 'false');
 }
 
 // The app's own UI language (buttons, screens, notification chrome text).

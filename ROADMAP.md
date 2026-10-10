@@ -3,7 +3,7 @@
 Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
-**Current:** Phase 9 — Release readiness. **Next:** 9C (9A's research is
+**Current:** Phase 9 — Release readiness. **Next:** 9D (9A's research is
 done; the name decision is yours).
 
 Each sub-phase is done on its own, one commit each.
@@ -63,24 +63,23 @@ CHANGELOG.md.
 - [ ] Spanish quotes: the 40 `"language": "es"` entries
 - [ ] Spanish UI strings: `src/i18n/locales/es.json`, plus the Spanish day
   and month names
+- [ ] First within those files: the "Need to talk to someone?" page
+  (`support.*` and `checkIn.heavyLine`), since it's safety content (9C)
 
 Review Darija first: it carries the most risk. It has no single standard
 spelling, and the text uses one unmarked form for the gendered "you"
 throughout, which a native speaker may want to revisit (CHANGELOG.md,
 Phase 6).
 
-### 9C — Care and accessibility (moved forward from the old Phase 10)
-- A quiet, optional "Need to talk to someone?" page with support lines by
-  country (France, Morocco, Spain, plus a general fallback). Never a
-  pop-up. Verify every number against an official source when building it.
-- Show it gently: a small line under the check-in when someone picks
-  "Heavy". Nothing is stored.
-- Respect the phone's "remove animations" (reduce motion) setting: world
-  decorations stay still.
-- Test every world at the largest system font size and fix what breaks.
-- A "plain font" option that keeps the world's look with a readable font
-  (MedievalSharp, Caveat and similar are hard for older eyes).
-- Screen reader labels on every button and icon.
+### 9C — Care and accessibility ✅
+"Need to talk to someone?" page (numbers checked 2026-10-10) with a gentle
+line under a "Heavy" check-in, decorations kept still with reduce motion, a
+plain font option, large-text layout fixes, and screen reader labels.
+Details in CHANGELOG.md.
+- [ ] On a phone: every world at the largest font size (up to 200% on
+  Android 14), with TalkBack on, and with "Remove animations" on.
+- [ ] Before each release: check the support numbers again
+  (`src/data/supportLines.ts`).
 
 ### 9D — Privacy and trust
 - Plain-language privacy policy on a simple public web page (Play Console

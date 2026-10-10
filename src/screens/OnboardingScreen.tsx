@@ -41,7 +41,9 @@ export default function OnboardingScreen({ onDone }: Props) {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>{t('onboarding.title')}</Text>
+        <Text style={styles.title} accessibilityRole="header">
+          {t('onboarding.title')}
+        </Text>
         <Text style={styles.subtitle}>{t('onboarding.subtitle')}</Text>
 
         <View style={styles.chipRow}>
@@ -58,7 +60,7 @@ export default function OnboardingScreen({ onDone }: Props) {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Pressable style={styles.button} onPress={handleContinue}>
+        <Pressable style={styles.button} onPress={handleContinue} accessibilityRole="button">
           <Text style={styles.buttonText}>{t('onboarding.continue')}</Text>
         </Pressable>
       </View>

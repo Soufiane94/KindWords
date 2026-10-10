@@ -12,12 +12,14 @@ import { WORLDS } from '../data/worlds';
 import { getQuoteById, getRandomQuote, loadQuotePrefs } from '../services/quotes';
 import {
   getCircumstances,
+  getPlainFont,
   getQuoteLanguage,
   getUiLanguage,
   getWidgetQuoteId,
   getWorldId,
   setWidgetQuoteId,
 } from '../services/storage';
+import { withPlainFont } from '../theme/fontStyle';
 import i18n from '../i18n';
 
 // Must match the widget's "name" in app.json.
@@ -27,8 +29,9 @@ const WIDGET_NAME = 'KindWord';
 // change in the app) rather than picking a new one — as long as it's still
 // in the chosen language and hasn't been marked "not for me" since.
 async function renderKindWordWidget(keepQuote: boolean) {
-  const [worldId, circumstances, quoteLanguage, uiLanguage, prefs, currentId] = await Promise.all([
+  const [worldId, plainFont, circumstances, quoteLanguage, uiLanguage, prefs, currentId] = await Promise.all([
     getWorldId(),
+    getPlainFont(),
     getCircumstances(),
     getQuoteLanguage(),
     getUiLanguage(),
@@ -49,7 +52,7 @@ async function renderKindWordWidget(keepQuote: boolean) {
   const t = i18n.getFixedT(uiLanguage);
   return (
     <KindWordWidget
-      world={WORLDS[worldId]}
+      world={plainFont ? withPlainFont(WORLDS[worldId]) : WORLDS[worldId]}
       text={quote.text}
       heading={t('home.heading')}
       anotherLabel={t('widget.another')}
@@ -77,7 +80,8 @@ export async function widgetTaskHandler(props: WidgetTaskHandlerProps) {
 }
 
 // Redraws the widget, if one is on the home screen, after something it
-// shows has changed in the app (the world, a language, a "not for me").
+// shows has changed in the app (the world, the plain font, a language, a
+// "not for me").
 export async function refreshKindWordWidget(): Promise<void> {
   if (Platform.OS !== 'android') return;
   try {

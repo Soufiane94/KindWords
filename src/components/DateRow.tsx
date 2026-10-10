@@ -35,7 +35,12 @@ export default function DateRow({ label, date, onChange, minimumDate }: Props) {
   return (
     <View style={styles.row}>
       <Text style={styles.label}>{label}</Text>
-      <Pressable style={styles.dateButton} onPress={() => setShowPicker(true)}>
+      <Pressable
+        style={styles.dateButton}
+        onPress={() => setShowPicker(true)}
+        accessibilityRole="button"
+        accessibilityLabel={`${label}, ${formatDateDisplay(date, language)}`}
+      >
         <Text style={styles.dateText}>{formatDateDisplay(date, language)}</Text>
       </Pressable>
       {showPicker && (
@@ -62,6 +67,7 @@ function createStyles(colors: Palette) {
       fontSize: 15,
       color: colors.primaryText,
       flex: 1,
+      marginRight: 12,
     },
     dateButton: {
       paddingVertical: 8,

@@ -1,7 +1,8 @@
 // Main screen: shows one quote matched to the user's circumstances, with a
 // button to see another one and actions to save, send to someone, or say
 // "not for me". Phase 7 adds the optional daily check-in at the top and a
-// gentle "Not today" at the bottom to pause reminders until tomorrow.
+// gentle "Not today" at the bottom to pause reminders until tomorrow. A
+// "Heavy" check-in also offers the "Need to talk to someone?" page (9C).
 
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
@@ -178,9 +179,16 @@ export default function HomeScreen() {
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
         {showCheckIn && (
-          <CheckInPrompt mood={checkIn?.mood ?? null} onAnswer={handleCheckIn} onNotNow={handleCheckInNotNow} />
+          <CheckInPrompt
+            mood={checkIn?.mood ?? null}
+            onAnswer={handleCheckIn}
+            onNotNow={handleCheckInNotNow}
+            onNeedToTalk={() => navigation.navigate('Support')}
+          />
         )}
-        <Text style={styles.heading}>{t('home.heading')}</Text>
+        <Text style={styles.heading} accessibilityRole="header">
+          {t('home.heading')}
+        </Text>
         {quote ? (
           <>
             <QuoteCard quote={quote} />
@@ -196,7 +204,7 @@ export default function HomeScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Pressable style={styles.button} onPress={showAnotherQuote}>
+        <Pressable style={styles.button} onPress={showAnotherQuote} accessibilityRole="button">
           <Text style={styles.buttonText}>{t('home.anotherKindWord')}</Text>
         </Pressable>
 

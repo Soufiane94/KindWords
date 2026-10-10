@@ -28,7 +28,12 @@ export default function WorldFrame() {
   if (!world.background) return null;
 
   return (
-    <View style={StyleSheet.absoluteFill} pointerEvents="none">
+    <View
+      style={StyleSheet.absoluteFill}
+      pointerEvents="none"
+      importantForAccessibility="no-hide-descendants"
+      accessibilityElementsHidden
+    >
       <LinearGradient colors={world.background.colors} style={StyleSheet.absoluteFill} />
       {world.decorations === 'nature' && <NatureFrame />}
       {world.decorations === 'space' && <SpaceFrame />}

@@ -9,4 +9,6 @@ export type RootStackParamList = {
   // Phase 8: starts from the quote it was opened on, or from a note the
   // user wrote for someone else.
   SendKindWord: { quoteId?: string; noteId?: string };
+  // 9C: "Need to talk to someone?"
+  Support: undefined;
 };

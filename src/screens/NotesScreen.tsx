@@ -161,27 +161,27 @@ export default function NotesScreen() {
   // The small line under each note: who it's for or from, and for a letter
   // to future-you, when it arrives (or arrived). A note for someone else
   // shows when its reminder comes, or just its day once that has passed (or
-  // while reminders are off).
-  function describeNote(note: PersonalNote): string {
-    const emoji = NOTE_KINDS.find((k) => k.id === note.kind)?.emoji ?? '';
+  // while reminders are off). Screen readers get it without the emoji.
+  function describeNote(note: PersonalNote, withEmoji = true): string {
+    const emoji = withEmoji ? `${NOTE_KINDS.find((k) => k.id === note.kind)?.emoji ?? ''} ` : '';
     if (note.kind === 'loved_one') {
-      return `${emoji} ${t('notes.metaLovedOne', { name: note.from || t('notes.someoneWhoLovesYou') })}`;
+      return `${emoji}${t('notes.metaLovedOne', { name: note.from || t('notes.someoneWhoLovesYou') })}`;
     }
     if (note.kind === 'for_someone') {
       const name = note.to || t('notes.someoneYouLove');
       const reminder = settings?.enabled ? planForSomeoneNote(note, settings, new Date()) : null;
       if (reminder) {
-        return `${emoji} ${t('notes.metaForSomeone', { name, when: formatMomentDisplay(reminder, language) })}`;
+        return `${emoji}${t('notes.metaForSomeone', { name, when: formatMomentDisplay(reminder, language) })}`;
       }
       const date = formatDateDisplay(note.deliverOn ?? note.createdOn, language);
-      return `${emoji} ${t('notes.metaForSomeoneDay', { name, date })}`;
+      return `${emoji}${t('notes.metaForSomeoneDay', { name, date })}`;
     }
     if (note.kind === 'future' && note.deliverOn) {
       const date = formatDateDisplay(note.deliverOn, language);
       const key = note.deliverOn > todayISO() ? 'notes.metaFuture' : 'notes.metaFutureArrived';
-      return `${emoji} ${t(key, { date })}`;
+      return `${emoji}${t(key, { date })}`;
     }
-    return `${emoji} ${t('notes.kinds.self')}`;
+    return `${emoji}${t('notes.kinds.self')}`;
   }
 
   // Worded for whoever the note is from or for.
@@ -196,7 +196,9 @@ export default function NotesScreen() {
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>{t('notes.title')}</Text>
+        <Text style={styles.title} accessibilityRole="header">
+          {t('notes.title')}
+        </Text>
         <Text style={styles.subtitle}>{t('notes.subtitle')}</Text>
 
         {!remindersOn && <Hint text={t('notes.remindersOffHint')} />}
@@ -205,7 +207,14 @@ export default function NotesScreen() {
           <Text style={styles.emptyText}>{t('notes.emptyText')}</Text>
         ) : (
           notes.map((note) => (
-            <Pressable key={note.id} style={styles.noteCard} onPress={() => openEditModal(note)}>
+            <Pressable
+              key={note.id}
+              style={styles.noteCard}
+              onPress={() => openEditModal(note)}
+              accessibilityRole="button"
+              // Read without the kind's emoji.
+              accessibilityLabel={`${note.text}. ${describeNote(note, false)}`}
+            >
               <Text style={styles.noteText} numberOfLines={4}>
                 {note.text}
               </Text>
@@ -216,7 +225,7 @@ export default function NotesScreen() {
       </ScrollView>
 
       <View style={styles.footer}>
-        <Pressable style={styles.addButton} onPress={openAddModal}>
+        <Pressable style={styles.addButton} onPress={openAddModal} accessibilityRole="button">
           <Text style={styles.addButtonText}>{t('notes.addNote')}</Text>
         </Pressable>
       </View>
@@ -226,8 +235,15 @@ export default function NotesScreen() {
           <WorldBackground />
           <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
             <View style={styles.modalHeader}>
-              <Text style={styles.title}>{editing ? t('notes.editNoteTitle') : t('notes.newNoteTitle')}</Text>
-              <Pressable onPress={() => setModalVisible(false)}>
+              <Text style={[styles.title, styles.modalTitle]} accessibilityRole="header">
+                {editing ? t('notes.editNoteTitle') : t('notes.newNoteTitle')}
+              </Text>
+              <Pressable
+                onPress={() => setModalVisible(false)}
+                accessibilityRole="button"
+                accessibilityLabel={t('common.close')}
+                hitSlop={8}
+              >
                 <Text style={styles.closeText}>✕</Text>
               </Pressable>
             </View>
@@ -313,6 +329,8 @@ export default function NotesScreen() {
               style={[styles.saveButton, (!text.trim() || saving) && styles.saveButtonDisabled]}
               onPress={handleSave}
               disabled={!text.trim() || saving}
+              accessibilityRole="button"
+              accessibilityState={{ disabled: !text.trim() || saving }}
             >
               <Text style={styles.saveButtonText}>{t('common.save')}</Text>
             </Pressable>
@@ -322,13 +340,15 @@ export default function NotesScreen() {
                 style={[styles.sendNowButton, (!text.trim() || saving) && styles.saveButtonDisabled]}
                 onPress={handleSendNow}
                 disabled={!text.trim() || saving}
+                accessibilityRole="button"
+                accessibilityState={{ disabled: !text.trim() || saving }}
               >
                 <Text style={styles.sendNowText}>{t('notes.sendNow')}</Text>
               </Pressable>
             )}
 
             {editing && (
-              <Pressable onPress={handleDelete} style={styles.deleteLink}>
+              <Pressable onPress={handleDelete} style={styles.deleteLink} accessibilityRole="button">
                 <Text style={styles.deleteLinkText}>{t('notes.deleteNoteLink')}</Text>
               </Pressable>
             )}
@@ -403,6 +423,10 @@ function createStyles(world: World) {
       alignItems: 'center',
       justifyContent: 'space-between',
       marginBottom: 20,
+    },
+    modalTitle: {
+      flexShrink: 1,
+      marginRight: 12,
     },
     closeText: {
       fontSize: 20,

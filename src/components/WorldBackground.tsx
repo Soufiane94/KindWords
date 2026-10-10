@@ -1,7 +1,8 @@
 // Sits behind a screen's content: paints the current world's gradient (or
-// nothing, for Simple) plus its small ambient decorations. Purely visual
-// and never intercepts touches, so screens just drop it in as their first
-// child without needing to know which world is active.
+// nothing, for Simple) plus its small ambient decorations. Purely visual:
+// it never intercepts touches and screen readers skip it, so screens just
+// drop it in as their first child without needing to know which world is
+// active.
 
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -27,7 +28,12 @@ export default function WorldBackground() {
   if (!world.background) return null;
 
   return (
-    <View style={StyleSheet.absoluteFill} pointerEvents="none">
+    <View
+      style={StyleSheet.absoluteFill}
+      pointerEvents="none"
+      importantForAccessibility="no-hide-descendants"
+      accessibilityElementsHidden
+    >
       <LinearGradient colors={world.background.colors} style={StyleSheet.absoluteFill} />
       {world.decorations === 'nature' && <NatureDecorations />}
       {world.decorations === 'space' && <SpaceDecorations />}

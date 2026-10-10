@@ -9,6 +9,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../theme/ThemeContext';
+import { useLargeText } from '../theme/useLargeText';
 import type { Palette } from '../data/worlds';
 
 type Props = {
@@ -30,7 +31,8 @@ export default function QuoteActions({
 }: Props) {
   const { colors } = useTheme();
   const { t } = useTranslation();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const largeText = useLargeText();
+  const styles = useMemo(() => createStyles(colors, largeText), [colors, largeText]);
 
   return (
     <View style={styles.row}>
@@ -90,7 +92,8 @@ type ActionButtonProps = {
 // An icon above a short label, so up to four fit side by side on a phone.
 function ActionButton({ icon, label, accessibilityLabel, onPress, selected }: ActionButtonProps) {
   const { colors } = useTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const largeText = useLargeText();
+  const styles = useMemo(() => createStyles(colors, largeText), [colors, largeText]);
 
   return (
     <Pressable
@@ -101,14 +104,14 @@ function ActionButton({ icon, label, accessibilityLabel, onPress, selected }: Ac
       accessibilityState={selected !== undefined ? { selected } : undefined}
     >
       <Ionicons name={icon} size={22} color={selected ? colors.accent : colors.mutedText} />
-      <Text style={styles.label} numberOfLines={2}>
+      <Text style={styles.label} numberOfLines={largeText ? 3 : 2}>
         {label}
       </Text>
     </Pressable>
   );
 }
 
-function createStyles(colors: Palette) {
+function createStyles(colors: Palette, largeText: boolean) {
   return StyleSheet.create({
     row: {
       width: '100%',
@@ -118,9 +121,10 @@ function createStyles(colors: Palette) {
     },
     // Buttons share the row evenly, up to a comfortable width, so four
     // still fit on a narrow phone and two don't stretch too far apart.
+    // With large text they may use the whole row, and a third line.
     button: {
       flex: 1,
-      maxWidth: 88,
+      maxWidth: largeText ? undefined : 88,
       alignItems: 'center',
       paddingVertical: 6,
       paddingHorizontal: 4,
