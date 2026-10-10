@@ -1,6 +1,7 @@
 // Calendar screen: add/edit/delete events (exams, appointments, grief days,
 // etc.) and get a kind word scheduled the day before and the day after each
-// one, picked to fit the event's type.
+// one, picked to fit the event's type. Each event shows exactly when its
+// kind words will arrive, so it's never a guess whether one is coming.
 
 import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, TextInput, Modal, Alert } from 'react-native';
@@ -13,17 +14,21 @@ import {
   createEvent,
   updateEvent,
   deleteEvent,
-  getCircumstances,
   getNotificationSettings,
-  getQuoteLanguage,
+  getActiveSnoozeUntil,
   CalendarEvent,
+  NotificationSettings,
 } from '../services/storage';
 import { rescheduleAllNotifications } from '../services/notifications';
+import { EVENT_REMINDER_TIME, isWithinQuietHours, planEventReminders } from '../services/reminderPlan';
+import { dateToISO } from '../services/dates';
 import CircumstanceChip from '../components/CircumstanceChip';
-import DateRow, { dateToISO, formatDateDisplay } from '../components/DateRow';
+import DateRow from '../components/DateRow';
+import Hint from '../components/Hint';
 import WorldBackground from '../components/WorldBackground';
 import { useTheme } from '../theme/ThemeContext';
 import { useUiLanguage } from '../i18n';
+import { formatDateDisplay, formatTimeDisplay } from '../i18n/dateNames';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
 
@@ -38,16 +43,25 @@ export default function EventsScreen() {
   const [title, setTitle] = useState('');
   const [type, setType] = useState(EVENT_TYPES[0].id);
   const [date, setDate] = useState(dateToISO(new Date()));
+  const [saving, setSaving] = useState(false);
+  const [settings, setSettings] = useState<NotificationSettings | null>(null);
+  const [snoozeUntil, setSnoozeUntil] = useState<number | null>(null);
   const { world, colors } = useTheme();
   const { t } = useTranslation();
   const language = useUiLanguage();
   const styles = useMemo(() => createStyles(world), [world]);
 
+  // Settings and any snooze are loaded too, to work out each event's
+  // reminder dates the same way the scheduler does.
   const loadEvents = useCallback(() => {
-    getEvents().then((loaded) => {
-      const sorted = [...loaded].sort((a, b) => (a.date < b.date ? -1 : 1));
-      setEvents(sorted);
-    });
+    Promise.all([getEvents(), getNotificationSettings(), getActiveSnoozeUntil()]).then(
+      ([loaded, loadedSettings, snooze]) => {
+        const sorted = [...loaded].sort((a, b) => (a.date < b.date ? -1 : 1));
+        setEvents(sorted);
+        setSettings(loadedSettings);
+        setSnoozeUntil(snooze);
+      }
+    );
   }, []);
 
   useFocusEffect(
@@ -73,20 +87,35 @@ export default function EventsScreen() {
   }
 
   async function reschedule() {
-    const [circumstances, settings, latestEvents, quoteLanguage] = await Promise.all([
-      getCircumstances(),
-      getNotificationSettings(),
-      getEvents(),
-      getQuoteLanguage(),
-    ]);
-    await rescheduleAllNotifications(settings, circumstances, latestEvents, quoteLanguage).catch(() => {
+    await rescheduleAllNotifications().catch(() => {
       // Non-fatal: the event is still saved even if scheduling fails.
+    });
+  }
+
+  // Event reminders always arrive at the same time, so if quiet hours
+  // cover it, none of them can be sent — worth saying once, up top.
+  const remindersBlockedByQuietHours =
+    settings !== null &&
+    isWithinQuietHours(EVENT_REMINDER_TIME, settings.quietHoursStart, settings.quietHoursEnd);
+
+  // "Kind words on Fri, Oct 10 & Sun, Oct 12 at 9:00 AM", or a note that
+  // there's nothing left to send. Nothing at all when reminders can't be
+  // sent anyway (the hints at the top explain why).
+  function describeReminders(event: CalendarEvent): string | null {
+    if (!settings?.enabled || remindersBlockedByQuietHours) return null;
+    const reminders = planEventReminders(event, settings, new Date(), snoozeUntil);
+    if (reminders.length === 0) return t('events.noRemindersLeft');
+    return t('events.reminderDates', {
+      dates: reminders.map((reminder) => formatDateDisplay(dateToISO(reminder.date), language)).join(' & '),
+      time: formatTimeDisplay(EVENT_REMINDER_TIME, language),
     });
   }
 
   async function handleSave() {
     const trimmed = title.trim();
-    if (!trimmed) return;
+    // `saving` stops a quick double tap from adding the same event twice.
+    if (!trimmed || saving) return;
+    setSaving(true);
 
     if (editingId) {
       await updateEvent({ id: editingId, title: trimmed, type, date });
@@ -95,6 +124,7 @@ export default function EventsScreen() {
     }
     await reschedule();
     setModalVisible(false);
+    setSaving(false);
     loadEvents();
   }
 
@@ -122,11 +152,17 @@ export default function EventsScreen() {
         <Text style={styles.title}>{t('events.title')}</Text>
         <Text style={styles.subtitle}>{t('events.subtitle')}</Text>
 
+        {settings && !settings.enabled && <Hint text={t('events.remindersOffHint')} />}
+        {settings?.enabled && remindersBlockedByQuietHours && (
+          <Hint text={t('events.quietHoursHint', { time: formatTimeDisplay(EVENT_REMINDER_TIME, language) })} />
+        )}
+
         {events.length === 0 ? (
           <Text style={styles.emptyText}>{t('events.emptyText')}</Text>
         ) : (
           events.map((event) => {
             const { id, emoji } = eventTypeFor(event.type);
+            const reminders = describeReminders(event);
             return (
               <Pressable
                 key={event.id}
@@ -139,6 +175,7 @@ export default function EventsScreen() {
                   <Text style={styles.eventMeta}>
                     {t(`eventTypes.${id}`)} · {formatDateDisplay(event.date, language)}
                   </Text>
+                  {reminders && <Text style={styles.eventReminders}>{reminders}</Text>}
                 </View>
               </Pressable>
             );
@@ -189,9 +226,9 @@ export default function EventsScreen() {
             <DateRow label={t('events.eventDateLabel')} date={date} onChange={setDate} />
 
             <Pressable
-              style={[styles.saveButton, !title.trim() && styles.saveButtonDisabled]}
+              style={[styles.saveButton, (!title.trim() || saving) && styles.saveButtonDisabled]}
               onPress={handleSave}
-              disabled={!title.trim()}
+              disabled={!title.trim() || saving}
             >
               <Text style={styles.saveButtonText}>{t('common.save')}</Text>
             </Pressable>
@@ -261,6 +298,11 @@ function createStyles(world: World) {
       fontSize: 13,
       color: colors.mutedText,
       marginTop: 2,
+    },
+    eventReminders: {
+      fontSize: 12,
+      color: colors.secondaryText,
+      marginTop: 4,
     },
     footer: {
       padding: 24,

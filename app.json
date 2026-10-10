@@ -17,7 +17,8 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": ["android.permission.SCHEDULE_EXACT_ALARM"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -27,7 +28,39 @@
       "expo-notifications",
       "expo-sharing",
       "expo-font",
-      "expo-localization"
+      "expo-localization",
+      [
+        "react-native-android-widget",
+        {
+          "fonts": [
+            "./node_modules/@expo-google-fonts/quicksand/400Regular/Quicksand_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/space-mono/400Regular/SpaceMono_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/im-fell-english/400Regular/IMFellEnglish_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/lora/400Regular/Lora_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/comfortaa/400Regular/Comfortaa_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/merriweather/400Regular/Merriweather_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/nunito/400Regular/Nunito_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/baloo-2/400Regular/Baloo2_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/fredoka/400Regular/Fredoka_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/eb-garamond/400Regular/EBGaramond_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/varela-round/400Regular/VarelaRound_400Regular.ttf",
+            "./node_modules/@expo-google-fonts/mali/400Regular/Mali_400Regular.ttf"
+          ],
+          "widgets": [
+            {
+              "name": "KindWord",
+              "label": "Kind word",
+              "description": "A gentle kind word on your home screen",
+              "minWidth": "250dp",
+              "minHeight": "110dp",
+              "targetCellWidth": 4,
+              "targetCellHeight": 2,
+              "resizeMode": "horizontal|vertical",
+              "updatePeriodMillis": 14400000
+            }
+          ]
+        }
+      ]
     ],
     "extra": {
       "eas": {

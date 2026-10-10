@@ -1,17 +1,17 @@
 // Shows every quote the user has saved from Home, with the same save/share
 // actions so they can unsave or share straight from here too.
 
-import React, { useState, useCallback, useRef, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import React, { useState, useCallback, useMemo } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import WorldBackground from '../components/WorldBackground';
+import { useCardShare } from '../components/useCardShare';
 import { getQuoteById, Quote } from '../services/quotes';
 import { getFavoriteIds, toggleFavorite } from '../services/storage';
-import { shareViewAsImage } from '../services/share';
 import { useTheme } from '../theme/ThemeContext';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
@@ -23,28 +23,17 @@ type ItemProps = {
 };
 
 function FavoriteItem({ quote, onRemoved, styles }: ItemProps) {
-  const cardRef = useRef<View>(null);
-  const { t } = useTranslation();
+  const { cardRef, capturing, share } = useCardShare();
 
   async function handleUnfavorite() {
     await toggleFavorite(quote.id);
     onRemoved();
   }
 
-  async function handleShare() {
-    try {
-      await shareViewAsImage(cardRef);
-    } catch {
-      Alert.alert(t('common.shareErrorTitle'), t('common.shareErrorMessage'));
-    }
-  }
-
   return (
     <View style={styles.item}>
-      <View ref={cardRef} collapsable={false} style={styles.cardWrapper}>
-        <QuoteCard quote={quote} />
-      </View>
-      <QuoteActions isFavorite onToggleFavorite={handleUnfavorite} onShare={handleShare} />
+      <QuoteCard quote={quote} ref={cardRef} capturing={capturing} />
+      <QuoteActions isFavorite onToggleFavorite={handleUnfavorite} onShare={share} />
     </View>
   );
 }
@@ -122,10 +111,6 @@ function createStyles(world: World) {
     },
     item: {
       marginBottom: 28,
-    },
-    cardWrapper: {
-      width: '100%',
-      backgroundColor: colors.background,
     },
   });
 }

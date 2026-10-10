@@ -5,6 +5,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { WorldId, WORLD_OPTIONS, DEFAULT_WORLD_ID } from '../data/worlds';
 import { Language, isSupportedLanguage } from '../data/languages';
+import type { CheckInMood } from '../data/checkIn';
+import type { NoteKind } from '../data/noteKinds';
+import type { Quote } from './quotes';
+import { todayISO } from './dates';
 import { getCurrentUiLanguage } from '../i18n';
 
 const KEYS = {
@@ -15,9 +19,14 @@ const KEYS = {
   FAVORITES: 'kindwords:favorites',
   THEME: 'kindwords:theme',
   HIDDEN_QUOTES: 'kindwords:hiddenQuotes',
+  QUOTE_FEEDBACK: 'kindwords:quoteFeedback',
   SNOOZE_UNTIL: 'kindwords:snoozeUntil',
   UI_LANGUAGE: 'kindwords:uiLanguage',
   QUOTE_LANGUAGE: 'kindwords:quoteLanguage',
+  NOTES: 'kindwords:notes',
+  CHECK_IN: 'kindwords:checkIn',
+  CHECK_IN_ENABLED: 'kindwords:checkInEnabled',
+  WIDGET_QUOTE_ID: 'kindwords:widgetQuoteId',
 };
 
 export type Frequency = 'daily' | 'three_per_week' | 'custom';
@@ -33,6 +42,9 @@ export type NotificationSettings = {
   quietHoursStart: string; // "HH:mm"
   quietHoursEnd: string; // "HH:mm"
   lockScreenVisibility: LockScreenVisibility;
+  // Phase 7: space kind words out when the app goes unopened for a while
+  // (see minHoursBetween() in reminderPlan.ts).
+  gentlePacing: boolean;
 };
 
 // Default to "private" on the lock screen: some kind words are about grief
@@ -45,6 +57,7 @@ export const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettings = {
   quietHoursStart: '22:00',
   quietHoursEnd: '07:00',
   lockScreenVisibility: 'private',
+  gentlePacing: true,
 };
 
 export async function getNotificationSettings(): Promise<NotificationSettings> {
@@ -94,7 +107,7 @@ export type CalendarEvent = {
   date: string;
 };
 
-function generateEventId(): string {
+function generateId(): string {
   return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
@@ -114,7 +127,7 @@ async function setEvents(events: CalendarEvent[]): Promise<void> {
 
 export async function createEvent(data: Omit<CalendarEvent, 'id'>): Promise<CalendarEvent> {
   const events = await getEvents();
-  const event: CalendarEvent = { ...data, id: generateEventId() };
+  const event: CalendarEvent = { ...data, id: generateId() };
   await setEvents([...events, event]);
   return event;
 }
@@ -127,6 +140,49 @@ export async function updateEvent(event: CalendarEvent): Promise<void> {
 export async function deleteEvent(id: string): Promise<void> {
   const events = await getEvents();
   await setEvents(events.filter((e) => e.id !== id));
+}
+
+// A personal note (Phase 7): something the user wrote to themselves or to
+// future-them, or a message from someone they love. Like events, these
+// only ever live on the phone.
+export type PersonalNote = {
+  id: string;
+  kind: NoteKind;
+  text: string;
+  from?: string; // 'loved_one' only: who the message is from
+  deliverOn?: string; // 'future' only: the "YYYY-MM-DD" it should arrive on
+  createdOn: string; // "YYYY-MM-DD"
+};
+
+export async function getNotes(): Promise<PersonalNote[]> {
+  const value = await AsyncStorage.getItem(KEYS.NOTES);
+  if (!value) return [];
+  try {
+    return JSON.parse(value) as PersonalNote[];
+  } catch {
+    return [];
+  }
+}
+
+async function setNotes(notes: PersonalNote[]): Promise<void> {
+  await AsyncStorage.setItem(KEYS.NOTES, JSON.stringify(notes));
+}
+
+export async function createNote(data: Omit<PersonalNote, 'id' | 'createdOn'>): Promise<PersonalNote> {
+  const notes = await getNotes();
+  const note: PersonalNote = { ...data, id: generateId(), createdOn: todayISO() };
+  await setNotes([...notes, note]);
+  return note;
+}
+
+export async function updateNote(note: PersonalNote): Promise<void> {
+  const notes = await getNotes();
+  await setNotes(notes.map((n) => (n.id === note.id ? note : n)));
+}
+
+export async function deleteNote(id: string): Promise<void> {
+  const notes = await getNotes();
+  await setNotes(notes.filter((n) => n.id !== id));
 }
 
 // Favorite quotes, stored as just a list of quote ids — the quote text
@@ -156,9 +212,9 @@ export async function toggleFavorite(quoteId: string): Promise<boolean> {
   return !isFavorite;
 }
 
-// Quotes the user has said "don't show me this again" to, from the Kind
-// word detail screen. Kept separate from favorites — hiding a quote only
-// stops it being picked again, it doesn't touch anything already saved.
+// Quotes the user has said "not for me" to. Kept separate from favorites —
+// hiding a quote only stops it being picked again, it doesn't touch
+// anything already saved.
 export async function getHiddenQuoteIds(): Promise<string[]> {
   const value = await AsyncStorage.getItem(KEYS.HIDDEN_QUOTES);
   if (!value) return [];
@@ -169,20 +225,66 @@ export async function getHiddenQuoteIds(): Promise<string[]> {
   }
 }
 
-export async function hideQuoteForever(quoteId: string): Promise<void> {
+async function hideQuoteForever(quoteId: string): Promise<void> {
   const ids = await getHiddenQuoteIds();
   if (!ids.includes(quoteId)) {
     await AsyncStorage.setItem(KEYS.HIDDEN_QUOTES, JSON.stringify([...ids, quoteId]));
   }
 }
 
+// What "not for me" has taught the app so far: how many disliked quotes had
+// each mood, and each circumstance/event tag. Used to make similar quotes
+// less likely (never impossible) — see quoteWeight() in quotes.ts.
+export type QuoteFeedback = {
+  moods: Record<string, number>;
+  tags: Record<string, number>;
+};
+
+export async function getQuoteFeedback(): Promise<QuoteFeedback> {
+  const value = await AsyncStorage.getItem(KEYS.QUOTE_FEEDBACK);
+  if (!value) return { moods: {}, tags: {} };
+  try {
+    return { moods: {}, tags: {}, ...JSON.parse(value) };
+  } catch {
+    return { moods: {}, tags: {} };
+  }
+}
+
+// "Not for me" (Phase 7): hides this quote for good and remembers its mood
+// and tags, so quotes like it come up less often.
+export async function markNotForMe(quote: Quote): Promise<void> {
+  await hideQuoteForever(quote.id);
+  const feedback = await getQuoteFeedback();
+  feedback.moods[quote.mood] = (feedback.moods[quote.mood] ?? 0) + 1;
+  for (const tag of [...quote.circumstances, ...quote.eventTypes]) {
+    // "other" is on most quotes, so it says nothing about what didn't land.
+    if (tag === 'other') continue;
+    feedback.tags[tag] = (feedback.tags[tag] ?? 0) + 1;
+  }
+  await AsyncStorage.setItem(KEYS.QUOTE_FEEDBACK, JSON.stringify(feedback));
+}
+
+// Undoes every "not for me": hidden quotes come back, and nothing is
+// leaned away from anymore.
+export async function forgetNotForMe(): Promise<void> {
+  await AsyncStorage.multiRemove([KEYS.HIDDEN_QUOTES, KEYS.QUOTE_FEEDBACK]);
+}
+
 // A timestamp (ms since epoch) until which notifications are paused, set by
-// the "Snooze" menu on the Kind word screen. `null` means not snoozed.
+// "Not today" on Home or the "Snooze" menu on the Kind word screen. `null`
+// means not snoozed.
 export async function getSnoozeUntil(): Promise<number | null> {
   const value = await AsyncStorage.getItem(KEYS.SNOOZE_UNTIL);
   if (!value) return null;
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
+}
+
+// Same as getSnoozeUntil(), but a snooze that has already ended counts as
+// no snooze at all.
+export async function getActiveSnoozeUntil(): Promise<number | null> {
+  const until = await getSnoozeUntil();
+  return until !== null && until > Date.now() ? until : null;
 }
 
 export async function setSnoozeUntil(timestamp: number | null): Promise<void> {
@@ -191,6 +293,51 @@ export async function setSnoozeUntil(timestamp: number | null): Promise<void> {
   } else {
     await AsyncStorage.setItem(KEYS.SNOOZE_UNTIL, String(timestamp));
   }
+}
+
+// Today's answer to the optional check-in (Phase 7). Only today's answer is
+// ever kept — tomorrow it simply stops counting, and it's overwritten the
+// next time the user answers. `mood: null` means "Not now" was tapped, so
+// Home doesn't ask again today.
+export type TodayCheckIn = { mood: CheckInMood | null };
+
+export async function getTodayCheckIn(): Promise<TodayCheckIn | null> {
+  const value = await AsyncStorage.getItem(KEYS.CHECK_IN);
+  if (!value) return null;
+  try {
+    const stored = JSON.parse(value) as { date: string; mood: CheckInMood | null };
+    return stored.date === todayISO() ? { mood: stored.mood } : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function setTodayCheckIn(mood: CheckInMood | null): Promise<void> {
+  await AsyncStorage.setItem(KEYS.CHECK_IN, JSON.stringify({ date: todayISO(), mood }));
+}
+
+export async function clearTodayCheckIn(): Promise<void> {
+  await AsyncStorage.removeItem(KEYS.CHECK_IN);
+}
+
+// The check-in is optional: on unless the user turns it off in Settings.
+export async function getCheckInEnabled(): Promise<boolean> {
+  const value = await AsyncStorage.getItem(KEYS.CHECK_IN_ENABLED);
+  return value !== 'false';
+}
+
+export async function setCheckInEnabled(enabled: boolean): Promise<void> {
+  await AsyncStorage.setItem(KEYS.CHECK_IN_ENABLED, enabled ? 'true' : 'false');
+}
+
+// The quote the home screen widget is showing, so resizing the widget
+// redraws the same one instead of jumping to a new quote.
+export async function getWidgetQuoteId(): Promise<string | null> {
+  return AsyncStorage.getItem(KEYS.WIDGET_QUOTE_ID);
+}
+
+export async function setWidgetQuoteId(id: string): Promise<void> {
+  await AsyncStorage.setItem(KEYS.WIDGET_QUOTE_ID, id);
 }
 
 export async function getWorldId(): Promise<WorldId> {

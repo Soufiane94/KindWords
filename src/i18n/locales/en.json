@@ -2,12 +2,15 @@
   "common": {
     "save": "Save",
     "cancel": "Cancel",
+    "ok": "OK",
+    "shareDialogTitle": "Share this kind word",
     "shareErrorTitle": "Couldn't share that",
     "shareErrorMessage": "Please try again in a moment."
   },
   "nav": {
     "home": "Home",
     "favorites": "Favorites",
+    "notes": "Notes",
     "events": "Events",
     "settings": "Settings"
   },
@@ -18,7 +21,24 @@
   },
   "home": {
     "heading": "A kind word for you",
-    "anotherKindWord": "Another kind word"
+    "anotherKindWord": "Another kind word",
+    "notForMeThanks": "Got it. We'll show fewer like that one.",
+    "notToday": "Not today — pause until tomorrow",
+    "resume": "Resume"
+  },
+  "checkIn": {
+    "question": "How are you today?",
+    "privacy": "Only used to pick a fitting kind word. Stays on this phone.",
+    "notNow": "Not now",
+    "today": "Today: {{mood}}",
+    "change": "Change",
+    "moods": {
+      "heavy": "Heavy",
+      "anxious": "Anxious",
+      "tired": "Tired",
+      "okay": "Okay",
+      "good": "Good"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -31,6 +51,14 @@
     "uiLanguageSubtitle": "What the app itself is written in.",
     "quoteLanguageLabel": "Kind words language",
     "quoteLanguageSubtitle": "What language the quotes themselves are chosen in — can be different from the app language.",
+    "personalTitle": "Personal touches",
+    "checkInLabel": "Daily check-in",
+    "checkInSubtitle": "A one-tap \"How are you today?\" on Home, only used to pick a fitting kind word. Your answer stays on this phone and is forgotten the next day.",
+    "forgetNotForMe": "Forget my \"not for me\" choices",
+    "forgetNotForMeConfirmTitle": "Bring back hidden kind words?",
+    "forgetNotForMeConfirmMessage": "Quotes you marked \"not for me\" can show up again, and we'll stop leaning away from ones like them.",
+    "forgetNotForMeButton": "Bring them back",
+    "forgetNotForMeDone": "Done — every kind word is back in the mix.",
     "remindersTitle": "Kind word reminders",
     "howOften": "How often",
     "frequency": {
@@ -46,14 +74,23 @@
     "quietHoursSubtitle": "We won't schedule reminders inside this window.",
     "quietHoursStarts": "Starts",
     "quietHoursEnds": "Ends",
+    "gentlePacingLabel": "Ease off when I'm away",
+    "gentlePacingSubtitle": "If Kindwords goes unopened for a few days, kind words come a little less often (never less than about once a week), and go back to normal as soon as you open the app.",
     "lockScreen": "Lock screen",
     "visibility": {
       "public": "Show on lock screen",
       "private": "Hide on lock screen"
     },
     "savedOff": "Saved. Reminders are turned off.",
-    "scheduledOne": "Saved. Scheduled {{count}} reminder.",
-    "scheduledOther": "Saved. Scheduled {{count}} reminders.",
+    "summaryDaily": "Saved. A kind word every day at {{time}}.",
+    "summaryThreePerWeek": "Saved. A kind word every Monday, Wednesday and Friday at {{time}}.",
+    "summaryCustom": "Saved. Kind words every day at {{times}}.",
+    "summaryNoTimes": "Saved. All your times are inside quiet hours, so there are no regular kind words for now.",
+    "eventRemindersOne": "Plus {{count}} event reminder coming up.",
+    "eventRemindersOther": "Plus {{count}} event reminders coming up.",
+    "futureNotesOne": "Plus {{count}} note waiting for future you.",
+    "futureNotesOther": "Plus {{count}} notes waiting for future you.",
+    "nextAt": "Next one: {{when}}.",
     "skippedTimes": "Skipped {{times}} — inside your quiet hours.",
     "permissionDenied": "Notifications are turned off for Kindwords in your phone's settings. Please allow them there, then try saving again.",
     "resetOnboarding": "Redo welcome setup"
@@ -62,6 +99,10 @@
     "title": "Calendar",
     "subtitle": "Add a date that matters, and we'll send a kind word the day before and the day after.",
     "emptyText": "No events yet.",
+    "remindersOffHint": "Kind word reminders are turned off in Settings, so these won't send anything for now.",
+    "quietHoursHint": "Your quiet hours include {{time}}, when event kind words are sent, so they're skipped for now.",
+    "reminderDates": "Kind words on {{dates}} at {{time}}",
+    "noRemindersLeft": "No kind words left to send for this one.",
     "addEvent": "+ Add event",
     "editEventTitle": "Edit event",
     "newEventTitle": "New event",
@@ -74,6 +115,39 @@
     "deleteButton": "Delete",
     "deleteEventLink": "Delete event"
   },
+  "notes": {
+    "title": "Notes",
+    "subtitle": "Write a note to yourself or to future you, or keep a message from someone you love. We'll slip them in among your kind words now and then.",
+    "emptyText": "No notes yet.",
+    "remindersOffHint": "Kind word reminders are turned off in Settings, so notes won't be sent for now.",
+    "addNote": "+ Add a note",
+    "newNoteTitle": "New note",
+    "editNoteTitle": "Edit note",
+    "kindLabel": "What kind of note?",
+    "kinds": {
+      "self": "To me",
+      "future": "To future me",
+      "loved_one": "From someone I love"
+    },
+    "fromLabel": "Who is it from?",
+    "fromPlaceholder": "e.g. Mom, my best friend",
+    "textLabel": "Your note",
+    "textLabelLovedOne": "Their message",
+    "placeholders": {
+      "self": "e.g. You've made it through hard days before.",
+      "future": "e.g. I hope you're being gentle with yourself.",
+      "loved_one": "e.g. Thinking of you, always."
+    },
+    "deliverLabel": "When should it arrive?",
+    "deliverDateLabel": "Arrives on",
+    "metaLovedOne": "From {{name}}",
+    "metaFuture": "To future me · arrives {{date}}",
+    "metaFutureArrived": "To future me · arrived {{date}}",
+    "someoneWhoLovesYou": "someone who loves you",
+    "deleteConfirmTitle": "Delete this note?",
+    "deleteButton": "Delete",
+    "deleteNoteLink": "Delete note"
+  },
   "favorites": {
     "title": "Favorites",
     "subtitle": "Kind words you've saved to come back to.",
@@ -84,8 +158,9 @@
     "closeLabel": "Close",
     "missingText": "This kind word isn't available anymore.",
     "snoozeDoneTitle": "Done",
-    "hideQuoteTitle": "Got it",
-    "hideQuoteMessage": "We won't send that one again."
+    "notForMeTitle": "Got it",
+    "notForMeMessage": "We won't send that one again, and we'll send fewer like it.",
+    "fromYouOn": "You, {{date}}"
   },
   "quoteActions": {
     "save": "Save",
@@ -94,23 +169,32 @@
     "removeFromFavorites": "Remove from favorites",
     "share": "Share",
     "shareAccessibility": "Share this quote as an image",
+    "notForMe": "Not for me",
+    "notForMeAccessibility": "Not for me: hide this quote and show fewer like it",
     "snooze": "Snooze",
-    "snoozeAccessibility": "Snooze kind words or hide this quote"
+    "snoozeAccessibility": "Pause kind words for a while"
   },
   "snoozeMenu": {
+    "tomorrow": "Not today — pause until tomorrow",
     "hour": "Pause kind words for 1 hour",
-    "tomorrow": "Pause kind words until tomorrow",
-    "threeDays": "Pause kind words for 3 days",
-    "dontShowAgain": "Don't show me this quote again"
+    "threeDays": "Pause kind words for 3 days"
   },
   "notifications": {
     "channelName": "Kind words",
     "title": "A kind word for you",
     "beforeEventTitle": "Thinking of you",
     "afterEventTitle": "Checking in on you",
+    "selfNoteTitle": "A note from you",
+    "futureNoteTitle": "A note from past you",
+    "lovedOneTitle": "A message from {{name}}",
     "snoozedHour": "Paused kind words for 1 hour.",
     "snoozedTomorrow": "Paused kind words until tomorrow.",
-    "snoozedThreeDays": "Paused kind words for 3 days."
+    "snoozedThreeDays": "Paused kind words for 3 days.",
+    "pausedForToday": "Kind words are paused for today.",
+    "pausedUntil": "Kind words are paused until {{when}}."
+  },
+  "widget": {
+    "another": "Another"
   },
   "circumstances": {
     "student": "Student",

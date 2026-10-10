@@ -18,6 +18,16 @@
   handling, including Android 13+'s runtime POST_NOTIFICATIONS prompt.
 - Lock-screen visibility setting (show quote text vs. hide it), defaulting
   to hidden since some quotes touch on grief or illness.
+- **Update (fix, before Phase 7):** the save message used to say "Scheduled
+  N reminders", mixing repeating time slots with one-off event reminders
+  (e.g. "3 reminders" for one daily kind word plus one event). It now
+  describes the schedule in words: "A kind word every day at 9:00 AM",
+  event reminders and notes to future-you coming up, and when the next one
+  arrives. Duplicate custom times are merged on save (they used to send two
+  notifications at once and count twice). Saving while snoozed is no longer
+  mistaken for "notifications are blocked", which used to switch reminders
+  off. Reschedules started at the same moment (app opening, saving, editing
+  an event) now wait for each other instead of interleaving.
 
 ## Phase 3 — Calendar events ✅ done
 - New "Events" tab: add/edit/delete events with a type (exam, job interview,
@@ -28,6 +38,16 @@
 - Event reminders are rescheduled together with the regular ones (same
   cancel-all-then-reschedule approach), and skipped if 9am falls in quiet
   hours or the reminder date has already passed.
+- **Update (fix, before Phase 7):** the "day before" reminder used to be
+  dropped silently whenever 9am the day before had already passed — e.g. an
+  event for tomorrow added in the evening, or an event for today — so a
+  test event could produce no notification at all. It now comes on the
+  morning of the event instead (9am, if that's still ahead). Each event in
+  the list shows exactly when its kind words will arrive, and the screen
+  says so when reminders are off in Settings or quiet hours cover 9am. The
+  app also declares Android's `SCHEDULE_EXACT_ALARM` permission: without it,
+  Android 12+ treats every scheduled notification as "inexact" and may
+  deliver it late. Android 14+ doesn't grant it by default — see Phase 10.
 
 ## Phase 4 — Polish ✅ done
 - Favorites: heart a quote from Home to save it; a new "Favorites" tab lists
@@ -154,6 +174,15 @@ Appearance. See the feasibility notes below.
   tab-icon style/button-shape variation (tab icons stay Ionicons
   app-wide, just recolored, and buttons keep one shape). Can be picked up
   incrementally later.
+- **Update (fix, before Phase 7):** quote cards showed square-looking
+  corners in worlds with a gradient background (most visibly Ocean, Desert,
+  Sunrise Meadow, Medieval). Each card sat in a full-width wrapper painted
+  with the world's flat background color — there so shared images don't
+  get black corners — which didn't match the gradient behind it. That
+  frame now lives inside `QuoteCard`, stays see-through on screen, and only
+  gets its solid fill for the moment a share image is captured
+  (`src/components/useCardShare.ts`). This applies to every world and to
+  Home, Favorites, and the Kind word screen alike.
 
 A world is more than colors. Each one defines:
 - Color palette (light/dark where it makes sense).
@@ -298,7 +327,8 @@ Languages: English, French, and Moroccan Arabic (Darija).
 - Later, still easy to add after this foundation: Arabic (MSA),
   Tamazight.
 
-## Phase 7 — Personal touches
+## Phase 7 — Personal touches ✅ done
+Goal, as planned:
 - Thumbs-down on a quote ("not for me"): the quote is hidden for that user
   and the app learns which moods and tags land badly.
 - Personal messages: the user can write a note to themselves or to their
@@ -309,6 +339,115 @@ Languages: English, French, and Moroccan Arabic (Darija).
   optional "not today" button, no streaks, no guilt messages.
 - Optional daily mood check-in (one tap, private) used only to choose a
   more fitting quote.
+
+**Needs a new EAS dev-client build** before testing on-device: the widget
+library has native code, and the `SCHEDULE_EXACT_ALARM` permission (see
+the Phase 3 fix) changes the Android manifest.
+
+### 7A — "Not for me" ✅ done
+- A thumbs-down "Not for me" button under the quote on Home and on the
+  Kind word screen. It hides that quote for good (the same hidden list as
+  5A) and records its mood and tags — circumstances and event types,
+  minus the catch-all "other" — under `kindwords:quoteFeedback`.
+- Quote picking (`src/services/quotes.ts`) is now a weighted random pick:
+  each dislike makes that mood 40% less likely and each tag 20% less
+  likely, with a floor so nothing ever becomes impossible. This applies
+  everywhere quotes are picked: Home, regular and event notifications, and
+  the widget.
+- Replaces 5A's "Don't show me this quote again" in the snooze menu (same
+  effect, plus the learning), so there aren't two buttons doing nearly the
+  same thing.
+- Settings > Personal touches > "Forget my 'not for me' choices" brings
+  every hidden quote back and clears what was learned.
+- The actions row under the card now uses Ionicons (icon above label), so
+  up to four actions fit side by side.
+
+### 7B — Personal notes ✅ done
+- New "Notes" tab (`NotesScreen`, envelope icon): a note to yourself, a
+  note to future-you that arrives on a chosen day, or a message from
+  someone you love (with their name). Stored only on the phone, under
+  `kindwords:notes`.
+- Notes to yourself and loved ones' messages are mixed into the regular
+  kind words now and then: each regular notification has about a 1-in-5
+  chance of being one of them (never two in a row), titled "A note from
+  you" / "A message from {name}". A note to future-you arrives once, on its
+  day at the user's first kind-word time — waiting out quiet hours or a
+  snooze rather than being dropped — titled "A note from past you", and
+  joins the mix after that.
+- Tapping a note's notification opens the Kind word screen with the note,
+  signed "You, {date written}" or with the loved one's name, with Share
+  and Snooze.
+- Notes never appear on the home screen widget, since anyone glancing at
+  the phone can see it.
+
+### 7C — Home screen widget (Android) ✅ done
+- Built with `react-native-android-widget` (config plugin + native code).
+  Expo's own `expo-widgets` is iOS-only in SDK 57, so an iOS widget is left
+  for Phase 11 (it would likely use `expo-widgets`).
+- A "Kind word" widget (4x2 by default, resizable): one quote in the
+  user's world gradient and body font, with "↻ Another" to swap in a new
+  one without opening the app; tapping the quote opens the app. It
+  refreshes by itself every 4 hours (`updatePeriodMillis` in app.json), and
+  is redrawn when the app opens and when the world or a language changes in
+  Settings.
+- Code lives in `src/widget/`: the widget's look (`KindWordWidget.tsx`,
+  built from the library's FlexWidget/TextWidget primitives, not regular
+  views) and its task handler, registered in `index.ts` (Android only). It
+  runs headless — possibly with the app closed — so it reads everything
+  from storage. The worlds' body fonts are copied into the APK through the
+  plugin's `fonts` list (about 3 MB) so the widget can use them.
+- Uses the same quote picking as the app (circumstances, quote language,
+  "not for me", today's check-in).
+- Not done: a preview image for the widget picker (`previewImage` in the
+  plugin config). Until a real screenshot is added, the picker shows the
+  app icon.
+
+### 7D — Smart pacing and "Not today" ✅ done
+- Scheduling reworked to make this possible. Each time slot used to be one
+  repeating notification, which re-sent the same quote every day until the
+  app was opened, and stayed off after a snooze until the app was opened
+  again. Now every kind word is its own one-time notification, lined up
+  ahead of time (up to 60 days / 50 kind words), each with its own quote.
+  The plan is rebuilt whenever the app opens or comes back to the front (at
+  most hourly) and whenever settings, events, or notes change. *When*
+  things are sent is pure date math in `src/services/reminderPlan.ts`;
+  `notifications.ts` only does the scheduling.
+- Gentle pacing ("Ease off when I'm away" in Settings, on by default): the
+  first 5 kind words after the app was last opened keep to the schedule;
+  if the app stays closed, each next one waits longer — about every other
+  day, then every 4 days, then weekly. Opening the app starts it over. A
+  daily user who never opens the app gets 5 daily, 4 every other day, 4
+  every 4 days, then weekly, for about two months. No streaks, no guilt
+  messages, no "we miss you".
+- "Not today — pause until tomorrow" under Home's main button (when
+  reminders are on). While paused, Home says so, with a "Resume" link. The
+  snooze menu's first option is renamed to match. Pauses now end by
+  themselves.
+- Not done (deferred): a "Not today" button on the notification itself.
+  It's feasible with `setNotificationCategoryAsync`, but when the app is
+  closed, action taps only reach an `expo-task-manager` background task
+  (another native module), and they don't dismiss the notification on
+  their own. Worth doing alongside Phase 10's notification reliability
+  work.
+- Known limit: if the app isn't opened for about two months (sooner with
+  several daily times and pacing off, since the plan holds at most 50),
+  regular kind words stop until it's opened again.
+
+### 7E — Daily mood check-in ✅ done
+- An optional "How are you today?" card at the top of Home: one tap among
+  Heavy / Anxious / Tired / Okay / Good, or "Not now" for the rest of the
+  day. Once answered, it shrinks to "Today: 🌧️ Heavy · Change".
+- Each answer maps to the quote moods that fit it (`src/data/checkIn.ts`),
+  which become 3x as likely on Home, in today's remaining notifications,
+  and on the widget. Only today's answer is kept (`kindwords:checkIn`),
+  never a history.
+- Can be turned off in Settings > Personal touches, which also forgets
+  today's answer.
+
+New UI strings for all of the above were added in English, French,
+Spanish, and Darija. As with Phase 6, the French, Spanish, and especially
+the Darija strings were written by Claude and need a native speaker's
+review before release.
 
 ## Phase 8 — Spread kindness
 - "Send a kind word": pick or write a message and send it to a friend or
@@ -341,7 +480,10 @@ Languages: English, French, and Moroccan Arabic (Darija).
   delete-my-data options.
 - Reliability on Android: help users exempt the app from aggressive battery
   optimization on phones that kill background notifications, and make
-  exact-alarm permission handling robust.
+  exact-alarm permission handling robust. (Started: `SCHEDULE_EXACT_ALARM`
+  is declared since the pre-Phase 7 fixes. Still to do: on Android 14+,
+  where it's off by default, explain it and link to Settings > Alarms &
+  reminders.)
 
 ## Phase 11 — iOS and release
 - iOS adjustments, app icon, splash screen (matching the chosen worlds),

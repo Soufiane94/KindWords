@@ -4,6 +4,7 @@
 // simple way here rather than relying on the device's ICU data.
 
 import type { Language } from '../data/languages';
+import { dateToISO, isoToDate, parseTime, timeOf } from '../services/dates';
 
 // Sunday-first, matching Date#getDay().
 export const WEEKDAYS_SHORT: Record<Language, string[]> = {
@@ -25,3 +26,31 @@ export const MONTHS_SHORT: Record<Language, string[]> = {
     'Yolyoz', 'Ghoucht', 'Chotanbir', 'Oktobr', 'Nowanbir', 'Dejanbir',
   ],
 };
+
+// "YYYY-MM-DD" -> "Mon, Jan 5" in English. French, Spanish, and Darija read
+// better day-first, the order each actually uses for a short date like this.
+export function formatDateDisplay(iso: string, language: Language): string {
+  const date = isoToDate(iso);
+  const weekday = WEEKDAYS_SHORT[language][date.getDay()];
+  const month = MONTHS_SHORT[language][date.getMonth()];
+  const day = date.getDate();
+  return language === 'en' ? `${weekday}, ${month} ${day}` : `${weekday} ${day} ${month}`;
+}
+
+// "HH:mm" -> English keeps the 12-hour "9:00 AM" it always had; French,
+// Spanish, and Darija use the plain 24-hour clock that's standard in all
+// three, so there's no AM/PM wording to translate.
+export function formatTimeDisplay(hhmm: string, language: Language): string {
+  const { hour, minute } = parseTime(hhmm);
+  if (language !== 'en') {
+    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+  }
+  const period = hour < 12 ? 'AM' : 'PM';
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+  return `${hour12}:${minute.toString().padStart(2, '0')} ${period}`;
+}
+
+// A specific moment, e.g. "Sat, Oct 11, 9:00 AM".
+export function formatMomentDisplay(date: Date, language: Language): string {
+  return `${formatDateDisplay(dateToISO(date), language)}, ${formatTimeDisplay(timeOf(date), language)}`;
+}

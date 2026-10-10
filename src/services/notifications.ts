@@ -1,17 +1,36 @@
 // Schedules local notifications that deliver a kind word on the device's own
 // clock. No server is involved — everything here runs on-device.
 //
-// Note for testing: local scheduled notifications work fine in Expo Go, but
-// if you later build a standalone/dev-client app, re-test this screen since
-// permission dialogs can look slightly different outside Expo Go.
+// Since Phase 7, every kind word is its own one-time notification, lined up
+// ahead of time by reminderPlan.ts (it used to be one repeating notification
+// per time slot, which sent the same quote every day until the app was
+// opened again). That's what lets each one carry a different quote, slip in
+// a personal note now and then, ease off gently when the app goes unopened,
+// and pick back up on its own after a pause. The whole plan is cancelled and
+// rebuilt from scratch whenever the app opens or something changes, so
+// there are no individual notification ids to keep track of.
 
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
-import { getRandomQuote, getRandomQuoteForEvent } from './quotes';
-import { getHiddenQuoteIds, getSnoozeUntil, setSnoozeUntil } from './storage';
-import type { CalendarEvent, NotificationSettings } from './storage';
-import type { Language } from '../data/languages';
-import i18n from '../i18n';
+import { getRandomQuote, getRandomQuoteForEvent, loadQuotePrefs } from './quotes';
+import {
+  getActiveSnoozeUntil,
+  getCircumstances,
+  getEvents,
+  getNotes,
+  getNotificationSettings,
+  getQuoteLanguage,
+} from './storage';
+import type { NotificationSettings, PersonalNote } from './storage';
+import {
+  planEventReminders,
+  planFutureNote,
+  planRegularReminders,
+  quietRegularTimes,
+} from './reminderPlan';
+import { isSameDay, todayISO } from './dates';
+import { formatMomentDisplay } from '../i18n/dateNames';
+import i18n, { getCurrentUiLanguage } from '../i18n';
 
 // Show the notification banner even while the app is open, so it's easy to
 // test without backgrounding the app.
@@ -27,8 +46,10 @@ Notifications.setNotificationHandler({
 const CHANNEL_PUBLIC = 'kindwords-public';
 const CHANNEL_PRIVATE = 'kindwords-private';
 
-// Mon/Wed/Fri. Expo's weekday numbering starts at 1 = Sunday.
-const THREE_PER_WEEK_WEEKDAYS = [2, 4, 6];
+// When the user has written any personal notes, roughly one regular kind
+// word in five is one of those instead of a quote ("now and then"), and
+// never two in a row.
+const PERSONAL_NOTE_CHANCE = 0.2;
 
 export async function requestNotificationPermissions(): Promise<boolean> {
   const current = await Notifications.getPermissionsAsync();
@@ -59,59 +80,21 @@ async function ensureAndroidChannel(
   return channelId;
 }
 
-function parseTime(hhmm: string): { hour: number; minute: number } {
-  const [hour, minute] = hhmm.split(':').map(Number);
-  return { hour, minute };
-}
-
-function toMinutes(hhmm: string): number {
-  const { hour, minute } = parseTime(hhmm);
-  return hour * 60 + minute;
-}
-
-// True if `time` falls inside the quiet-hours window, which may wrap past
-// midnight (e.g. 22:00 -> 07:00).
-export function isWithinQuietHours(
-  time: string,
-  quietHoursStart: string,
-  quietHoursEnd: string
-): boolean {
-  const t = toMinutes(time);
-  const start = toMinutes(quietHoursStart);
-  const end = toMinutes(quietHoursEnd);
-  if (start === end) return false; // a zero-length window means no quiet hours
-  if (start < end) return t >= start && t < end;
-  return t >= start || t < end; // wraps past midnight
-}
-
-// Event reminders (before/after a calendar event) always fire at this local
-// hour, so adding an event doesn't require picking yet another time.
-const EVENT_REMINDER_HOUR = 9;
-
-// `offsetDays` is -1 for the reminder before the event, +1 for after.
-function eventReminderDate(event: CalendarEvent, offsetDays: number): Date {
-  const [year, month, day] = event.date.split('-').map(Number);
-  const date = new Date(year, month - 1, day, EVENT_REMINDER_HOUR, 0, 0, 0);
-  date.setDate(date.getDate() + offsetDays);
-  return date;
-}
-
-type Slot = { time: string; weekday?: number };
-
-function buildSlots(settings: NotificationSettings): Slot[] {
-  if (settings.frequency === 'daily') {
-    return [{ time: settings.times[0] }];
-  }
-  if (settings.frequency === 'three_per_week') {
-    return THREE_PER_WEEK_WEEKDAYS.map((weekday) => ({ time: settings.times[0], weekday }));
-  }
-  return settings.times.map((time) => ({ time }));
-}
-
-export type RescheduleResult = {
-  scheduledCount: number;
-  skippedTimes: string[]; // times skipped for falling inside quiet hours
-};
+// What a reschedule ended up doing, so Settings can describe it in plain
+// words. Permission problems are reported explicitly rather than guessed
+// from a count of zero (which also happens, legitimately, during a snooze).
+export type RescheduleResult =
+  | { status: 'off' }
+  | { status: 'permission_denied' }
+  | {
+      status: 'scheduled';
+      regularCount: number; // regular kind words lined up (quotes and notes)
+      eventReminderCount: number;
+      futureNoteCount: number;
+      skippedTimes: string[]; // regular times never sent, for falling inside quiet hours
+      pausedUntil: number | null; // an active snooze / "Not today", if any
+      nextAt: number | null; // when the very next notification will arrive
+    };
 
 // How long "Snooze" on the Kind word screen pauses notifications for.
 export type SnoozeDuration = 'hour' | 'tomorrow' | 'three_days';
@@ -129,112 +112,159 @@ export function describeSnoozeDuration(duration: SnoozeDuration): string {
   return i18n.t('notifications.snoozedTomorrow');
 }
 
-// Pulls the quote id back out of a tapped notification (see the `data:
-// { quoteId }` attached below), so the app can open the Kind word screen
-// for the exact quote that was sent instead of a new random one.
-export function extractQuoteId(
-  response: Notifications.MaybeNotificationResponse
-): string | undefined {
-  const quoteId = response?.notification.request.content.data?.quoteId;
-  return typeof quoteId === 'string' ? quoteId : undefined;
+// "Kind words are paused for today." or "...paused until Sat, Oct 11, 3:30 PM."
+export function describePausedUntil(until: number): string {
+  if (until === computeSnoozeUntil('tomorrow')) return i18n.t('notifications.pausedForToday');
+  return i18n.t('notifications.pausedUntil', {
+    when: formatMomentDisplay(new Date(until), getCurrentUiLanguage()),
+  });
 }
 
-// Cancels every notification this app has scheduled, then schedules fresh
-// ones (with freshly-picked quotes) for the given settings, circumstances,
-// and calendar events. Safe to call whenever settings change, an event is
-// added/edited/deleted, or the app opens.
-export async function rescheduleAllNotifications(
-  settings: NotificationSettings,
-  circumstances: string[],
-  events: CalendarEvent[] = [],
-  quoteLanguage: Language
+// What a tapped notification should open on the Kind word screen: the
+// exact quote that was sent (never a new random one), or the personal note.
+export type KindWordParams = { quoteId?: string; noteId?: string };
+
+export function extractKindWordParams(
+  response: Notifications.MaybeNotificationResponse
+): KindWordParams | undefined {
+  const data = response?.notification.request.content.data;
+  if (typeof data?.quoteId === 'string') return { quoteId: data.quoteId };
+  if (typeof data?.noteId === 'string') return { noteId: data.noteId };
+  return undefined;
+}
+
+function noteTitle(note: PersonalNote): string {
+  if (note.kind === 'loved_one') {
+    return i18n.t('notifications.lovedOneTitle', { name: note.from || i18n.t('notes.someoneWhoLovesYou') });
+  }
+  if (note.kind === 'future') return i18n.t('notifications.futureNoteTitle');
+  return i18n.t('notifications.selfNoteTitle');
+}
+
+async function scheduleAt(
+  date: Date,
+  content: { title: string; body: string; data: Record<string, string> },
+  channelId: string | undefined
+): Promise<void> {
+  await Notifications.scheduleNotificationAsync({
+    content,
+    trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date, channelId },
+  });
+}
+
+// Reschedules can be started from several places at nearly the same moment
+// (the app opening, saving settings, editing an event). Each one cancels
+// everything and then schedules from scratch, so two running side by side
+// could interleave and leave duplicates — or drop a new event's reminders.
+// Chaining them makes each wait for the previous one to finish.
+let rescheduleQueue: Promise<unknown> = Promise.resolve();
+
+// Cancels every notification this app has scheduled, then lines up fresh
+// ones (with freshly-picked quotes) from the latest saved settings,
+// circumstances, events, and notes. Safe to call whenever any of those
+// change, or the app opens. Only Settings' Save button passes
+// `askPermission`, so the system permission prompt never pops up unasked.
+export function rescheduleAllNotifications(
+  options: { askPermission?: boolean } = {}
 ): Promise<RescheduleResult> {
+  const run = rescheduleQueue.then(() => rescheduleNow(options.askPermission ?? false));
+  rescheduleQueue = run.catch(() => {});
+  return run;
+}
+
+async function rescheduleNow(askPermission: boolean): Promise<RescheduleResult> {
   await Notifications.cancelAllScheduledNotificationsAsync();
 
-  if (!settings.enabled) {
-    return { scheduledCount: 0, skippedTimes: [] };
-  }
+  const settings = await getNotificationSettings();
+  if (!settings.enabled) return { status: 'off' };
 
-  const granted = await requestNotificationPermissions();
-  if (!granted) {
-    return { scheduledCount: 0, skippedTimes: [] };
-  }
+  const granted = askPermission
+    ? await requestNotificationPermissions()
+    : (await Notifications.getPermissionsAsync()).granted;
+  if (!granted) return { status: 'permission_denied' };
 
-  const hiddenQuoteIds = await getHiddenQuoteIds();
-
-  // A snooze pauses every regular reminder until it passes. Once it has,
-  // clear it so things just go back to normal without any extra steps.
-  let snoozeUntil = await getSnoozeUntil();
-  if (snoozeUntil !== null && snoozeUntil <= Date.now()) {
-    await setSnoozeUntil(null);
-    snoozeUntil = null;
-  }
-
+  const [circumstances, events, notes, quoteLanguage, prefs, snoozeUntil] = await Promise.all([
+    getCircumstances(),
+    getEvents(),
+    getNotes(),
+    getQuoteLanguage(),
+    loadQuotePrefs(),
+    getActiveSnoozeUntil(),
+  ]);
   const channelId = await ensureAndroidChannel(settings.lockScreenVisibility);
+  const now = new Date();
+  const scheduledDates: Date[] = [];
 
-  // Like quiet hours, a snooze simply isn't scheduled rather than shifted —
-  // it'll pick back up the next time this runs (settings save or app open)
-  // after the snooze has passed.
-  const allSlots = snoozeUntil ? [] : buildSlots(settings);
-  const slots = allSlots.filter(
-    (slot) => !isWithinQuietHours(slot.time, settings.quietHoursStart, settings.quietHoursEnd)
+  // Today's check-in only describes today, so kind words on later days
+  // don't lean on it.
+  const prefsFor = (date: Date) => ({ ...prefs, checkInMood: isSameDay(date, now) ? prefs.checkInMood : null });
+
+  // Event reminders and notes to future-you are tied to specific days, so
+  // they're placed first and regular kind words make room around them.
+  const eventReminders = events.flatMap((event) =>
+    planEventReminders(event, settings, now, snoozeUntil).map((reminder) => ({ event, ...reminder }))
   );
-  const skippedTimes = allSlots
-    .filter((slot) => isWithinQuietHours(slot.time, settings.quietHoursStart, settings.quietHoursEnd))
-    .map((slot) => slot.time);
-
-  for (const slot of slots) {
-    const { hour, minute } = parseTime(slot.time);
-    const quote = getRandomQuote(circumstances, quoteLanguage, undefined, hiddenQuoteIds);
-
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: i18n.t('notifications.title'),
+  for (const { event, date, kind } of eventReminders) {
+    const quote = getRandomQuoteForEvent(event.type, quoteLanguage, prefsFor(date));
+    await scheduleAt(
+      date,
+      {
+        title: kind === 'before' ? i18n.t('notifications.beforeEventTitle') : i18n.t('notifications.afterEventTitle'),
         body: quote.text,
         data: { quoteId: quote.id },
       },
-      trigger: slot.weekday
-        ? {
-            type: Notifications.SchedulableTriggerInputTypes.WEEKLY,
-            weekday: slot.weekday,
-            hour,
-            minute,
-            channelId,
-          }
-        : {
-            type: Notifications.SchedulableTriggerInputTypes.DAILY,
-            hour,
-            minute,
-            channelId,
-          },
-    });
+      channelId
+    );
+    scheduledDates.push(date);
   }
 
-  // Event reminders always use a fixed hour, so just check once whether
-  // that hour falls inside quiet hours rather than per-event.
-  const eventReminderTime = `${EVENT_REMINDER_HOUR.toString().padStart(2, '0')}:00`;
-  let eventReminderCount = 0;
-  if (!isWithinQuietHours(eventReminderTime, settings.quietHoursStart, settings.quietHoursEnd)) {
-    const now = new Date();
-    for (const event of events) {
-      for (const offsetDays of [-1, 1]) {
-        const date = eventReminderDate(event, offsetDays);
-        if (date <= now) continue; // don't schedule reminders in the past
-        if (snoozeUntil && date.getTime() < snoozeUntil) continue; // falls inside the snooze
+  let futureNoteCount = 0;
+  for (const note of notes) {
+    const date = planFutureNote(note, settings, now, snoozeUntil);
+    if (!date) continue;
+    await scheduleAt(date, { title: noteTitle(note), body: note.text, data: { noteId: note.id } }, channelId);
+    scheduledDates.push(date);
+    futureNoteCount++;
+  }
 
-        const quote = getRandomQuoteForEvent(event.type, quoteLanguage, undefined, hiddenQuoteIds);
-        await Notifications.scheduleNotificationAsync({
-          content: {
-            title: offsetDays < 0 ? i18n.t('notifications.beforeEventTitle') : i18n.t('notifications.afterEventTitle'),
-            body: quote.text,
-            data: { quoteId: quote.id },
-          },
-          trigger: { type: Notifications.SchedulableTriggerInputTypes.DATE, date, channelId },
-        });
-        eventReminderCount++;
-      }
+  // Notes to yourself and loved ones' messages can show up any time; a note
+  // to future-you joins them once its own day has passed, so it can't turn
+  // up early and spoil the surprise.
+  const today = todayISO();
+  const personalNotes = notes.filter(
+    (note) => note.kind !== 'future' || (note.deliverOn !== undefined && note.deliverOn < today)
+  );
+
+  const regularDates = planRegularReminders(settings, now, snoozeUntil, [...scheduledDates]);
+  const usedQuoteIds: string[] = [];
+  let lastWasNote = false;
+  for (const date of regularDates) {
+    if (personalNotes.length > 0 && !lastWasNote && Math.random() < PERSONAL_NOTE_CHANCE) {
+      const note = personalNotes[Math.floor(Math.random() * personalNotes.length)];
+      await scheduleAt(date, { title: noteTitle(note), body: note.text, data: { noteId: note.id } }, channelId);
+      lastWasNote = true;
+    } else {
+      // Avoid repeating a quote within the plan until the matching ones run out.
+      const quote = getRandomQuote(circumstances, quoteLanguage, { ...prefsFor(date), avoidIds: usedQuoteIds });
+      usedQuoteIds.push(quote.id);
+      await scheduleAt(
+        date,
+        { title: i18n.t('notifications.title'), body: quote.text, data: { quoteId: quote.id } },
+        channelId
+      );
+      lastWasNote = false;
     }
+    scheduledDates.push(date);
   }
 
-  return { scheduledCount: slots.length + eventReminderCount, skippedTimes };
+  const times = scheduledDates.map((date) => date.getTime());
+  return {
+    status: 'scheduled',
+    regularCount: regularDates.length,
+    eventReminderCount: eventReminders.length,
+    futureNoteCount,
+    skippedTimes: quietRegularTimes(settings),
+    pausedUntil: snoozeUntil,
+    nextAt: times.length > 0 ? Math.min(...times) : null,
+  };
 }

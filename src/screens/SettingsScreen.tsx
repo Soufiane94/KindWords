@@ -1,36 +1,43 @@
-// Settings screen: appearance (Phase 4), circumstances (Phase 1), plus
-// notification preferences (Phase 2) — frequency, quiet hours, and
-// lock-screen visibility.
+// Settings screen: circumstances (Phase 1), appearance (Phase 4/5C),
+// languages (Phase 6), notification preferences (Phase 2) — frequency,
+// quiet hours, lock-screen visibility, gentle pacing — and personal
+// touches (Phase 7): the daily check-in and undoing "not for me".
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Switch } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Switch, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { CIRCUMSTANCES } from '../data/circumstances';
 import { LANGUAGE_OPTIONS, Language } from '../data/languages';
-import i18n from '../i18n';
+import i18n, { useUiLanguage } from '../i18n';
 import {
   getCircumstances,
   setCircumstances,
   getNotificationSettings,
   setNotificationSettings,
-  getEvents,
   getUiLanguage,
   setUiLanguage,
   getQuoteLanguage,
   setQuoteLanguage,
+  getCheckInEnabled,
+  setCheckInEnabled,
+  clearTodayCheckIn,
+  forgetNotForMe,
   NotificationSettings,
   Frequency,
   LockScreenVisibility,
   DEFAULT_NOTIFICATION_SETTINGS,
 } from '../services/storage';
-import { rescheduleAllNotifications } from '../services/notifications';
+import { describePausedUntil, rescheduleAllNotifications, RescheduleResult } from '../services/notifications';
+import { regularTimes } from '../services/reminderPlan';
+import { refreshKindWordWidget } from '../widget/widgetTaskHandler';
 import CircumstanceChip from '../components/CircumstanceChip';
 import SegmentedControl from '../components/SegmentedControl';
 import TimeRow from '../components/TimeRow';
 import WorldBackground from '../components/WorldBackground';
-import { useTheme, WORLD_OPTIONS } from '../theme/ThemeContext';
+import { useTheme, WORLD_OPTIONS, WorldId } from '../theme/ThemeContext';
+import { formatMomentDisplay, formatTimeDisplay } from '../i18n/dateNames';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
 
@@ -39,7 +46,7 @@ const VISIBILITY_VALUES: LockScreenVisibility[] = ['private', 'public'];
 
 type SaveStatus =
   | { kind: 'idle' }
-  | { kind: 'saved'; scheduledCount: number; skippedTimes: string[] }
+  | { kind: 'saved'; lines: string[]; skippedTimes: string[] }
   | { kind: 'permission_denied' };
 
 type Props = {
@@ -53,9 +60,11 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   const [settings, setSettings] = useState<NotificationSettings>(DEFAULT_NOTIFICATION_SETTINGS);
   const [uiLanguage, setUiLanguageState] = useState<Language>('en');
   const [quoteLanguage, setQuoteLanguageState] = useState<Language>('en');
+  const [checkInEnabled, setCheckInEnabledState] = useState(true);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ kind: 'idle' });
   const { world, colors, worldId, setWorldId } = useTheme();
   const { t } = useTranslation();
+  const language = useUiLanguage();
   const styles = useMemo(() => createStyles(world), [world]);
 
   const FREQUENCY_OPTIONS = FREQUENCY_VALUES.map((value) => ({
@@ -73,6 +82,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
       getNotificationSettings().then(setSettings);
       getUiLanguage().then(setUiLanguageState);
       getQuoteLanguage().then(setQuoteLanguageState);
+      getCheckInEnabled().then(setCheckInEnabledState);
       setSaveStatus({ kind: 'idle' });
     }, [])
   );
@@ -86,15 +96,46 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
     await setCircumstances(safeNext);
   }
 
-  async function handleUiLanguageChange(language: Language) {
-    setUiLanguageState(language);
-    await setUiLanguage(language);
-    await i18n.changeLanguage(language);
+  // The home screen widget shows the world's colors and the chosen
+  // languages, so it's redrawn whenever one of those changes.
+  function handleWorldChange(id: WorldId) {
+    setWorldId(id);
+    refreshKindWordWidget();
   }
 
-  async function handleQuoteLanguageChange(language: Language) {
-    setQuoteLanguageState(language);
-    await setQuoteLanguage(language);
+  async function handleUiLanguageChange(next: Language) {
+    setUiLanguageState(next);
+    await setUiLanguage(next);
+    await i18n.changeLanguage(next);
+    refreshKindWordWidget();
+  }
+
+  async function handleQuoteLanguageChange(next: Language) {
+    setQuoteLanguageState(next);
+    await setQuoteLanguage(next);
+    refreshKindWordWidget();
+  }
+
+  async function handleCheckInToggle(enabled: boolean) {
+    setCheckInEnabledState(enabled);
+    await setCheckInEnabled(enabled);
+    // Turning it off also forgets today's answer, so it stops shaping
+    // which kind words get picked straight away.
+    if (!enabled) await clearTodayCheckIn();
+  }
+
+  function handleForgetNotForMe() {
+    Alert.alert(t('settings.forgetNotForMeConfirmTitle'), t('settings.forgetNotForMeConfirmMessage'), [
+      { text: t('common.cancel'), style: 'cancel' },
+      {
+        text: t('settings.forgetNotForMeButton'),
+        onPress: async () => {
+          await forgetNotForMe();
+          rescheduleAllNotifications().catch(() => {});
+          Alert.alert(t('settings.forgetNotForMeDone'));
+        },
+      },
+    ]);
   }
 
   function updateSettings(patch: Partial<NotificationSettings>) {
@@ -117,21 +158,74 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
     setSettings((prev) => ({ ...prev, times: prev.times.filter((_, i) => i !== index) }));
   }
 
-  async function handleSave() {
-    const [circumstances, events] = await Promise.all([getCircumstances(), getEvents()]);
-    await setNotificationSettings(settings);
-    const result = await rescheduleAllNotifications(settings, circumstances, events, quoteLanguage);
+  // A plain-language summary of what saving set up ("A kind word every day
+  // at 9:00 AM", the next one, any event reminders...) rather than one raw
+  // count that mixed repeating and one-off reminders together.
+  function describeSchedule(
+    saved: NotificationSettings,
+    result: Extract<RescheduleResult, { status: 'scheduled' }>
+  ): string[] {
+    const lines: string[] = [];
+    const sentTimes = regularTimes(saved)
+      .filter((time) => !result.skippedTimes.includes(time))
+      .map((time) => formatTimeDisplay(time, language));
 
-    if (settings.enabled && result.scheduledCount === 0 && result.skippedTimes.length === 0) {
+    if (sentTimes.length === 0) {
+      lines.push(t('settings.summaryNoTimes'));
+    } else if (saved.frequency === 'daily') {
+      lines.push(t('settings.summaryDaily', { time: sentTimes[0] }));
+    } else if (saved.frequency === 'three_per_week') {
+      lines.push(t('settings.summaryThreePerWeek', { time: sentTimes[0] }));
+    } else {
+      lines.push(t('settings.summaryCustom', { times: sentTimes.join(', ') }));
+    }
+
+    if (result.pausedUntil) lines.push(describePausedUntil(result.pausedUntil));
+    if (result.eventReminderCount > 0) {
+      lines.push(
+        t(result.eventReminderCount === 1 ? 'settings.eventRemindersOne' : 'settings.eventRemindersOther', {
+          count: result.eventReminderCount,
+        })
+      );
+    }
+    if (result.futureNoteCount > 0) {
+      lines.push(
+        t(result.futureNoteCount === 1 ? 'settings.futureNotesOne' : 'settings.futureNotesOther', {
+          count: result.futureNoteCount,
+        })
+      );
+    }
+    if (result.nextAt) {
+      lines.push(t('settings.nextAt', { when: formatMomentDisplay(new Date(result.nextAt), language) }));
+    }
+    return lines;
+  }
+
+  async function handleSave() {
+    // Duplicate custom times would just send two kind words at once, so the
+    // list is tidied (and put in order) before saving. "Daily" and "3x a
+    // week" only use the first time, so their list is left as it is.
+    const cleaned: NotificationSettings =
+      settings.frequency === 'custom' ? { ...settings, times: [...new Set(settings.times)].sort() } : settings;
+    setSettings(cleaned);
+    await setNotificationSettings(cleaned);
+
+    const result = await rescheduleAllNotifications({ askPermission: true });
+
+    if (result.status === 'permission_denied') {
       setSaveStatus({ kind: 'permission_denied' });
       updateSettings({ enabled: false });
-      await setNotificationSettings({ ...settings, enabled: false });
+      await setNotificationSettings({ ...cleaned, enabled: false });
+      return;
+    }
+    if (result.status === 'off') {
+      setSaveStatus({ kind: 'saved', lines: [t('settings.savedOff')], skippedTimes: [] });
       return;
     }
     setSaveStatus({
       kind: 'saved',
-      scheduledCount: result.scheduledCount,
-      skippedTimes: result.skippedTimes,
+      lines: describeSchedule(cleaned, result),
+      skippedTimes: result.skippedTimes.map((time) => formatTimeDisplay(time, language)),
     });
   }
 
@@ -166,7 +260,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
               label={t(`worlds.${w.id}`)}
               emoji={w.emoji}
               selected={worldId === w.id}
-              onPress={() => setWorldId(w.id)}
+              onPress={() => handleWorldChange(w.id)}
             />
           ))}
         </View>
@@ -201,6 +295,22 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
             />
           ))}
         </View>
+
+        <View style={styles.divider} />
+
+        <Text style={styles.sectionTitle}>{t('settings.personalTitle')}</Text>
+        <View style={[styles.rowBetween, { marginTop: 12, marginBottom: 0 }]}>
+          <Text style={styles.toggleLabel}>{t('settings.checkInLabel')}</Text>
+          <Switch
+            value={checkInEnabled}
+            onValueChange={handleCheckInToggle}
+            trackColor={{ true: colors.accent }}
+          />
+        </View>
+        <Text style={styles.subtitle}>{t('settings.checkInSubtitle')}</Text>
+        <Pressable onPress={handleForgetNotForMe} style={styles.inlineLink}>
+          <Text style={styles.inlineLinkText}>{t('settings.forgetNotForMe')}</Text>
+        </Pressable>
 
         <View style={styles.divider} />
 
@@ -269,7 +379,17 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
               onChange={(time) => updateSettings({ quietHoursEnd: time })}
             />
 
-            <Text style={[styles.label, { marginTop: 20 }]}>{t('settings.lockScreen')}</Text>
+            <View style={[styles.rowBetween, { marginTop: 20, marginBottom: 0 }]}>
+              <Text style={styles.toggleLabel}>{t('settings.gentlePacingLabel')}</Text>
+              <Switch
+                value={settings.gentlePacing}
+                onValueChange={(gentlePacing) => updateSettings({ gentlePacing })}
+                trackColor={{ true: colors.accent }}
+              />
+            </View>
+            <Text style={styles.subtitle}>{t('settings.gentlePacingSubtitle')}</Text>
+
+            <Text style={[styles.label, { marginTop: 12 }]}>{t('settings.lockScreen')}</Text>
             <SegmentedControl
               options={VISIBILITY_OPTIONS}
               value={settings.lockScreenVisibility}
@@ -284,13 +404,11 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
         {saveStatus.kind === 'saved' && (
           <View style={styles.statusBox}>
-            <Text style={styles.statusText}>
-              {saveStatus.scheduledCount > 0
-                ? t(saveStatus.scheduledCount === 1 ? 'settings.scheduledOne' : 'settings.scheduledOther', {
-                    count: saveStatus.scheduledCount,
-                  })
-                : t('settings.savedOff')}
-            </Text>
+            {saveStatus.lines.map((line) => (
+              <Text key={line} style={styles.statusText}>
+                {line}
+              </Text>
+            ))}
             {saveStatus.skippedTimes.length > 0 && (
               <Text style={styles.statusWarning}>
                 {t('settings.skippedTimes', { times: saveStatus.skippedTimes.join(', ') })}
@@ -364,6 +482,21 @@ function createStyles(world: World) {
       color: colors.primaryText,
       marginBottom: 8,
     },
+    toggleLabel: {
+      flex: 1,
+      fontSize: 14,
+      fontWeight: '600',
+      color: colors.primaryText,
+      marginRight: 12,
+    },
+    inlineLink: {
+      alignSelf: 'flex-start',
+    },
+    inlineLinkText: {
+      fontSize: 13,
+      color: colors.secondaryText,
+      textDecorationLine: 'underline',
+    },
     customTimeRow: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -407,6 +540,7 @@ function createStyles(world: World) {
       fontSize: 13,
       color: colors.success,
       textAlign: 'center',
+      marginTop: 2,
     },
     statusWarning: {
       fontSize: 13,

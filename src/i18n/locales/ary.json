@@ -2,12 +2,15 @@
   "common": {
     "save": "7fed",
     "cancel": "Lghi",
+    "ok": "Wakha",
+    "shareDialogTitle": "Partagi had lklma l7elwa",
     "shareErrorTitle": "Ma9dernach npartagiw hadchi",
     "shareErrorMessage": "3awed 7awel m3a chwiya d wqt."
   },
   "nav": {
     "home": "Dar",
     "favorites": "Mfaddal",
+    "notes": "Notat",
     "events": "Agenda",
     "settings": "L3dadat"
   },
@@ -18,7 +21,24 @@
   },
   "home": {
     "heading": "Chi klma 7elwa lik",
-    "anotherKindWord": "Klma 7elwa khra"
+    "anotherKindWord": "Klma 7elwa khra",
+    "notForMeThanks": "Mefhoum. Ghadi nwriwk 9el mn bhal hadi.",
+    "notToday": "Machi lyoum — wa99ef 7ta l ghda",
+    "resume": "Kemmel"
+  },
+  "checkIn": {
+    "question": "Ach khbarek lyoum?",
+    "privacy": "Ghir bach nkhtaro lik klma mnasba. Kayb9a f had telephone.",
+    "notNow": "Machi daba",
+    "today": "Lyoum: {{mood}}",
+    "change": "Beddel",
+    "moods": {
+      "heavy": "Di9a",
+      "anxious": "9le9",
+      "tired": "3ya",
+      "okay": "Labas",
+      "good": "Bikhir"
+    }
   },
   "settings": {
     "title": "L3dadat",
@@ -31,6 +51,14 @@
     "uiLanguageSubtitle": "Lougha li biha mektoub l app.",
     "quoteLanguageLabel": "Lougha dyal lklam l7lou",
     "quoteLanguageSubtitle": "Lougha li biha kayji lklam l7lou — ymken tkoun mkhtalfa 3la lougha dyal l app.",
+    "personalTitle": "Hajat khassa bik",
+    "checkInLabel": "Ach khbarek koul nhar",
+    "checkInSubtitle": "So2al sghir \"Ach khbarek lyoum?\" f Dar, ghir bach nkhtaro lik klma mnasba. Jawab dyalek kayb9a f had telephone w kaytnsa f nhar li mn b3d.",
+    "forgetNotForMe": "Nsa \"Machi lia\" dyali",
+    "forgetNotForMeConfirmTitle": "Nrje3o lklam l7lou lmkhebbi?",
+    "forgetNotForMeConfirmMessage": "Lklam li 9olti 3lih \"Machi lia\" ymken yban 3awtani, w ma b9inach ghadi nb3dou 3la li bhalo.",
+    "forgetNotForMeButton": "Rje3hom",
+    "forgetNotForMeDone": "Safi — ga3 lklam l7lou rje3.",
     "remindersTitle": "Tnbihat dyal lklam l7lou",
     "howOften": "Chhal men merra",
     "frequency": {
@@ -46,14 +74,23 @@
     "quietHoursSubtitle": "Ma ghadi nbr7ouch tnbihat f had lwa9t.",
     "quietHoursStarts": "Kaybda",
     "quietHoursEnds": "Kaysali",
+    "gentlePacingLabel": "N9ess mnin nkoun ghayb",
+    "gentlePacingSubtitle": "Ila ma t7ellat-ch Kindwords chi iyam, lklam l7lou kayji 9el chwiya (machi 9el mn merra f simana ta9riban), w kayrje3 normal mnin t7el l app.",
     "lockScreen": "Likran msakr",
     "visibility": {
       "public": "Wri f likran msakr",
       "private": "Khbi f likran msakr"
     },
     "savedOff": "Tsejjel. Tnbihat mwa96fin.",
-    "scheduledOne": "Tsejjel. {{count}} tnbih mbrmej.",
-    "scheduledOther": "Tsejjel. {{count}} tnbihat mbrmjin.",
+    "summaryDaily": "Tsejjel. Klma 7elwa koul nhar m3a {{time}}.",
+    "summaryThreePerWeek": "Tsejjel. Klma 7elwa koul Tnin, Larb3a w Jem3a m3a {{time}}.",
+    "summaryCustom": "Tsejjel. Klam 7lou koul nhar m3a {{times}}.",
+    "summaryNoTimes": "Tsejjel. Ga3 l wqat dyalek dakhel sw9at skat, donc ma kayn 7ta klma 7elwa 3adiya daba.",
+    "eventRemindersOne": "W zid {{count}} tnbih dyal événement jay.",
+    "eventRemindersOther": "W zid {{count}} tnbihat dyal événements jayin.",
+    "futureNotesOne": "W zid {{count}} risala katsenna fik f lmosta9bal.",
+    "futureNotesOther": "W zid {{count}} rasa2il katsennaw fik f lmosta9bal.",
+    "nextAt": "Jaya: {{when}}.",
     "skippedTimes": "Tnehhaw: {{times}} — dakhel sw9at skat.",
     "permissionDenied": "Tnbihat msakrin l Kindwords f l3dadat dyal telephone dyalek. Smeh liha mn tma, mn b3d 3awed 7awel tsejjel.",
     "resetOnboarding": "3awed l bidaya"
@@ -62,6 +99,10 @@
     "title": "Agenda",
     "subtitle": "Zid date mohima, w ghadi nseftou klma 7lowa nhar 9bel w nhar b3d.",
     "emptyText": "Mazal ma kayn 7ta événement.",
+    "remindersOffHint": "Tnbihat dyal lklam l7lou mwa99fin f L3dadat, donc walou ma ghadi ytseft daba.",
+    "quietHoursHint": "Sw9at skat dyalek fihom {{time}}, w hiya l wqt dyal lklam l7lou dyal events, donc kaytnehhaw daba.",
+    "reminderDates": "Lklam l7lou nhar {{dates}} m3a {{time}}",
+    "noRemindersLeft": "Ma b9at 7ta klma 7elwa tseft l hada.",
     "addEvent": "+ Zid événement",
     "editEventTitle": "Beddel événement",
     "newEventTitle": "Événement jdid",
@@ -74,6 +115,39 @@
     "deleteButton": "Msse7",
     "deleteEventLink": "Msse7 l événement"
   },
+  "notes": {
+    "title": "Notat",
+    "subtitle": "Kteb klma l rasek wla l rasek f lmosta9bal, wla 7fed risala mn chi wa7ed kat7ebbo. Ghadi ndakhlouhom m3a lklam l7lou mn wqt l wqt.",
+    "emptyText": "Mazal ma kayn 7ta nota.",
+    "remindersOffHint": "Tnbihat dyal lklam l7lou mwa99fin f L3dadat, donc notat ma ghadi ytseftou daba.",
+    "addNote": "+ Zid nota",
+    "newNoteTitle": "Nota jdida",
+    "editNoteTitle": "Beddel nota",
+    "kindLabel": "Chmen no3 dyal nota?",
+    "kinds": {
+      "self": "Lia ana",
+      "future": "Lia f lmosta9bal",
+      "loved_one": "Mn chi wa7ed kan7ebbo"
+    },
+    "fromLabel": "Mn 3and chkoun?",
+    "fromPlaceholder": "mithal: Mama, khouya",
+    "textLabel": "Nota dyalek",
+    "textLabelLovedOne": "Risala",
+    "placeholders": {
+      "self": "mithal: Douzti iyam s3ab 9bel, w ghadi tdouz hadi.",
+      "future": "mithal: Nchallah koulchi bikhir 3ndek.",
+      "loved_one": "mithal: Dima kanfkker fik."
+    },
+    "deliverLabel": "Imta khasha towsel?",
+    "deliverDateLabel": "Katwsel nhar",
+    "metaLovedOne": "Mn {{name}}",
+    "metaFuture": "Lia f lmosta9bal · katwsel {{date}}",
+    "metaFutureArrived": "Lia f lmosta9bal · wslat {{date}}",
+    "someoneWhoLovesYou": "chi wa7ed kay7ebbek",
+    "deleteConfirmTitle": "Msse7 had nota?",
+    "deleteButton": "Msse7",
+    "deleteNoteLink": "Msse7 nota"
+  },
   "favorites": {
     "title": "Mfaddal",
     "subtitle": "Lklam l7lou li 7fedti bach trj3 lih.",
@@ -84,8 +158,9 @@
     "closeLabel": "Sded",
     "missingText": "Hadi lklma 7lowa mabqat-ch mawjouda.",
     "snoozeDoneTitle": "Safi",
-    "hideQuoteTitle": "Mefhoum",
-    "hideQuoteMessage": "Maghadi nseftouhach 3awtani."
+    "notForMeTitle": "Mefhoum",
+    "notForMeMessage": "Maghadi nseftouhach 3awtani, w ghadi nseftou 9el mn bhalha.",
+    "fromYouOn": "Mnek, {{date}}"
   },
   "quoteActions": {
     "save": "7fed",
@@ -94,23 +169,32 @@
     "removeFromFavorites": "N9ess mn favorite",
     "share": "Partagi",
     "shareAccessibility": "Partagi hadi lklma b chi tsawira",
+    "notForMe": "Machi lia",
+    "notForMeAccessibility": "Machi lia: khbi hadi lklma w wrini 9el mn bhalha",
     "snooze": "Wa99ef",
-    "snoozeAccessibility": "Wa99ef lklam l7lou aw khbi hadi lklma"
+    "snoozeAccessibility": "Wa99ef lklam l7lou chwiya"
   },
   "snoozeMenu": {
+    "tomorrow": "Machi lyoum — wa99ef 7ta l ghda",
     "hour": "Wa99ef lklam l7lou sa3a wahda",
-    "tomorrow": "Wa99ef lklam l7lou l ghda",
-    "threeDays": "Wa99ef lklam l7lou tlat iyam",
-    "dontShowAgain": "Mab9ach twrini hadi lklma"
+    "threeDays": "Wa99ef lklam l7lou tlat iyam"
   },
   "notifications": {
     "channelName": "Lklam l7lou",
     "title": "Chi klma 7elwa lik",
     "beforeEventTitle": "Fkrinek",
     "afterEventTitle": "Kansqsiw 3lik",
+    "selfNoteTitle": "Klma mnek",
+    "futureNoteTitle": "Risala li ktebti l rasek",
+    "lovedOneTitle": "Risala mn {{name}}",
     "snoozedHour": "Lklam l7lou twa99fo sa3a wahda.",
     "snoozedTomorrow": "Lklam l7lou twa99fo l ghda.",
-    "snoozedThreeDays": "Lklam l7lou twa99fo tlat iyam."
+    "snoozedThreeDays": "Lklam l7lou twa99fo tlat iyam.",
+    "pausedForToday": "Lklam l7lou mwa99ef lyoum.",
+    "pausedUntil": "Lklam l7lou mwa99ef 7ta {{when}}."
+  },
+  "widget": {
+    "another": "Wa7da khra"
   },
   "circumstances": {
     "student": "Talib(a)",

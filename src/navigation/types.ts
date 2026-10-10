@@ -4,5 +4,6 @@
 
 export type RootStackParamList = {
   MainTabs: undefined;
-  KindWord: { quoteId: string };
+  // A tapped notification carries either a quote or a personal note.
+  KindWord: { quoteId?: string; noteId?: string };
 };

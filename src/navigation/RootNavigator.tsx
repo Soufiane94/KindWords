@@ -1,29 +1,24 @@
 // Decides what the user sees first: onboarding (if they haven't done it yet)
-// or the main app (Home, Favorites, Events, and Settings tabs).
+// or the main app (Home, Favorites, Notes, Events, and Settings tabs).
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, AppState } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Notifications from 'expo-notifications';
 import { useTranslation } from 'react-i18next';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import HomeScreen from '../screens/HomeScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
+import NotesScreen from '../screens/NotesScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import EventsScreen from '../screens/EventsScreen';
 import KindWordScreen from '../screens/KindWordScreen';
-import {
-  getOnboardingDone,
-  setOnboardingDone,
-  getCircumstances,
-  getNotificationSettings,
-  getEvents,
-  getQuoteLanguage,
-} from '../services/storage';
-import { rescheduleAllNotifications, extractQuoteId } from '../services/notifications';
+import { getOnboardingDone, setOnboardingDone } from '../services/storage';
+import { rescheduleAllNotifications, extractKindWordParams, KindWordParams } from '../services/notifications';
+import { refreshKindWordWidget } from '../widget/widgetTaskHandler';
 import { useTheme } from '../theme/ThemeContext';
 import { navigationRef } from './navigationRef';
 import type { RootStackParamList } from './types';
@@ -36,9 +31,15 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 const TAB_ICONS: Record<string, { active: keyof typeof Ionicons.glyphMap; inactive: keyof typeof Ionicons.glyphMap }> = {
   Home: { active: 'home', inactive: 'home-outline' },
   Favorites: { active: 'heart', inactive: 'heart-outline' },
+  Notes: { active: 'mail', inactive: 'mail-outline' },
   Events: { active: 'calendar', inactive: 'calendar-outline' },
   Settings: { active: 'settings', inactive: 'settings-outline' },
 };
+
+// Opening the app rebuilds the notification plan (fresh quotes, and gentle
+// pacing starts counting over), but coming back to the app many times an
+// hour doesn't need to redo it each time.
+const REFRESH_EVERY_MS = 60 * 60 * 1000;
 
 type MainTabsProps = {
   onResetOnboarding: () => void;
@@ -63,6 +64,7 @@ function MainTabs({ onResetOnboarding }: MainTabsProps) {
     >
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: t('nav.home') }} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} options={{ tabBarLabel: t('nav.favorites') }} />
+      <Tab.Screen name="Notes" component={NotesScreen} options={{ tabBarLabel: t('nav.notes') }} />
       <Tab.Screen name="Events" component={EventsScreen} options={{ tabBarLabel: t('nav.events') }} />
       <Tab.Screen name="Settings" options={{ tabBarLabel: t('nav.settings') }}>
         {() => <SettingsScreen onResetOnboarding={onResetOnboarding} />}
@@ -95,7 +97,8 @@ function RootStackNavigator({ onResetOnboarding }: RootStackNavigatorProps) {
 export default function RootNavigator() {
   const [loading, setLoading] = useState(true);
   const [onboardingDone, setOnboardingDoneState] = useState(false);
-  const [pendingQuoteId, setPendingQuoteId] = useState<string | undefined>();
+  const [pendingParams, setPendingParams] = useState<KindWordParams | undefined>();
+  const lastRefreshAt = useRef(0);
   const { colors } = useTheme();
 
   // Covers both a cold start (app launched by tapping a notification) and
@@ -104,45 +107,52 @@ export default function RootNavigator() {
   const lastNotificationResponse = Notifications.useLastNotificationResponse();
 
   useEffect(() => {
-    const quoteId = extractQuoteId(lastNotificationResponse);
-    if (quoteId) setPendingQuoteId(quoteId);
+    const params = extractKindWordParams(lastNotificationResponse);
+    if (params) setPendingParams(params);
   }, [lastNotificationResponse]);
 
-  // Navigates to the pending quote once both it and the navigator are
+  // Navigates to the pending kind word once both it and the navigator are
   // ready. Called from an effect (re-checked on every relevant change,
   // since the two can become ready in either order) and from
   // NavigationContainer's onReady below, which catches the one case the
   // effect can't: the container becoming ready without any further state
   // change afterwards to re-run the effect.
-  function navigateToPendingQuoteIfReady() {
-    if (pendingQuoteId && onboardingDone && navigationRef.isReady()) {
-      navigationRef.navigate('KindWord', { quoteId: pendingQuoteId });
-      setPendingQuoteId(undefined);
+  function navigateToPendingKindWordIfReady() {
+    if (pendingParams && onboardingDone && navigationRef.isReady()) {
+      navigationRef.navigate('KindWord', pendingParams);
+      setPendingParams(undefined);
     }
   }
 
-  useEffect(navigateToPendingQuoteIfReady, [pendingQuoteId, onboardingDone, loading]);
+  useEffect(navigateToPendingKindWordIfReady, [pendingParams, onboardingDone, loading]);
+
+  // Refreshes scheduled notifications (new random quotes, latest settings)
+  // and the home screen widget, so neither goes stale.
+  const refreshIfStale = useCallback(() => {
+    if (Date.now() - lastRefreshAt.current < REFRESH_EVERY_MS) return;
+    lastRefreshAt.current = Date.now();
+    rescheduleAllNotifications().catch(() => {
+      // Non-fatal: the user can still use the app without reminders.
+    });
+    refreshKindWordWidget();
+  }, []);
 
   useEffect(() => {
-    getOnboardingDone().then(async (done) => {
+    getOnboardingDone().then((done) => {
       setOnboardingDoneState(done);
       setLoading(false);
-
-      // Refresh scheduled notifications (new random quotes, latest settings)
-      // every time the app opens, so reminders never go stale.
-      if (done) {
-        const [circumstances, settings, events, quoteLanguage] = await Promise.all([
-          getCircumstances(),
-          getNotificationSettings(),
-          getEvents(),
-          getQuoteLanguage(),
-        ]);
-        rescheduleAllNotifications(settings, circumstances, events, quoteLanguage).catch(() => {
-          // Non-fatal: the user can still use the app without reminders.
-        });
-      }
     });
   }, []);
+
+  // Every time the app opens or comes back to the front.
+  useEffect(() => {
+    if (!onboardingDone) return;
+    refreshIfStale();
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active') refreshIfStale();
+    });
+    return () => subscription.remove();
+  }, [onboardingDone, refreshIfStale]);
 
   if (loading) {
     return (
@@ -179,7 +189,7 @@ export default function RootNavigator() {
     <NavigationContainer
       ref={navigationRef}
       theme={navigationTheme}
-      onReady={navigateToPendingQuoteIfReady}
+      onReady={navigateToPendingKindWordIfReady}
     >
       {onboardingDone ? (
         <RootStackNavigator

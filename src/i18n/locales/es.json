@@ -2,12 +2,15 @@
   "common": {
     "save": "Guardar",
     "cancel": "Cancelar",
+    "ok": "Aceptar",
+    "shareDialogTitle": "Compartir esta palabra amable",
     "shareErrorTitle": "No se pudo compartir",
     "shareErrorMessage": "Inténtalo de nuevo en un momento."
   },
   "nav": {
     "home": "Inicio",
     "favorites": "Favoritos",
+    "notes": "Notas",
     "events": "Calendario",
     "settings": "Ajustes"
   },
@@ -18,7 +21,24 @@
   },
   "home": {
     "heading": "Una palabra amable para ti",
-    "anotherKindWord": "Otra palabra amable"
+    "anotherKindWord": "Otra palabra amable",
+    "notForMeThanks": "Entendido. Te mostraremos menos como esa.",
+    "notToday": "Hoy no — pausar hasta mañana",
+    "resume": "Reanudar"
+  },
+  "checkIn": {
+    "question": "¿Cómo estás hoy?",
+    "privacy": "Solo sirve para elegir una palabra amable adecuada. Se queda en este teléfono.",
+    "notNow": "Ahora no",
+    "today": "Hoy: {{mood}}",
+    "change": "Cambiar",
+    "moods": {
+      "heavy": "Difícil",
+      "anxious": "Estrés",
+      "tired": "Cansancio",
+      "okay": "Normal",
+      "good": "Bien"
+    }
   },
   "settings": {
     "title": "Ajustes",
@@ -31,6 +51,14 @@
     "uiLanguageSubtitle": "El idioma en el que está escrita la app.",
     "quoteLanguageLabel": "Idioma de las palabras amables",
     "quoteLanguageSubtitle": "El idioma en que se eligen las citas — puede ser distinto del idioma de la app.",
+    "personalTitle": "Toques personales",
+    "checkInLabel": "Ánimo del día",
+    "checkInSubtitle": "Un «¿Cómo estás hoy?» de un toque en Inicio, solo para elegir una palabra amable adecuada. Tu respuesta se queda en este teléfono y se olvida al día siguiente.",
+    "forgetNotForMe": "Olvidar mis «No es para mí»",
+    "forgetNotForMeConfirmTitle": "¿Recuperar las palabras amables ocultas?",
+    "forgetNotForMeConfirmMessage": "Las citas marcadas «No es para mí» podrán volver a aparecer, y dejaremos de evitar las que se les parecen.",
+    "forgetNotForMeButton": "Recuperarlas",
+    "forgetNotForMeDone": "Hecho: todas las palabras amables vuelven a estar en la mezcla.",
     "remindersTitle": "Recordatorios de palabras amables",
     "howOften": "Con qué frecuencia",
     "frequency": {
@@ -46,14 +74,23 @@
     "quietHoursSubtitle": "No programaremos recordatorios durante este horario.",
     "quietHoursStarts": "Empieza",
     "quietHoursEnds": "Termina",
+    "gentlePacingLabel": "Ir más despacio si no estoy",
+    "gentlePacingSubtitle": "Si Kindwords pasa unos días sin abrirse, las palabras amables llegan un poco menos a menudo (nunca menos de una vez por semana, más o menos), y vuelven a lo normal en cuanto abres la app.",
     "lockScreen": "Pantalla de bloqueo",
     "visibility": {
       "public": "Mostrar en la pantalla de bloqueo",
       "private": "Ocultar en la pantalla de bloqueo"
     },
     "savedOff": "Guardado. Los recordatorios están desactivados.",
-    "scheduledOne": "Guardado. {{count}} recordatorio programado.",
-    "scheduledOther": "Guardado. {{count}} recordatorios programados.",
+    "summaryDaily": "Guardado. Una palabra amable todos los días a las {{time}}.",
+    "summaryThreePerWeek": "Guardado. Una palabra amable cada lunes, miércoles y viernes a las {{time}}.",
+    "summaryCustom": "Guardado. Palabras amables todos los días a las {{times}}.",
+    "summaryNoTimes": "Guardado. Todos tus horarios caen dentro de las horas silenciosas, así que por ahora no hay palabras amables regulares.",
+    "eventRemindersOne": "Además, {{count}} recordatorio de evento próximo.",
+    "eventRemindersOther": "Además, {{count}} recordatorios de eventos próximos.",
+    "futureNotesOne": "Además, {{count}} nota esperando a tu yo del futuro.",
+    "futureNotesOther": "Además, {{count}} notas esperando a tu yo del futuro.",
+    "nextAt": "La próxima: {{when}}.",
     "skippedTimes": "Se omitió: {{times}} — dentro de tus horas silenciosas.",
     "permissionDenied": "Las notificaciones están desactivadas para Kindwords en los ajustes de tu teléfono. Actívalas ahí y vuelve a intentar guardar.",
     "resetOnboarding": "Repetir la configuración inicial"
@@ -62,6 +99,10 @@
     "title": "Calendario",
     "subtitle": "Añade una fecha importante, y enviaremos una palabra amable el día antes y el día después.",
     "emptyText": "Todavía no hay eventos.",
+    "remindersOffHint": "Los recordatorios de palabras amables están desactivados en Ajustes, así que por ahora no se enviará nada.",
+    "quietHoursHint": "Tus horas silenciosas incluyen las {{time}}, la hora de las palabras amables de eventos, así que por ahora se omiten.",
+    "reminderDates": "Palabras amables el {{dates}} a las {{time}}",
+    "noRemindersLeft": "Ya no quedan palabras amables por enviar para este.",
     "addEvent": "+ Añadir evento",
     "editEventTitle": "Editar evento",
     "newEventTitle": "Nuevo evento",
@@ -74,6 +115,39 @@
     "deleteButton": "Eliminar",
     "deleteEventLink": "Eliminar evento"
   },
+  "notes": {
+    "title": "Notas",
+    "subtitle": "Escribe una nota para ti o para tu yo del futuro, o guarda un mensaje de alguien que quieres. Las iremos mezclando de vez en cuando con tus palabras amables.",
+    "emptyText": "Todavía no hay notas.",
+    "remindersOffHint": "Los recordatorios de palabras amables están desactivados en Ajustes, así que por ahora no se enviarán notas.",
+    "addNote": "+ Añadir una nota",
+    "newNoteTitle": "Nueva nota",
+    "editNoteTitle": "Editar nota",
+    "kindLabel": "¿Qué tipo de nota?",
+    "kinds": {
+      "self": "Para mí",
+      "future": "Para mi yo del futuro",
+      "loved_one": "De alguien que quiero"
+    },
+    "fromLabel": "¿De quién es?",
+    "fromPlaceholder": "ej. Mamá, mi mejor amiga",
+    "textLabel": "Tu nota",
+    "textLabelLovedOne": "Su mensaje",
+    "placeholders": {
+      "self": "ej. Ya has superado días difíciles antes.",
+      "future": "ej. Espero que te estés cuidando.",
+      "loved_one": "ej. Pienso mucho en ti."
+    },
+    "deliverLabel": "¿Cuándo debe llegar?",
+    "deliverDateLabel": "Llega el",
+    "metaLovedOne": "De {{name}}",
+    "metaFuture": "Para mi yo del futuro · llega el {{date}}",
+    "metaFutureArrived": "Para mi yo del futuro · llegó el {{date}}",
+    "someoneWhoLovesYou": "alguien que te quiere",
+    "deleteConfirmTitle": "¿Eliminar esta nota?",
+    "deleteButton": "Eliminar",
+    "deleteNoteLink": "Eliminar nota"
+  },
   "favorites": {
     "title": "Favoritos",
     "subtitle": "Palabras amables que has guardado para volver a ellas.",
@@ -84,8 +158,9 @@
     "closeLabel": "Cerrar",
     "missingText": "Esta palabra amable ya no está disponible.",
     "snoozeDoneTitle": "Hecho",
-    "hideQuoteTitle": "Entendido",
-    "hideQuoteMessage": "No volveremos a enviarte esa."
+    "notForMeTitle": "Entendido",
+    "notForMeMessage": "No volveremos a enviarte esa, y te enviaremos menos como ella.",
+    "fromYouOn": "Tú, {{date}}"
   },
   "quoteActions": {
     "save": "Guardar",
@@ -94,23 +169,32 @@
     "removeFromFavorites": "Quitar de favoritos",
     "share": "Compartir",
     "shareAccessibility": "Compartir esta cita como imagen",
+    "notForMe": "No es para mí",
+    "notForMeAccessibility": "No es para mí: ocultar esta cita y mostrar menos como ella",
     "snooze": "Pausar",
-    "snoozeAccessibility": "Pausar las palabras amables u ocultar esta cita"
+    "snoozeAccessibility": "Pausar las palabras amables un rato"
   },
   "snoozeMenu": {
+    "tomorrow": "Hoy no — pausar hasta mañana",
     "hour": "Pausar las palabras amables por 1 hora",
-    "tomorrow": "Pausar las palabras amables hasta mañana",
-    "threeDays": "Pausar las palabras amables por 3 días",
-    "dontShowAgain": "No volver a mostrarme esta cita"
+    "threeDays": "Pausar las palabras amables por 3 días"
   },
   "notifications": {
     "channelName": "Palabras amables",
     "title": "Una palabra amable para ti",
     "beforeEventTitle": "Pensando en ti",
     "afterEventTitle": "Saber cómo estás",
+    "selfNoteTitle": "Una nota tuya",
+    "futureNoteTitle": "Una nota que te escribiste",
+    "lovedOneTitle": "Un mensaje de {{name}}",
     "snoozedHour": "Palabras amables pausadas por 1 hora.",
     "snoozedTomorrow": "Palabras amables pausadas hasta mañana.",
-    "snoozedThreeDays": "Palabras amables pausadas por 3 días."
+    "snoozedThreeDays": "Palabras amables pausadas por 3 días.",
+    "pausedForToday": "Palabras amables en pausa por hoy.",
+    "pausedUntil": "Palabras amables en pausa hasta el {{when}}."
+  },
+  "widget": {
+    "another": "Otra"
   },
   "circumstances": {
     "student": "Estudiante",

@@ -2,12 +2,15 @@
   "common": {
     "save": "Enregistrer",
     "cancel": "Annuler",
+    "ok": "OK",
+    "shareDialogTitle": "Partager ce mot doux",
     "shareErrorTitle": "Impossible de partager",
     "shareErrorMessage": "Merci de réessayer dans un instant."
   },
   "nav": {
     "home": "Accueil",
     "favorites": "Favoris",
+    "notes": "Notes",
     "events": "Calendrier",
     "settings": "Réglages"
   },
@@ -18,7 +21,24 @@
   },
   "home": {
     "heading": "Un mot doux pour toi",
-    "anotherKindWord": "Un autre mot doux"
+    "anotherKindWord": "Un autre mot doux",
+    "notForMeThanks": "Compris. On t'en montrera moins comme celle-là.",
+    "notToday": "Pas aujourd'hui — pause jusqu'à demain",
+    "resume": "Reprendre"
+  },
+  "checkIn": {
+    "question": "Comment ça va aujourd'hui ?",
+    "privacy": "Sert juste à choisir un mot doux adapté. Reste sur ce téléphone.",
+    "notNow": "Pas maintenant",
+    "today": "Aujourd'hui : {{mood}}",
+    "change": "Changer",
+    "moods": {
+      "heavy": "Pas facile",
+      "anxious": "Stress",
+      "tired": "Fatigue",
+      "okay": "Ça va",
+      "good": "Bien"
+    }
   },
   "settings": {
     "title": "Réglages",
@@ -31,6 +51,14 @@
     "uiLanguageSubtitle": "La langue dans laquelle l'app elle-même est écrite.",
     "quoteLanguageLabel": "Langue des mots doux",
     "quoteLanguageSubtitle": "La langue des citations elles-mêmes — peut être différente de la langue de l'app.",
+    "personalTitle": "Petites attentions",
+    "checkInLabel": "Humeur du jour",
+    "checkInSubtitle": "Un « Comment ça va aujourd'hui ? » en un geste sur l'accueil, juste pour choisir un mot doux adapté. Ta réponse reste sur ce téléphone et s'efface le lendemain.",
+    "forgetNotForMe": "Oublier mes « Pas pour moi »",
+    "forgetNotForMeConfirmTitle": "Faire revenir les mots doux masqués ?",
+    "forgetNotForMeConfirmMessage": "Les citations marquées « Pas pour moi » pourront revenir, et on arrêtera d'éviter celles qui leur ressemblent.",
+    "forgetNotForMeButton": "Les faire revenir",
+    "forgetNotForMeDone": "C'est fait — tous les mots doux sont de retour.",
     "remindersTitle": "Rappels de mots doux",
     "howOften": "À quelle fréquence",
     "frequency": {
@@ -46,14 +74,23 @@
     "quietHoursSubtitle": "Nous ne programmerons aucun rappel pendant cette période.",
     "quietHoursStarts": "Début",
     "quietHoursEnds": "Fin",
+    "gentlePacingLabel": "Ralentir quand je suis absent(e)",
+    "gentlePacingSubtitle": "Si Kindwords n'est pas ouvert pendant quelques jours, les mots doux arrivent un peu moins souvent (jamais moins d'environ une fois par semaine), puis reprennent normalement dès que tu ouvres l'app.",
     "lockScreen": "Écran verrouillé",
     "visibility": {
       "public": "Afficher sur l'écran verrouillé",
       "private": "Masquer sur l'écran verrouillé"
     },
     "savedOff": "Enregistré. Les rappels sont désactivés.",
-    "scheduledOne": "Enregistré. {{count}} rappel programmé.",
-    "scheduledOther": "Enregistré. {{count}} rappels programmés.",
+    "summaryDaily": "Enregistré. Un mot doux tous les jours à {{time}}.",
+    "summaryThreePerWeek": "Enregistré. Un mot doux chaque lundi, mercredi et vendredi à {{time}}.",
+    "summaryCustom": "Enregistré. Des mots doux tous les jours à {{times}}.",
+    "summaryNoTimes": "Enregistré. Tous tes horaires tombent pendant les heures silencieuses, donc pas de mots doux réguliers pour l'instant.",
+    "eventRemindersOne": "Plus {{count}} rappel d'événement à venir.",
+    "eventRemindersOther": "Plus {{count}} rappels d'événements à venir.",
+    "futureNotesOne": "Plus {{count}} mot qui attend le futur toi.",
+    "futureNotesOther": "Plus {{count}} mots qui attendent le futur toi.",
+    "nextAt": "Prochain : {{when}}.",
     "skippedTimes": "Ignoré : {{times}} — pendant tes heures silencieuses.",
     "permissionDenied": "Les notifications sont désactivées pour Kindwords dans les réglages de ton téléphone. Autorise-les là-bas, puis réessaie d'enregistrer.",
     "resetOnboarding": "Refaire la configuration de bienvenue"
@@ -62,6 +99,10 @@
     "title": "Calendrier",
     "subtitle": "Ajoute une date importante, et on enverra un mot doux la veille et le lendemain.",
     "emptyText": "Pas encore d'événement.",
+    "remindersOffHint": "Les rappels de mots doux sont désactivés dans les Réglages, donc rien ne sera envoyé pour l'instant.",
+    "quietHoursHint": "Tes heures silencieuses incluent {{time}}, l'heure des mots doux d'événement, donc ils sont ignorés pour l'instant.",
+    "reminderDates": "Mots doux le {{dates}} à {{time}}",
+    "noRemindersLeft": "Plus de mot doux à envoyer pour celui-ci.",
     "addEvent": "+ Ajouter un événement",
     "editEventTitle": "Modifier l'événement",
     "newEventTitle": "Nouvel événement",
@@ -74,6 +115,39 @@
     "deleteButton": "Supprimer",
     "deleteEventLink": "Supprimer l'événement"
   },
+  "notes": {
+    "title": "Notes",
+    "subtitle": "Écris un mot pour toi ou pour le futur toi, ou garde un message de quelqu'un que tu aimes. On les glissera de temps en temps parmi tes mots doux.",
+    "emptyText": "Pas encore de note.",
+    "remindersOffHint": "Les rappels de mots doux sont désactivés dans les Réglages, donc les notes ne seront pas envoyées pour l'instant.",
+    "addNote": "+ Ajouter une note",
+    "newNoteTitle": "Nouvelle note",
+    "editNoteTitle": "Modifier la note",
+    "kindLabel": "Quel genre de note ?",
+    "kinds": {
+      "self": "Pour moi",
+      "future": "Pour le futur moi",
+      "loved_one": "D'une personne que j'aime"
+    },
+    "fromLabel": "De la part de qui ?",
+    "fromPlaceholder": "ex. Maman, ma meilleure amie",
+    "textLabel": "Ta note",
+    "textLabelLovedOne": "Son message",
+    "placeholders": {
+      "self": "ex. Tu as déjà traversé des jours difficiles.",
+      "future": "ex. J'espère que tu prends soin de toi.",
+      "loved_one": "ex. Je pense fort à toi."
+    },
+    "deliverLabel": "Quand doit-il arriver ?",
+    "deliverDateLabel": "Arrive le",
+    "metaLovedOne": "De {{name}}",
+    "metaFuture": "Pour le futur moi · arrive le {{date}}",
+    "metaFutureArrived": "Pour le futur moi · arrivé le {{date}}",
+    "someoneWhoLovesYou": "quelqu'un qui t'aime",
+    "deleteConfirmTitle": "Supprimer cette note ?",
+    "deleteButton": "Supprimer",
+    "deleteNoteLink": "Supprimer la note"
+  },
   "favorites": {
     "title": "Favoris",
     "subtitle": "Les mots doux que tu as gardés pour y revenir.",
@@ -84,8 +158,9 @@
     "closeLabel": "Fermer",
     "missingText": "Ce mot doux n'est plus disponible.",
     "snoozeDoneTitle": "C'est fait",
-    "hideQuoteTitle": "Compris",
-    "hideQuoteMessage": "On ne te renverra plus celle-là."
+    "notForMeTitle": "Compris",
+    "notForMeMessage": "On ne te renverra plus celle-là, et on t'en enverra moins comme elle.",
+    "fromYouOn": "Toi, {{date}}"
   },
   "quoteActions": {
     "save": "Garder",
@@ -94,23 +169,32 @@
     "removeFromFavorites": "Retirer des favoris",
     "share": "Partager",
     "shareAccessibility": "Partager cette citation en image",
+    "notForMe": "Pas pour moi",
+    "notForMeAccessibility": "Pas pour moi : masquer cette citation et en montrer moins comme elle",
     "snooze": "Pause",
-    "snoozeAccessibility": "Mettre les mots doux en pause ou masquer cette citation"
+    "snoozeAccessibility": "Mettre les mots doux en pause un moment"
   },
   "snoozeMenu": {
+    "tomorrow": "Pas aujourd'hui — pause jusqu'à demain",
     "hour": "Mettre les mots doux en pause pendant 1 heure",
-    "tomorrow": "Mettre les mots doux en pause jusqu'à demain",
-    "threeDays": "Mettre les mots doux en pause pendant 3 jours",
-    "dontShowAgain": "Ne plus me montrer cette citation"
+    "threeDays": "Mettre les mots doux en pause pendant 3 jours"
   },
   "notifications": {
     "channelName": "Mots doux",
     "title": "Un mot doux pour toi",
     "beforeEventTitle": "On pense à toi",
     "afterEventTitle": "On prend de tes nouvelles",
+    "selfNoteTitle": "Un mot de toi",
+    "futureNoteTitle": "Un mot que tu t'étais écrit",
+    "lovedOneTitle": "Un message de {{name}}",
     "snoozedHour": "Mots doux mis en pause pendant 1 heure.",
     "snoozedTomorrow": "Mots doux mis en pause jusqu'à demain.",
-    "snoozedThreeDays": "Mots doux mis en pause pendant 3 jours."
+    "snoozedThreeDays": "Mots doux mis en pause pendant 3 jours.",
+    "pausedForToday": "Mots doux en pause pour aujourd'hui.",
+    "pausedUntil": "Mots doux en pause jusqu'au {{when}}."
+  },
+  "widget": {
+    "another": "Un autre"
   },
   "circumstances": {
     "student": "Étudiant(e)",

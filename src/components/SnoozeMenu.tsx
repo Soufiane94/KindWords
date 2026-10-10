@@ -1,6 +1,7 @@
-// A small bottom-sheet menu from the Kind word screen's "Snooze" button:
-// pause reminders for a while, or hide this one quote for good. Kept
-// separate from the screen so its layout doesn't clutter the quote card.
+// A small bottom-sheet menu from the Kind word screen's "Snooze" button, to
+// pause reminders for a while. Kept separate from the screen so its layout
+// doesn't clutter the quote card. (Hiding a quote used to live here too;
+// since Phase 7 that's the "Not for me" button next to the card.)
 
 import React, { useMemo } from 'react';
 import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
@@ -13,12 +14,11 @@ type Props = {
   visible: boolean;
   onClose: () => void;
   onSnooze: (duration: SnoozeDuration) => void;
-  onHideQuote: () => void;
 };
 
-const SNOOZE_VALUES: SnoozeDuration[] = ['hour', 'tomorrow', 'three_days'];
+const SNOOZE_VALUES: SnoozeDuration[] = ['tomorrow', 'hour', 'three_days'];
 
-export default function SnoozeMenu({ visible, onClose, onSnooze, onHideQuote }: Props) {
+export default function SnoozeMenu({ visible, onClose, onSnooze }: Props) {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -39,12 +39,6 @@ export default function SnoozeMenu({ visible, onClose, onSnooze, onHideQuote }: 
               <Text style={styles.rowText}>{option.label}</Text>
             </Pressable>
           ))}
-
-          <View style={styles.divider} />
-
-          <Pressable style={styles.row} onPress={onHideQuote}>
-            <Text style={[styles.rowText, styles.dangerText]}>{t('snoozeMenu.dontShowAgain')}</Text>
-          </Pressable>
 
           <View style={styles.divider} />
 
@@ -79,9 +73,6 @@ function createStyles(colors: Palette) {
       fontSize: 15,
       color: colors.primaryText,
       textAlign: 'center',
-    },
-    dangerText: {
-      color: colors.danger,
     },
     cancelText: {
       color: colors.mutedText,

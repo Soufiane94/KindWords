@@ -42,12 +42,15 @@ keep this tone in mind above all else.
   - `src/data` — bundled static data (quotes, circumstance lists)
   - `src/services` — storage and business logic, no UI
   - `src/navigation` — navigators
+  - `src/widget` — the Android home screen widget (Phase 7), which runs
+    outside the app and is built from react-native-android-widget's own
+    primitives, not regular views
 - Comment for a beginner: explain *why*, not *what*, and keep comments short.
 - No unnecessary abstractions — this is a small app, prefer straightforward
   code over clever generalization.
 
 ## Current phase status
-See ROADMAP.md. Phases 1 through 6 are complete.
+See ROADMAP.md. Phases 1 through 7 are complete.
 
 ## Testing on a device
 As of Phase 2, **Expo Go can no longer run this app** — `expo-notifications`
@@ -67,13 +70,32 @@ instead:
 
 ## Notification scheduling notes
 - `src/services/notifications.ts` holds all expo-notifications logic.
-  `rescheduleAllNotifications()` always cancels every scheduled notification
-  first, then reschedules from scratch — this keeps it simple and avoids
-  tracking individual notification IDs.
+  *When* things are sent is worked out separately in
+  `src/services/reminderPlan.ts` (pure date math, no expo calls), which the
+  Events screen also uses to show each event's reminder dates.
+- Since Phase 7, every kind word is its own one-time (DATE) notification,
+  lined up ahead of time (up to 60 days / 50 kind words) — no repeating
+  triggers. `rescheduleAllNotifications()` always cancels every scheduled
+  notification first, then reschedules from scratch, which avoids tracking
+  individual notification IDs. Calls are queued so two never interleave.
+  It runs when the app opens or comes back to the front (at most hourly)
+  and after any change to settings, events, notes, snoozes, "not for me",
+  or the check-in.
+- Only Settings' Save button passes `askPermission: true`; every other
+  reschedule just checks the permission, so the system prompt never
+  appears unasked.
 - Android can't change a channel's lock-screen visibility after it's
   created, so there are two channels (`kindwords-public` /
   `kindwords-private`) and scheduling picks whichever matches the current
   setting.
-- Quiet hours are enforced at scheduling time: any slot whose time falls
-  inside the quiet-hours window is simply not scheduled (not shifted), and
-  the Settings screen tells the user which times got skipped.
+- Quiet hours are enforced at scheduling time: any regular slot whose time
+  falls inside the quiet-hours window is simply not scheduled (not
+  shifted), and the Settings screen tells the user which times got skipped.
+  Event reminders (always 9am) are skipped the same way. Notes to future-you
+  are the exception: they wait until quiet hours or a snooze end.
+- A snooze / "Not today" skips everything inside it and resumes on its own.
+  Gentle pacing assumes the app stays unopened from the moment the plan is
+  built, and starts over each time it's rebuilt.
+- `SCHEDULE_EXACT_ALARM` is declared in app.json so Android 12+ can deliver
+  on time. Android 14+ users must still allow it in system settings
+  (Phase 10).
