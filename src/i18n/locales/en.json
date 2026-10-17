@@ -19,6 +19,8 @@
   "onboarding": {
     "title": "Welcome to Kindwords",
     "subtitle": "Which of these feel like you right now? Pick as many as you like — this just helps us choose kinder words for you.",
+    "worldTitle": "Choose a world",
+    "worldSubtitle": "Tap one to try it, and keep whichever feels most like home. You can change it anytime in Settings.",
     "continue": "Continue"
   },
   "home": {

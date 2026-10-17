@@ -1003,3 +1003,27 @@ judge it in a preview or production build.
 Not done (needs phones and accounts): the screenshots, the production
 build, and testing it on a Samsung, a Xiaomi and an older low-end Android,
 notifications included.
+
+### 9I — Choose a world in onboarding
+**No new EAS dev-client build needed:** plain JS and new strings, a Metro
+reload picks it up.
+
+- The welcome screen has a second question under the circumstances:
+  "Choose a world", with the same 14 chips as Settings > Appearance, Simple
+  first. Simple is already picked, so skipping it changes nothing: a new
+  user still starts in the calm default.
+- Tapping a world applies it at once: the whole welcome screen (colors,
+  fonts, background, decorations) turns into it, so the screen itself is
+  the preview. It's saved straight away, like in Settings, so it stays even
+  if the app is closed before "Continue". The widget is redrawn too, since
+  one may already be on the home screen after "Redo welcome setup" (which
+  shows the current world picked).
+- On the same page rather than a second step: the world is optional, so it
+  shouldn't add a step everyone has to go through. "Continue" stays pinned
+  at the bottom, as before.
+- The plain font stays in Settings only, to keep the first screen short.
+  The subtitle says the world can be changed anytime in Settings.
+- New strings `onboarding.worldTitle` and `onboarding.worldSubtitle` in all
+  four languages. The French, Spanish and Darija ones were written by
+  Claude; the "Needs native review" items for those files (ROADMAP.md, 9B)
+  cover them.

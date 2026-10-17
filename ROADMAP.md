@@ -139,6 +139,11 @@ in CHANGELOG.md.
   with "Alarms & reminders" off, after a reboot; the widget; the splash
   screen; a backup restore.
 
+### 9I — Choose a world in onboarding ✅
+The welcome screen asks for a world too, under the circumstances, with the
+same chips as Settings; tapping one turns the screen into that world.
+Details in CHANGELOG.md.
+
 ## Phase 10 — Android launch
 - Google Play: personal developer accounts created after November 13, 2023
   must run a closed test with at least 12 testers who stay opted in for 14

@@ -1,6 +1,6 @@
-// A selectable "chip" button used in onboarding to pick circumstances (and
-// in Settings for worlds and languages). Screen readers hear just its label,
-// not the emoji's name.
+// A selectable "chip" button used in onboarding to pick circumstances and a
+// world (and in Settings for languages too). Screen readers hear just its
+// label, not the emoji's name.
 
 import React, { useMemo } from 'react';
 import { Pressable, Text, StyleSheet } from 'react-native';

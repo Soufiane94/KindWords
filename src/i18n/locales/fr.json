@@ -19,6 +19,8 @@
   "onboarding": {
     "title": "Bienvenue sur Kindwords",
     "subtitle": "Qu'est-ce qui te correspond en ce moment ? Choisis-en autant que tu veux — ça nous aide juste à te proposer des mots plus justes.",
+    "worldTitle": "Choisis un monde",
+    "worldSubtitle": "Touche un monde pour l'essayer, et garde celui où tu te sens le plus chez toi. Tu peux le changer quand tu veux dans Réglages.",
     "continue": "Continuer"
   },
   "home": {
