@@ -974,6 +974,7 @@ judge it in a preview or production build.
   mark inside the safe zone every launcher mask keeps, the gradient
   behind, and a one-color version (heart cut out) for Android 13's themed
   icons. Checked in round and rounded-square masks, and at small size.
+  more suggestions for icons and names in : https://claude.ai/artifact/P2KPeHtqNL6gjMXfq1j9r2
 - **Splash screen:** the mark the other way round (a sunrise bubble with a
   cream heart) on Simple's cream, the color the app opens on. It now stays
   up until the fonts are loaded, so there's no blank screen in between,
