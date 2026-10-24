@@ -21,33 +21,31 @@ const STORE = path.join(ROOT, 'store', 'graphics');
 fs.mkdirSync(STORE, { recursive: true });
 
 // The icon's sunrise gradient, a cream bubble (Simple's card color) and a
-// soft coral heart.
+// soft coral smiling face. The face replaced a heart (9K): a heart in a
+// speech bubble read like a dating app.
 const COLORS = {
   gradientTop: '#FAD48B',
   gradientBottom: '#F29E7B',
   bubble: '#FFFBF3',
-  heart: '#E46F6A',
+  face: '#E46F6A',
   shadow: '#B5603F',
 };
 
-// A heart whose bounding box is centered on (cx, cy), `w` wide.
-function heartPath(cx, cy, w) {
-  const s = w / 100;
-  const x = (v) => (cx + (v - 50) * s).toFixed(1);
-  const y = (v) => (cy + (v - 44) * s).toFixed(1);
-  return [
-    `M ${x(50)} ${y(88)}`,
-    `C ${x(22)} ${y(68)} ${x(0)} ${y(50)} ${x(0)} ${y(28)}`,
-    `C ${x(0)} ${y(12)} ${x(12)} ${y(0)} ${x(27)} ${y(0)}`,
-    `C ${x(37)} ${y(0)} ${x(45)} ${y(5)} ${x(50)} ${y(14)}`,
-    `C ${x(55)} ${y(5)} ${x(63)} ${y(0)} ${x(73)} ${y(0)}`,
-    `C ${x(88)} ${y(0)} ${x(100)} ${y(12)} ${x(100)} ${y(28)}`,
-    `C ${x(100)} ${y(50)} ${x(78)} ${y(68)} ${x(50)} ${y(88)} Z`,
-  ].join(' ');
+// A simple smiling face centered on (cx, cy), `r` its radius. The disc, the
+// eyes and the smile come apart so each can be colored or cut out.
+function faceShapes(cx, cy, r) {
+  const n = (v) => +v.toFixed(1);
+  const eye = (side) =>
+    `<ellipse cx="${n(cx + side * 0.36 * r)}" cy="${n(cy - 0.2 * r)}" rx="${n(0.12 * r)}" ry="${n(0.17 * r)}"/>`;
+  return {
+    disc: `<circle cx="${n(cx)}" cy="${n(cy)}" r="${n(r)}"/>`,
+    eyes: eye(-1) + eye(1),
+    smile: `<path d="M ${n(cx - 0.5 * r)} ${n(cy + 0.16 * r)} Q ${n(cx)} ${n(cy + 0.62 * r)} ${n(cx + 0.5 * r)} ${n(cy + 0.16 * r)}" fill="none" stroke-width="${n(0.18 * r)}" stroke-linecap="round"/>`,
+  };
 }
 
-// The mark: a soft speech bubble holding a heart, in a 1024 box around its
-// middle, scaled by `k` (1 = the bubble is 560 wide).
+// The mark: a soft speech bubble holding a smiling face, in a 1024 box
+// around its middle, scaled by `k` (1 = the bubble is 560 wide).
 function bubbleShapes(k = 1) {
   const c = 512;
   const w = 560 * k;
@@ -66,7 +64,7 @@ function bubbleShapes(k = 1) {
   return {
     body: `<rect x="${left}" y="${top}" width="${w}" height="${h}" rx="${r}" ry="${r}"/>`,
     tail: `<path d="${tail}" stroke-width="${26 * k}" stroke-linejoin="round"/>`,
-    heart: heartPath(c, top + h / 2 + 6 * k, 215 * k),
+    face: faceShapes(c, top + h / 2 + 4 * k, 118 * k),
   };
 }
 
@@ -81,7 +79,8 @@ function mark(k) {
   return `
   <g filter="url(#soft)" fill="${COLORS.shadow}" stroke="${COLORS.shadow}" opacity="0.22" transform="translate(0 ${18 * k})">${m.body}${m.tail}</g>
   <g fill="${COLORS.bubble}" stroke="${COLORS.bubble}">${m.body}${m.tail}</g>
-  <path d="${m.heart}" fill="${COLORS.heart}"/>`;
+  <g fill="${COLORS.face}">${m.face.disc}</g>
+  <g fill="${COLORS.bubble}" stroke="${COLORS.bubble}">${m.face.eyes}${m.face.smile}</g>`;
 }
 
 function svg(width, height, body, defs = '') {
@@ -149,7 +148,8 @@ render(path.join(STORE, 'play-icon-512.png'), fullIcon, 512);
 
 // Android's adaptive icon: the mark inside the safe zone (the middle 66 of
 // 108 units, which every launcher mask keeps), the gradient behind it, and
-// a one-color version for themed icons (Android 13+).
+// a one-color version for themed icons (Android 13+): the face cut out of
+// the bubble, with its eyes and smile left in.
 render(path.join(ASSETS, 'android-icon-foreground.png'), svg(1024, 1024, mark(0.72), softShadow), 512);
 render(
   path.join(ASSETS, 'android-icon-background.png'),
@@ -163,16 +163,17 @@ render(
     svg(
       1024,
       1024,
-      `<mask id="cut"><rect width="1024" height="1024" fill="white"/><path d="${m.heart}" fill="black"/></mask>
+      `<mask id="cut"><rect width="1024" height="1024" fill="white"/><g fill="black">${m.face.disc}</g><g fill="white" stroke="white">${m.face.eyes}${m.face.smile}</g></mask>
        <g fill="#FFFFFF" stroke="#FFFFFF" mask="url(#cut)">${m.body}${m.tail}</g>`
     ),
     432
   );
 }
 
-// Splash: the mark the other way round (a sunrise bubble with a cream
-// heart), so it shows on the cream background set in app.json, the same
-// cream the app opens on. One gradient across bubble and tail together.
+// Splash: the mark the other way round (a sunrise bubble with a cream face,
+// its eyes and smile in coral), so it shows on the cream background set in
+// app.json, the same cream the app opens on. One gradient across bubble and
+// tail together.
 {
   const m = bubbleShapes(1);
   const shared = `<linearGradient id="bgu" gradientUnits="userSpaceOnUse" x1="330" y1="240" x2="540" y2="820">
@@ -181,7 +182,13 @@ render(
   </linearGradient>`;
   render(
     path.join(ASSETS, 'splash-icon.png'),
-    svg(1024, 1024, `<g fill="url(#bgu)" stroke="url(#bgu)">${m.body}${m.tail}</g><path d="${m.heart}" fill="${COLORS.bubble}"/>`, shared),
+    svg(
+      1024,
+      1024,
+      `<g fill="url(#bgu)" stroke="url(#bgu)">${m.body}${m.tail}</g><g fill="${COLORS.bubble}">${m.face.disc}</g>
+       <g fill="${COLORS.face}" stroke="${COLORS.face}">${m.face.eyes}${m.face.smile}</g>`,
+      shared
+    ),
     1024
   );
 }
@@ -214,21 +221,21 @@ render(
 }
 
 // Google Play's feature graphic (1024x500): the mark on the icon's
-// gradient, with a few soft hearts and lights. No words, so it suits every
-// language and any name.
+// gradient, with a few soft lights and glows (no hearts since 9K). No
+// words, so it suits every language and any name.
 {
   const lights = [[140, 110, 7], [230, 380, 5], [860, 90, 6], [930, 300, 8], [780, 420, 5], [330, 60, 4], [700, 60, 4], [90, 300, 5]]
     .map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#FFF6E2" opacity="0.8"/>`)
     .join('');
-  const hearts = [[205, 230, 46, -12, 0.55], [835, 190, 58, 10, 0.6], [905, 395, 34, -6, 0.45], [120, 420, 30, 8, 0.4]]
-    .map(([x, y, w, turn, o]) => `<path d="${heartPath(x, y, w)}" fill="#FFF3E6" opacity="${o}" transform="rotate(${turn} ${x} ${y})"/>`)
+  const glows = [[205, 230, 24, 0.35], [835, 190, 30, 0.4], [905, 395, 18, 0.3], [120, 420, 16, 0.28]]
+    .map(([x, y, r, o]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#FFF3E6" opacity="${o}"/>`)
     .join('');
   render(
     path.join(STORE, 'feature-graphic.png'),
     svg(
       1024,
       500,
-      `<rect width="1024" height="500" fill="url(#bg)"/>${lights}${hearts}
+      `<rect width="1024" height="500" fill="url(#bg)"/>${lights}${glows}
        <g transform="translate(512 250) scale(0.62) translate(-512 -490)">${mark(1)}</g>`,
       gradient + softShadow
     ),

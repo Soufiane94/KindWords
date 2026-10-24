@@ -1071,3 +1071,26 @@ reload picks it up.
 Not done: Spanish and Darija quotes for the eight newer circumstances
 (backlog). All 200 new quotes need the 9B review before release: a native
 speaker for the French, and the sensitivity read for both languages.
+
+### 9K — A smiling icon
+**Needs a new EAS build:** the icon and splash screen are built into the
+app. As in 9H, judge the splash in a preview or production build.
+
+- The heart in the speech bubble is now a simple smiling face: a coral
+  disc with cream eyes and smile, in the same sunrise colors. A heart in a
+  speech bubble read like a dating app (the logo ideas linked in 9H).
+- Everywhere the mark appears: the app icon, the Android adaptive icon,
+  the themed icon (Android 13+: the face cut out of the bubble, its eyes
+  and smile left in), the splash (a cream face with coral features on the
+  sunrise bubble), the favicon, and Play's 512 icon and feature graphic,
+  whose floating hearts became soft round glows.
+- Compared before choosing: eyes and smile drawn straight on the bubble
+  (they vanish at launcher size), and a yellow emoji face (it needs a brown
+  that isn't in the palette, and yellow on cream is faint). Checked in
+  round and squircle masks, at 96, 64 and 40 px, and as a themed icon.
+- Still drawn by `scripts/make-assets.js` (`faceShapes` replaces
+  `heartPath`); the gradient background and the widget preview came out
+  unchanged. The Favorites heart inside the app stays: it marks a
+  favorite, it isn't the logo.
+
+Not done: seeing it on a phone, which needs the new build.

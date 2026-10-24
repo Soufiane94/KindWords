@@ -4,7 +4,7 @@ Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
 **Current:** Phase 9 — Release readiness: everything but 9B is built; 9J
-added 100 kind words each in English and French.
+added 100 kind words each in English and French, 9K a smiling icon.
 **Next:** 9B (content review), the name decision (9A), and the checks on a
 phone listed under each sub-phase; then Phase 10.
 
@@ -157,6 +157,14 @@ circumstances that had none (caregiver, grieving, breakup, new parent, far
 from home, anxious or overwhelmed, job searching, older adult) and for the
 thinner older ones; 42 older quotes got a new tag where they clearly fit.
 Details in CHANGELOG.md.
+
+### 9K — A smiling icon ✅ · new build pending (yours)
+The heart in the icon's speech bubble is now a simple smiling face, in the
+same colors: app icon, Android adaptive and themed icons, splash screen,
+and Play's icon and feature graphic. Details in CHANGELOG.md.
+- [ ] New EAS build (the icon and splash are built into the app), then
+  look at the icon on the home screen, with themed icons on (Android 13+),
+  and at the splash in a preview or production build.
 
 ## Phase 10 — Android launch
 - Google Play: personal developer accounts created after November 13, 2023
