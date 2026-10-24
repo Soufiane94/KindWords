@@ -84,6 +84,13 @@ users, especially people who feel alone. The goal is to bring a smile.
   per language, never machine-translated from another entry in the file.
   Favorites, hidden quotes, the widget and scheduled notifications point to
   quotes by `id`, so never change or reuse an id.
+- Tagging quotes (9J): event kind words are picked by event type alone,
+  whatever the user's circumstances, and come before and after the event.
+  So a quote only gets an event type if it suits anyone facing that event,
+  on either day; one written for a single situation gets `eventTypes: []`.
+  The circumstance `other` means "for anyone" (Send picks from those). Every
+  circumstance needs quotes of its own in each language. French quotes fit
+  any reader: nothing that agrees with "tu" (seul/seule, prêt/prête).
 - i18n (Phase 6): `i18next` + `react-i18next`, with `expo-localization` to
   detect the phone's language as the default. UI strings live in
   `src/i18n/locales/{en,fr,es,ary}.json`; look them up with

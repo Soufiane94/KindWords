@@ -3,7 +3,8 @@
 Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
-**Current:** Phase 9 — Release readiness: everything but 9B is built.
+**Current:** Phase 9 — Release readiness: everything but 9B is built; 9J
+added 100 kind words each in English and French.
 **Next:** 9B (content review), the name decision (9A), and the checks on a
 phone listed under each sub-phase; then Phase 10.
 
@@ -44,6 +45,9 @@ CHANGELOG.md.
   corrections, and a script that imports the corrections back.
 - A sensitivity read of all quotes by someone who has lived through grief
   or illness.
+- q003 ("Grief is just love with nowhere to go") is close to a well-known
+  line credited to Jamie Anderson (2014), so it isn't original: reword or
+  drop it.
 - Religious quotes: check what they say, then decide between faith-neutral
   wording and letting the user choose a tradition (a Muslim user in
   Morocco and a Catholic user in France may not want the same prayer).
@@ -58,7 +62,10 @@ CHANGELOG.md.
   `src/data/quotes.json`
 - [ ] Darija UI strings: `src/i18n/locales/ary.json`, plus the Darija day
   and month names in `src/i18n/dateNames.ts`
-- [ ] French quotes: the 40 `"language": "fr"` entries
+- [ ] French quotes: the 140 `"language": "fr"` entries (100 new in 9J).
+  The 40 older ones assume a male reader in qfr006, 007, 010, 015, 022 and
+  032 (seul, oublié, levé…), and qfr014's "s'ennuyer de quelqu'un" is rare
+  in France ("… te manque" is usual)
 - [ ] French UI strings: `src/i18n/locales/fr.json`, plus the French day
   and month names
 - [ ] Spanish quotes: the 40 `"language": "es"` entries
@@ -144,6 +151,13 @@ The welcome screen asks for a world too, under the circumstances, with the
 same chips as Settings; tapping one turns the screen into that world.
 Details in CHANGELOG.md.
 
+### 9J — Kind words for every circumstance ✅
+100 new quotes in English and 100 in French, written for the eight
+circumstances that had none (caregiver, grieving, breakup, new parent, far
+from home, anxious or overwhelmed, job searching, older adult) and for the
+thinner older ones; 42 older quotes got a new tag where they clearly fit.
+Details in CHANGELOG.md.
+
 ## Phase 10 — Android launch
 - Google Play: personal developer accounts created after November 13, 2023
   must run a closed test with at least 12 testers who stay opted in for 14
@@ -166,7 +180,8 @@ Details in CHANGELOG.md.
   rules in CLAUDE.md and tagged like the existing ones (circumstances,
   eventTypes, mood, language). A person reviews every quote before it
   ships (same process as 9B). New quote files can reach users through EAS
-  Update, without a store release.
+  Update, without a store release. 9J wrote the first 100 each in English
+  and French.
 - Keep kind words coming for people who stop opening the app (today they
   stop after about two months): a daily background task
   (expo-background-task) that tops up the plan at the weekly pace. New
@@ -215,6 +230,9 @@ Accounts and sync:
 - The app keeps working fully offline without an account.
 
 ## Backlog (not scheduled)
+- Spanish and Darija quotes for the eight newer circumstances (caregiver,
+  grieving, breakup, new parent, far from home, overwhelmed, job searching,
+  older adult): only generic ones reach them for now — 9J.
 - Android notification action buttons (Snooze, Save, "Not today") — 5A, 7D.
 - Per-world tab icon style and button shape — 5C.
 - Darija in Arabic script, with RTL layout and an Arabic-script font — 6.

@@ -2,7 +2,7 @@
   {
     "id": "q001",
     "text": "You don't have to carry today perfectly. You just have to carry it.",
-    "circumstances": ["other", "worker", "student", "parent"],
+    "circumstances": ["other", "worker", "student", "parent", "overwhelmed"],
     "eventTypes": ["other"],
     "mood": "comfort",
     "language": "en"
@@ -18,7 +18,7 @@
   {
     "id": "q003",
     "text": "Grief is just love with nowhere to go. It's allowed to stay as long as it needs.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -26,7 +26,7 @@
   {
     "id": "q004",
     "text": "Rest is not quitting. It's you, taking care of the one person you can't replace.",
-    "circumstances": ["worker", "parent", "patient"],
+    "circumstances": ["worker", "parent", "patient", "caregiver"],
     "eventTypes": ["medical_appointment"],
     "mood": "encouragement",
     "language": "en"
@@ -58,7 +58,7 @@
   {
     "id": "q008",
     "text": "Being a parent is a thousand invisible acts of love a day. Someone notices, even when it's just you.",
-    "circumstances": ["parent"],
+    "circumstances": ["parent", "new_parent"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "en"
@@ -66,7 +66,7 @@
   {
     "id": "q009",
     "text": "Healing isn't a straight line. A hard day doesn't erase the good ones before it.",
-    "circumstances": ["patient", "widowed"],
+    "circumstances": ["patient", "widowed", "grieving"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -106,7 +106,7 @@
   {
     "id": "q014",
     "text": "Missing someone is proof of how well you loved them.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -154,7 +154,7 @@
   {
     "id": "q020",
     "text": "You are not behind. You are exactly as far along as someone who has lived your exact life would be.",
-    "circumstances": ["student", "worker", "other"],
+    "circumstances": ["student", "worker", "other", "job_searching"],
     "eventTypes": ["exam", "job_interview"],
     "mood": "encouragement",
     "language": "en"
@@ -162,7 +162,7 @@
   {
     "id": "q021",
     "text": "The silence after loss has its own kind of voice. It's okay to sit with it a while.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -170,7 +170,7 @@
   {
     "id": "q022",
     "text": "A single phone call, a single hello, can turn a whole day around. You're one message away from less alone.",
-    "circumstances": ["living_alone", "other"],
+    "circumstances": ["living_alone", "other", "far_from_home"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "en"
@@ -202,7 +202,7 @@
   {
     "id": "q026",
     "text": "The love you gave someone doesn't end when they do.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -266,7 +266,7 @@
   {
     "id": "q034",
     "text": "A house can be quiet and still be full of the love that built it.",
-    "circumstances": ["living_alone", "widowed"],
+    "circumstances": ["living_alone", "widowed", "older_adult"],
     "eventTypes": ["grief_anniversary", "family_event"],
     "mood": "warmth",
     "language": "en"
@@ -274,7 +274,7 @@
   {
     "id": "q035",
     "text": "You are doing a hard, good thing, even on the days it doesn't feel like either.",
-    "circumstances": ["parent", "worker", "patient"],
+    "circumstances": ["parent", "worker", "patient", "caregiver"],
     "eventTypes": ["medical_appointment", "family_event"],
     "mood": "comfort",
     "language": "en"
@@ -290,7 +290,7 @@
   {
     "id": "q037",
     "text": "You don't owe anyone a brave face today. Soft is allowed.",
-    "circumstances": ["patient", "widowed", "other"],
+    "circumstances": ["patient", "widowed", "other", "grieving"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -322,7 +322,7 @@
   {
     "id": "q041",
     "text": "You don't have to earn rest by finishing everything first.",
-    "circumstances": ["worker", "student", "other"],
+    "circumstances": ["worker", "student", "other", "overwhelmed"],
     "eventTypes": ["other"],
     "mood": "gentle",
     "language": "en"
@@ -330,7 +330,7 @@
   {
     "id": "q042",
     "text": "A text that just says \"thinking of you\" can hold more than it looks like it can.",
-    "circumstances": ["living_alone", "other"],
+    "circumstances": ["living_alone", "other", "far_from_home"],
     "eventTypes": ["other"],
     "mood": "warmth",
     "language": "en"
@@ -338,7 +338,7 @@
   {
     "id": "q043",
     "text": "Grief doesn't ask your permission to visit on an ordinary afternoon. You're allowed to let it in.",
-    "circumstances": ["widowed", "patient"],
+    "circumstances": ["widowed", "patient", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -346,7 +346,7 @@
   {
     "id": "q044",
     "text": "Interviews end. Exams end. The way you treat yourself while you wait doesn't have to.",
-    "circumstances": ["student", "worker"],
+    "circumstances": ["student", "worker", "job_searching"],
     "eventTypes": ["job_interview", "exam"],
     "mood": "encouragement",
     "language": "en"
@@ -394,7 +394,7 @@
   {
     "id": "q050",
     "text": "An empty chair at the table still holds the shape of who sat there. That's not nothing.",
-    "circumstances": ["widowed", "living_alone"],
+    "circumstances": ["widowed", "living_alone", "grieving"],
     "eventTypes": ["grief_anniversary", "family_event"],
     "mood": "comfort",
     "language": "en"
@@ -402,7 +402,7 @@
   {
     "id": "q051",
     "text": "You don't need a reason to deserve kindness today. Being tired is reason enough.",
-    "circumstances": ["other", "worker", "parent"],
+    "circumstances": ["other", "worker", "parent", "overwhelmed"],
     "eventTypes": ["other"],
     "mood": "gentle",
     "language": "en"
@@ -418,7 +418,7 @@
   {
     "id": "q053",
     "text": "You can be proud of surviving a hard year without pretending the year was fine.",
-    "circumstances": ["patient", "widowed", "other"],
+    "circumstances": ["patient", "widowed", "other", "grieving"],
     "eventTypes": ["grief_anniversary", "medical_appointment"],
     "mood": "comfort",
     "language": "en"
@@ -426,7 +426,7 @@
   {
     "id": "q054",
     "text": "A job interview can only ask for an hour of you. It doesn't get to define the rest.",
-    "circumstances": ["worker", "student"],
+    "circumstances": ["worker", "student", "job_searching"],
     "eventTypes": ["job_interview"],
     "mood": "encouragement",
     "language": "en"
@@ -490,7 +490,7 @@
   {
     "id": "q062",
     "text": "You're allowed to miss someone and still laugh at something silly on the same day.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "gentle",
     "language": "en"
@@ -514,7 +514,7 @@
   {
     "id": "q065",
     "text": "You don't owe anyone a timeline for healing, grieving, or figuring your life out.",
-    "circumstances": ["other", "patient", "widowed"],
+    "circumstances": ["other", "patient", "widowed", "grieving"],
     "eventTypes": ["other", "grief_anniversary"],
     "mood": "gentle",
     "language": "en"
@@ -522,7 +522,7 @@
   {
     "id": "q066",
     "text": "Faith can hold both gratitude and grief in the same open hand.",
-    "circumstances": ["religious", "widowed"],
+    "circumstances": ["religious", "widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -530,7 +530,7 @@
   {
     "id": "q067",
     "text": "You looked after someone today, even if it was just yourself, even if it was barely.",
-    "circumstances": ["parent", "patient", "other"],
+    "circumstances": ["parent", "patient", "other", "caregiver"],
     "eventTypes": ["other"],
     "mood": "warmth",
     "language": "en"
@@ -546,7 +546,7 @@
   {
     "id": "q069",
     "text": "Interviews aren't a referendum on your whole life. They're one conversation, on one day, with one stranger.",
-    "circumstances": ["worker", "student"],
+    "circumstances": ["worker", "student", "job_searching"],
     "eventTypes": ["job_interview"],
     "mood": "gentle",
     "language": "en"
@@ -554,7 +554,7 @@
   {
     "id": "q070",
     "text": "The work you do without applause is often the work that matters most.",
-    "circumstances": ["worker", "parent"],
+    "circumstances": ["worker", "parent", "caregiver"],
     "eventTypes": ["other"],
     "mood": "warmth",
     "language": "en"
@@ -586,7 +586,7 @@
   {
     "id": "q074",
     "text": "Anniversaries of loss don't get easier on a schedule. Be as gentle with yourself today as you'd be with someone you love.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -594,7 +594,7 @@
   {
     "id": "q075",
     "text": "You can set the table for one and still be living a full life.",
-    "circumstances": ["living_alone"],
+    "circumstances": ["living_alone", "older_adult"],
     "eventTypes": ["other"],
     "mood": "warmth",
     "language": "en"
@@ -640,9 +640,809 @@
     "language": "en"
   },
   {
+    "id": "q081",
+    "text": "Love doesn't always look like flowers. Sometimes it's a lift to the clinic, a pill box and a very long wait.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q082",
+    "text": "Needing a break from caring for someone doesn't mean you love them less. It means you're a person too.",
+    "circumstances": ["caregiver", "parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q083",
+    "text": "Not everything you do for them gets noticed. So here's a small notice: it's a lot, and you do it with love.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q084",
+    "text": "Your own needs didn't stop mattering the day you started caring for someone else.",
+    "circumstances": ["caregiver", "parent", "new_parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q085",
+    "text": "Patience runs out sometimes, even in the most loving people. One sharp word on a long day doesn't undo all your care.",
+    "circumstances": ["caregiver", "parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q086",
+    "text": "The person you care for may not always be able to say thank you. Your care still reaches them.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q087",
+    "text": "Caring for someone you love can be lonely, even in a room with them. You're not the only one who feels that.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q088",
+    "text": "Asking for help isn't failing at caring. Some care is simply too big for two hands.",
+    "circumstances": ["caregiver", "new_parent", "overwhelmed"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q089",
+    "text": "Sitting in a waiting room with your thoughts takes its own quiet courage, whoever the appointment is for.",
+    "circumstances": ["caregiver", "patient"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q090",
+    "text": "Some days you're nurse, driver, cook and secretary before lunch. No wonder you're tired; that's four jobs.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q091",
+    "text": "There's no finish line for missing someone. You're not doing it wrong by still feeling it.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q092",
+    "text": "Still reaching for the phone to tell them something isn't a mistake. It shows how much they were part of your days.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q093",
+    "text": "Grief can make you forgetful, slow and tired. That isn't you failing; it's your heart doing very heavy lifting.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q094",
+    "text": "Sometimes the days leading up to an anniversary weigh more than the day itself. If this week feels heavy, that may be why.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q095",
+    "text": "Other people's lives went back to normal quickly. Yours didn't, and it doesn't have to.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q096",
+    "text": "You can still talk to them: in the car, at the kitchen sink, under your breath. Love keeps its own conversations.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q097",
+    "text": "The first holidays without them can be a mountain. However you get through, even under a blanket, is a good way.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q098",
+    "text": "Whoever it was you lost, missing them this much makes sense. They mattered, and so does your grief.",
+    "circumstances": ["grieving"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q099",
+    "text": "Grief doesn't follow the stages in order, or at all. However yours looks today is how it looks.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q100",
+    "text": "Anniversaries can feel heavy, or strangely ordinary. Both are normal, and either way, you're remembering them.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q101",
+    "text": "A relationship ending can hurt like a loss, because it is one. You don't need anyone's permission to grieve it.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q102",
+    "text": "Your heart may take longer than your head to understand that it's over. It can take the time it needs.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q103",
+    "text": "Being left, or leaving, doesn't decide your worth. You were worth loving before them, and you still are.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q104",
+    "text": "You're not only missing a person. You're missing a whole future you had pictured, and that takes time to put down.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q105",
+    "text": "Rereading old messages doesn't make you weak. Deleting them doesn't make you cold. There's no single right way to heal.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q106",
+    "text": "Ending a marriage doesn't erase the good years in it, or the person you've been all along.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q107",
+    "text": "Coming home to a quiet house after handing the children over is hard. It doesn't make you any less their parent.",
+    "circumstances": ["breakup", "parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q108",
+    "text": "Rebuilding is made of small things: your own playlist, your own Sunday, a meal chosen just for you. Each one counts.",
+    "circumstances": ["breakup", "living_alone"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q109",
+    "text": "Family gatherings after a separation can feel like walking a tightrope. Arriving late, leaving early or staying quiet are all fine.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q110",
+    "text": "You loved honestly. That's never wasted, even when the story didn't end the way you hoped.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q111",
+    "text": "Nobody knows how to do this at first. You and your baby are learning each other, one long night at a time.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q112",
+    "text": "If love for your baby is growing slowly rather than all at once, that's still love. It's allowed to take its time.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q113",
+    "text": "A crying baby isn't a report card. Sometimes babies just cry, even in the arms of a wonderful parent.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q114",
+    "text": "At 3 a.m. it can feel like you're the only one awake in the world. Lots of tired parents are up with you.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q115",
+    "text": "You don't have to love every minute to love your child with your whole heart.",
+    "circumstances": ["new_parent", "parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q116",
+    "text": "Waiting for a baby can be full of joy and full of worry at the same time. There's room for both here.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q117",
+    "text": "Some days, keeping a small person fed, warm and loved is the whole achievement. It's a big one.",
+    "circumstances": ["new_parent", "parent"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q118",
+    "text": "You're becoming someone new, a parent, and you're still you. It's okay if those take a while to fit together.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q119",
+    "text": "Saying yes to a meal, a visit or an hour of help isn't failing. It's how people have always raised little ones.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q120",
+    "text": "However your child came to you, by birth, adoption or a long road in between, the love you're building is real.",
+    "circumstances": ["new_parent", "parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q121",
+    "text": "Living in a second language is tiring in ways people don't see. You're just as funny, wise and kind in any language.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q122",
+    "text": "Missing home doesn't mean you're ungrateful for where you are. It means home shaped you.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q123",
+    "text": "A video call can't pass the bread across the table, but the love on both ends of it is real.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q124",
+    "text": "When your family gathers without you, a little part of the table is still yours. You're missed because you belong.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q125",
+    "text": "Cooking a dish from home, even one that doesn't taste quite right, is a way of carrying home with you.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q126",
+    "text": "A bakery, a bus route, a face that smiles back: a new place becomes home through small things.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q127",
+    "text": "Studying far from home means learning twice: the subject, and a whole new life. No wonder you're tired.",
+    "circumstances": ["far_from_home", "student"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q128",
+    "text": "Some words in your first language have no match anywhere else. Keep them close; they're part of who you are.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q129",
+    "text": "Feeling like a stranger some days doesn't mean you don't belong. Belonging grows slowly, and you have every right to be here.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q130",
+    "text": "Being far away doesn't make you any less someone's child, sibling or friend.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q131",
+    "text": "You don't have to sort out your whole life today. Just the next small thing, and maybe not even that.",
+    "circumstances": ["overwhelmed", "other"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q132",
+    "text": "A worried thought is not a prophecy. It's just a thought, trying very hard to keep you safe.",
+    "circumstances": ["overwhelmed"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q133",
+    "text": "Feeling anxious about a small thing doesn't make you silly. Anxiety doesn't measure things by their size.",
+    "circumstances": ["overwhelmed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q134",
+    "text": "Feeling overwhelmed isn't weakness. It usually means you've been carrying a lot, for a long time.",
+    "circumstances": ["overwhelmed", "caregiver"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q135",
+    "text": "Your worth isn't measured in ticked boxes. You're worth just as much on a day when nothing gets done.",
+    "circumstances": ["overwhelmed", "worker", "student", "other"],
+    "eventTypes": ["other"],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q136",
+    "text": "You can be anxious and kind, worried and brave, all on the same morning.",
+    "circumstances": ["overwhelmed", "other"],
+    "eventTypes": ["other"],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q137",
+    "text": "If your mind is racing tonight, it doesn't have to find every answer before morning.",
+    "circumstances": ["overwhelmed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q138",
+    "text": "Lowering the bar on a hard week isn't giving up. It's sensible, like walking more slowly on ice.",
+    "circumstances": ["overwhelmed", "other"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q139",
+    "text": "Being nervous doesn't mean you're not ready. It usually means this matters to you.",
+    "circumstances": ["overwhelmed", "student", "job_searching"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q140",
+    "text": "The noise in your head isn't the whole truth about you. Underneath it, you're still the same kind, capable person.",
+    "circumstances": ["overwhelmed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q141",
+    "text": "A rejection email is one company's decision on one day. It's not a verdict on who you are.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q142",
+    "text": "Applying again after a no takes real courage. Doing it tired takes even more.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q143",
+    "text": "Your CV lists a fraction of what you can do. The patience, kindness and grit don't fit on one page.",
+    "circumstances": ["job_searching", "student"],
+    "eventTypes": ["job_interview"],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q144",
+    "text": "When an application goes unanswered, it says more about busy inboxes than about you.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q145",
+    "text": "You were worth something long before any job title, and you're worth just as much between them.",
+    "circumstances": ["job_searching", "worker"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q146",
+    "text": "Other people's good news online isn't a race you're losing. Every road has stretches nobody posts about.",
+    "circumstances": ["job_searching", "student"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q147",
+    "text": "One application today counts. So does a day off from applying. Both are part of finding your way.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q148",
+    "text": "An interview is a conversation between people who both hope it goes well. You belong in that room.",
+    "circumstances": ["job_searching", "worker", "student"],
+    "eventTypes": ["job_interview"],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q149",
+    "text": "A gap on a CV is just time you lived. It doesn't erase what you know or who you are.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q150",
+    "text": "Money worries make everything louder. If today feels heavy, that's not a character flaw; it's a heavy situation.",
+    "circumstances": ["job_searching", "overwhelmed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q151",
+    "text": "A slower pace isn't a smaller life. There's room in it to notice what others rush past.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q152",
+    "text": "Your stories are worth telling, the old ones especially. Someone would love to hear how it really was.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q153",
+    "text": "Your hands have done a lifetime of work. They deserve some gentleness now, and so do you.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q154",
+    "text": "The world moves fast these days. You don't have to keep up with all of it to still matter in it.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q155",
+    "text": "You've weathered more seasons than most. Whatever this one brings, you carry a lot of quiet strength into it.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q156",
+    "text": "When friends of your generation are gone, the loneliness is real. Missing them is the sign of a life full of people.",
+    "circumstances": ["older_adult", "grieving"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q157",
+    "text": "You don't need to be busy to be worthwhile. A morning with your tea and your thoughts is a morning well spent.",
+    "circumstances": ["older_adult", "living_alone"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q158",
+    "text": "Your body may ask for more patience these days. Giving it that patience is a kind of wisdom, not giving in.",
+    "circumstances": ["older_adult", "patient"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q159",
+    "text": "Somewhere, someone is still better off because of a kindness you showed them long ago.",
+    "circumstances": ["older_adult", "other"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q160",
+    "text": "Struggling with a new phone or website doesn't make you less capable. They're built in a hurry, not with you in mind.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q161",
+    "text": "When the words won't come, a quiet sigh can be a prayer too.",
+    "circumstances": ["religious"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q162",
+    "text": "Faith doesn't ask you to pretend you're fine. You can bring your tears to it, just as they are.",
+    "circumstances": ["religious", "grieving", "patient"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q163",
+    "text": "Faith can be a quiet thing: a habit, a word, a place you return to when the day is heavy.",
+    "circumstances": ["religious"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q164",
+    "text": "A prayer for someone you love is a way of holding them when your arms can't reach.",
+    "circumstances": ["religious", "far_from_home"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q165",
+    "text": "Cooking for one is still cooking for someone who matters.",
+    "circumstances": ["living_alone", "widowed", "breakup", "older_adult"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q166",
+    "text": "Talking to yourself, the plants or the radio isn't strange. It's a voice keeping the house warm.",
+    "circumstances": ["living_alone", "older_adult"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q167",
+    "text": "Weekends with no plans can feel long. You don't have to fill them to prove you're doing okay.",
+    "circumstances": ["living_alone", "breakup"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q168",
+    "text": "Making decisions alone after years of making them together is hard. There's no rush; each one can take its time.",
+    "circumstances": ["widowed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q169",
+    "text": "Wearing the ring, putting it away, or something in between: there's no wrong choice. It's yours to make.",
+    "circumstances": ["widowed", "breakup"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q170",
+    "text": "Loving a teenager can feel like talking through a closed door. They often hear more than they let on.",
+    "circumstances": ["parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q171",
+    "text": "Every parent gets some days wrong. Coming back with a hug and a sorry is part of getting it right.",
+    "circumstances": ["parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q172",
+    "text": "Not understanding something yet is exactly where learning starts. Confusion means you're right in the middle of it.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q173",
+    "text": "One result is a moment, not a forecast. You're far more than any grade.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q174",
+    "text": "The commute, the meetings, the emails no one thanks you for: it's a lot of quiet effort, and it counts.",
+    "circumstances": ["worker"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q175",
+    "text": "The work will still be there tomorrow. Tonight, you get to be a person, not a job.",
+    "circumstances": ["worker", "overwhelmed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q176",
+    "text": "Living with an illness people can't see means explaining yourself a lot. You don't owe anyone proof of how you feel.",
+    "circumstances": ["patient"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q177",
+    "text": "Waiting for results is a heavy kind of waiting. Whatever gets you through it, company, distraction or quiet, is fine.",
+    "circumstances": ["patient", "caregiver"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q178",
+    "text": "In case nobody has said it today: it's good that you're here.",
+    "circumstances": ["other", "living_alone"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q179",
+    "text": "At family events, it's okay to need a quiet corner, some fresh air, or an early night.",
+    "circumstances": ["other", "overwhelmed"],
+    "eventTypes": ["family_event"],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q180",
+    "text": "A cup of something warm, a window, a minute to yourself. Small comforts are still comforts.",
+    "circumstances": ["other", "overwhelmed", "living_alone"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
     "id": "qfr001",
     "text": "Tu n'as pas à réussir ta journée. Juste à la traverser, à ton rythme.",
-    "circumstances": ["other", "worker", "student", "parent"],
+    "circumstances": ["other", "worker", "student", "parent", "overwhelmed"],
     "eventTypes": ["other"],
     "mood": "comfort",
     "language": "fr"
@@ -658,7 +1458,7 @@
   {
     "id": "qfr003",
     "text": "Le chagrin ne s'en va pas sur commande. Il a le droit de rester aussi longtemps qu'il en a besoin.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -666,7 +1466,7 @@
   {
     "id": "qfr004",
     "text": "Se reposer, ce n'est pas abandonner. C'est prendre soin de la seule personne qu'on ne peut pas remplacer.",
-    "circumstances": ["worker", "parent", "patient"],
+    "circumstances": ["worker", "parent", "patient", "caregiver"],
     "eventTypes": ["medical_appointment"],
     "mood": "encouragement",
     "language": "fr"
@@ -698,7 +1498,7 @@
   {
     "id": "qfr008",
     "text": "Être parent, c'est mille gestes d'amour invisibles chaque jour. Quelqu'un les remarque, même si c'est juste toi.",
-    "circumstances": ["parent"],
+    "circumstances": ["parent", "new_parent"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "fr"
@@ -706,7 +1506,7 @@
   {
     "id": "qfr009",
     "text": "Guérir n'est pas une ligne droite. Un jour difficile n'efface pas les bons jours d'avant.",
-    "circumstances": ["patient", "widowed"],
+    "circumstances": ["patient", "widowed", "grieving"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -746,7 +1546,7 @@
   {
     "id": "qfr014",
     "text": "S'ennuyer de quelqu'un, c'est la preuve qu'on l'a bien aimé.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -794,7 +1594,7 @@
   {
     "id": "qfr020",
     "text": "Tu n'es pas en retard. Tu es exactement là où quelqu'un qui a vécu ta vie en serait.",
-    "circumstances": ["student", "worker", "other"],
+    "circumstances": ["student", "worker", "other", "job_searching"],
     "eventTypes": ["exam", "job_interview"],
     "mood": "encouragement",
     "language": "fr"
@@ -802,7 +1602,7 @@
   {
     "id": "qfr021",
     "text": "Le silence après une perte a sa propre voix. Tu peux t'asseoir avec lui un moment.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -810,7 +1610,7 @@
   {
     "id": "qfr022",
     "text": "Un simple appel, un simple bonjour, peut changer toute une journée. Tu n'es qu'à un message de te sentir moins seul.",
-    "circumstances": ["living_alone", "other"],
+    "circumstances": ["living_alone", "other", "far_from_home"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "fr"
@@ -842,7 +1642,7 @@
   {
     "id": "qfr026",
     "text": "L'amour que tu as donné à quelqu'un ne s'arrête pas quand cette personne s'en va.",
-    "circumstances": ["widowed"],
+    "circumstances": ["widowed", "grieving"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -906,7 +1706,7 @@
   {
     "id": "qfr034",
     "text": "Une maison peut être silencieuse et rester pleine de l'amour qui l'a construite.",
-    "circumstances": ["living_alone", "widowed"],
+    "circumstances": ["living_alone", "widowed", "older_adult"],
     "eventTypes": ["grief_anniversary", "family_event"],
     "mood": "warmth",
     "language": "fr"
@@ -914,7 +1714,7 @@
   {
     "id": "qfr035",
     "text": "Tu fais quelque chose de difficile et de beau, même les jours où ça ne ressemble à aucun des deux.",
-    "circumstances": ["parent", "worker", "patient"],
+    "circumstances": ["parent", "worker", "patient", "caregiver"],
     "eventTypes": ["medical_appointment", "family_event"],
     "mood": "comfort",
     "language": "fr"
@@ -930,7 +1730,7 @@
   {
     "id": "qfr037",
     "text": "Tu ne dois une mine courageuse à personne aujourd'hui. La douceur est permise.",
-    "circumstances": ["patient", "widowed", "other"],
+    "circumstances": ["patient", "widowed", "other", "grieving"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -957,6 +1757,806 @@
     "circumstances": ["other", "living_alone", "parent", "worker", "student"],
     "eventTypes": ["family_event", "other"],
     "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr041",
+    "text": "Tu connais par cœur ses horaires, ses goûts, ses mauvais jours. C'est une forme d'amour très précise.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr042",
+    "text": "Garder un petit bout de vie à toi — un café, une série, une heure de calme — ce n'est pas abandonner l'autre.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr043",
+    "text": "Il arrive d'en vouloir à la situation, et même parfois à la personne qu'on soigne. Ça ne fait pas de toi quelqu'un de mauvais.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr044",
+    "text": "Tu peux pleurer la personne d'avant tout en aimant celle qui est là aujourd'hui.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr045",
+    "text": "Accepter qu'un voisin fasse les courses ou qu'un proche prenne le relais un dimanche, c'est encore prendre soin.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr046",
+    "text": "Être la personne solide pour tout le monde, c'est épuisant. Ici, tu peux poser ce rôle une minute.",
+    "circumstances": ["caregiver", "parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr047",
+    "text": "Pas besoin de perfection pour bien prendre soin de quelqu'un. Ta présence, avec ses limites, suffit déjà.",
+    "circumstances": ["caregiver", "parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr048",
+    "text": "Ce rôle, tu ne l'as pas forcément choisi. Tu l'assumes quand même, jour après jour, et c'est immense.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr049",
+    "text": "Les nuits hachées, les appels du matin, les papiers à remplir : ta fatigue a de bonnes raisons d'exister.",
+    "circumstances": ["caregiver", "overwhelmed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr050",
+    "text": "Prendre soin de ses parents quand ils vieillissent, c'est voir les rôles s'inverser. C'est normal que ce soit déroutant.",
+    "circumstances": ["caregiver"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr051",
+    "text": "On dit « faire son deuil », comme s'il fallait le terminer. Mais le deuil n'est pas un devoir à rendre.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr052",
+    "text": "Quand on te demande si ça va mieux, tu peux répondre : pas encore. C'est une réponse honnête.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr053",
+    "text": "Son numéro dans ton téléphone, sa veste dans l'entrée : rien ne presse. Le moment, c'est toi qui le choisiras.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr054",
+    "text": "Allumer une bougie, écrire une lettre ou juste penser à cette personne en silence : chaque façon de se souvenir est la bonne.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr055",
+    "text": "Le chagrin surgit parfois au supermarché, devant un produit que cette personne aimait. Tu n'as pas à t'en excuser.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr056",
+    "text": "Perdre quelqu'un qu'on aime change la forme des jours. C'est normal que tout semble à réapprendre.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr057",
+    "text": "La tristesse n'a pas besoin d'être rangée pour faire plaisir aux autres.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr058",
+    "text": "Ce que cette personne t'a appris — ses expressions, ses recettes, sa façon de rire — continue de vivre à travers toi.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr059",
+    "text": "On te dira peut-être qu'il faut avancer. Tu avances déjà, à ton rythme, en gardant cette personne dans ton cœur.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr060",
+    "text": "Certains jours, l'absence prend toute la place. Ces jours-là, arriver jusqu'au soir suffit largement.",
+    "circumstances": ["grieving", "widowed"],
+    "eventTypes": ["grief_anniversary"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr061",
+    "text": "Les dimanches sans l'autre peuvent sembler étranges. Tu peux les remplir ou les laisser vides, comme tu le sens.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr062",
+    "text": "Tu n'as pas à choisir tout de suite ce que tu ressens : colère, tristesse, soulagement, ou tout à la fois.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr063",
+    "text": "Changer le nom sur la boîte aux lettres, partager les amis, les meubles, les souvenirs : chaque petite étape demande du courage.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr064",
+    "text": "Tu as le droit de ne pas raconter ta séparation à tout le monde. Ton histoire t'appartient.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr065",
+    "text": "Tu restes une personne digne d'amour, avec ou sans quelqu'un à tes côtés.",
+    "circumstances": ["breakup", "living_alone"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr066",
+    "text": "La maison est plus calme, le lit plus grand. Il faut du temps pour que le silence redevienne doux.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr067",
+    "text": "On peut avoir mis fin à une histoire et en être triste quand même. Décider n'empêche pas d'avoir du chagrin.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr068",
+    "text": "Aujourd'hui, tu n'as rien à réparer, ni ton histoire, ni ton cœur.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr069",
+    "text": "Fêtes, vacances, anniversaires en deux maisons : tout demande plus d'organisation et plus de cœur. Ce que tu fais pour tes enfants compte.",
+    "circumstances": ["breakup", "parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr070",
+    "text": "Si tu as envie de lui écrire à minuit, tu n'es pas la seule personne à ressentir ça. Le manque fait partie du chemin.",
+    "circumstances": ["breakup"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr071",
+    "text": "Les conseils pleuvent de tous les côtés. Garde ceux qui t'aident, et laisse les autres glisser.",
+    "circumstances": ["new_parent", "parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr072",
+    "text": "Ton bébé n'a pas besoin d'un parent parfait. Il a besoin de toi, avec tes bras, ta voix, tes hésitations.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr073",
+    "text": "Nuits courtes, journées sans fin : si tout te semble flou en ce moment, ça ne dit rien de ce que tu vaux comme parent.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr074",
+    "text": "Une berceuse fredonnée faux à 4 h du matin reste une très belle berceuse.",
+    "circumstances": ["new_parent", "parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr075",
+    "text": "Ton corps a traversé beaucoup, ou ton cœur, ou les deux. Accorde-toi la même douceur que celle que tu donnes à ton bébé.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr076",
+    "text": "Chercher un prénom, libérer une étagère, imaginer un visage : attendre un enfant, c'est déjà lui faire une place.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr077",
+    "text": "Pleurer en même temps que ton bébé, certains jours, ne fait pas de toi un mauvais parent. Juste un parent qui a besoin de repos.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr078",
+    "text": "Une sieste réussie, un repas chaud, une douche : en ce moment, les grandes victoires ont l'air minuscules.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr079",
+    "text": "La maison est sens dessus dessous ? Elle est surtout pleine de vie. Le reste attendra.",
+    "circumstances": ["new_parent", "parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr080",
+    "text": "Les premiers mois ne ressemblent pas toujours aux photos. Si les tiens sont plus durs que prévu, tu n'as rien raté.",
+    "circumstances": ["new_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr081",
+    "text": "Avoir deux pays dans le cœur, ce n'est pas appartenir à moitié. C'est appartenir deux fois.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr082",
+    "text": "Ton accent raconte d'où tu viens. Il n'a rien à cacher : il fait partie de ta voix.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr083",
+    "text": "Les papiers, les files d'attente, les démarches dans une autre langue : tout demande deux fois plus d'énergie. Ta fatigue est légitime.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr084",
+    "text": "Les jours de fête, la distance pèse plus lourd. Ce manque dit à quel point tu tiens aux tiens.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr085",
+    "text": "Le décalage horaire n'empêche pas l'amour de passer. Un message reçu à une drôle d'heure réchauffe quand même.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr086",
+    "text": "Partir demande du courage. Rester loin, jour après jour, en demande encore plus. Tu en as.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr087",
+    "text": "Un appel à la famille, même court, même bruyant, même coupé trois fois, reste un fil précieux.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr088",
+    "text": "Réviser loin de ta famille, sans les bons petits plats ni les encouragements du salon, demande une force discrète. Tu l'as.",
+    "circumstances": ["far_from_home", "student"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr089",
+    "text": "Le mal du pays n'a rien de ridicule, même après des années. Certaines racines tirent doucement, toute une vie.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr090",
+    "text": "Tu peux pleurer en raccrochant et sourire le lendemain. La distance a ses vagues, et tu sais les traverser.",
+    "circumstances": ["far_from_home"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr091",
+    "text": "L'angoisse parle fort, mais elle n'a pas toujours raison. Tu peux l'écouter sans la croire sur parole.",
+    "circumstances": ["overwhelmed"],
+    "eventTypes": ["exam", "job_interview"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr092",
+    "text": "« Il faut », « je dois », « je devrais » : et si tu en rayais un ou deux, rien qu'aujourd'hui ?",
+    "circumstances": ["overwhelmed", "worker", "parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr093",
+    "text": "La tête pleine, le cœur serré, la liste qui déborde : ce n'est pas un défaut de caractère, c'est une charge trop lourde.",
+    "circumstances": ["overwhelmed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr094",
+    "text": "Rien ne t'oblige à tout porter aujourd'hui. Ce qui peut attendre demain a le droit d'attendre.",
+    "circumstances": ["overwhelmed", "worker"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr095",
+    "text": "Une journée moyenne, faite à moitié, reste une journée vécue. Ce n'est pas une note, c'est la vie.",
+    "circumstances": ["overwhelmed", "other"],
+    "eventTypes": ["other"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr096",
+    "text": "La nuit grossit les soucis. Au matin, ils ont souvent repris une taille plus raisonnable.",
+    "circumstances": ["overwhelmed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr097",
+    "text": "Tu as le droit de dire « pas maintenant » au téléphone, aux messages, aux demandes. Ton calme compte aussi.",
+    "circumstances": ["overwhelmed", "worker", "caregiver"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr098",
+    "text": "Avancer en tremblant, c'est avancer quand même.",
+    "circumstances": ["overwhelmed", "other"],
+    "eventTypes": ["exam", "job_interview", "medical_appointment"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr099",
+    "text": "Ralentir n'est pas reculer. C'est parfois la façon la plus sûre d'avancer.",
+    "circumstances": ["overwhelmed", "other"],
+    "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr100",
+    "text": "Les journées trop pleines finissent, elles aussi. Ce soir, celle-ci sera derrière toi.",
+    "circumstances": ["overwhelmed", "worker", "parent", "student"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr101",
+    "text": "Un « non » reçu par mail ne sait rien de toi : ni ta gentillesse, ni tes efforts, ni tout ce que tu as déjà traversé.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr102",
+    "text": "Chercher du travail, c'est un travail à plein temps, sans salaire ni collègues. Pas étonnant que ce soit si fatigant.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr103",
+    "text": "Entre deux candidatures, tu as le droit de vivre : voir quelqu'un, marcher, rire un peu. Ce n'est pas du temps perdu.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr104",
+    "text": "Une invitation à un entretien, c'est déjà quelqu'un qui a vu quelque chose en toi.",
+    "circumstances": ["job_searching", "worker", "student"],
+    "eventTypes": ["job_interview"],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr105",
+    "text": "Tu n'es pas ton statut. « En recherche d'emploi » décrit un moment, pas une personne.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr106",
+    "text": "Les « Alors, ça avance ? » des proches peuvent peser lourd. Tu ne leur dois pas un bilan à chaque repas.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr107",
+    "text": "Compter chaque dépense fatigue autant que la recherche elle-même. Si tu es à bout, ce n'est pas un manque de volonté.",
+    "circumstances": ["job_searching", "overwhelmed"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr108",
+    "text": "Recommencer à zéro à 25, 40 ou 55 ans demande le même courage. Le tien compte, quel que soit ton âge.",
+    "circumstances": ["job_searching", "worker"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr109",
+    "text": "Chaque candidature envoyée est un petit acte d'espoir, et l'espoir, ça demande du cran.",
+    "circumstances": ["job_searching"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr110",
+    "text": "Après un entretien, on refait souvent le film dans sa tête. Tu peux appuyer sur pause : tu as fait de ton mieux.",
+    "circumstances": ["job_searching", "worker", "student"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr111",
+    "text": "Les journées sont peut-être plus calmes, mais tu y mets encore ta façon unique de voir le monde.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr112",
+    "text": "Avoir besoin d'un peu plus d'aide qu'avant n'enlève rien à ta dignité.",
+    "circumstances": ["older_adult", "patient"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr113",
+    "text": "Ton coup de fil du dimanche, ta carte d'anniversaire, ta recette transmise : ces gestes-là restent longtemps dans les cœurs.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr114",
+    "text": "Le temps passe vite, dit-on. Toi, tu as le droit de le prendre.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr115",
+    "text": "Les jours où les douleurs sont plus présentes, ton courage est là aussi, même s'il ne fait pas de bruit.",
+    "circumstances": ["older_adult", "patient"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr116",
+    "text": "Il n'y a pas d'âge pour apprendre, s'émerveiller ou se faire de nouveaux amis.",
+    "circumstances": ["older_adult", "living_alone"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr117",
+    "text": "Le bruit de la rue, le bonjour du facteur, l'odeur du pain : les petites choses du quotidien tiennent aussi compagnie.",
+    "circumstances": ["older_adult", "living_alone"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr118",
+    "text": "La retraite bouleverse les habitudes. Trouver un nouveau rythme prend du temps, et c'est bien normal.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr119",
+    "text": "Ton âge n'est pas une date de péremption. Tes envies, tes projets, tes rires ont toute leur place aujourd'hui.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr120",
+    "text": "Quitter sa maison pour un lieu plus adapté, c'est un vrai déménagement du cœur. Prends le temps d'y faire ton nid.",
+    "circumstances": ["older_adult"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr121",
+    "text": "Dans une foule ou dans le silence de ta chambre, ta foi a la même valeur.",
+    "circumstances": ["religious"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr122",
+    "text": "Le repos aussi peut être sacré. Une pause, c'est parfois une façon de faire confiance.",
+    "circumstances": ["religious", "overwhelmed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr123",
+    "text": "L'espérance n'est pas l'absence de nuit. C'est une petite lumière qu'on garde allumée au fond de soi.",
+    "circumstances": ["religious", "other"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr124",
+    "text": "Les fêtes religieuses peuvent réchauffer le cœur ou raviver un manque. Les deux ont leur place dans une vie de foi.",
+    "circumstances": ["religious", "grieving", "far_from_home"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr125",
+    "text": "Ta solitude ne dit rien de ta valeur. Elle dit seulement comment ta vie est faite en ce moment.",
+    "circumstances": ["living_alone", "breakup"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr126",
+    "text": "Personne ne t'a demandé comment s'est passée ta journée ? Elle compte quand même, et toi aussi.",
+    "circumstances": ["living_alone", "older_adult"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr127",
+    "text": "Tu peux aimer ta tranquillité et avoir envie de compagnie, parfois le même jour.",
+    "circumstances": ["living_alone"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr128",
+    "text": "Changer un nom sur un contrat, résilier un abonnement à son nom : ces démarches rouvrent la blessure. Tout peut se faire doucement.",
+    "circumstances": ["widowed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr129",
+    "text": "Dormir d'un seul côté du lit par habitude, c'est encore une façon de lui garder sa place.",
+    "circumstances": ["widowed"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr130",
+    "text": "Se sentir coupable de tout est presque un réflexe de parent. Tu fais pourtant beaucoup plus de bien que tu ne le crois.",
+    "circumstances": ["parent"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr131",
+    "text": "Quand tes enfants grandissent et s'éloignent un peu, ton amour continue de les accompagner, même à distance.",
+    "circumstances": ["parent", "older_adult"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr132",
+    "text": "Étudier et travailler en même temps, c'est mener deux vies. Ce que tu accomplis mérite d'être reconnu, à commencer par toi.",
+    "circumstances": ["student", "worker"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr133",
+    "text": "Quel que soit le résultat, le travail que tu as fourni a déjà changé quelque chose en toi.",
+    "circumstances": ["student"],
+    "eventTypes": ["exam"],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr134",
+    "text": "Tu n'es pas une machine. Les jours moins productifs font aussi partie d'une vie de travail honnête.",
+    "circumstances": ["worker", "overwhelmed"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr135",
+    "text": "Même si ton travail ne se remarque que quand il manque, il compte énormément.",
+    "circumstances": ["worker"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr136",
+    "text": "Dans une salle d'attente, tu n'es ni un dossier ni un numéro. Tu es une personne, avec ton histoire.",
+    "circumstances": ["patient", "older_adult"],
+    "eventTypes": ["medical_appointment"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr137",
+    "text": "Les jours avec et les jours sans se suivent sans prévenir. Tu n'y es pour rien.",
+    "circumstances": ["patient"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr138",
+    "text": "Ta gentillesse laisse des traces, même là où tu ne regardes pas.",
+    "circumstances": ["other"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr139",
+    "text": "Le monde est un peu plus doux parce que tu y es.",
+    "circumstances": ["other", "living_alone"],
+    "eventTypes": ["other"],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr140",
+    "text": "Les réunions de famille mêlent souvent rires, souvenirs et petites tensions. Tout ce que tu ressens avant ou après a sa place.",
+    "circumstances": ["other", "breakup", "parent"],
+    "eventTypes": ["family_event"],
+    "mood": "gentle",
     "language": "fr"
   },
   {

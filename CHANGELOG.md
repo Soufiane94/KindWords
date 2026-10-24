@@ -1028,3 +1028,46 @@ reload picks it up.
   four languages. The French, Spanish and Darija ones were written by
   Claude; the "Needs native review" items for those files (ROADMAP.md, 9B)
   cover them.
+
+### 9J — Kind words for every circumstance
+**No new EAS dev-client build needed:** only `quotes.json` changed, a Metro
+reload picks it up.
+
+- 100 new quotes in English (q081–q180) and 100 in French (qfr041–qfr140):
+  180 English and 140 French in all. Each language was written on its own,
+  not translated from the other.
+- Eight circumstances had no quote in any language (caregiver, grieving,
+  breakup, new parent / expecting, far from home, anxious or overwhelmed,
+  job searching, older adult / retired), so someone who picked only those
+  got the generic ones. Each now has 10 quotes written for it per language,
+  more through shared tags (13 to 25 in English, 11 to 17 in French). The
+  other 20 per language go to the older circumstances, the thinnest
+  (religious, living alone) first.
+- 42 older quotes (29 English, 13 French) got one of the new tags where
+  they clearly fit: the general grief quotes tagged `widowed` now have
+  `grieving` too, the interview ones `job_searching`, and so on. No text or
+  id changed.
+- Event types: event kind words are picked by event type alone, whatever
+  the user's circumstances, and come both before and after the event. So a
+  new quote only has an event type when it suits anyone with that event,
+  on either day; one written for a single situation (a baby, a breakup)
+  has `eventTypes: []` and never comes as an event's kind word. With the
+  event type `other`, as the older ones have, a new parent's quote could
+  have come before anyone's "other" event.
+- Only quotes that fit anyone have the circumstance `other`, since Send >
+  "Another one" picks from them.
+- The French ones fit any reader: nothing agrees with "tu" (seul/seule,
+  prêt/prête), where six older ones use the masculine (listed in 9B).
+- Religious quotes stay faith-neutral (prayer, faith, hope; no tradition's
+  own words) until the 9B decision. Moods are balanced across the four, so
+  the check-in still has enough to lean on.
+- Checked with a one-off script (not kept): unique ids and texts, every tag
+  a real circumstance or event type, French spacing before ":" and "?", and
+  length. The longest new quote has 138 characters; the widget shrinks text
+  that doesn't fit its six lines.
+- Found on the way, now in 9B: q003 is close to a well-known line credited
+  to Jamie Anderson (2014).
+
+Not done: Spanish and Darija quotes for the eight newer circumstances
+(backlog). All 200 new quotes need the 9B review before release: a native
+speaker for the French, and the sensitivity read for both languages.
