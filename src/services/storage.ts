@@ -4,7 +4,7 @@
 // key starts with "kindwords:", which "Delete all my data" relies on.
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { WorldId, WORLD_OPTIONS, DEFAULT_WORLD_ID } from '../data/worlds';
+import { WorldId, WORLD_OPTIONS, DEFAULT_WORLD_ID, DAILY_WORLD_IDS } from '../data/worlds';
 import { Language, isSupportedLanguage } from '../data/languages';
 import type { CheckInMood } from '../data/checkIn';
 import type { NoteKind } from '../data/noteKinds';
@@ -19,6 +19,8 @@ const KEYS = {
   EVENTS: 'kindwords:events',
   FAVORITES: 'kindwords:favorites',
   THEME: 'kindwords:theme',
+  WORLD_DAY: 'kindwords:worldDay',
+  DAILY_WORLD: 'kindwords:dailyWorld',
   HIDDEN_QUOTES: 'kindwords:hiddenQuotes',
   QUOTE_FEEDBACK: 'kindwords:quoteFeedback',
   SNOOZE_UNTIL: 'kindwords:snoozeUntil',
@@ -397,8 +399,44 @@ export async function getWorldId(): Promise<WorldId> {
   return isValid ? (value as WorldId) : DEFAULT_WORLD_ID;
 }
 
-export async function setWorldId(id: WorldId): Promise<void> {
-  await AsyncStorage.setItem(KEYS.THEME, id);
+// A new look each day: nobody picks a world. The first time the app is
+// opened on a new day, a world is picked at random (never Simple, never the
+// same as the day before) and kept until the next day. Returns it, and
+// whether it was just picked. Off, Simple stays, every day.
+export async function pickTodaysWorld(): Promise<{ worldId: WorldId; isNew: boolean }> {
+  const [[, saved], [, day], [, daily]] = await AsyncStorage.multiGet([
+    KEYS.THEME,
+    KEYS.WORLD_DAY,
+    KEYS.DAILY_WORLD,
+  ]);
+  if (daily === 'false') return { worldId: DEFAULT_WORLD_ID, isNew: false };
+  const today = todayISO();
+  // Simple, or a world chosen back when worlds were picked, gives way to a
+  // world of the day.
+  const current = DAILY_WORLD_IDS.find((id) => id === saved);
+  if (current && day === today) return { worldId: current, isNew: false };
+  const choices = DAILY_WORLD_IDS.filter((id) => id !== current);
+  const worldId = choices[Math.floor(Math.random() * choices.length)];
+  await AsyncStorage.multiSet([
+    [KEYS.THEME, worldId],
+    [KEYS.WORLD_DAY, today],
+  ]);
+  return { worldId, isNew: true };
+}
+
+// "A new look each day": on unless turned off.
+export async function getDailyWorld(): Promise<boolean> {
+  const value = await AsyncStorage.getItem(KEYS.DAILY_WORLD);
+  return value !== 'false';
+}
+
+// Turned off, Simple is saved as the world straight away, since the widget
+// reads it from storage. Turned back on, the next pickTodaysWorld() brings a
+// world at once.
+export async function setDailyWorld(on: boolean): Promise<void> {
+  const pairs: [string, string][] = [[KEYS.DAILY_WORLD, on ? 'true' : 'false']];
+  if (!on) pairs.push([KEYS.THEME, DEFAULT_WORLD_ID]);
+  await AsyncStorage.multiSet(pairs);
 }
 
 // "Plain font" (9C): keeps the world's colors and decorations but shows all
@@ -448,8 +486,10 @@ export async function deleteAllData(): Promise<void> {
 }
 
 // What "Export my data" saves (9E): the user's own things and choices. Left
-// out on purpose: today's check-in (never kept past today), a pause, and the
-// widget's current quote, which only describe this moment. In a file being
+// out on purpose: today's check-in (never kept past today), a pause, the
+// widget's current quote and today's world, which only describe this
+// moment. (Older files also hold the world chosen back when worlds were
+// picked; it's ignored.) In a file being
 // imported, a setting is left undefined when it's missing or unusable, so
 // the phone keeps its own.
 export type BackupData = {
@@ -460,7 +500,7 @@ export type BackupData = {
   quoteFeedback: QuoteFeedback;
   circumstances?: string[];
   notificationSettings?: NotificationSettings;
-  worldId?: WorldId;
+  dailyWorld?: boolean;
   plainFont?: boolean;
   uiLanguage?: Language;
   quoteLanguage?: Language;
@@ -476,7 +516,7 @@ export async function readBackupData(): Promise<BackupData> {
     quoteFeedback,
     circumstances,
     notificationSettings,
-    worldId,
+    dailyWorld,
     plainFont,
     uiLanguage,
     quoteLanguage,
@@ -489,7 +529,7 @@ export async function readBackupData(): Promise<BackupData> {
     getQuoteFeedback(),
     getCircumstances(),
     getNotificationSettings(),
-    getWorldId(),
+    getDailyWorld(),
     getPlainFont(),
     getUiLanguage(),
     getQuoteLanguage(),
@@ -503,7 +543,7 @@ export async function readBackupData(): Promise<BackupData> {
     quoteFeedback,
     circumstances,
     notificationSettings,
-    worldId,
+    dailyWorld,
     plainFont,
     uiLanguage,
     quoteLanguage,
@@ -556,7 +596,11 @@ export async function restoreBackupData(backup: BackupData): Promise<void> {
   if (backup.notificationSettings) {
     pairs.push([KEYS.NOTIFICATION_SETTINGS, JSON.stringify(backup.notificationSettings)]);
   }
-  if (backup.worldId) pairs.push([KEYS.THEME, backup.worldId]);
+  if (backup.dailyWorld !== undefined) {
+    pairs.push([KEYS.DAILY_WORLD, String(backup.dailyWorld)]);
+    // Off means Simple, which the widget reads from here (see setDailyWorld).
+    if (!backup.dailyWorld) pairs.push([KEYS.THEME, DEFAULT_WORLD_ID]);
+  }
   if (backup.plainFont !== undefined) pairs.push([KEYS.PLAIN_FONT, String(backup.plainFont)]);
   if (backup.uiLanguage) pairs.push([KEYS.UI_LANGUAGE, backup.uiLanguage]);
   if (backup.quoteLanguage) pairs.push([KEYS.QUOTE_LANGUAGE, backup.quoteLanguage]);

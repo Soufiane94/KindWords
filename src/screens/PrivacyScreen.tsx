@@ -35,7 +35,7 @@ const POINTS = ['stays', 'leaves', 'backup', 'notifications'] as const;
 export default function PrivacyScreen({ navigation, onDataDeleted }: Props) {
   // Stops a second tap from starting anything while one action is running.
   const [busy, setBusy] = useState(false);
-  const { world, setWorldId, setPlainFont, resetTheme } = useTheme();
+  const { world, setDailyWorld, setPlainFont, resetTheme } = useTheme();
   const { t } = useTranslation();
   const language = useUiLanguage();
   const styles = useMemo(() => createStyles(world), [world]);
@@ -82,7 +82,7 @@ export default function PrivacyScreen({ navigation, onDataDeleted }: Props) {
   async function importBackup(data: PickedBackup['data']) {
     await restoreBackupData(data);
     // The app takes on the file's look and languages straight away.
-    if (data.worldId) await setWorldId(data.worldId);
+    if (data.dailyWorld !== undefined) await setDailyWorld(data.dailyWorld);
     if (data.plainFont !== undefined) await setPlainFont(data.plainFont);
     if (data.uiLanguage) await i18n.changeLanguage(data.uiLanguage);
     refreshKindWordWidget();

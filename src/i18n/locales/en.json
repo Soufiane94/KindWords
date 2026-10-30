@@ -19,8 +19,6 @@
   "onboarding": {
     "title": "Welcome to Kindwords",
     "subtitle": "Which of these feel like you right now? Pick as many as you like — this just helps us choose kinder words for you.",
-    "worldTitle": "Choose a world",
-    "worldSubtitle": "Tap one to try it, and keep whichever feels most like home. You can change it anytime in Settings.",
     "continue": "Continue"
   },
   "home": {
@@ -50,7 +48,8 @@
     "circumstancesTitle": "Your circumstances",
     "circumstancesSubtitle": "This changes which kind words show up around the app.",
     "appearanceTitle": "Appearance",
-    "appearanceSubtitle": "Pick whichever feels most like home.",
+    "dailyWorldLabel": "A new look each day",
+    "dailyWorldSubtitle": "Colors and decorations change by themselves each day, as a small surprise. Turn this off for a plain, calm look that stays the same.",
     "languageTitle": "Language",
     "uiLanguageLabel": "App language",
     "uiLanguageSubtitle": "What the app itself is written in.",
@@ -285,22 +284,6 @@
     "grief_anniversary": "Anniversary / grief day",
     "family_event": "Family event",
     "other": "Other"
-  },
-  "worlds": {
-    "simple": "Simple",
-    "nature": "Nature",
-    "space": "Space",
-    "medieval": "Medieval",
-    "desert": "Desert",
-    "ocean": "Ocean",
-    "cabin": "Cozy Cabin",
-    "garden": "Japanese Garden",
-    "storybook": "Storybook",
-    "winter": "Winter",
-    "meadow": "Sunrise Meadow",
-    "letters": "Letters & Ink",
-    "clouds": "Soft Clouds",
-    "quilt": "Patchwork Quilt"
   },
   "support": {
     "title": "Need to talk to someone?",

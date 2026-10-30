@@ -1,5 +1,6 @@
-// Settings screen: circumstances (Phase 1), appearance (Phase 4/5C, plus
-// the plain font from 9C), languages (Phase 6), notification preferences
+// Settings screen: circumstances (Phase 1), appearance ("A new look each
+// day", which replaced choosing a world, and the plain font from 9C),
+// languages (Phase 6), notification preferences
 // (Phase 2) — frequency, quiet hours, lock-screen visibility, gentle pacing
 // — personal touches (Phase 7): the daily check-in and undoing "not for
 // me" — and, at the bottom, quiet links to help pages (9C on).
@@ -38,7 +39,7 @@ import CircumstanceChip from '../components/CircumstanceChip';
 import SegmentedControl from '../components/SegmentedControl';
 import TimeRow from '../components/TimeRow';
 import WorldBackground from '../components/WorldBackground';
-import { useTheme, WORLD_OPTIONS, WorldId } from '../theme/ThemeContext';
+import { useTheme } from '../theme/ThemeContext';
 import { formatMomentDisplay, formatTimeDisplay } from '../i18n/dateNames';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
@@ -65,7 +66,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   const [quoteLanguage, setQuoteLanguageState] = useState<Language>('en');
   const [checkInEnabled, setCheckInEnabledState] = useState(true);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>({ kind: 'idle' });
-  const { world, colors, worldId, setWorldId, plainFont, setPlainFont } = useTheme();
+  const { world, colors, dailyWorld, setDailyWorld, plainFont, setPlainFont } = useTheme();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { t } = useTranslation();
   const language = useUiLanguage();
@@ -103,8 +104,8 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   // The home screen widget shows the world's colors and font and the chosen
   // languages, so it's redrawn whenever one of those changes (once saved,
   // since it reads them from storage).
-  async function handleWorldChange(id: WorldId) {
-    await setWorldId(id);
+  async function handleDailyWorldChange(on: boolean) {
+    await setDailyWorld(on);
     refreshKindWordWidget();
   }
 
@@ -275,19 +276,17 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
         <Text style={styles.sectionTitle} accessibilityRole="header">
           {t('settings.appearanceTitle')}
         </Text>
-        <Text style={styles.subtitle}>{t('settings.appearanceSubtitle')}</Text>
-        <View style={styles.chipRow}>
-          {WORLD_OPTIONS.map((w) => (
-            <CircumstanceChip
-              key={w.id}
-              label={t(`worlds.${w.id}`)}
-              emoji={w.emoji}
-              selected={worldId === w.id}
-              onPress={() => handleWorldChange(w.id)}
-            />
-          ))}
+        <View style={[styles.rowBetween, { marginTop: 12, marginBottom: 0 }]}>
+          <Text style={styles.toggleLabel}>{t('settings.dailyWorldLabel')}</Text>
+          <Switch
+            value={dailyWorld}
+            onValueChange={handleDailyWorldChange}
+            trackColor={{ true: colors.accent }}
+            accessibilityLabel={t('settings.dailyWorldLabel')}
+          />
         </View>
-        <View style={[styles.rowBetween, { marginTop: 16, marginBottom: 0 }]}>
+        <Text style={styles.subtitle}>{t('settings.dailyWorldSubtitle')}</Text>
+        <View style={[styles.rowBetween, { marginTop: 8, marginBottom: 0 }]}>
           <Text style={styles.toggleLabel}>{t('settings.plainFontLabel')}</Text>
           <Switch
             value={plainFont}

@@ -19,8 +19,6 @@
   "onboarding": {
     "title": "Mer7ba bik f Kindwords",
     "subtitle": "Chno kayshabah 7alek daba? Khtar kter men wa7ed — hadchi ghir bach ne3tawk klam a7sen.",
-    "worldTitle": "Khtar l3alam dyalek",
-    "worldSubtitle": "Dess 3la wa7ed bach tjerbo, w khelli li ye9rbek ktar. T9der tbeddlo f ay we9t f L3dadat.",
     "continue": "Kemmel"
   },
   "home": {
@@ -50,7 +48,8 @@
     "circumstancesTitle": "L7ala dyalek",
     "circumstancesSubtitle": "Hadchi kaybeddel chno ghadi tchouf f l app.",
     "appearanceTitle": "Chakl",
-    "appearanceSubtitle": "Khtar li ye9rbek ktar.",
+    "dailyWorldLabel": "Chakl jdid koul nhar",
+    "dailyWorldSubtitle": "L'alwan w zwa9 kaytbeddlo b rasshom koul nhar, bhal chi surprise sghira. Sedd hadi ila bghiti chakl basit w hani li ma kaytbeddelch.",
     "languageTitle": "Lougha",
     "uiLanguageLabel": "Lougha dyal l app",
     "uiLanguageSubtitle": "Lougha li biha mektoub l app.",
@@ -285,22 +284,6 @@
     "grief_anniversary": "3id dyal l7zen",
     "family_event": "7adath dyal l3ila",
     "other": "Akhor"
-  },
-  "worlds": {
-    "simple": "Basit",
-    "nature": "Tabi3a",
-    "space": "Fada",
-    "medieval": "Medyeval",
-    "desert": "Sahra",
-    "ocean": "Bhar",
-    "cabin": "Cabane",
-    "garden": "Jnan Japoni",
-    "storybook": "7ikaya",
-    "winter": "Chta",
-    "meadow": "Chare9",
-    "letters": "Bra w Stilou",
-    "clouds": "Sa7ab",
-    "quilt": "Lizar"
   },
   "support": {
     "title": "Bghiti tehder m3a chi wa7ed?",

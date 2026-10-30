@@ -5,7 +5,7 @@ alone, to bring a smile.
 
 **Current:** Phase 9 — Release readiness: everything but 9B is built; 9J
 and 9L added kind words for every circumstance in English and French, 9K a
-smiling icon.
+smiling icon, 9M a new look each day.
 **Next:** 9B (content review), the name decision (9A), and the checks on a
 phone listed under each sub-phase; then Phase 10.
 
@@ -150,7 +150,7 @@ in CHANGELOG.md.
   with "Alarms & reminders" off, after a reboot; the widget; the splash
   screen; a backup restore.
 
-### 9I — Choose a world in onboarding ✅
+### 9I — Choose a world in onboarding ✅ · replaced by 9M
 The welcome screen asks for a world too, under the circumstances, with the
 same chips as Settings; tapping one turns the screen into that world.
 Details in CHANGELOG.md.
@@ -176,6 +176,12 @@ missing a pet, depression or low days, and money worries, each with 10 new
 kind words in English and in French (q181–q240, qfr141–qfr200); 59 older
 quotes got one of the new tags where they clearly fit. Details in
 CHANGELOG.md.
+
+### 9M — A new look each day ✅
+Nobody picks a world anymore: a new one comes by itself each day, never
+Simple and never the same twice in a row. "A new look each day" in
+Settings > Appearance (on by default) can be turned off to stay in Simple.
+Details in CHANGELOG.md.
 
 ## Phase 10 — Android launch
 - Google Play: personal developer accounts created after November 13, 2023

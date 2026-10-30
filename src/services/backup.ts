@@ -10,7 +10,6 @@ import * as Sharing from 'expo-sharing';
 import { DEFAULT_NOTIFICATION_SETTINGS, readBackupData } from './storage';
 import type { BackupData, CalendarEvent, NotificationSettings, PersonalNote, QuoteFeedback } from './storage';
 import { todayISO } from './dates';
-import { WORLD_OPTIONS, WorldId } from '../data/worlds';
 import { NOTE_KINDS, NoteKind } from '../data/noteKinds';
 import { isSupportedLanguage } from '../data/languages';
 import i18n from '../i18n';
@@ -178,7 +177,6 @@ export function parseBackup(text: string): PickedBackup | null {
 
   const data = file.data;
   const circumstances = stringList(data.circumstances);
-  const worldId = WORLD_OPTIONS.find((option) => option.id === data.worldId)?.id;
   const exportedAt = isString(file.exportedAt) ? new Date(file.exportedAt) : null;
   return {
     exportedAt: exportedAt && !Number.isNaN(exportedAt.getTime()) ? exportedAt : null,
@@ -192,7 +190,7 @@ export function parseBackup(text: string): PickedBackup | null {
       quoteFeedback: toFeedback(data.quoteFeedback),
       circumstances: circumstances.length > 0 ? circumstances : undefined,
       notificationSettings: toSettings(data.notificationSettings),
-      worldId: worldId as WorldId | undefined,
+      dailyWorld: typeof data.dailyWorld === 'boolean' ? data.dailyWorld : undefined,
       plainFont: typeof data.plainFont === 'boolean' ? data.plainFont : undefined,
       uiLanguage: isSupportedLanguage(data.uiLanguage) ? data.uiLanguage : undefined,
       quoteLanguage: isSupportedLanguage(data.quoteLanguage) ? data.quoteLanguage : undefined,

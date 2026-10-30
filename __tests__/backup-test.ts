@@ -50,7 +50,7 @@ describe('reading a backup file', () => {
       hiddenQuotes: ['q2'],
       quoteFeedback: { moods: { gentle: 1 }, tags: { exam: 2 } },
       circumstances: ['student'],
-      worldId: 'nature',
+      dailyWorld: false,
       plainFont: true,
       uiLanguage: 'fr',
       quoteLanguage: 'es',
@@ -67,7 +67,7 @@ describe('reading a backup file', () => {
         notes: [NOTE, { id: 'n2', kind: 'diary', text: 'x', createdOn: '2026-10-01' }, 'junk'],
         events: [EVENT, { id: 'e2', title: 'No date', type: 'exam' }, { ...EVENT, id: 'e3', time: '25:99' }],
         quoteFeedback: { moods: { gentle: -1, comfort: 2 }, tags: 'junk' },
-        worldId: 'mars',
+        dailyWorld: 'sometimes',
         uiLanguage: 'klingon',
         notificationSettings: { enabled: true, times: ['nine'], quietHoursStart: '23:00' },
       })
@@ -78,10 +78,15 @@ describe('reading a backup file', () => {
       ['e3', undefined],
     ]);
     expect(parsed.data.quoteFeedback).toEqual({ moods: { comfort: 2 }, tags: {} });
-    expect(parsed.data.worldId).toBeUndefined();
+    expect(parsed.data.dailyWorld).toBeUndefined();
     expect(parsed.data.uiLanguage).toBeUndefined();
     // Usable settings are kept, the rest fall back to the defaults.
     expect(parsed.data.notificationSettings).toMatchObject({ enabled: true, times: ['09:00'], quietHoursStart: '23:00' });
+  });
+
+  test("an older file's chosen world is ignored: the world is a new one each day", () => {
+    const parsed = parseBackup(file({ worldId: 'nature' }))!;
+    expect(parsed.data).not.toHaveProperty('worldId');
   });
 });
 
@@ -114,9 +119,10 @@ describe('importing', () => {
 
   test("the file's settings replace the phone's; missing ones are left alone", async () => {
     const settings = { ...(await getNotificationSettings()), enabled: true, times: ['08:30'] };
-    await restoreBackupData({ ...backup, notificationSettings: settings, worldId: 'ocean' });
+    await restoreBackupData({ ...backup, notificationSettings: settings, dailyWorld: false });
     expect(await getNotificationSettings()).toMatchObject({ enabled: true, times: ['08:30'] });
-    expect(await AsyncStorage.getItem('kindwords:theme')).toBe('ocean');
+    expect(await AsyncStorage.getItem('kindwords:dailyWorld')).toBe('false');
+    expect(await AsyncStorage.getItem('kindwords:theme')).toBe('simple');
     expect(await AsyncStorage.getItem('kindwords:uiLanguage')).toBeNull();
   });
 });

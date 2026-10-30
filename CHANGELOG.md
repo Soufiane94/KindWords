@@ -1121,3 +1121,32 @@ reload picks it up.
 Not done: Spanish and Darija quotes for these six (backlog). More than any
 others, they need 9B's sensitivity read by people who have lived them
 (added to 9B).
+
+### 9M — A new look each day
+**No new EAS dev-client build needed:** plain JS and new strings, a Metro
+reload picks it up.
+
+- Nobody picks a world anymore: the first time the app is opened on a new
+  day, a world comes by itself, as a small surprise. It's drawn at random
+  from the 13 worlds other than Simple, never the same as the day before,
+  and stays all day. A new day is a new calendar date in local time, not
+  24 hours later.
+- The app checks when it starts and each time it comes back to the front,
+  so nothing changes while it's in use. A new world redraws the widget
+  too.
+- Settings > Appearance: the 14 world chips became one switch, "A new look
+  each day", on by default. Off, the app stays in Simple, the calm,
+  low-stimulation look, every day; turned back on, a world comes at once.
+  The plain font switch stays.
+- Onboarding is circumstances only again: 9I's "Choose a world" is gone,
+  and so are the world names in the locale files (`worlds.*`,
+  `onboarding.worldTitle` and `worldSubtitle`). A world someone chose
+  before gives way to a world of the day on the first open.
+- Backups: a file saves "A new look each day" instead of a world, and
+  importing it turns the switch on or off. A world in an older file is
+  ignored. Today's world isn't saved: like today's check-in, it only
+  describes the moment.
+- New tests in `__tests__/worlds-test.ts`: the world stays all day, 30 days
+  in a row each bring a different one and never Simple, off keeps Simple
+  and back on brings a world, an old chosen world gives way.
+  `backup-test.ts` covers the new setting and an older file's world.

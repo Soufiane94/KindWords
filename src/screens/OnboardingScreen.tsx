@@ -1,6 +1,6 @@
 // First screen a new user sees. Lets them pick one or more circumstances
-// so later screens can show quotes that feel relevant to their life, and a
-// world (9I), which the whole screen turns into as soon as it's tapped.
+// so later screens can show quotes that feel relevant to their life. No
+// world to choose: a new one comes by itself each day.
 
 import React, { useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
@@ -8,10 +8,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import { CIRCUMSTANCES } from '../data/circumstances';
 import { setCircumstances, setOnboardingDone } from '../services/storage';
-import { refreshKindWordWidget } from '../widget/widgetTaskHandler';
 import CircumstanceChip from '../components/CircumstanceChip';
 import WorldBackground from '../components/WorldBackground';
-import { useTheme, WORLD_OPTIONS, WorldId } from '../theme/ThemeContext';
+import { useTheme } from '../theme/ThemeContext';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
 
@@ -21,7 +20,7 @@ type Props = {
 
 export default function OnboardingScreen({ onDone }: Props) {
   const [selected, setSelected] = useState<string[]>([]);
-  const { world, worldId, setWorldId } = useTheme();
+  const { world } = useTheme();
   const { t } = useTranslation();
   const styles = useMemo(() => createStyles(world), [world]);
 
@@ -29,14 +28,6 @@ export default function OnboardingScreen({ onDone }: Props) {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
-  }
-
-  // Saved straight away, like in Settings, so this screen itself is the
-  // preview. The widget may already be on the home screen (after "Redo
-  // welcome setup"), so it's redrawn too.
-  async function handleWorldChange(id: WorldId) {
-    await setWorldId(id);
-    refreshKindWordWidget();
   }
 
   async function handleContinue() {
@@ -64,24 +55,6 @@ export default function OnboardingScreen({ onDone }: Props) {
               emoji={c.emoji}
               selected={selected.includes(c.id)}
               onPress={() => toggle(c.id)}
-            />
-          ))}
-        </View>
-
-        <View style={styles.divider} />
-
-        <Text style={styles.sectionTitle} accessibilityRole="header">
-          {t('onboarding.worldTitle')}
-        </Text>
-        <Text style={styles.subtitle}>{t('onboarding.worldSubtitle')}</Text>
-        <View style={styles.chipRow}>
-          {WORLD_OPTIONS.map((w) => (
-            <CircumstanceChip
-              key={w.id}
-              label={t(`worlds.${w.id}`)}
-              emoji={w.emoji}
-              selected={worldId === w.id}
-              onPress={() => handleWorldChange(w.id)}
             />
           ))}
         </View>
@@ -125,18 +98,6 @@ function createStyles(world: World) {
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'center',
-    },
-    divider: {
-      height: 1,
-      backgroundColor: colors.divider,
-      marginVertical: 28,
-    },
-    sectionTitle: {
-      fontSize: 20,
-      color: colors.primaryText,
-      marginBottom: 12,
-      textAlign: 'center',
-      ...headingFont(world),
     },
     footer: {
       padding: 24,

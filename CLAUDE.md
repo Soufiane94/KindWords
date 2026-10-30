@@ -28,7 +28,8 @@ users, especially people who feel alone. The goal is to bring a smile.
   attribution. No medical advice, no "everything happens for a reason",
   nothing that dismisses someone's pain.
 - Every world keeps quote text readable (enough contrast) and respects
-  reduce motion (from 9C on); "Simple" stays the low-stimulation world.
+  reduce motion (from 9C on); "Simple" stays the low-stimulation world,
+  the one shown every day when "A new look each day" is off (9M).
 - The safety-net page is quiet and optional, never a pop-up.
 
 ## Working rules
@@ -200,10 +201,15 @@ instead:
 ### Worlds and pictures
 - Colors always come from the active world via `ThemeContext` (`colors`,
   or `world` for fonts, background and card style), never hardcoded hex.
-- A world is an entry in `src/data/worlds.ts` plus its name in each locale
-  file; adding one needs no screen changes. Its optional file in
+- A world is an entry in `src/data/worlds.ts`; adding one needs no screen
+  changes or strings, and it joins the daily draw. Its optional file in
   `src/components/decorations/` holds the animated decorations (shown by
   `WorldBackground`) and a still version for pictures (`WorldFrame`).
+- A new look each day (9M): nobody picks a world. `pickTodaysWorld()`
+  (storage.ts) draws one per calendar day, never Simple and never the day
+  before's, when the app starts or comes to the front; nothing changes
+  while it's in use. The world of the day is saved under `kindwords:theme`,
+  which the widget reads.
 - Decorations are inline SVG/View shapes animated with plain `Animated`
   (`useNativeDriver`), kept light for battery. Prefer SVG and gradients
   drawn in code over image files, and check the license of any free asset

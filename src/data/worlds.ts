@@ -551,12 +551,13 @@ export const WORLDS: Record<WorldId, World> = {
   quilt,
 };
 
+// Shown before anything is saved, and every day when "A new look each day"
+// is turned off: Simple stays the calm, low-stimulation look.
 export const DEFAULT_WORLD_ID: WorldId = 'simple';
 
-// `name` on each World above is just a human-readable id for developers
-// reading this file — the label shown in the UI comes from the translation
-// files (src/i18n/locales, under "worlds") since Phase 6, looked up as
-// `worlds.${id}` with useTranslation() rather than read from here.
+// Nobody picks a world: a new one comes by itself each day (see
+// pickTodaysWorld in storage.ts), so `name` and `emoji` above are just for
+// developers reading this file.
 export const WORLD_OPTIONS: { id: WorldId; emoji: string }[] = [
   { id: 'simple', emoji: simple.emoji },
   { id: 'nature', emoji: nature.emoji },
@@ -573,3 +574,9 @@ export const WORLD_OPTIONS: { id: WorldId; emoji: string }[] = [
   { id: 'clouds', emoji: clouds.emoji },
   { id: 'quilt', emoji: quilt.emoji },
 ];
+
+// The worlds a new day can bring: all but Simple, which is kept for the
+// calm look.
+export const DAILY_WORLD_IDS: WorldId[] = WORLD_OPTIONS.map((option) => option.id).filter(
+  (id) => id !== DEFAULT_WORLD_ID
+);

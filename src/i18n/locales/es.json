@@ -19,8 +19,6 @@
   "onboarding": {
     "title": "Bienvenido a Kindwords",
     "subtitle": "¿Cuál de estas opciones se parece más a cómo te sientes ahora? Elige todas las que quieras — esto solo nos ayuda a elegir mejores palabras para ti.",
-    "worldTitle": "Elige un mundo",
-    "worldSubtitle": "Toca uno para probarlo y quédate con el que te haga sentir más en casa. Puedes cambiarlo cuando quieras en Ajustes.",
     "continue": "Continuar"
   },
   "home": {
@@ -50,7 +48,8 @@
     "circumstancesTitle": "Tu situación",
     "circumstancesSubtitle": "Esto cambia qué palabras amables aparecen en la app.",
     "appearanceTitle": "Apariencia",
-    "appearanceSubtitle": "Elige lo que más se sienta como en casa.",
+    "dailyWorldLabel": "Un aspecto nuevo cada día",
+    "dailyWorldSubtitle": "Los colores y la decoración cambian solos cada día, como una pequeña sorpresa. Desactiva esta opción para un aspecto sencillo y tranquilo que no cambia.",
     "languageTitle": "Idioma",
     "uiLanguageLabel": "Idioma de la app",
     "uiLanguageSubtitle": "El idioma en el que está escrita la app.",
@@ -285,22 +284,6 @@
     "grief_anniversary": "Aniversario / día de duelo",
     "family_event": "Evento familiar",
     "other": "Otro"
-  },
-  "worlds": {
-    "simple": "Simple",
-    "nature": "Naturaleza",
-    "space": "Espacio",
-    "medieval": "Medieval",
-    "desert": "Desierto",
-    "ocean": "Océano",
-    "cabin": "Cabaña acogedora",
-    "garden": "Jardín japonés",
-    "storybook": "Cuento de hadas",
-    "winter": "Invierno",
-    "meadow": "Pradera al amanecer",
-    "letters": "Cartas y tinta",
-    "clouds": "Nubes suaves",
-    "quilt": "Colcha de retazos"
   },
   "support": {
     "title": "¿Necesitas hablar con alguien?",

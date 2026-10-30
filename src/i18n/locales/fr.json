@@ -19,8 +19,6 @@
   "onboarding": {
     "title": "Bienvenue sur Kindwords",
     "subtitle": "Qu'est-ce qui te correspond en ce moment ? Choisis-en autant que tu veux — ça nous aide juste à te proposer des mots plus justes.",
-    "worldTitle": "Choisis un monde",
-    "worldSubtitle": "Touche un monde pour l'essayer, et garde celui où tu te sens le plus chez toi. Tu peux le changer quand tu veux dans Réglages.",
     "continue": "Continuer"
   },
   "home": {
@@ -50,7 +48,8 @@
     "circumstancesTitle": "Ta situation",
     "circumstancesSubtitle": "Ça change les mots doux qui apparaissent dans l'app.",
     "appearanceTitle": "Apparence",
-    "appearanceSubtitle": "Choisis ce qui te semble le plus chez toi.",
+    "dailyWorldLabel": "Un nouveau décor chaque jour",
+    "dailyWorldSubtitle": "Les couleurs et les décorations changent d'elles-mêmes chaque jour, comme une petite surprise. Désactive cette option pour un affichage simple et calme qui ne change pas.",
     "languageTitle": "Langue",
     "uiLanguageLabel": "Langue de l'app",
     "uiLanguageSubtitle": "La langue dans laquelle l'app elle-même est écrite.",
@@ -285,22 +284,6 @@
     "grief_anniversary": "Anniversaire / jour de deuil",
     "family_event": "Événement familial",
     "other": "Autre"
-  },
-  "worlds": {
-    "simple": "Simple",
-    "nature": "Nature",
-    "space": "Espace",
-    "medieval": "Médiéval",
-    "desert": "Désert",
-    "ocean": "Océan",
-    "cabin": "Cabane douillette",
-    "garden": "Jardin japonais",
-    "storybook": "Conte de fées",
-    "winter": "Hiver",
-    "meadow": "Prairie au levant",
-    "letters": "Lettres & Encre",
-    "clouds": "Nuages doux",
-    "quilt": "Courtepointe"
   },
   "support": {
     "title": "Besoin de parler à quelqu'un ?",
