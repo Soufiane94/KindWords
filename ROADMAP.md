@@ -4,7 +4,8 @@ Kindwords sends occasional warm, gentle kind words to people who may feel
 alone, to bring a smile.
 
 **Current:** Phase 9 — Release readiness: everything but 9B is built; 9J
-added 100 kind words each in English and French, 9K a smiling icon.
+and 9L added kind words for every circumstance in English and French, 9K a
+smiling icon.
 **Next:** 9B (content review), the name decision (9A), and the checks on a
 phone listed under each sub-phase; then Phase 10.
 
@@ -44,7 +45,9 @@ CHANGELOG.md.
   and UI strings per language to a CSV spreadsheet with a column for
   corrections, and a script that imports the corrections back.
 - A sensitivity read of all quotes by someone who has lived through grief
-  or illness.
+  or illness. The six newest circumstances (pregnancy loss, recovery from
+  addiction, depression or low days, money worries, single parent, missing
+  a pet) especially need readers who have lived them.
 - q003 ("Grief is just love with nowhere to go") is close to a well-known
   line credited to Jamie Anderson (2014), so it isn't original: reword or
   drop it.
@@ -62,7 +65,8 @@ CHANGELOG.md.
   `src/data/quotes.json`
 - [ ] Darija UI strings: `src/i18n/locales/ary.json`, plus the Darija day
   and month names in `src/i18n/dateNames.ts`
-- [ ] French quotes: the 140 `"language": "fr"` entries (100 new in 9J).
+- [ ] French quotes: the 200 `"language": "fr"` entries (100 new in 9J,
+  60 more for the six newest circumstances, qfr141–qfr200).
   The 40 older ones assume a male reader in qfr006, 007, 010, 015, 022 and
   032 (seul, oublié, levé…), and qfr014's "s'ennuyer de quelqu'un" is rare
   in France ("… te manque" is usual)
@@ -166,6 +170,13 @@ and Play's icon and feature graphic. Details in CHANGELOG.md.
   look at the icon on the home screen, with themed icons on (Android 13+),
   and at the splash in a preview or production build.
 
+### 9L — Six more circumstances ✅
+Single parent, in recovery from addiction, pregnancy loss or infertility,
+missing a pet, depression or low days, and money worries, each with 10 new
+kind words in English and in French (q181–q240, qfr141–qfr200); 59 older
+quotes got one of the new tags where they clearly fit. Details in
+CHANGELOG.md.
+
 ## Phase 10 — Android launch
 - Google Play: personal developer accounts created after November 13, 2023
   must run a closed test with at least 12 testers who stay opted in for 14
@@ -238,9 +249,11 @@ Accounts and sync:
 - The app keeps working fully offline without an account.
 
 ## Backlog (not scheduled)
-- Spanish and Darija quotes for the eight newer circumstances (caregiver,
-  grieving, breakup, new parent, far from home, overwhelmed, job searching,
-  older adult): only generic ones reach them for now — 9J.
+- Spanish and Darija quotes for the fourteen newer circumstances
+  (caregiver, grieving, breakup, new parent, far from home, overwhelmed,
+  job searching, older adult — 9J; single parent, recovery, pregnancy loss,
+  missing a pet, low mood, money worries): only generic ones reach them for
+  now.
 - Android notification action buttons (Snooze, Save, "Not today") — 5A, 7D.
 - Per-world tab icon style and button shape — 5C.
 - Darija in Arabic script, with RTL layout and an Arabic-script font — 6.

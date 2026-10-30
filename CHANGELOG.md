@@ -1094,3 +1094,30 @@ app. As in 9H, judge the splash in a preview or production build.
   favorite, it isn't the logo.
 
 Not done: seeing it on a phone, which needs the new build.
+
+### 9L — Six more circumstances
+**No new EAS dev-client build needed:** data and new strings only, a Metro
+reload picks it up.
+
+- Six new circumstances: single parent, in recovery from addiction,
+  pregnancy loss or infertility, missing a pet, depression or low days,
+  and money worries (22 in all). Each sits next to the one it's closest
+  to, so related situations are found together; pregnancy loss sits with
+  the griefs, away from "New parent / expecting".
+- 120 new quotes: 60 in English (q181–q240) and 60 in French
+  (qfr141–qfr200), 10 written for each new circumstance in each language,
+  each language on its own. With shared tags, each new circumstance has 15
+  to 18 quotes in English and 13 to 16 in French.
+- 59 older quotes (35 English, 24 French) got one of the new tags where
+  they clearly fit: general grief quotes now also reach pregnancy loss or
+  missing a pet, parenting ones single parents, worry ones money worries
+  or low days. No text or id changed.
+- Following 9J's rules, none of the new quotes has an event type or the
+  circumstance `other`, since each was written for one situation. Moods
+  are spread across all four; the longest has 129 characters.
+- The labels are in all four languages. The French, Spanish and Darija
+  ones were written by Claude; 9B's review items cover them.
+
+Not done: Spanish and Darija quotes for these six (backlog). More than any
+others, they need 9B's sensitivity read by people who have lived them
+(added to 9B).

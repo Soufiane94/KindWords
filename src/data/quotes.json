@@ -2,7 +2,7 @@
   {
     "id": "q001",
     "text": "You don't have to carry today perfectly. You just have to carry it.",
-    "circumstances": ["other", "worker", "student", "parent", "overwhelmed"],
+    "circumstances": ["other", "worker", "student", "parent", "overwhelmed", "money_worries"],
     "eventTypes": ["other"],
     "mood": "comfort",
     "language": "en"
@@ -34,7 +34,7 @@
   {
     "id": "q005",
     "text": "Small steps still move you forward. You're allowed to go slowly.",
-    "circumstances": ["student", "patient", "other"],
+    "circumstances": ["student", "patient", "other", "recovery"],
     "eventTypes": ["exam", "job_interview"],
     "mood": "encouragement",
     "language": "en"
@@ -50,7 +50,7 @@
   {
     "id": "q007",
     "text": "You showed up today. That counts for more than you think.",
-    "circumstances": ["worker", "student", "patient", "other"],
+    "circumstances": ["worker", "student", "patient", "other", "recovery"],
     "eventTypes": ["exam", "job_interview"],
     "mood": "encouragement",
     "language": "en"
@@ -58,7 +58,7 @@
   {
     "id": "q008",
     "text": "Being a parent is a thousand invisible acts of love a day. Someone notices, even when it's just you.",
-    "circumstances": ["parent", "new_parent"],
+    "circumstances": ["parent", "new_parent", "single_parent"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "en"
@@ -66,7 +66,7 @@
   {
     "id": "q009",
     "text": "Healing isn't a straight line. A hard day doesn't erase the good ones before it.",
-    "circumstances": ["patient", "widowed", "grieving"],
+    "circumstances": ["patient", "widowed", "grieving", "pregnancy_loss"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -98,7 +98,7 @@
   {
     "id": "q013",
     "text": "A single kind thought toward yourself today is enough. You don't need a whole speech.",
-    "circumstances": ["other", "patient"],
+    "circumstances": ["other", "patient", "low_mood"],
     "eventTypes": ["medical_appointment", "other"],
     "mood": "gentle",
     "language": "en"
@@ -106,7 +106,7 @@
   {
     "id": "q014",
     "text": "Missing someone is proof of how well you loved them.",
-    "circumstances": ["widowed", "grieving"],
+    "circumstances": ["widowed", "grieving", "pet_loss"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -114,7 +114,7 @@
   {
     "id": "q015",
     "text": "You don't need to be cheerful to be doing okay. Quiet and tired counts too.",
-    "circumstances": ["patient", "worker", "parent", "other"],
+    "circumstances": ["patient", "worker", "parent", "other", "low_mood"],
     "eventTypes": ["medical_appointment"],
     "mood": "gentle",
     "language": "en"
@@ -186,7 +186,7 @@
   {
     "id": "q024",
     "text": "You are not a burden for needing rest, help, or a little more patience today.",
-    "circumstances": ["patient", "other"],
+    "circumstances": ["patient", "other", "low_mood"],
     "eventTypes": ["medical_appointment"],
     "mood": "comfort",
     "language": "en"
@@ -202,7 +202,7 @@
   {
     "id": "q026",
     "text": "The love you gave someone doesn't end when they do.",
-    "circumstances": ["widowed", "grieving"],
+    "circumstances": ["widowed", "grieving", "pet_loss"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -218,7 +218,7 @@
   {
     "id": "q028",
     "text": "Parenting doesn't come with applause. Consider this a small one, just for you.",
-    "circumstances": ["parent"],
+    "circumstances": ["parent", "single_parent"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "en"
@@ -250,7 +250,7 @@
   {
     "id": "q032",
     "text": "However far you've come, it was you who carried yourself there.",
-    "circumstances": ["student", "worker", "patient", "other"],
+    "circumstances": ["student", "worker", "patient", "other", "recovery"],
     "eventTypes": ["exam", "job_interview"],
     "mood": "encouragement",
     "language": "en"
@@ -274,7 +274,7 @@
   {
     "id": "q035",
     "text": "You are doing a hard, good thing, even on the days it doesn't feel like either.",
-    "circumstances": ["parent", "worker", "patient", "caregiver"],
+    "circumstances": ["parent", "worker", "patient", "caregiver", "single_parent"],
     "eventTypes": ["medical_appointment", "family_event"],
     "mood": "comfort",
     "language": "en"
@@ -290,7 +290,7 @@
   {
     "id": "q037",
     "text": "You don't owe anyone a brave face today. Soft is allowed.",
-    "circumstances": ["patient", "widowed", "other", "grieving"],
+    "circumstances": ["patient", "widowed", "other", "grieving", "low_mood", "pregnancy_loss"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -354,7 +354,7 @@
   {
     "id": "q045",
     "text": "You can love your family loudly and still need a quiet minute alone in the bathroom. That's allowed too.",
-    "circumstances": ["parent"],
+    "circumstances": ["parent", "single_parent"],
     "eventTypes": ["family_event"],
     "mood": "gentle",
     "language": "en"
@@ -402,7 +402,7 @@
   {
     "id": "q051",
     "text": "You don't need a reason to deserve kindness today. Being tired is reason enough.",
-    "circumstances": ["other", "worker", "parent", "overwhelmed"],
+    "circumstances": ["other", "worker", "parent", "overwhelmed", "money_worries"],
     "eventTypes": ["other"],
     "mood": "gentle",
     "language": "en"
@@ -450,7 +450,7 @@
   {
     "id": "q057",
     "text": "Children remember being loved far more clearly than they remember being impressed.",
-    "circumstances": ["parent"],
+    "circumstances": ["parent", "single_parent"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "en"
@@ -490,7 +490,7 @@
   {
     "id": "q062",
     "text": "You're allowed to miss someone and still laugh at something silly on the same day.",
-    "circumstances": ["widowed", "grieving"],
+    "circumstances": ["widowed", "grieving", "pet_loss"],
     "eventTypes": ["grief_anniversary"],
     "mood": "gentle",
     "language": "en"
@@ -514,7 +514,7 @@
   {
     "id": "q065",
     "text": "You don't owe anyone a timeline for healing, grieving, or figuring your life out.",
-    "circumstances": ["other", "patient", "widowed", "grieving"],
+    "circumstances": ["other", "patient", "widowed", "grieving", "pregnancy_loss"],
     "eventTypes": ["other", "grief_anniversary"],
     "mood": "gentle",
     "language": "en"
@@ -538,7 +538,7 @@
   {
     "id": "q068",
     "text": "There's no prize for suffering alone when you don't have to. Reaching out counts as strength, not failure.",
-    "circumstances": ["living_alone", "patient", "other"],
+    "circumstances": ["living_alone", "patient", "other", "recovery"],
     "eventTypes": ["other"],
     "mood": "encouragement",
     "language": "en"
@@ -578,7 +578,7 @@
   {
     "id": "q073",
     "text": "Somewhere, a version of you from a hard year ago would be proud to see you still here.",
-    "circumstances": ["other", "student", "worker", "patient"],
+    "circumstances": ["other", "student", "worker", "patient", "recovery"],
     "eventTypes": ["exam", "medical_appointment"],
     "mood": "encouragement",
     "language": "en"
@@ -602,7 +602,7 @@
   {
     "id": "q076",
     "text": "Being needed all day by small hands is exhausting and also, somehow, the thing you'll miss most.",
-    "circumstances": ["parent"],
+    "circumstances": ["parent", "single_parent"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "en"
@@ -634,7 +634,7 @@
   {
     "id": "q080",
     "text": "You made it to the end of this day. That's not a small thing, even if no one throws confetti for it.",
-    "circumstances": ["other", "patient", "worker", "student", "living_alone"],
+    "circumstances": ["other", "patient", "worker", "student", "living_alone", "low_mood"],
     "eventTypes": ["other"],
     "mood": "encouragement",
     "language": "en"
@@ -722,7 +722,7 @@
   {
     "id": "q091",
     "text": "There's no finish line for missing someone. You're not doing it wrong by still feeling it.",
-    "circumstances": ["grieving", "widowed"],
+    "circumstances": ["grieving", "widowed", "pet_loss"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -738,7 +738,7 @@
   {
     "id": "q093",
     "text": "Grief can make you forgetful, slow and tired. That isn't you failing; it's your heart doing very heavy lifting.",
-    "circumstances": ["grieving", "widowed"],
+    "circumstances": ["grieving", "widowed", "pregnancy_loss", "pet_loss"],
     "eventTypes": [],
     "mood": "comfort",
     "language": "en"
@@ -754,7 +754,7 @@
   {
     "id": "q095",
     "text": "Other people's lives went back to normal quickly. Yours didn't, and it doesn't have to.",
-    "circumstances": ["grieving", "widowed"],
+    "circumstances": ["grieving", "widowed", "pregnancy_loss"],
     "eventTypes": [],
     "mood": "gentle",
     "language": "en"
@@ -778,7 +778,7 @@
   {
     "id": "q098",
     "text": "Whoever it was you lost, missing them this much makes sense. They mattered, and so does your grief.",
-    "circumstances": ["grieving"],
+    "circumstances": ["grieving", "pet_loss"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "en"
@@ -786,7 +786,7 @@
   {
     "id": "q099",
     "text": "Grief doesn't follow the stages in order, or at all. However yours looks today is how it looks.",
-    "circumstances": ["grieving", "widowed"],
+    "circumstances": ["grieving", "widowed", "pet_loss"],
     "eventTypes": [],
     "mood": "gentle",
     "language": "en"
@@ -930,7 +930,7 @@
   {
     "id": "q117",
     "text": "Some days, keeping a small person fed, warm and loved is the whole achievement. It's a big one.",
-    "circumstances": ["new_parent", "parent"],
+    "circumstances": ["new_parent", "parent", "single_parent"],
     "eventTypes": [],
     "mood": "encouragement",
     "language": "en"
@@ -1042,7 +1042,7 @@
   {
     "id": "q131",
     "text": "You don't have to sort out your whole life today. Just the next small thing, and maybe not even that.",
-    "circumstances": ["overwhelmed", "other"],
+    "circumstances": ["overwhelmed", "other", "low_mood", "money_worries"],
     "eventTypes": ["other"],
     "mood": "gentle",
     "language": "en"
@@ -1090,7 +1090,7 @@
   {
     "id": "q137",
     "text": "If your mind is racing tonight, it doesn't have to find every answer before morning.",
-    "circumstances": ["overwhelmed"],
+    "circumstances": ["overwhelmed", "money_worries"],
     "eventTypes": [],
     "mood": "gentle",
     "language": "en"
@@ -1098,7 +1098,7 @@
   {
     "id": "q138",
     "text": "Lowering the bar on a hard week isn't giving up. It's sensible, like walking more slowly on ice.",
-    "circumstances": ["overwhelmed", "other"],
+    "circumstances": ["overwhelmed", "other", "low_mood", "money_worries"],
     "eventTypes": ["other"],
     "mood": "gentle",
     "language": "en"
@@ -1194,7 +1194,7 @@
   {
     "id": "q150",
     "text": "Money worries make everything louder. If today feels heavy, that's not a character flaw; it's a heavy situation.",
-    "circumstances": ["job_searching", "overwhelmed"],
+    "circumstances": ["job_searching", "overwhelmed", "money_worries"],
     "eventTypes": [],
     "mood": "comfort",
     "language": "en"
@@ -1362,7 +1362,7 @@
   {
     "id": "q171",
     "text": "Every parent gets some days wrong. Coming back with a hug and a sorry is part of getting it right.",
-    "circumstances": ["parent"],
+    "circumstances": ["parent", "single_parent"],
     "eventTypes": [],
     "mood": "comfort",
     "language": "en"
@@ -1434,15 +1434,495 @@
   {
     "id": "q180",
     "text": "A cup of something warm, a window, a minute to yourself. Small comforts are still comforts.",
-    "circumstances": ["other", "overwhelmed", "living_alone"],
+    "circumstances": ["other", "overwhelmed", "living_alone", "low_mood"],
     "eventTypes": ["other"],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q181",
+    "text": "You're the one who's there for every morning and every bedtime. That steadiness is a gift they'll carry for life.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q182",
+    "text": "There's no one to hand over to when it's your turn again, and again. Being tired is a fair response to that.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q183",
+    "text": "Your kids don't need a perfect home. They need someone who keeps coming back to them, and that's you.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q184",
+    "text": "Asking a friend to take the kids for an hour isn't failing. It's how one person keeps going for the long haul.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q185",
+    "text": "Some days you're the cook, the driver, the nurse and the cheerleader. It's okay if nobody cheered for you today.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q186",
+    "text": "Every decision lands on you. Making them as well as you can, day after day, takes quiet strength.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q187",
+    "text": "A messy dinner, a story at bedtime, a hug at the door: that's what home is made of, and you're making it.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q188",
+    "text": "You can love your kids with everything you have and still miss having someone to share the weight with.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q189",
+    "text": "Your family doesn't need to look like anyone else's to be full of love.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q190",
+    "text": "If tonight the dishes wait and the laundry waits, the most important thing still got done: they were loved today.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q191",
+    "text": "Some losses happen quietly, with hardly anyone knowing. Yours is real, and so is the love behind it.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q192",
+    "text": "Other people's happy news can hurt, even while you're glad for them. Both feelings are allowed.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q193",
+    "text": "None of this is your fault. Your body is not your enemy, even on the days it feels that way.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q194",
+    "text": "The love you hold for someone you've hoped for is real love. It counts, whatever happens.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q195",
+    "text": "Whatever you're carrying in private deserves the same tenderness you'd offer a friend in your place.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q196",
+    "text": "Waiting and hoping, month after month, takes a courage few people ever see. You've been brave for a long time.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q197",
+    "text": "Grief for what might have been is still grief. You're allowed to feel it for as long as you need.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q198",
+    "text": "When people say clumsy things, it's usually their own discomfort talking. What you feel still makes sense.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q199",
+    "text": "Some days you might want to talk about it, and some days not at all. Both are fine.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q200",
+    "text": "This chapter is taking up most of the page right now. It still isn't your whole story.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q201",
+    "text": "They weren't \"just\" anything. They were family, and your grief is as real as your love for them.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q202",
+    "text": "The quiet where their little sounds used to be can be the hardest part. Go gently with yourself at home today.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q203",
+    "text": "Every quiet afternoon together, every greeting when you came home: you gave them a good life, and they felt it.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q204",
+    "text": "If you're wondering whether you could have done more: you loved them, and you did your best with what you knew.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q205",
+    "text": "Keep their bowl, their blanket, their favorite toy for as long as you like. There's no deadline for putting love away.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q206",
+    "text": "Some of the purest love we know comes with four legs, or feathers, or fins. Of course losing it hurts.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q207",
+    "text": "Missing them and still getting through your day takes more strength than it looks.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q208",
+    "text": "Other people may not understand why this hurts so much. You don't need them to, for it to be real.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q209",
+    "text": "Telling stories about their funny habits keeps them close. Smiling while you do it is allowed.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q210",
+    "text": "You were their whole world, and you made it a safe, loving one.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q211",
+    "text": "On low days, getting up, eating something and lying back down still counts as looking after yourself.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q212",
+    "text": "Heavy days don't mean you're doing life wrong. Sometimes the weather inside stays grey for a while.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q213",
+    "text": "You don't need to feel hopeful for today to count. Being here, as you are, is already something.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q214",
+    "text": "Whatever your mind says on the hard days, you matter to this world more than it lets you see.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q215",
+    "text": "If replying to messages feels like too much, that's okay. The people who care about you will still be there.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q216",
+    "text": "Feeling nothing much at all is its own heavy kind of tired. It isn't a sign that you're broken.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q217",
+    "text": "Opening a curtain, a quick shower, one text back: on a heavy day, small things are big things.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q218",
+    "text": "You're not too much, and you're not too little. You're a person having a hard time, and that deserves kindness.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q219",
+    "text": "There's no right way to feel today. However it is, you don't have to hide it here.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q220",
+    "text": "On the worst days, your thoughts can sound very convincing. They aren't always right about you.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q221",
+    "text": "Choosing your own well-being again today counts, even if no one else knows what it took.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q222",
+    "text": "A strong urge is a wave, not an order. It rises, it peaks and it passes. You've ridden them out before.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q223",
+    "text": "A slip doesn't erase the days you've built. You can start again from here, without hating yourself for it.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q224",
+    "text": "The person you're becoming is worth every hard evening it's taking.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q225",
+    "text": "Every day you stay on your path is a quiet victory, whether anyone claps or not.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q226",
+    "text": "Old habits know your weak moments well. Needing support at those times isn't weakness; it's wisdom.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q227",
+    "text": "You don't owe anyone an explanation for what you say no to. \"No, thanks\" is enough.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q228",
+    "text": "The people who love you are glad to have you here, clear-eyed and fully yourself.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q229",
+    "text": "Some days, staying the course is the whole job. If today was one of those, you did the job.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q230",
+    "text": "Shame talks loudly about the past. The choices you're making now are telling a newer, kinder story.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q231",
+    "text": "Counting every coin is tiring work that nobody sees. No wonder you're worn out.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q232",
+    "text": "Saying \"not this time\" to a plan you can't afford takes honesty. There's no shame in it.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q233",
+    "text": "A tight month doesn't measure your worth. You're the same person you were with more in your pocket.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q234",
+    "text": "The best things you give people have never had a price: your time, your listening, your company.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q235",
+    "text": "Opening a bill with your heart racing is a real kind of stress. You're dealing with something hard.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q236",
+    "text": "You can take tonight off from the sums. They'll be the same in the morning, and you'll face them a little more rested.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "en"
+  },
+  {
+    "id": "q237",
+    "text": "Making a little stretch a long way is a real skill. Whatever else this season is, you're resourceful.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "en"
+  },
+  {
+    "id": "q238",
+    "text": "Being careful with money right now doesn't make you any less generous. Your kindness was never about amounts.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "en"
+  },
+  {
+    "id": "q239",
+    "text": "Money worries can feel lonely, as if everyone else has it figured out. Plenty of people quietly don't.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "en"
+  },
+  {
+    "id": "q240",
+    "text": "Asking for a little help when things are tight isn't failing. People have always done this for each other.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
     "mood": "gentle",
     "language": "en"
   },
   {
     "id": "qfr001",
     "text": "Tu n'as pas à réussir ta journée. Juste à la traverser, à ton rythme.",
-    "circumstances": ["other", "worker", "student", "parent", "overwhelmed"],
+    "circumstances": ["other", "worker", "student", "parent", "overwhelmed", "low_mood", "money_worries"],
     "eventTypes": ["other"],
     "mood": "comfort",
     "language": "fr"
@@ -1458,7 +1938,7 @@
   {
     "id": "qfr003",
     "text": "Le chagrin ne s'en va pas sur commande. Il a le droit de rester aussi longtemps qu'il en a besoin.",
-    "circumstances": ["widowed", "grieving"],
+    "circumstances": ["widowed", "grieving", "pregnancy_loss", "pet_loss"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -1474,7 +1954,7 @@
   {
     "id": "qfr005",
     "text": "Un petit pas reste un pas. Tu as le droit d'avancer lentement.",
-    "circumstances": ["student", "patient", "other"],
+    "circumstances": ["student", "patient", "other", "recovery"],
     "eventTypes": ["exam", "job_interview"],
     "mood": "encouragement",
     "language": "fr"
@@ -1498,7 +1978,7 @@
   {
     "id": "qfr008",
     "text": "Être parent, c'est mille gestes d'amour invisibles chaque jour. Quelqu'un les remarque, même si c'est juste toi.",
-    "circumstances": ["parent", "new_parent"],
+    "circumstances": ["parent", "new_parent", "single_parent"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "fr"
@@ -1506,7 +1986,7 @@
   {
     "id": "qfr009",
     "text": "Guérir n'est pas une ligne droite. Un jour difficile n'efface pas les bons jours d'avant.",
-    "circumstances": ["patient", "widowed", "grieving"],
+    "circumstances": ["patient", "widowed", "grieving", "pregnancy_loss"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -1538,7 +2018,7 @@
   {
     "id": "qfr013",
     "text": "Une seule pensée douce envers toi-même aujourd'hui suffit. Pas besoin d'un grand discours.",
-    "circumstances": ["other", "patient"],
+    "circumstances": ["other", "patient", "low_mood"],
     "eventTypes": ["medical_appointment", "other"],
     "mood": "gentle",
     "language": "fr"
@@ -1602,7 +2082,7 @@
   {
     "id": "qfr021",
     "text": "Le silence après une perte a sa propre voix. Tu peux t'asseoir avec lui un moment.",
-    "circumstances": ["widowed", "grieving"],
+    "circumstances": ["widowed", "grieving", "pet_loss"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -1626,7 +2106,7 @@
   {
     "id": "qfr024",
     "text": "Tu n'es pas un fardeau parce que tu as besoin de repos, d'aide, ou d'un peu plus de patience aujourd'hui.",
-    "circumstances": ["patient", "other"],
+    "circumstances": ["patient", "other", "low_mood"],
     "eventTypes": ["medical_appointment"],
     "mood": "comfort",
     "language": "fr"
@@ -1658,7 +2138,7 @@
   {
     "id": "qfr028",
     "text": "Être parent ne vient pas avec des applaudissements. Considère ceci comme un petit, juste pour toi.",
-    "circumstances": ["parent"],
+    "circumstances": ["parent", "single_parent"],
     "eventTypes": ["family_event"],
     "mood": "warmth",
     "language": "fr"
@@ -1682,7 +2162,7 @@
   {
     "id": "qfr031",
     "text": "Certains jours, le plus courageux c'est simplement de ne pas abandonner. Aujourd'hui est peut-être un de ces jours, et tu es toujours là.",
-    "circumstances": ["patient", "widowed", "other"],
+    "circumstances": ["patient", "widowed", "other", "recovery"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
     "mood": "encouragement",
     "language": "fr"
@@ -1730,7 +2210,7 @@
   {
     "id": "qfr037",
     "text": "Tu ne dois une mine courageuse à personne aujourd'hui. La douceur est permise.",
-    "circumstances": ["patient", "widowed", "other", "grieving"],
+    "circumstances": ["patient", "widowed", "other", "grieving", "low_mood", "pregnancy_loss"],
     "eventTypes": ["medical_appointment", "grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -1802,7 +2282,7 @@
   {
     "id": "qfr046",
     "text": "Être la personne solide pour tout le monde, c'est épuisant. Ici, tu peux poser ce rôle une minute.",
-    "circumstances": ["caregiver", "parent"],
+    "circumstances": ["caregiver", "parent", "single_parent"],
     "eventTypes": [],
     "mood": "warmth",
     "language": "fr"
@@ -1842,7 +2322,7 @@
   {
     "id": "qfr051",
     "text": "On dit « faire son deuil », comme s'il fallait le terminer. Mais le deuil n'est pas un devoir à rendre.",
-    "circumstances": ["grieving", "widowed"],
+    "circumstances": ["grieving", "widowed", "pet_loss"],
     "eventTypes": [],
     "mood": "gentle",
     "language": "fr"
@@ -1850,7 +2330,7 @@
   {
     "id": "qfr052",
     "text": "Quand on te demande si ça va mieux, tu peux répondre : pas encore. C'est une réponse honnête.",
-    "circumstances": ["grieving", "widowed"],
+    "circumstances": ["grieving", "widowed", "pregnancy_loss", "pet_loss"],
     "eventTypes": [],
     "mood": "gentle",
     "language": "fr"
@@ -1890,7 +2370,7 @@
   {
     "id": "qfr057",
     "text": "La tristesse n'a pas besoin d'être rangée pour faire plaisir aux autres.",
-    "circumstances": ["grieving", "widowed"],
+    "circumstances": ["grieving", "widowed", "pregnancy_loss", "pet_loss"],
     "eventTypes": [],
     "mood": "gentle",
     "language": "fr"
@@ -1914,7 +2394,7 @@
   {
     "id": "qfr060",
     "text": "Certains jours, l'absence prend toute la place. Ces jours-là, arriver jusqu'au soir suffit largement.",
-    "circumstances": ["grieving", "widowed"],
+    "circumstances": ["grieving", "widowed", "pet_loss"],
     "eventTypes": ["grief_anniversary"],
     "mood": "comfort",
     "language": "fr"
@@ -2026,7 +2506,7 @@
   {
     "id": "qfr074",
     "text": "Une berceuse fredonnée faux à 4 h du matin reste une très belle berceuse.",
-    "circumstances": ["new_parent", "parent"],
+    "circumstances": ["new_parent", "parent", "single_parent"],
     "eventTypes": [],
     "mood": "warmth",
     "language": "fr"
@@ -2178,7 +2658,7 @@
   {
     "id": "qfr093",
     "text": "La tête pleine, le cœur serré, la liste qui déborde : ce n'est pas un défaut de caractère, c'est une charge trop lourde.",
-    "circumstances": ["overwhelmed"],
+    "circumstances": ["overwhelmed", "money_worries"],
     "eventTypes": [],
     "mood": "comfort",
     "language": "fr"
@@ -2194,7 +2674,7 @@
   {
     "id": "qfr095",
     "text": "Une journée moyenne, faite à moitié, reste une journée vécue. Ce n'est pas une note, c'est la vie.",
-    "circumstances": ["overwhelmed", "other"],
+    "circumstances": ["overwhelmed", "other", "low_mood"],
     "eventTypes": ["other"],
     "mood": "encouragement",
     "language": "fr"
@@ -2202,7 +2682,7 @@
   {
     "id": "qfr096",
     "text": "La nuit grossit les soucis. Au matin, ils ont souvent repris une taille plus raisonnable.",
-    "circumstances": ["overwhelmed"],
+    "circumstances": ["overwhelmed", "money_worries"],
     "eventTypes": [],
     "mood": "comfort",
     "language": "fr"
@@ -2218,7 +2698,7 @@
   {
     "id": "qfr098",
     "text": "Avancer en tremblant, c'est avancer quand même.",
-    "circumstances": ["overwhelmed", "other"],
+    "circumstances": ["overwhelmed", "other", "recovery"],
     "eventTypes": ["exam", "job_interview", "medical_appointment"],
     "mood": "encouragement",
     "language": "fr"
@@ -2226,7 +2706,7 @@
   {
     "id": "qfr099",
     "text": "Ralentir n'est pas reculer. C'est parfois la façon la plus sûre d'avancer.",
-    "circumstances": ["overwhelmed", "other"],
+    "circumstances": ["overwhelmed", "other", "low_mood"],
     "eventTypes": ["other"],
     "mood": "gentle",
     "language": "fr"
@@ -2290,7 +2770,7 @@
   {
     "id": "qfr107",
     "text": "Compter chaque dépense fatigue autant que la recherche elle-même. Si tu es à bout, ce n'est pas un manque de volonté.",
-    "circumstances": ["job_searching", "overwhelmed"],
+    "circumstances": ["job_searching", "overwhelmed", "money_worries"],
     "eventTypes": [],
     "mood": "comfort",
     "language": "fr"
@@ -2474,7 +2954,7 @@
   {
     "id": "qfr130",
     "text": "Se sentir coupable de tout est presque un réflexe de parent. Tu fais pourtant beaucoup plus de bien que tu ne le crois.",
-    "circumstances": ["parent"],
+    "circumstances": ["parent", "single_parent"],
     "eventTypes": [],
     "mood": "encouragement",
     "language": "fr"
@@ -2556,6 +3036,486 @@
     "text": "Les réunions de famille mêlent souvent rires, souvenirs et petites tensions. Tout ce que tu ressens avant ou après a sa place.",
     "circumstances": ["other", "breakup", "parent"],
     "eventTypes": ["family_event"],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr141",
+    "text": "Chez toi, il y a peut-être deux bras au lieu de quatre, mais l'amour, lui, ne manque pas.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr142",
+    "text": "Pas de relais le soir, pas de pause le week-end : ta fatigue n'est pas un manque d'organisation, c'est le poids de tout porter.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr143",
+    "text": "Trancher, décider, rassurer, sans personne avec qui en parler : c'est un courage de tous les jours.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr144",
+    "text": "Laisser une voisine, une sœur ou un ami garder les enfants une heure, ce n'est pas une faiblesse. C'est comme ça qu'on tient.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr145",
+    "text": "Les petits rituels que tu inventes — la chanson du bain, la blague du matin — deviendront de beaux souvenirs.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr146",
+    "text": "Il y a des soirs où l'on aimerait juste entendre : « Je m'en occupe. » Ce petit mot est là pour toi ce soir.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr147",
+    "text": "Tu ne remplaces personne. Tu es leur parent, pleinement, et c'est déjà immense.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr148",
+    "text": "Tu as le droit de souffler cinq minutes dans la voiture avant de rentrer. Personne n'a besoin de le savoir.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr149",
+    "text": "Réunions d'école, rendez-vous médicaux, paperasse : tu jongles avec tout, même quand c'est serré.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr150",
+    "text": "Quand les enfants dorment enfin et que la maison se tait, ta fatigue a le droit de s'asseoir un moment avec toi.",
+    "circumstances": ["single_parent"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr151",
+    "text": "Il y a des deuils dont on parle peu. Celui que tu portes mérite autant de douceur que les autres.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr152",
+    "text": "Tu peux éviter certains repas, certaines fêtes, certaines annonces, le temps qu'il faut. Te protéger n'a rien d'égoïste.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr153",
+    "text": "Ton corps a traversé beaucoup. Il n'a rien fait contre toi, et tu n'as rien fait de mal.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr154",
+    "text": "Aimer quelqu'un avant même de le connaître, c'est déjà de l'amour. Le tien compte.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr155",
+    "text": "Attendre, espérer, recommencer : ce chemin demande une force que peu de gens voient. La tienne est bien réelle.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr156",
+    "text": "Certaines dates resteront à part dans ton calendrier. Tu as le droit de les vivre comme tu veux, même en silence.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr157",
+    "text": "Ce n'est pas « rien », même si personne ne l'a vu. Ce qui compte pour toi compte, tout simplement.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr158",
+    "text": "Ta tendresse n'a pas disparu dans cette épreuve. Elle est fatiguée, et elle a besoin qu'on prenne soin d'elle aussi.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr159",
+    "text": "Si on te demande « Et vous, c'est pour quand ? », tu ne dois de réponse à personne.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr160",
+    "text": "Prendre soin de toi pendant cette période, c'est déjà avancer, même si rien ne semble bouger.",
+    "circumstances": ["pregnancy_loss"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr161",
+    "text": "« Ce n'était qu'un chien », « qu'un chat »… Non. C'était un compagnon de chaque jour, et ton chagrin le dit très bien.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr162",
+    "text": "Les premiers matins sans son rituel sont étranges. La maison attend encore les petits bruits habituels ; c'est normal.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr163",
+    "text": "Toutes ces années de présence, de chaleur sur tes genoux ou à tes pieds : c'était de l'amour, des deux côtés.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr164",
+    "text": "Si tu as dû prendre la décision la plus difficile, c'était par amour, pour lui éviter de souffrir. Un dernier geste de tendresse.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr165",
+    "text": "Garde son collier, sa photo, sa place sur le canapé aussi longtemps que tu veux. Rien ne presse.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr166",
+    "text": "Ils occupent peu de place dans une maison, et une place immense dans le cœur.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr167",
+    "text": "Continuer ta journée avec ce vide dans la maison demande du courage. Tu en as plus que tu ne le crois.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr168",
+    "text": "Tout le monde ne comprendra pas ta peine, et ce n'est pas grave. Elle n'a pas besoin d'être comprise pour être légitime.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr169",
+    "text": "Raconter ses bêtises, sourire en y repensant : c'est une belle façon de garder sa mémoire vivante.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr170",
+    "text": "Tu as été sa personne préférée au monde. Ça dit quelque chose de beau sur toi.",
+    "circumstances": ["pet_loss"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr171",
+    "text": "Certains jours, l'objectif, c'est juste d'arriver au soir. Si c'est le cas aujourd'hui, c'est un objectif suffisant.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr172",
+    "text": "La grisaille intérieure ne dit rien de ta valeur. Elle dit seulement que tu traverses une période difficile.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr173",
+    "text": "Une fenêtre ouverte, un verre d'eau, une chanson : les jours lourds, chaque petite chose est un pas.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr174",
+    "text": "Même quand tu ne le sens pas, tu comptes. Pour quelqu'un, pour quelque chose, et pour toi aussi.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr175",
+    "text": "Tu peux annuler, décaler, dire « pas aujourd'hui ». Ménager ton énergie, ce n'est pas te défiler.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr176",
+    "text": "Le brouillard dans la tête, le corps lourd, l'envie de rien : ce n'est pas de la paresse. C'est épuisant, et c'est réel.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr177",
+    "text": "Tu as déjà traversé des jours comme celui-ci, même quand tu pensais ne pas y arriver.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr178",
+    "text": "Tu mérites la même patience que tu offrirais à quelqu'un que tu aimes, surtout les jours sans.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr179",
+    "text": "Pas besoin de faire semblant ici. Tu peux lire ces mots avec la tête que tu as ce matin.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr180",
+    "text": "Les pensées des mauvais jours sont souvent injustes avec toi. Tu as le droit de ne pas toutes les croire.",
+    "circumstances": ["low_mood"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr181",
+    "text": "Chaque soir où tu gardes ton cap est une victoire discrète. Elle compte, même sans témoin.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr182",
+    "text": "Les moments de manque finissent par passer, même quand ils semblent durer une éternité. Tu as déjà tenu bon.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr183",
+    "text": "Si tu as trébuché, ce n'est pas la fin du chemin. On ne repart jamais tout à fait de zéro.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr184",
+    "text": "Les gens qui t'aiment voient le travail que tu fais sur toi, même s'ils ne trouvent pas toujours les mots.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr185",
+    "text": "Changer une vieille habitude, c'est l'un des efforts les plus difficiles qui soient. Tu es en train de le faire.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr186",
+    "text": "Les fins de journée et les soirs de fête peuvent être plus difficiles. Si c'est le cas ce soir, tu n'es pas en train d'échouer.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr187",
+    "text": "Tu ne dois d'explication à personne sur tes choix. Un « non merci » souriant suffit largement.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr188",
+    "text": "Une version plus libre de toi se dessine, jour après jour. Elle est déjà un peu là.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr189",
+    "text": "Compter les jours peut aider, mais celui qui compte le plus, c'est aujourd'hui. Et tu y es.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr190",
+    "text": "La honte n'a jamais aidé personne à aller mieux. Tu as le droit de te parler avec douceur.",
+    "circumstances": ["recovery"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr191",
+    "text": "Les fins de mois difficiles pèsent sur tout : le sommeil, l'humeur, les liens. Ta fatigue a une vraie raison.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr192",
+    "text": "Dire « pas cette fois » à une sortie, ce n'est pas être rabat-joie. C'est être honnête avec toi-même.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr193",
+    "text": "Ta valeur ne se lit pas sur un relevé de compte. Elle se lit dans la façon dont tu traites les gens.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr194",
+    "text": "Un repas simple partagé, une balade, un appel : les plus beaux moments coûtent souvent très peu.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr195",
+    "text": "Refaire les comptes à minuit, encore une fois : c'est épuisant, et ça ne dit rien de toi.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr196",
+    "text": "Ce soir, rien ne t'oblige à refaire les calculs. Le repos fait aussi partie des solutions.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "gentle",
+    "language": "fr"
+  },
+  {
+    "id": "qfr197",
+    "text": "Faire beaucoup avec peu, c'est un vrai talent. Tu le pratiques tous les jours sans t'en rendre compte.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "encouragement",
+    "language": "fr"
+  },
+  {
+    "id": "qfr198",
+    "text": "Ta générosité ne s'est jamais mesurée en argent. Elle est dans ton temps, ton écoute, ta présence.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "warmth",
+    "language": "fr"
+  },
+  {
+    "id": "qfr199",
+    "text": "Beaucoup de gens s'inquiètent pour l'argent sans le dire. Si c'est ton cas, tu es loin d'être la seule personne.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
+    "mood": "comfort",
+    "language": "fr"
+  },
+  {
+    "id": "qfr200",
+    "text": "Laisser quelqu'un t'inviter, te prêter ou te dépanner, c'est lui permettre de t'aimer un peu. Ce n'est pas une honte.",
+    "circumstances": ["money_worries"],
+    "eventTypes": [],
     "mood": "gentle",
     "language": "fr"
   },
