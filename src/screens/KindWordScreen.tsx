@@ -18,6 +18,7 @@ import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import SnoozeMenu from '../components/SnoozeMenu';
 import WorldBackground from '../components/WorldBackground';
+import Mascot from '../components/Mascot';
 import { useCardShare } from '../components/useCardShare';
 import { getQuoteById } from '../services/quotes';
 import {
@@ -102,7 +103,7 @@ export default function KindWordScreen({ route, navigation }: Props) {
     ]);
   }
 
-  const card = quote ?? (note ? { text: note.text, author: noteAuthor(note) } : undefined);
+  const card = quote ?? (note ? { id: note.id, text: note.text, author: noteAuthor(note) } : undefined);
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
@@ -125,7 +126,9 @@ export default function KindWordScreen({ route, navigation }: Props) {
         <>
           {/* Scrolls when a long kind word and large text don't fit. */}
           <ScrollView contentContainerStyle={styles.content}>
-            <QuoteCard quote={card} />
+            <Mascot kindWord={card}>
+              <QuoteCard quote={card} />
+            </Mascot>
             {quote ? (
               <QuoteActions
                 isFavorite={isFavorite}

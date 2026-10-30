@@ -5,7 +5,7 @@ alone, to bring a smile.
 
 **Current:** Phase 9 — Release readiness: everything but 9B is built; 9J
 and 9L added kind words for every circumstance in English and French, 9K a
-smiling icon, 9M a new look each day.
+smiling icon, 9M a new look each day, 9N a pup on the card.
 **Next:** 9B (content review), the name decision (9A), and the checks on a
 phone listed under each sub-phase; then Phase 10.
 
@@ -182,6 +182,13 @@ Nobody picks a world anymore: a new one comes by itself each day, never
 Simple and never the same twice in a row. "A new look each day" in
 Settings > Appearance (on by default) can be turned off to stay in Simple.
 Details in CHANGELOG.md.
+
+### 9N — A pup on the card ✅
+A little pup peeks over the quote card on Home and on the Kind word
+screen, with a face that suits each kind word's mood and a small hop when
+it changes (none with "Remove animations" on). Details in CHANGELOG.md.
+- [ ] On a phone: the pup in a few light and dark worlds, and at the
+  largest font size.
 
 ## Phase 10 — Android launch
 - Google Play: personal developer accounts created after November 13, 2023

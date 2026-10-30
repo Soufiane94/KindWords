@@ -1150,3 +1150,23 @@ reload picks it up.
   in a row each bring a different one and never Simple, off keeps Simple
   and back on brings a world, an old chosen world gives way.
   `backup-test.ts` covers the new setting and an older file's world.
+
+### 9N — A pup on the card
+**No new EAS dev-client build needed:** drawn with react-native-svg, which
+is already in the app; a Metro reload picks it up.
+
+- A little wheaten wolfhound peeks over the top edge of the quote card on
+  Home and on the Kind word screen, on the right, its front paws resting on
+  the card. It's drawn in code (`MascotDrawing.tsx`) like the world
+  decorations, in one fixed set of colors that works in every world: the
+  beige fur stands out on dark worlds, the brown outline on light ones.
+- Five faces: smile, joy, tender, peaceful and perky. A new one comes each
+  time the kind word changes, never the same twice in a row, and always
+  one that suits the quote's mood: the cheerful ones (joy, perky) only
+  with encouragement, the gentle ones with comfort, warmth and personal
+  notes, so a quote about grief never gets a big grin. Coming back to a
+  screen with the same kind word keeps the same face.
+- A small hop goes with each new face, unless "Remove animations" is on
+  (9C).
+- Purely decorative: screen readers skip it and it never takes a tap.
+  Shared pictures are still the card alone.

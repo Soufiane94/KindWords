@@ -14,6 +14,7 @@ import QuoteCard from '../components/QuoteCard';
 import QuoteActions from '../components/QuoteActions';
 import CheckInPrompt from '../components/CheckInPrompt';
 import WorldBackground from '../components/WorldBackground';
+import Mascot from '../components/Mascot';
 import { getRandomQuote, loadQuotePrefs, markQuotesSeen, Quote, QuotePrefs } from '../services/quotes';
 import {
   getActiveSnoozeUntil,
@@ -200,7 +201,9 @@ export default function HomeScreen() {
         </Text>
         {quote ? (
           <>
-            <QuoteCard quote={quote} />
+            <Mascot kindWord={quote}>
+              <QuoteCard quote={quote} />
+            </Mascot>
             <QuoteActions
               isFavorite={isFavorite}
               onToggleFavorite={handleToggleFavorite}

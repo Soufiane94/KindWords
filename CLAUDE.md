@@ -225,6 +225,12 @@ instead:
   UI chrome (chips, inputs, pickers) stays on the system font, for
   legibility.
 - The card has no quotation marks (reasons in CHANGELOG.md, 8D).
+- The pup (9N) peeks over the quote card on Home and the Kind word screen
+  (`Mascot.tsx`, drawn in `MascotDrawing.tsx`). Its face must suit the
+  kind word's mood: the cheerful faces only with encouragement, never a
+  grin on grief. One set of colors for every world, decorative (hidden
+  from screen readers), its hop stilled by reduce motion, and never on
+  shared pictures.
 - A shared picture is a `framed` QuoteCard: the card on its world's
   gradient with still decorations around it (`WorldFrame`). On screen the
   card stays unframed, since it already sits in its world.
