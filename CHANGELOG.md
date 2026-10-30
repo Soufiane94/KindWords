@@ -1,7 +1,8 @@
-# Kindwords changelog
+# Wafi changelog
 
 Detailed history of each phase. ROADMAP.md has the status, CLAUDE.md has
-the rules.
+the rules. The app was called Kindwords until 9O, so the older entries use
+that name.
 
 ## Phase 1 — MVP
 - Expo project setup (TypeScript), navigation (Home, Settings tabs).
@@ -1170,3 +1171,81 @@ is already in the app; a Metro reload picks it up.
   (9C).
 - Purely decorative: screen readers skip it and it never takes a tap.
   Shared pictures are still the card alone.
+
+### 9O — Wafi
+**Needs a new EAS build:** the app's name, icon, splash screen and widget
+label are built into the app (app.json and the assets). Everything else is
+JS and strings.
+
+- **The name.** The app is now Wafi, after the pup: on the phone
+  (app.json `name`), in every string in all four languages, the privacy
+  policy page (its "last updated" date moved to October 30), the landing
+  page, the store listing drafts and the Data safety notes.
+- **Kept on purpose:** the package name `com.kindwords.app`, the EAS slug
+  `KindWords` (it must match the EAS project), the GitHub Pages address,
+  the `kindwords:` storage prefix, the backup file's `app` id and the
+  notification channel ids. Renamed storage keys or a renamed backup id
+  would lose existing data and old backups; a renamed channel id would
+  leave an empty old category behind in Android's settings. The exported
+  file is now called `wafi-backup-…`, and older `kindwords-backup-…` files
+  are still cleared from the cache.
+- **"A kind word from Wafi"** heads a kind word wherever one is shown:
+  Home, the Kind word screen, the regular notification and the widget
+  (with its preview and its label in the widget picker). Event
+  notifications say "Wafi is thinking of you" before and "Wafi is checking
+  in on you" after. A personal note on the Kind word screen now has its
+  notification's title as its heading ("A message from Mom", "A note from
+  you"): it comes from the user or someone they love, never from Wafi.
+- **"Wafi kind words"** names them everywhere else: Settings ("Wafi kind
+  word reminders", "Wafi kind words language"), Events, Notes, Favorites,
+  the pause menu and lines, the notification category, "Just here for Wafi
+  kind words", and the privacy and delivery help pages. In French "les mots
+  doux de Wafi", in Spanish "las palabras amables de Wafi", in Darija
+  "lklam l7lou dyal Wafi". Left as they were: buttons about the one kind
+  word in front of the user ("Another kind word", "Send a kind word",
+  "Share this kind word"), the line added to a sent message (it already
+  says "Sent with Wafi"), the quotes themselves, and the privacy policy's
+  description of what the app keeps.
+- **The icon.** Wafi's head in the white speech bubble, on a sky-blue
+  gradient: grey, blue and white. It's the in-app pup's smile, with a
+  bolder line and bigger eyes so it still reads at launcher size. Redrawn
+  everywhere the mark appears: app icon, adaptive icon (inside the safe
+  zone), themed icon (the pup's lines, eyes and nose cut out of the
+  bubble), splash (a blue bubble with the pup, now on white), favicon, and
+  Play's icon and feature graphic. Checked in round and squircle masks, at
+  192, 144 and 64 px, and as a themed icon in light and dark.
+  `scripts/make-assets.js` holds a copy of the pup's shapes.
+- **The welcome, in three steps**, with step dots at the top, a "Back"
+  link, and Android's back button going back a step:
+  1. Circumstances, as before ("Welcome to Wafi").
+  2. "When would you like a kind word from Wafi?": the same reminder
+     settings as in Settings, now one shared component
+     (`ReminderSettingsForm`). For someone who has never set them,
+     reminders are suggested on (daily at 9:00, quiet hours 22:00–07:00,
+     hidden on the lock screen, gentle pacing); after "Redo welcome
+     setup", their own settings show. "Continue" saves them, and with
+     reminders on, the phone asks for permission to send notifications
+     right there: the user has just chosen to get them, so the prompt
+     isn't unasked. If the phone refuses, reminders turn off, the step
+     says how to allow them later, and "Continue" moves on.
+  3. Wafi's hello: the pup lands on the middle of a card that says "Hi,
+     I'm Wafi! I'll bring you a kind word now and then, on ordinary days
+     and on the heavier ones too.", looks up, blinks, then breaks into its
+     big smile with a little hop. Below the card: when the first kind word
+     comes, or, with reminders off, that Wafi is right there on Home. With
+     "Remove animations" on, Wafi is simply there, smiling.
+- Circumstances are saved when step 1 is left and reminders when step 2
+  is, so step 3 knows when the first kind word comes. The welcome only
+  counts as done after the last step.
+- Why reminders are suggested on: kind words now and then are what the app
+  is for, and the step makes it a plain, visible choice, with the switch
+  right there and nothing sent before the phone's own prompt. The saved
+  default stays off; only the welcome suggests on.
+- New tests in `__tests__/welcome-test.ts`: the first welcome's
+  suggestion, saved settings kept after "Redo welcome setup", and the
+  tidying of custom times, now shared by Settings and the welcome.
+
+Not done: the pup inside the app is still wheaten while the icon's is grey
+(backlog, if they should match). Before Play: the trademark searches for
+Wafi and the package name decision (9A). The new and reworded French,
+Spanish and Darija strings need the 9B review.

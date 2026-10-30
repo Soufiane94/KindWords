@@ -11,7 +11,7 @@ No.
 
 Why that's accurate, in Google's own terms:
 - *Collection* means "transmitting data from your app off a user's
-  device", including through libraries and SDKs. Kindwords has no server,
+  device", including through libraries and SDKs. Wafi has no server,
   no analytics or crash-reporting SDK and no ads, and none of its libraries
   sends anything: notifications are local only (no push token is ever
   requested), and the language and region are read on the phone.

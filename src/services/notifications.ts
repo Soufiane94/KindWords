@@ -156,7 +156,9 @@ export function extractNotificationTarget(
   return undefined;
 }
 
-function noteTitle(note: PersonalNote): string {
+// A note's notification title, also the Kind word screen's heading for it
+// (9O): a note comes from the user or someone they love, never from Wafi.
+export function noteTitle(note: PersonalNote): string {
   if (note.kind === 'loved_one') {
     return i18n.t('notifications.lovedOneTitle', { name: note.from || i18n.t('notes.someoneWhoLovesYou') });
   }
@@ -198,8 +200,9 @@ export function clearAllNotifications(): Promise<void> {
 // Cancels every notification this app has scheduled, then lines up fresh
 // ones (with freshly-picked quotes) from the latest saved settings,
 // circumstances, events, and notes. Safe to call whenever any of those
-// change, or the app opens. Only Settings' Save button passes
-// `askPermission`, so the system permission prompt never pops up unasked.
+// change, or the app opens. Only Settings' Save button and the welcome's
+// reminders step (9O) pass `askPermission`, so the system permission prompt
+// never pops up unasked.
 export function rescheduleAllNotifications(
   options: { askPermission?: boolean } = {}
 ): Promise<RescheduleResult> {

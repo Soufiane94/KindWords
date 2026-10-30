@@ -1,13 +1,15 @@
-# Kindwords roadmap
+# Wafi roadmap
 
-Kindwords sends occasional warm, gentle kind words to people who may feel
-alone, to bring a smile.
+Wafi (called Kindwords until 9O) sends occasional warm, gentle kind words
+to people who may feel alone, to bring a smile.
 
 **Current:** Phase 9 — Release readiness: everything but 9B is built; 9J
-and 9L added kind words for every circumstance in English and French, 9K a
-smiling icon, 9M a new look each day, 9N a pup on the card.
-**Next:** 9B (content review), the name decision (9A), and the checks on a
-phone listed under each sub-phase; then Phase 10.
+and 9L added kind words for every circumstance in English and French, 9M a
+new look each day, 9N a pup on the card, and 9O made the pup the app's
+name and icon: Wafi, with a three-step welcome.
+**Next:** a new EAS build for the first test with a friend, then 9B
+(content review), the trademark check and package name for Wafi (9A), and
+the checks on a phone listed under each sub-phase; then Phase 10.
 
 Each sub-phase is done on its own, one commit each.
 
@@ -19,23 +21,29 @@ Each sub-phase is done on its own, one commit each.
 - Phase 5 — Adjustments ✅ Kind word screen with snooze, tab icons, 14 worlds
 - Phase 6 — Languages ✅ English, French, Spanish, Darija (hidden until reviewed)
 - Phase 7 — Personal touches ✅ "not for me", notes, Android widget, gentle pacing, daily check-in
-- Phase 8 — Spread kindness ✅ send a kind word, link to Kindwords, notes for someone's day, framed pictures
+- Phase 8 — Spread kindness ✅ send a kind word, link to the app, notes for someone's day, framed pictures
 
 Details in CHANGELOG.md.
 
 ## Phase 9 — Release readiness
 Goal: make the existing app ready for real users. No big new features.
 
-### 9A — Name check ✅ research done · name decision pending (yours)
+### 9A — Name check ✅ · name decided: Wafi (9O)
 "Kindwords" is crowded: "Kind Words - The Kindest App" has been on Google
 Play since September 2025 with the same promise, on top of Popcannibal's
-BAFTA-winning Kind Words games. Recommendation: rename before the store
-listing and the first upload. Details and the rename checklist in
-CHANGELOG.md.
-- [ ] Trademark searches for the candidate names (TMview, INPI, OMPIC,
-  WIPO, USPTO): they only work in a browser.
-- [ ] Decide the name, and confirm the package name (com.kindwords.app or
-  a new one) before any upload to Play Console.
+BAFTA-winning Kind Words games. The app was renamed Wafi in 9O. Details
+and the rename checklist in CHANGELOG.md.
+A Play search (2026-10-30) found several unrelated apps already called
+Wafi or Waafi: a WhatsApp business tool, an HR self-service app, water
+delivery, wallets, an electronics shop, and WAAFI, a mobile money app with
+over a million installs. None is about wellbeing, so nobody would mistake
+one for the other, but "Wafi" alone won't stand out in search: a few
+descriptive words in the store name would help (not "Kind Words", see
+`store/listing.md`).
+- [ ] Trademark searches for "Wafi" (TMview, INPI, OMPIC, WIPO, USPTO):
+  they only work in a browser.
+- [ ] Confirm the package name (com.kindwords.app, or one with Wafi in it)
+  before any upload to Play Console. It's the last moment it can change.
 
 ### 9B — Content review (the real release blocker)
 - Native-speaker review of the French, Spanish and Darija UI strings and
@@ -79,6 +87,9 @@ CHANGELOG.md.
   (`support.*` and `checkIn.heavyLine`), since it's safety content (9C)
 - [ ] The French and Spanish privacy policy (`docs/privacy.html`, 9D)
 - [ ] The French and Spanish store listings (`store/listing.md`, 9H)
+- [ ] Within the UI strings: the Wafi wording from 9O ("mots doux de
+  Wafi", "palabras amables de Wafi", "lklam l7lou dyal Wafi") and the
+  welcome's new steps (`onboarding.*`)
 
 Review Darija first: it carries the most risk. It has no single standard
 spelling, and the text uses one unmarked form for the gendered "you"
@@ -190,6 +201,19 @@ it changes (none with "Remove animations" on). Details in CHANGELOG.md.
 - [ ] On a phone: the pup in a few light and dark worlds, and at the
   largest font size.
 
+### 9O — Wafi ✅ · new build pending (yours)
+The app is named after the pup: Wafi. "A kind word from Wafi" heads each
+kind word (Home, the Kind word screen, notifications, the widget) and
+"Wafi kind words" names them everywhere else. A new icon: Wafi's head in
+a speech bubble, in grey, blue and white. The welcome now has three steps:
+circumstances, reminders (the same settings as in Settings), then a hello
+from Wafi in the middle of the screen. Details in CHANGELOG.md.
+- [ ] New EAS build: the app's name, icon, splash and widget label are
+  built into the app.
+- [ ] On the phone: the icon in the launcher (and with themed icons on,
+  Android 13+); the splash in a preview build; the whole welcome, once
+  allowing notifications and once refusing them; "Redo welcome setup".
+
 ## Phase 10 — Android launch
 - Google Play: personal developer accounts created after November 13, 2023
   must run a closed test with at least 12 testers who stay opted in for 14
@@ -262,6 +286,8 @@ Accounts and sync:
 - The app keeps working fully offline without an account.
 
 ## Backlog (not scheduled)
+- The pup in the app is wheaten (beige and brown) while the icon's is
+  grey: make them match, if wanted — 9O.
 - Spanish and Darija quotes for the fourteen newer circumstances
   (caregiver, grieving, breakup, new parent, far from home, overwhelmed,
   job searching, older adult — 9J; single parent, recovery, pregnancy loss,

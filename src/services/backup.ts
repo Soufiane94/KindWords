@@ -16,9 +16,14 @@ import i18n from '../i18n';
 
 // Bump when the file's shape changes in a way older versions can't read.
 const FORMAT_VERSION = 1;
-const FILE_PREFIX = 'kindwords-backup-';
+// The exported file's name. Files exported before the app became Wafi
+// (9O) start with its first name, and are cleared from the cache too.
+const FILE_PREFIX = 'wafi-backup-';
+const OLD_FILE_PREFIX = 'kindwords-backup-';
 
 type BackupFile = {
+  // Still the app's first name, so files from before and after the rename
+  // (9O) can all be imported.
   app: 'kindwords';
   version: number;
   exportedAt: string;
@@ -47,7 +52,7 @@ export type PickedBackup = { data: BackupData; exportedAt: Date | null };
 
 // Lets the user pick a backup file. Any kind of file can be picked (cloud
 // drives and email apps don't always label JSON as JSON), and anything that
-// isn't a Kindwords backup comes back as 'invalid'.
+// isn't a Wafi backup comes back as 'invalid'.
 export async function pickBackup(): Promise<PickedBackup | 'canceled' | 'invalid'> {
   const result = await DocumentPicker.getDocumentAsync({ type: '*/*', copyToCacheDirectory: true });
   if (result.canceled) return 'canceled';
@@ -70,7 +75,9 @@ export async function pickBackup(): Promise<PickedBackup | 'canceled' | 'invalid
 export function clearBackupFiles(): void {
   try {
     for (const item of new Directory(Paths.cache).list()) {
-      if (item instanceof File && item.name.startsWith(FILE_PREFIX)) item.delete();
+      if (item instanceof File && (item.name.startsWith(FILE_PREFIX) || item.name.startsWith(OLD_FILE_PREFIX))) {
+        item.delete();
+      }
     }
   } catch {
     // Non-fatal: the system clears the cache by itself when space runs low.
@@ -164,7 +171,7 @@ function toSettings(value: unknown): NotificationSettings | undefined {
 }
 
 // Turns a file's text back into backup data, or null if it isn't a
-// Kindwords backup this version can read.
+// Wafi backup this version can read.
 export function parseBackup(text: string): PickedBackup | null {
   let file: unknown;
   try {

@@ -80,6 +80,21 @@ export async function setNotificationSettings(settings: NotificationSettings): P
   await AsyncStorage.setItem(KEYS.NOTIFICATION_SETTINGS, JSON.stringify(settings));
 }
 
+// The welcome's reminders step (9O) suggests reminders turned on to someone
+// who has never saved any (they can turn them off right there), and shows
+// their own settings after "Redo welcome setup".
+export async function getWelcomeNotificationSettings(): Promise<NotificationSettings> {
+  const saved = await AsyncStorage.getItem(KEYS.NOTIFICATION_SETTINGS);
+  return saved ? getNotificationSettings() : { ...DEFAULT_NOTIFICATION_SETTINGS, enabled: true };
+}
+
+// Duplicate custom times would just send two kind words at once, so the
+// list is tidied (and put in order) before saving. "Daily" and "3x a week"
+// only use the first time, so their list is left as it is.
+export function tidyNotificationSettings(settings: NotificationSettings): NotificationSettings {
+  return settings.frequency === 'custom' ? { ...settings, times: [...new Set(settings.times)].sort() } : settings;
+}
+
 export async function getOnboardingDone(): Promise<boolean> {
   const value = await AsyncStorage.getItem(KEYS.ONBOARDING_DONE);
   return value === 'true';
@@ -477,7 +492,7 @@ export async function setQuoteLanguage(language: Language): Promise<void> {
   await AsyncStorage.setItem(KEYS.QUOTE_LANGUAGE, language);
 }
 
-// "Delete all my data" (9D): erases everything Kindwords keeps on the
+// "Delete all my data" (9D): erases everything Wafi keeps on the
 // phone. Going by the "kindwords:" prefix rather than the KEYS list means
 // keys added later are covered too.
 export async function deleteAllData(): Promise<void> {

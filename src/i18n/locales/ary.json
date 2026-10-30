@@ -17,12 +17,22 @@
     "settings": "L3dadat"
   },
   "onboarding": {
-    "title": "Mer7ba bik f Kindwords",
-    "subtitle": "Chno kayshabah 7alek daba? Khtar kter men wa7ed — hadchi ghir bach ne3tawk klam a7sen.",
-    "continue": "Kemmel"
+    "title": "Mer7ba bik f Wafi",
+    "subtitle": "Chno kayshabah 7alek daba? Khtar kter men wa7ed — hadchi ghir bach Wafi ykhtar lik klam a7sen.",
+    "continue": "Kemmel",
+    "back": "Rje3",
+    "step": "Khatwa {{step}} mn {{total}}",
+    "remindersTitle": "Imta bghiti twslek klma 7elwa mn Wafi?",
+    "remindersSubtitle": "Lklam l7lou dyal Wafi kaywsel f notification, f l wqat li katkhtar. Tqder tbeddel hadchi f ay wqt mn L3dadat.",
+    "permissionDenied": "Tnbihat dyal Wafi msakrin f l3dadat dyal telephone dyalek, donc tnbihat mwa99fin daba. Tqder tsme7 bihom mn tma f ay wqt, w mn b3d t7el tnbihat f L3dadat.",
+    "welcomeTitle": "Salam, ana Wafi!",
+    "welcomeBody": "Ghadi njib lik klma 7elwa mn wqt l wqt, f l iyam l3adiyin w 7ta f l iyam t9al.",
+    "welcomeFirst": "Klma 7elwa lowla dyalek: {{when}}.",
+    "welcomeHome": "Mnin tbghi chi klma 7elwa, Wafi kaytsennak f Dar.",
+    "start": "Yallah nbdaw"
   },
   "home": {
-    "heading": "Chi klma 7elwa lik",
+    "heading": "Klma 7elwa mn Wafi",
     "anotherKindWord": "Klma 7elwa khra",
     "notForMeThanks": "Mefhoum. Ghadi nwriwk 9el mn bhal hadi.",
     "notToday": "Machi lyoum — wa99ef 7ta l ghda",
@@ -53,17 +63,17 @@
     "languageTitle": "Lougha",
     "uiLanguageLabel": "Lougha dyal l app",
     "uiLanguageSubtitle": "Lougha li biha mektoub l app.",
-    "quoteLanguageLabel": "Lougha dyal lklam l7lou",
-    "quoteLanguageSubtitle": "Lougha li biha kayji lklam l7lou — ymken tkoun mkhtalfa 3la lougha dyal l app.",
+    "quoteLanguageLabel": "Lougha d lklam l7lou dyal Wafi",
+    "quoteLanguageSubtitle": "Lougha li biha kayji lklam l7lou dyal Wafi — ymken tkoun mkhtalfa 3la lougha dyal l app.",
     "personalTitle": "Hajat khassa bik",
     "checkInLabel": "Ach khbarek koul nhar",
     "checkInSubtitle": "So2al sghir \"Ach khbarek lyoum?\" f Dar, ghir bach nkhtaro lik klma mnasba. Jawab dyalek kayb9a f had telephone w kaytnsa f nhar li mn b3d.",
     "forgetNotForMe": "Nsa \"Machi lia\" dyali",
-    "forgetNotForMeConfirmTitle": "Nrje3o lklam l7lou lmkhebbi?",
+    "forgetNotForMeConfirmTitle": "Nrje3o lklam l7lou dyal Wafi li khebbiti?",
     "forgetNotForMeConfirmMessage": "Lklam li 9olti 3lih \"Machi lia\" ymken yban 3awtani, w ma b9inach ghadi nb3dou 3la li bhalo.",
     "forgetNotForMeButton": "Rje3hom",
-    "forgetNotForMeDone": "Safi — ga3 lklam l7lou rje3.",
-    "remindersTitle": "Tnbihat dyal lklam l7lou",
+    "forgetNotForMeDone": "Safi — ga3 lklam l7lou dyal Wafi rje3.",
+    "remindersTitle": "Tnbihat d lklam l7lou dyal Wafi",
     "howOften": "Chhal men merra",
     "frequency": {
       "daily": "Koul nhar",
@@ -79,17 +89,17 @@
     "quietHoursStarts": "Kaybda",
     "quietHoursEnds": "Kaysali",
     "gentlePacingLabel": "N9ess mnin nkoun ghayb",
-    "gentlePacingSubtitle": "Ila ma t7ellat-ch Kindwords chi iyam, lklam l7lou kayji 9el chwiya (machi 9el mn merra f simana ta9riban), w kayrje3 normal mnin t7el l app.",
+    "gentlePacingSubtitle": "Ila ma 7lliti-ch l app chi iyam, lklam l7lou dyal Wafi kayji 9el chwiya (machi 9el mn merra f simana ta9riban), w kayrje3 normal mnin t7elha.",
     "lockScreen": "Likran msakr",
     "visibility": {
       "public": "Wri f likran msakr",
       "private": "Khbi f likran msakr"
     },
     "savedOff": "Tsejjel. Tnbihat mwa96fin.",
-    "summaryDaily": "Tsejjel. Klma 7elwa koul nhar m3a {{time}}.",
-    "summaryThreePerWeek": "Tsejjel. Klma 7elwa koul Tnin, Larb3a w Jem3a m3a {{time}}.",
-    "summaryCustom": "Tsejjel. Klam 7lou koul nhar m3a {{times}}.",
-    "summaryNoTimes": "Tsejjel. Ga3 l wqat dyalek dakhel sw9at skat, donc ma kayn 7ta klma 7elwa 3adiya daba.",
+    "summaryDaily": "Tsejjel. Klma 7elwa mn Wafi koul nhar m3a {{time}}.",
+    "summaryThreePerWeek": "Tsejjel. Klma 7elwa mn Wafi koul Tnin, Larb3a w Jem3a m3a {{time}}.",
+    "summaryCustom": "Tsejjel. Klam 7lou mn Wafi koul nhar m3a {{times}}.",
+    "summaryNoTimes": "Tsejjel. Ga3 l wqat dyalek dakhel sw9at skat, donc ma kayn 7ta klma 7elwa 3adiya mn Wafi daba.",
     "eventRemindersOne": "W zid {{count}} tnbih dyal événement jay.",
     "eventRemindersOther": "W zid {{count}} tnbihat dyal événements jayin.",
     "futureNotesOne": "W zid {{count}} risala katsenna fik f lmosta9bal.",
@@ -98,7 +108,7 @@
     "forSomeoneOther": "W zid {{count}} tnbihat bach tseft notat l nas khrin.",
     "nextAt": "Jaya: {{when}}.",
     "skippedTimes": "Tnehhaw: {{times}} — dakhel sw9at skat.",
-    "permissionDenied": "Tnbihat msakrin l Kindwords f l3dadat dyal telephone dyalek. Smeh liha mn tma, mn b3d 3awed 7awel tsejjel.",
+    "permissionDenied": "Tnbihat msakrin l Wafi f l3dadat dyal telephone dyalek. Smeh liha mn tma, mn b3d 3awed 7awel tsejjel.",
     "resetOnboarding": "3awed l bidaya",
     "plainFontLabel": "Khatt basit w sahl f l9raya",
     "plainFontSubtitle": "Kayb9aw l'alwan w zwa9 dyal l3alam dyalek, w kolchi kayban b lkhatt dyal telephone dyalek.",
@@ -106,16 +116,16 @@
     "helpTitle": "Mosa3ada",
     "supportLink": "Bghiti tehder m3a chi wa7ed?",
     "privacyLink": "Lkhosousiya w ma3loumatek",
-    "deliveryHelpLink": "Ila lklam l7lou kaywsel m3atel"
+    "deliveryHelpLink": "Ila lklam l7lou dyal Wafi kaywsel m3atel"
   },
   "events": {
     "title": "Agenda",
-    "subtitle": "Zid date mohima, w ghadi nseftou lik klma 7elwa 9bel w b3d.",
+    "subtitle": "Zid date mohima, w Wafi ghadi yseft lik klma 7elwa 9bel w b3d.",
     "emptyText": "Mazal ma kayn 7ta événement.",
-    "remindersOffHint": "Tnbihat dyal lklam l7lou mwa99fin f L3dadat, donc walou ma ghadi ytseft daba.",
-    "quietHoursHint": "Sw9at skat dyalek fihom {{time}}, w hiya l wqt dyal lklam l7lou dyal events bla wqt, donc douk kaytnehhaw daba.",
-    "reminderDates": "Lklam l7lou nhar {{dates}} m3a {{time}}",
-    "noRemindersLeft": "Ma b9at 7ta klma 7elwa tseft l hada.",
+    "remindersOffHint": "Tnbihat d lklam l7lou dyal Wafi mwa99fin f L3dadat, donc walou ma ghadi ytseft daba.",
+    "quietHoursHint": "Sw9at skat dyalek fihom {{time}}, w hiya l wqt dyal lklam l7lou dyal Wafi l events bla wqt, donc douk kaytnehhaw daba.",
+    "reminderDates": "Lklam l7lou dyal Wafi nhar {{dates}} m3a {{time}}",
+    "noRemindersLeft": "Ma b9at 7ta klma 7elwa mn Wafi tseft l hada.",
     "addEvent": "+ Zid événement",
     "editEventTitle": "Beddel événement",
     "newEventTitle": "Événement jdid",
@@ -127,19 +137,19 @@
     "deleteConfirmTitle": "Msse7 had l événement?",
     "deleteButton": "Msse7",
     "deleteEventLink": "Msse7 l événement",
-    "reminderMoments": "Lklam l7lou: {{moments}}",
+    "reminderMoments": "Lklam l7lou dyal Wafi: {{moments}}",
     "timeToggle": "F wqt m7dded",
     "timeLabel": "Wqt",
-    "timeHelp": "Klma 7elwa katji sa3a wla sa3tin 9bel, w wa7da khra f l3chiya.",
-    "noTimeHelp": "Klma 7elwa katji nhar 9bel w nhar b3d, m3a {{time}}.",
+    "timeHelp": "Klma 7elwa mn Wafi katji sa3a wla sa3tin 9bel, w wa7da khra f l3chiya.",
+    "noTimeHelp": "Klma 7elwa mn Wafi katji nhar 9bel w nhar b3d, m3a {{time}}.",
     "repeatLabel": "Koul 3am",
-    "repeatHelp": "L dikra wla nhar mohim: lklam l7lou kayrje3 koul 3am."
+    "repeatHelp": "L dikra wla nhar mohim: lklam l7lou dyal Wafi kayrje3 koul 3am."
   },
   "notes": {
     "title": "Notat",
-    "subtitle": "Kteb klma l rasek wla l rasek f lmosta9bal, 7fed risala mn chi wa7ed kat7ebbo, wla kteb wa7da l nhar mohim dyal chi wa7ed akhor. Notat li lik ghadi ndakhlouhom m3a lklam l7lou mn wqt l wqt.",
+    "subtitle": "Kteb klma l rasek wla l rasek f lmosta9bal, 7fed risala mn chi wa7ed kat7ebbo, wla kteb wa7da l nhar mohim dyal chi wa7ed akhor. Notat li lik ghadi ndakhlouhom m3a lklam l7lou dyal Wafi mn wqt l wqt.",
     "emptyText": "Mazal ma kayn 7ta nota.",
-    "remindersOffHint": "Tnbihat dyal lklam l7lou mwa99fin f L3dadat, donc notat ma ghadi ytseftou daba.",
+    "remindersOffHint": "Tnbihat d lklam l7lou dyal Wafi mwa99fin f L3dadat, donc notat ma ghadi ytseftou daba.",
     "addNote": "+ Zid nota",
     "newNoteTitle": "Nota jdida",
     "editNoteTitle": "Beddel nota",
@@ -184,11 +194,11 @@
   },
   "favorites": {
     "title": "Mfaddal",
-    "subtitle": "Lklam l7lou li 7fedti bach trj3 lih.",
+    "subtitle": "Lklam l7lou dyal Wafi li 7fedti bach trj3 lih.",
     "emptyText": "Mazal ma kayn 7ta favori. Dess 3la qelb taht chi klma f Dar bach t7efedha hna."
   },
   "kindWord": {
-    "headerTitle": "Klma 7lowa",
+    "headerTitle": "Klma 7elwa mn Wafi",
     "missingText": "Hadi lklma 7lowa mabqat-ch mawjouda.",
     "snoozeDoneTitle": "Safi",
     "notForMeTitle": "Mefhoum",
@@ -200,7 +210,7 @@
     "subtitle": "Khtar wa7da wla kteb klamek, w mn b3d khtar l chkoun.",
     "forName": "L {{name}}",
     "sources": {
-      "pick": "Klma 7elwa",
+      "pick": "Klma 7elwa mn Wafi",
       "write": "Klami ana"
     },
     "writePlaceholder": "mithal: Bghit ghir ngoul lik rani kanfkker fik.",
@@ -211,9 +221,9 @@
       "picture": "Tsawira",
       "text": "Ktaba"
     },
-    "includeLink": "Zid lien dyal Kindwords",
-    "includeLinkSubtitle": "Bach 7ta howa ywslo klam 7lou mn wqt l wqt, ila bgha.",
-    "linkLine": "Tseftat b Kindwords. Ila bghiti 7ta nta klam 7lou mn wqt l wqt: {{url}}",
+    "includeLink": "Zid lien dyal Wafi",
+    "includeLinkSubtitle": "Bach 7ta howa ywslo lklam l7lou dyal Wafi mn wqt l wqt, ila bgha.",
+    "linkLine": "Tseftat b Wafi. Ila bghiti 7ta nta klam 7lou mn wqt l wqt: {{url}}",
     "sendButton": "Seft"
   },
   "quoteActions": {
@@ -228,27 +238,27 @@
     "notForMe": "Machi lia",
     "notForMeAccessibility": "Machi lia: khbi hadi lklma w wrini 9el mn bhalha",
     "snooze": "Wa99ef",
-    "snoozeAccessibility": "Wa99ef lklam l7lou chwiya"
+    "snoozeAccessibility": "Wa99ef lklam l7lou dyal Wafi chwiya"
   },
   "snoozeMenu": {
     "tomorrow": "Machi lyoum — wa99ef 7ta l ghda",
-    "hour": "Wa99ef lklam l7lou sa3a wahda",
-    "threeDays": "Wa99ef lklam l7lou tlat iyam"
+    "hour": "Wa99ef lklam l7lou dyal Wafi sa3a wahda",
+    "threeDays": "Wa99ef lklam l7lou dyal Wafi tlat iyam"
   },
   "notifications": {
-    "channelName": "Lklam l7lou",
-    "title": "Chi klma 7elwa lik",
-    "beforeEventTitle": "Fkrinek",
-    "afterEventTitle": "Kansqsiw 3lik",
+    "channelName": "Lklam l7lou dyal Wafi",
+    "title": "Klma 7elwa mn Wafi",
+    "beforeEventTitle": "Wafi kayfker fik",
+    "afterEventTitle": "Wafi kaysewwel 3lik",
     "selfNoteTitle": "Klma mnek",
     "futureNoteTitle": "Risala li ktebti l rasek",
     "lovedOneTitle": "Risala mn {{name}}",
     "forSomeoneTitle": "Nota dyalek l {{name}} wajda bach tseftha",
-    "snoozedHour": "Lklam l7lou twa99fo sa3a wahda.",
-    "snoozedTomorrow": "Lklam l7lou twa99fo l ghda.",
-    "snoozedThreeDays": "Lklam l7lou twa99fo tlat iyam.",
-    "pausedForToday": "Lklam l7lou mwa99ef lyoum.",
-    "pausedUntil": "Lklam l7lou mwa99ef 7ta {{when}}."
+    "snoozedHour": "Lklam l7lou dyal Wafi twa99fo sa3a wahda.",
+    "snoozedTomorrow": "Lklam l7lou dyal Wafi twa99fo l ghda.",
+    "snoozedThreeDays": "Lklam l7lou dyal Wafi twa99fo tlat iyam.",
+    "pausedForToday": "Lklam l7lou dyal Wafi mwa99ef lyoum.",
+    "pausedUntil": "Lklam l7lou dyal Wafi mwa99ef 7ta {{when}}."
   },
   "widget": {
     "another": "Wa7da khra"
@@ -275,7 +285,7 @@
     "job_searching": "Kaytchouf khdma",
     "money_worries": "Hemm dyal lflous",
     "older_adult": "Mesen(a)",
-    "other": "Ghir hna 3la khater lklam l7lou"
+    "other": "Ghir hna 3la khater lklam l7lou dyal Wafi"
   },
   "eventTypes": {
     "exam": "Imtihan",
@@ -291,7 +301,7 @@
     "emergencyLabel": "F l'urgence:",
     "callHint": "Kat7el l'application dyal telephone b had numéro",
     "siteHint": "Kat7el site",
-    "footer": "Kindwords ma kay7tafed b 7ta 7aja 3la had safha.",
+    "footer": "Wafi ma kay7tafed b 7ta 7aja 3la had safha.",
     "countries": {
       "fr": "Fransa",
       "ma": "Lmaghrib",
@@ -338,25 +348,25 @@
   "privacy": {
     "title": "Lkhosousiya w ma3loumatek",
     "staysTitle": "Kolchi kayb9a f had telephone",
-    "staysBody": "Bla compte, bla pub, bla tatabbo3. Dakchi li katkteb w katkhtar f Kindwords kayt7fed ghir f had telephone, w 7ta wa7ed akhor ma ymken ychoufo, 7ta 7na.",
+    "staysBody": "Bla compte, bla pub, bla tatabbo3. Dakchi li katkteb w katkhtar f Wafi kayt7fed ghir f had telephone, w 7ta wa7ed akhor ma ymken ychoufo, 7ta 7na.",
     "leavesTitle": "Ma kaykhrej 7ta tkhtar nta",
-    "leavesBody": "Mnin katseft klma 7elwa wla katkhrrej ma3loumatek, menu dyal partage f telephone dyalek kay3tihom l l'application li khtariti. Kindwords 3omro ma kayseft chi 7aja bou7do.",
+    "leavesBody": "Mnin katseft klma 7elwa wla katkhrrej ma3loumatek, menu dyal partage f telephone dyalek kay3tihom l l'application li khtariti. Wafi 3omro ma kayseft chi 7aja bou7do.",
     "backupTitle": "Sauvegarde dyal telephone dyalek",
-    "backupBody": "Ila kanet sauvegarde mkhdma f l3dadat dyal telephone, Android ymken ydakhel fiha Kindwords, f compte Google dyalek. 7na ma ymkench lina nchoufoha.",
+    "backupBody": "Ila kanet sauvegarde mkhdma f l3dadat dyal telephone, Android ymken ydakhel fiha Wafi, f compte Google dyalek. 7na ma ymkench lina nchoufoha.",
     "notificationsTitle": "Tnbihat",
-    "notificationsBody": "Lklam l7lou kayt9ad w kayt7ell mn telephone dyalek rasso, bla 7ta serveur.",
+    "notificationsBody": "Lklam l7lou dyal Wafi kayt9ad w kayt7ell mn telephone dyalek rasso, bla 7ta serveur.",
     "policyLink": "9ra politique de confidentialité kamla",
     "yourDataTitle": "Ma3loumatek",
-    "deleteHelp": "Kaymse7 daba notat, l'événements, l'favoris, l3dadat w kolchi li kay7tafed bih Kindwords f had telephone.",
+    "deleteHelp": "Kaymse7 daba notat, l'événements, l'favoris, l3dadat w kolchi li kay7tafed bih Wafi f had telephone.",
     "deleteButton": "Mse7 ga3 ma3loumati",
     "deleteConfirmTitle": "Nmse7o kolchi?",
-    "deleteConfirmMessage": "Kolchi li kay7tafed bih Kindwords f had telephone ghadi ytmse7, 7ta notat dyalek. Ma ymkench nrj3o. Ila bghiti t7fed nuskha, khrrej ma3loumatek 9bel.",
+    "deleteConfirmMessage": "Kolchi li kay7tafed bih Wafi f had telephone ghadi ytmse7, 7ta notat dyalek. Ma ymkench nrj3o. Ila bghiti t7fed nuskha, khrrej ma3loumatek 9bel.",
     "deleteConfirmButton": "Mse7 kolchi",
     "deletedTitle": "Tmse7 kolchi",
-    "deletedMessage": "Kindwords kaybda mn jdid.",
+    "deletedMessage": "Wafi kaybda mn jdid.",
     "exportHelp": "7fed nuskha mn notat, l'événements, l'favoris w l3dadat dyalek f fichier, fin ma bghiti: l'email dyalek, drive, wla message l rasek. F telephone jdid, importih bach yrje3 lik kolchi.",
     "exportButton": "Khrrej ma3loumati",
-    "exportDialogTitle": "7fed ma3loumat Kindwords dyalek",
+    "exportDialogTitle": "7fed ma3loumat Wafi dyalek",
     "exportErrorTitle": "Ma9dernach nkhrrjo ma3loumatek",
     "importButton": "Jib mn fichier",
     "importConfirmTitle": "Nrje3o had lma3loumat?",
@@ -365,30 +375,30 @@
     "importConfirmButton": "Jib",
     "importDoneTitle": "Tjab",
     "importDoneMessage": "Notat, l'événements, l'favoris w l3dadat dyalek rj3o.",
-    "importPermissionNote": "Bach ywslok lklam l7lou f had telephone, 7el L3dadat w dess 3la 7fed.",
-    "importInvalidTitle": "Hada machi fichier dyal Kindwords",
+    "importPermissionNote": "Bach ywslok lklam l7lou dyal Wafi f had telephone, 7el L3dadat w dess 3la 7fed.",
+    "importInvalidTitle": "Hada machi fichier dyal Wafi",
     "importInvalidMessage": "Khtar fichier li tsawb b \"Khrrej ma3loumati\"."
   },
   "deliveryHelp": {
-    "title": "Ila lklam l7lou kaywsel m3atel",
-    "intro": "Bach y9ellel mn batterie, chi telephonat kay7bsou notifications dyal l'applications, w lklam l7lou ymken ywsel m3atel wla ma ywselch. Had l3dadat ymken y3awnou. 7ta wa7da fihom machi daroriya.",
+    "title": "Ila lklam l7lou dyal Wafi kaywsel m3atel",
+    "intro": "Bach y9ellel mn batterie, chi telephonat kay7bsou notifications dyal l'applications, w lklam l7lou dyal Wafi ymken ywsel m3atel wla ma ywselch. Had l3dadat ymken y3awnou. 7ta wa7da fihom machi daroriya.",
     "exactTitle": "F lwe9t",
-    "exactBody": "\"Alarmes et rappels\" kaykhelli Kindwords yseft koul klma 7elwa f nafs lwe9t li khtariti. Ila kan msdoud, Android ymken yseftha chwiya mn b3d.",
+    "exactBody": "\"Alarmes et rappels\" kaykhelli Wafi yseft koul klma 7elwa f nafs lwe9t li khtariti. Ila kan msdoud, Android ymken yseftha chwiya mn b3d.",
     "exactButton": "7el Alarmes et rappels",
     "batteryTitle": "Batterie",
-    "batteryBody": "F l3dadat dyal Kindwords, dir batterie 3la \"Non restreinte\" (f chi telephonat: \"Ne pas optimiser\").",
-    "batteryButton": "7el l3dadat dyal Kindwords",
+    "batteryBody": "F l3dadat dyal Wafi, dir batterie 3la \"Non restreinte\" (f chi telephonat: \"Ne pas optimiser\").",
+    "batteryButton": "7el l3dadat dyal Wafi",
     "notificationsTitle": "Tnbihat",
-    "notificationsBody": "Tchouf wach tnbihat m9boulin l Kindwords, 7ta l catégorie \"Lklam l7lou\".",
+    "notificationsBody": "Tchouf wach tnbihat m9boulin l Wafi, 7ta l catégorie \"Lklam l7lou dyal Wafi\".",
     "notificationsButton": "7el l3dadat dyal tnbihat",
     "brandsTitle": "Chi telephonat khasshom khatwa khra",
     "brands": {
-      "samsung": "Samsung: Paramètres > Batterie > Limites d'utilisation en arrière-plan > Applications jamais en veille, w zid Kindwords.",
-      "xiaomi": "Xiaomi, Redmi, POCO: 7el démarrage automatique l Kindwords, w dir économiseur de batterie dyalo 3la \"Aucune restriction\".",
-      "huawei": "Huawei, Honor: Paramètres > Batterie > Lancement d'applications, sedd \"Gérer automatiquement\" l Kindwords w khalli kolchi mkhdem.",
-      "other": "Telephonat khrin: 9elleb 3la Kindwords f l3dadat dyal batterie w sedd l'optimisation."
+      "samsung": "Samsung: Paramètres > Batterie > Limites d'utilisation en arrière-plan > Applications jamais en veille, w zid Wafi.",
+      "xiaomi": "Xiaomi, Redmi, POCO: 7el démarrage automatique l Wafi, w dir économiseur de batterie dyalo 3la \"Aucune restriction\".",
+      "huawei": "Huawei, Honor: Paramètres > Batterie > Lancement d'applications, sedd \"Gérer automatiquement\" l Wafi w khalli kolchi mkhdem.",
+      "other": "Telephonat khrin: 9elleb 3la Wafi f l3dadat dyal batterie w sedd l'optimisation."
     },
     "guidesLink": "Guides khatwa b khatwa l koul marque (dontkillmyapp.com, b l'anglais)",
-    "footer": "Kindwords khddam f jmi3 l7alat: lklam l7lou ymken ghir ywsel chwiya m3atel."
+    "footer": "Wafi khddam f jmi3 l7alat: lklam l7lou dyalo ymken ghir ywsel chwiya m3atel."
   }
 }

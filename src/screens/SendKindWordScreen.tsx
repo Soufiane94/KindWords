@@ -3,7 +3,7 @@
 // app they already talk on — the app never sends anything by itself. It can
 // be one of the app's kind words or the user's own words, sent as a picture
 // in their world's style or as plain text (which can carry a link to
-// Kindwords). Opens with the quote it was opened from, or with a note the
+// Wafi). Opens with the quote it was opened from, or with a note the
 // user wrote for someone else's day.
 
 import React, { useEffect, useMemo, useState } from 'react';

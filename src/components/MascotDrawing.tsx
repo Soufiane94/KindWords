@@ -7,7 +7,7 @@
 import React from 'react';
 import Svg, { Circle, Ellipse, G, Path } from 'react-native-svg';
 
-export type MascotFace = 'smile' | 'joy' | 'tender' | 'peaceful' | 'perky';
+export type MascotFace = 'smile' | 'joy' | 'tender' | 'peaceful' | 'perky' | 'blink';
 
 // The drawing's own units. The card's top edge runs along EDGE_Y: the head
 // and chest stop there, and only the paws hang over it.
@@ -54,6 +54,9 @@ const FACES: Record<MascotFace, FaceParts> = {
   tender: { eyes: 'open', brows: 'soft', mouth: 'small', ears: [0, 45], tilt: -9, blush: true },
   peaceful: { eyes: 'closed', brows: 'relaxed', mouth: 'small', ears: [-8, -8], tilt: 4, blush: true },
   perky: { eyes: 'bright', brows: 'raised', mouth: 'open', ears: [72, 72], tilt: 0, blush: false },
+  // The smile with its eyes shut for a moment: only for blinking, in the
+  // welcome's hello (9O).
+  blink: { eyes: 'closed', brows: 'neutral', mouth: 'smile', ears: [0, 0], tilt: 0, blush: false },
 };
 
 // The head's outline: a long face with wiry tufts at the cheeks and a

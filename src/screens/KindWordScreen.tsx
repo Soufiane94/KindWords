@@ -33,6 +33,7 @@ import {
   rescheduleAllNotifications,
   computeSnoozeUntil,
   describeSnoozeDuration,
+  noteTitle,
   SnoozeDuration,
 } from '../services/notifications';
 import { refreshKindWordWidget } from '../widget/widgetTaskHandler';
@@ -104,13 +105,17 @@ export default function KindWordScreen({ route, navigation }: Props) {
   }
 
   const card = quote ?? (note ? { id: note.id, text: note.text, author: noteAuthor(note) } : undefined);
+  // "A kind word from Wafi" (9O), but a note keeps the heading of its
+  // notification ("A message from Mom"): it comes from the user or someone
+  // they love, never from Wafi. Blank while the note loads.
+  const title = noteId ? (note ? noteTitle(note) : '') : t('kindWord.headerTitle');
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
       <WorldBackground />
       <View style={styles.header}>
         <Text style={styles.headerTitle} accessibilityRole="header">
-          {t('kindWord.headerTitle')}
+          {title}
         </Text>
         <Pressable
           onPress={() => navigation.goBack()}

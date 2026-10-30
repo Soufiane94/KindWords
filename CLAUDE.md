@@ -1,11 +1,12 @@
-# Kindwords — rules for working on this project
+# Wafi — rules for working on this project
 
 ## What this is
-Kindwords sends occasional encouraging, loving quotes ("kind words") to
-users, especially people who feel alone. The goal is to bring a smile.
+Wafi (called Kindwords until 9O) sends occasional encouraging, loving
+quotes ("kind words") to users, especially people who feel alone. The goal
+is to bring a smile. Wafi is also the app's face: a little pup.
 
 ## Product principles (never break these)
-- Kindwords is for people who may be lonely, grieving, ill or overwhelmed.
+- Wafi is for people who may be lonely, grieving, ill or overwhelmed.
   Warm, gentle, never preachy, never toxic-positive. When unsure, choose
   the gentler option. Keep this tone above all else when writing or
   reviewing quotes or UI copy.
@@ -16,7 +17,8 @@ users, especially people who feel alone. The goal is to bring a smile.
 - Private things stay private: notes never appear on the widget,
   lock-screen text is hidden by default, and the check-in keeps only
   today's answer, never a history.
-- "Add a link to Kindwords" stays off by default.
+- "Add a link to Wafi" stays off by default, and shared pictures carry no
+  name or logo.
 - Local-first: the app must work offline, and personal data stays on the
   phone, with no analytics or tracking SDKs. Flag any change that would
   send data off the phone before making it, since it changes the privacy
@@ -66,6 +68,12 @@ users, especially people who feel alone. The goal is to bring a smile.
   `src/services/storage.ts`); expo-sqlite may be added later if data gets
   more relational. Every key starts with `kindwords:`: "Delete all my data"
   erases by that prefix.
+- The app was called Kindwords until 9O, and internal names keep it on
+  purpose: the `kindwords:` storage prefix, the backup file's `app` id,
+  the notification channel ids, the package name, the EAS slug (it must
+  match the EAS project) and the GitHub Pages address. Renaming the first
+  two would lose existing data and old backups. Everything a user reads
+  says Wafi.
 - `docs/` is the public website, served by GitHub Pages (the privacy policy
   now, App Links files later). `store/` holds the Play Console texts.
 - Backups (9E): Android's Auto Backup (`allowBackup`, keep it on) plus
@@ -78,7 +86,7 @@ users, especially people who feel alone. The goal is to bring a smile.
   no push server.
 - Sharing (Phase 8): pictures use expo-sharing, which only shares files;
   plain text uses React Native's built-in `Share` API.
-  `src/services/share.ts` holds both, plus the Kindwords store link.
+  `src/services/share.ts` holds both, plus the app's store link.
 - Quotes live in `src/data/quotes.json`: each quote has
   `{ id, text, author?, circumstances: [], eventTypes: [], mood, language }`.
   `language` is one of `en`/`fr`/`es`/`ary` — quotes are written natively
@@ -130,7 +138,9 @@ instead:
   in a `preview` or `production` build. `production` makes the AAB for
   Play, and EAS raises its version code by itself.
 - The icon, splash image, widget preview and Play graphics are drawn by
-  `scripts/make-assets.js`; changing them needs a new build too.
+  `scripts/make-assets.js`; changing them needs a new build too. The
+  icon's pup is a copy of `MascotDrawing.tsx`'s shapes: change both
+  together.
 - Only rebuild the APK for the native changes listed in Working rules.
   Plain JS/TS changes just need a Metro reload via
   `npx expo start --dev-client`, and so do new `@expo-google-fonts/*`
@@ -152,9 +162,12 @@ instead:
   It runs when the app opens or comes back to the front (at most hourly)
   and after any change to settings, events, notes, snoozes, "not for me",
   or the check-in.
-- Only Settings' Save button passes `askPermission: true`; every other
-  reschedule just checks the permission, so the system prompt never
-  appears unasked.
+- Only Settings' Save button and the welcome's reminders step (9O) pass
+  `askPermission: true`; every other reschedule just checks the
+  permission, so the system prompt never appears unasked.
+- The reminder settings live in one component, `ReminderSettingsForm`,
+  shown in Settings and as the welcome's second step (9O): a change to
+  them shows up in both.
 - Android notification channels can't change importance or lock-screen
   visibility after creation (only the name), hence one channel per
   visibility option: `kindwords-public` / `kindwords-private`, and
@@ -230,7 +243,12 @@ instead:
   kind word's mood: the cheerful faces only with encouragement, never a
   grin on grief. One set of colors for every world, decorative (hidden
   from screen readers), its hop stilled by reduce motion, and never on
-  shared pictures.
+  shared pictures. Its hello at the end of the welcome (`MascotWelcome`,
+  9O) is still too with reduce motion.
+- The pup is Wafi (9O). "A kind word from Wafi" heads a kind word wherever
+  one is shown (Home, the Kind word screen, notifications, the widget),
+  and "Wafi kind words" names them in general. A personal note is never
+  "from Wafi": it keeps its own title ("A message from Mom").
 - A shared picture is a `framed` QuoteCard: the card on its world's
   gradient with still decorations around it (`WorldFrame`). On screen the
   card stays unframed, since it already sits in its world.

@@ -1,4 +1,4 @@
-// "Privacy and your data" (9D): a short, plain page about what Kindwords
+// "Privacy and your data" (9D): a short, plain page about what Wafi
 // keeps and why it stays on the phone, a link to the full privacy policy,
 // and "Delete all my data". Since 9E it also exports everything to a file
 // and imports it back: a backup without accounts.

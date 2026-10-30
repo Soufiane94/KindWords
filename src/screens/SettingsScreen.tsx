@@ -1,9 +1,9 @@
 // Settings screen: circumstances (Phase 1), appearance ("A new look each
 // day", which replaced choosing a world, and the plain font from 9C),
-// languages (Phase 6), notification preferences
-// (Phase 2) — frequency, quiet hours, lock-screen visibility, gentle pacing
-// — personal touches (Phase 7): the daily check-in and undoing "not for
-// me" — and, at the bottom, quiet links to help pages (9C on).
+// languages (Phase 6), personal touches (Phase 7): the daily check-in and
+// undoing "not for me" — then the reminders (Phase 2, in
+// ReminderSettingsForm since the welcome shares them in 9O) with their Save
+// button, and, at the bottom, quiet links to help pages (9C on).
 
 import React, { useState, useCallback, useMemo } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Switch, Alert, Platform } from 'react-native';
@@ -27,26 +27,21 @@ import {
   setCheckInEnabled,
   clearTodayCheckIn,
   forgetNotForMe,
+  tidyNotificationSettings,
   NotificationSettings,
-  Frequency,
-  LockScreenVisibility,
   DEFAULT_NOTIFICATION_SETTINGS,
 } from '../services/storage';
 import { describePausedUntil, rescheduleAllNotifications, RescheduleResult } from '../services/notifications';
 import { regularTimes } from '../services/reminderPlan';
 import { refreshKindWordWidget } from '../widget/widgetTaskHandler';
 import CircumstanceChip from '../components/CircumstanceChip';
-import SegmentedControl from '../components/SegmentedControl';
-import TimeRow from '../components/TimeRow';
+import ReminderSettingsForm from '../components/ReminderSettingsForm';
 import WorldBackground from '../components/WorldBackground';
 import { useTheme } from '../theme/ThemeContext';
 import { formatMomentDisplay, formatTimeDisplay } from '../i18n/dateNames';
 import type { World } from '../data/worlds';
 import { headingFont } from '../theme/fontStyle';
 import type { RootStackParamList } from '../navigation/types';
-
-const FREQUENCY_VALUES: Frequency[] = ['daily', 'three_per_week', 'custom'];
-const VISIBILITY_VALUES: LockScreenVisibility[] = ['private', 'public'];
 
 type SaveStatus =
   | { kind: 'idle' }
@@ -71,15 +66,6 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   const { t } = useTranslation();
   const language = useUiLanguage();
   const styles = useMemo(() => createStyles(world), [world]);
-
-  const FREQUENCY_OPTIONS = FREQUENCY_VALUES.map((value) => ({
-    value,
-    label: t(`settings.frequency.${value}`),
-  }));
-  const VISIBILITY_OPTIONS = VISIBILITY_VALUES.map((value) => ({
-    value,
-    label: t(`settings.visibility.${value}`),
-  }));
 
   useFocusEffect(
     useCallback(() => {
@@ -149,26 +135,6 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
     ]);
   }
 
-  function updateSettings(patch: Partial<NotificationSettings>) {
-    setSettings((prev) => ({ ...prev, ...patch }));
-  }
-
-  function updateTimeAt(index: number, time: string) {
-    setSettings((prev) => {
-      const times = [...prev.times];
-      times[index] = time;
-      return { ...prev, times };
-    });
-  }
-
-  function addCustomTime() {
-    setSettings((prev) => ({ ...prev, times: [...prev.times, '12:00'] }));
-  }
-
-  function removeCustomTime(index: number) {
-    setSettings((prev) => ({ ...prev, times: prev.times.filter((_, i) => i !== index) }));
-  }
-
   // A plain-language summary of what saving set up ("A kind word every day
   // at 9:00 AM", the next one, any event reminders...) rather than one raw
   // count that mixed repeating and one-off reminders together.
@@ -220,11 +186,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
   }
 
   async function handleSave() {
-    // Duplicate custom times would just send two kind words at once, so the
-    // list is tidied (and put in order) before saving. "Daily" and "3x a
-    // week" only use the first time, so their list is left as it is.
-    const cleaned: NotificationSettings =
-      settings.frequency === 'custom' ? { ...settings, times: [...new Set(settings.times)].sort() } : settings;
+    const cleaned = tidyNotificationSettings(settings);
     setSettings(cleaned);
     await setNotificationSettings(cleaned);
 
@@ -232,7 +194,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
     if (result.status === 'permission_denied') {
       setSaveStatus({ kind: 'permission_denied' });
-      updateSettings({ enabled: false });
+      setSettings({ ...cleaned, enabled: false });
       await setNotificationSettings({ ...cleaned, enabled: false });
       return;
     }
@@ -351,99 +313,7 @@ export default function SettingsScreen({ onResetOnboarding }: Props) {
 
         <View style={styles.divider} />
 
-        <View style={styles.rowBetween}>
-          {/* Can shrink and wrap, so large text never pushes the switch off screen. */}
-          <Text style={[styles.sectionTitle, styles.rowTitle]} accessibilityRole="header">
-            {t('settings.remindersTitle')}
-          </Text>
-          <Switch
-            value={settings.enabled}
-            onValueChange={(enabled) => updateSettings({ enabled })}
-            trackColor={{ true: colors.accent }}
-            accessibilityLabel={t('settings.remindersTitle')}
-          />
-        </View>
-
-        {settings.enabled && (
-          <>
-            <Text style={styles.label}>{t('settings.howOften')}</Text>
-            <SegmentedControl
-              options={FREQUENCY_OPTIONS}
-              value={settings.frequency}
-              onChange={(frequency) => updateSettings({ frequency })}
-            />
-
-            {(settings.frequency === 'daily' || settings.frequency === 'three_per_week') && (
-              <TimeRow
-                label={t(settings.frequency === 'daily' ? 'settings.notificationTime' : 'settings.timeMonWedFri')}
-                time={settings.times[0] ?? '09:00'}
-                onChange={(time) => updateTimeAt(0, time)}
-              />
-            )}
-
-            {settings.frequency === 'custom' && (
-              <>
-                {settings.times.map((time, index) => (
-                  <View key={index} style={styles.customTimeRow}>
-                    <View style={styles.customTimeField}>
-                      <TimeRow
-                        label={t('settings.timeNumbered', { number: index + 1 })}
-                        time={time}
-                        onChange={(newTime) => updateTimeAt(index, newTime)}
-                      />
-                    </View>
-                    {settings.times.length > 1 && (
-                      <Pressable
-                        onPress={() => removeCustomTime(index)}
-                        style={styles.removeButton}
-                        accessibilityRole="button"
-                        accessibilityLabel={t('settings.removeTime', { number: index + 1 })}
-                      >
-                        <Text style={styles.removeButtonText}>✕</Text>
-                      </Pressable>
-                    )}
-                  </View>
-                ))}
-                {settings.times.length < 5 && (
-                  <Pressable onPress={addCustomTime} style={styles.addTimeButton} accessibilityRole="button">
-                    <Text style={styles.addTimeButtonText}>{t('settings.addAnotherTime')}</Text>
-                  </Pressable>
-                )}
-              </>
-            )}
-
-            <Text style={[styles.label, { marginTop: 20 }]}>{t('settings.quietHours')}</Text>
-            <Text style={styles.subtitle}>{t('settings.quietHoursSubtitle')}</Text>
-            <TimeRow
-              label={t('settings.quietHoursStarts')}
-              time={settings.quietHoursStart}
-              onChange={(time) => updateSettings({ quietHoursStart: time })}
-            />
-            <TimeRow
-              label={t('settings.quietHoursEnds')}
-              time={settings.quietHoursEnd}
-              onChange={(time) => updateSettings({ quietHoursEnd: time })}
-            />
-
-            <View style={[styles.rowBetween, { marginTop: 20, marginBottom: 0 }]}>
-              <Text style={styles.toggleLabel}>{t('settings.gentlePacingLabel')}</Text>
-              <Switch
-                value={settings.gentlePacing}
-                onValueChange={(gentlePacing) => updateSettings({ gentlePacing })}
-                trackColor={{ true: colors.accent }}
-                accessibilityLabel={t('settings.gentlePacingLabel')}
-              />
-            </View>
-            <Text style={styles.subtitle}>{t('settings.gentlePacingSubtitle')}</Text>
-
-            <Text style={[styles.label, { marginTop: 12 }]}>{t('settings.lockScreen')}</Text>
-            <SegmentedControl
-              options={VISIBILITY_OPTIONS}
-              value={settings.lockScreenVisibility}
-              onChange={(lockScreenVisibility) => updateSettings({ lockScreenVisibility })}
-            />
-          </>
-        )}
+        <ReminderSettingsForm settings={settings} onChange={setSettings} />
 
         <Pressable style={styles.saveButton} onPress={handleSave} accessibilityRole="button">
           <Text style={styles.saveButtonText}>{t('common.save')}</Text>
@@ -556,10 +426,6 @@ function createStyles(world: World) {
       justifyContent: 'space-between',
       marginBottom: 12,
     },
-    rowTitle: {
-      flex: 1,
-      marginRight: 12,
-    },
     label: {
       fontSize: 14,
       fontWeight: '600',
@@ -580,30 +446,6 @@ function createStyles(world: World) {
       fontSize: 13,
       color: colors.secondaryText,
       textDecorationLine: 'underline',
-    },
-    customTimeRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    customTimeField: {
-      flex: 1,
-    },
-    removeButton: {
-      marginLeft: 8,
-      padding: 8,
-    },
-    removeButtonText: {
-      fontSize: 16,
-      color: colors.danger,
-    },
-    addTimeButton: {
-      marginTop: 8,
-      alignSelf: 'flex-start',
-    },
-    addTimeButtonText: {
-      color: colors.accent,
-      fontWeight: '600',
-      fontSize: 14,
     },
     saveButton: {
       backgroundColor: colors.accent,

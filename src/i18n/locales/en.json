@@ -17,12 +17,22 @@
     "settings": "Settings"
   },
   "onboarding": {
-    "title": "Welcome to Kindwords",
-    "subtitle": "Which of these feel like you right now? Pick as many as you like — this just helps us choose kinder words for you.",
-    "continue": "Continue"
+    "title": "Welcome to Wafi",
+    "subtitle": "Which of these feel like you right now? Pick as many as you like — this just helps Wafi choose kinder words for you.",
+    "continue": "Continue",
+    "back": "Back",
+    "step": "Step {{step}} of {{total}}",
+    "remindersTitle": "When would you like a kind word from Wafi?",
+    "remindersSubtitle": "Wafi kind words come as notifications, at the times you choose. You can change this anytime in Settings.",
+    "permissionDenied": "Notifications are turned off for Wafi in your phone's settings, so reminders are off for now. You can allow them there anytime, then turn reminders on in Settings.",
+    "welcomeTitle": "Hi, I'm Wafi!",
+    "welcomeBody": "I'll bring you a kind word now and then, on ordinary days and on the heavier ones too.",
+    "welcomeFirst": "Your first kind word: {{when}}.",
+    "welcomeHome": "Whenever you'd like a kind word, Wafi is right here on Home.",
+    "start": "Let's begin"
   },
   "home": {
-    "heading": "A kind word for you",
+    "heading": "A kind word from Wafi",
     "anotherKindWord": "Another kind word",
     "notForMeThanks": "Got it. We'll show fewer like that one.",
     "notToday": "Not today — pause until tomorrow",
@@ -46,24 +56,24 @@
   "settings": {
     "title": "Settings",
     "circumstancesTitle": "Your circumstances",
-    "circumstancesSubtitle": "This changes which kind words show up around the app.",
+    "circumstancesSubtitle": "This changes which Wafi kind words show up around the app.",
     "appearanceTitle": "Appearance",
     "dailyWorldLabel": "A new look each day",
     "dailyWorldSubtitle": "Colors and decorations change by themselves each day, as a small surprise. Turn this off for a plain, calm look that stays the same.",
     "languageTitle": "Language",
     "uiLanguageLabel": "App language",
     "uiLanguageSubtitle": "What the app itself is written in.",
-    "quoteLanguageLabel": "Kind words language",
+    "quoteLanguageLabel": "Wafi kind words language",
     "quoteLanguageSubtitle": "What language the quotes themselves are chosen in — can be different from the app language.",
     "personalTitle": "Personal touches",
     "checkInLabel": "Daily check-in",
     "checkInSubtitle": "A one-tap \"How are you today?\" on Home, only used to pick a fitting kind word. Your answer stays on this phone and is forgotten the next day.",
     "forgetNotForMe": "Forget my \"not for me\" choices",
-    "forgetNotForMeConfirmTitle": "Bring back hidden kind words?",
+    "forgetNotForMeConfirmTitle": "Bring back hidden Wafi kind words?",
     "forgetNotForMeConfirmMessage": "Quotes you marked \"not for me\" can show up again, and we'll stop leaning away from ones like them.",
     "forgetNotForMeButton": "Bring them back",
     "forgetNotForMeDone": "Done — every kind word is back in the mix.",
-    "remindersTitle": "Kind word reminders",
+    "remindersTitle": "Wafi kind word reminders",
     "howOften": "How often",
     "frequency": {
       "daily": "Daily",
@@ -79,17 +89,17 @@
     "quietHoursStarts": "Starts",
     "quietHoursEnds": "Ends",
     "gentlePacingLabel": "Ease off when I'm away",
-    "gentlePacingSubtitle": "If Kindwords goes unopened for a few days, kind words come a little less often (never less than about once a week), and go back to normal as soon as you open the app.",
+    "gentlePacingSubtitle": "If you don't open the app for a few days, Wafi kind words come a little less often (never less than about once a week), and go back to normal as soon as you do.",
     "lockScreen": "Lock screen",
     "visibility": {
       "public": "Show on lock screen",
       "private": "Hide on lock screen"
     },
     "savedOff": "Saved. Reminders are turned off.",
-    "summaryDaily": "Saved. A kind word every day at {{time}}.",
-    "summaryThreePerWeek": "Saved. A kind word every Monday, Wednesday and Friday at {{time}}.",
-    "summaryCustom": "Saved. Kind words every day at {{times}}.",
-    "summaryNoTimes": "Saved. All your times are inside quiet hours, so there are no regular kind words for now.",
+    "summaryDaily": "Saved. A kind word from Wafi every day at {{time}}.",
+    "summaryThreePerWeek": "Saved. A kind word from Wafi every Monday, Wednesday and Friday at {{time}}.",
+    "summaryCustom": "Saved. Wafi kind words every day at {{times}}.",
+    "summaryNoTimes": "Saved. All your times are inside quiet hours, so there are no regular Wafi kind words for now.",
     "eventRemindersOne": "Plus {{count}} event reminder coming up.",
     "eventRemindersOther": "Plus {{count}} event reminders coming up.",
     "futureNotesOne": "Plus {{count}} note waiting for future you.",
@@ -98,7 +108,7 @@
     "forSomeoneOther": "Plus {{count}} reminders to send notes to others.",
     "nextAt": "Next one: {{when}}.",
     "skippedTimes": "Skipped {{times}} — inside your quiet hours.",
-    "permissionDenied": "Notifications are turned off for Kindwords in your phone's settings. Please allow them there, then try saving again.",
+    "permissionDenied": "Notifications are turned off for Wafi in your phone's settings. Please allow them there, then try saving again.",
     "resetOnboarding": "Redo welcome setup",
     "plainFontLabel": "Plain, easy-to-read font",
     "plainFontSubtitle": "Keeps your world's colors and decorations, and shows all text in your phone's own font.",
@@ -106,16 +116,16 @@
     "helpTitle": "Help",
     "supportLink": "Need to talk to someone?",
     "privacyLink": "Privacy and your data",
-    "deliveryHelpLink": "If kind words arrive late"
+    "deliveryHelpLink": "If Wafi kind words arrive late"
   },
   "events": {
     "title": "Calendar",
-    "subtitle": "Add a date that matters, and we'll send a kind word before and after it.",
+    "subtitle": "Add a date that matters, and Wafi will send a kind word before and after it.",
     "emptyText": "No events yet.",
-    "remindersOffHint": "Kind word reminders are turned off in Settings, so these won't send anything for now.",
-    "quietHoursHint": "Your quiet hours include {{time}}, when kind words for events without a time are sent, so those are skipped for now.",
-    "reminderDates": "Kind words on {{dates}} at {{time}}",
-    "noRemindersLeft": "No kind words left to send for this one.",
+    "remindersOffHint": "Wafi kind word reminders are turned off in Settings, so these won't send anything for now.",
+    "quietHoursHint": "Your quiet hours include {{time}}, when Wafi kind words for events without a time are sent, so those are skipped for now.",
+    "reminderDates": "Wafi kind words on {{dates}} at {{time}}",
+    "noRemindersLeft": "No Wafi kind words left to send for this one.",
     "addEvent": "+ Add event",
     "editEventTitle": "Edit event",
     "newEventTitle": "New event",
@@ -127,19 +137,19 @@
     "deleteConfirmTitle": "Delete this event?",
     "deleteButton": "Delete",
     "deleteEventLink": "Delete event",
-    "reminderMoments": "Kind words: {{moments}}",
+    "reminderMoments": "Wafi kind words: {{moments}}",
     "timeToggle": "At a specific time",
     "timeLabel": "Time",
-    "timeHelp": "A kind word comes an hour or two before, and another that evening.",
-    "noTimeHelp": "A kind word comes the day before and the day after, at {{time}}.",
+    "timeHelp": "A kind word from Wafi comes an hour or two before, and another that evening.",
+    "noTimeHelp": "A kind word from Wafi comes the day before and the day after, at {{time}}.",
     "repeatLabel": "Every year",
-    "repeatHelp": "For an anniversary or a day of remembrance: the kind words come back each year."
+    "repeatHelp": "For an anniversary or a day of remembrance: Wafi kind words come back each year."
   },
   "notes": {
     "title": "Notes",
-    "subtitle": "Write a note to yourself or to future you, keep a message from someone you love, or write one for someone else's important day. Notes for you are slipped in among your kind words now and then.",
+    "subtitle": "Write a note to yourself or to future you, keep a message from someone you love, or write one for someone else's important day. Notes for you are slipped in among your Wafi kind words now and then.",
     "emptyText": "No notes yet.",
-    "remindersOffHint": "Kind word reminders are turned off in Settings, so notes won't be sent for now.",
+    "remindersOffHint": "Wafi kind word reminders are turned off in Settings, so notes won't be sent for now.",
     "addNote": "+ Add a note",
     "newNoteTitle": "New note",
     "editNoteTitle": "Edit note",
@@ -184,11 +194,11 @@
   },
   "favorites": {
     "title": "Favorites",
-    "subtitle": "Kind words you've saved to come back to.",
+    "subtitle": "Wafi kind words you've saved to come back to.",
     "emptyText": "No favorites yet. Tap the heart under a quote on Home to save it here."
   },
   "kindWord": {
-    "headerTitle": "Kind word",
+    "headerTitle": "A kind word from Wafi",
     "missingText": "This kind word isn't available anymore.",
     "snoozeDoneTitle": "Done",
     "notForMeTitle": "Got it",
@@ -200,7 +210,7 @@
     "subtitle": "Pick one or write your own, then choose who it's for.",
     "forName": "For {{name}}",
     "sources": {
-      "pick": "A kind word",
+      "pick": "A Wafi kind word",
       "write": "My own words"
     },
     "writePlaceholder": "e.g. Just wanted you to know I'm thinking of you.",
@@ -211,9 +221,9 @@
       "picture": "Picture",
       "text": "Text"
     },
-    "includeLink": "Add a link to Kindwords",
-    "includeLinkSubtitle": "So they can get kind words now and then too, if they'd like.",
-    "linkLine": "Sent with Kindwords. If you'd like kind words now and then too: {{url}}",
+    "includeLink": "Add a link to Wafi",
+    "includeLinkSubtitle": "So they can get Wafi kind words now and then too, if they'd like.",
+    "linkLine": "Sent with Wafi. If you'd like kind words now and then too: {{url}}",
     "sendButton": "Send"
   },
   "quoteActions": {
@@ -228,27 +238,27 @@
     "notForMe": "Not for me",
     "notForMeAccessibility": "Not for me: hide this quote and show fewer like it",
     "snooze": "Snooze",
-    "snoozeAccessibility": "Pause kind words for a while"
+    "snoozeAccessibility": "Pause Wafi kind words for a while"
   },
   "snoozeMenu": {
     "tomorrow": "Not today — pause until tomorrow",
-    "hour": "Pause kind words for 1 hour",
-    "threeDays": "Pause kind words for 3 days"
+    "hour": "Pause Wafi kind words for 1 hour",
+    "threeDays": "Pause Wafi kind words for 3 days"
   },
   "notifications": {
-    "channelName": "Kind words",
-    "title": "A kind word for you",
-    "beforeEventTitle": "Thinking of you",
-    "afterEventTitle": "Checking in on you",
+    "channelName": "Wafi kind words",
+    "title": "A kind word from Wafi",
+    "beforeEventTitle": "Wafi is thinking of you",
+    "afterEventTitle": "Wafi is checking in on you",
     "selfNoteTitle": "A note from you",
     "futureNoteTitle": "A note from past you",
     "lovedOneTitle": "A message from {{name}}",
     "forSomeoneTitle": "Your note for {{name}} is ready to send",
-    "snoozedHour": "Paused kind words for 1 hour.",
-    "snoozedTomorrow": "Paused kind words until tomorrow.",
-    "snoozedThreeDays": "Paused kind words for 3 days.",
-    "pausedForToday": "Kind words are paused for today.",
-    "pausedUntil": "Kind words are paused until {{when}}."
+    "snoozedHour": "Paused Wafi kind words for 1 hour.",
+    "snoozedTomorrow": "Paused Wafi kind words until tomorrow.",
+    "snoozedThreeDays": "Paused Wafi kind words for 3 days.",
+    "pausedForToday": "Wafi kind words are paused for today.",
+    "pausedUntil": "Wafi kind words are paused until {{when}}."
   },
   "widget": {
     "another": "Another"
@@ -275,7 +285,7 @@
     "job_searching": "Job searching",
     "money_worries": "Money worries",
     "older_adult": "Older adult / retired",
-    "other": "Just here for kind words"
+    "other": "Just here for Wafi kind words"
   },
   "eventTypes": {
     "exam": "Exam",
@@ -291,7 +301,7 @@
     "emergencyLabel": "In an emergency:",
     "callHint": "Opens your phone app with this number",
     "siteHint": "Opens the website",
-    "footer": "Kindwords doesn't keep any record of this page.",
+    "footer": "Wafi doesn't keep any record of this page.",
     "countries": {
       "fr": "France",
       "ma": "Morocco",
@@ -338,25 +348,25 @@
   "privacy": {
     "title": "Privacy and your data",
     "staysTitle": "Everything stays on this phone",
-    "staysBody": "No account, no ads, no tracking. What you write and choose in Kindwords is kept on this phone only, and nobody else can see it, us included.",
+    "staysBody": "No account, no ads, no tracking. What you write and choose in Wafi is kept on this phone only, and nobody else can see it, us included.",
     "leavesTitle": "It only leaves when you choose",
-    "leavesBody": "When you send a kind word or export your data, your phone's share menu passes it to the app you pick. Kindwords never sends anything by itself.",
+    "leavesBody": "When you send a kind word or export your data, your phone's share menu passes it to the app you pick. Wafi never sends anything by itself.",
     "backupTitle": "Your phone's backup",
-    "backupBody": "If backup is turned on in your phone's settings, Android can include Kindwords in it, in your own Google account. We can't see it.",
+    "backupBody": "If backup is turned on in your phone's settings, Android can include Wafi in it, in your own Google account. We can't see it.",
     "notificationsTitle": "Notifications",
-    "notificationsBody": "Kind words are planned and sent by your phone itself, with no server in between.",
+    "notificationsBody": "Wafi kind words are planned and sent by your phone itself, with no server in between.",
     "policyLink": "Read the full privacy policy",
     "yourDataTitle": "Your data",
-    "deleteHelp": "Erases your notes, events, favorites, settings and everything else Kindwords keeps on this phone, straight away.",
+    "deleteHelp": "Erases your notes, events, favorites, settings and everything else Wafi keeps on this phone, straight away.",
     "deleteButton": "Delete all my data",
     "deleteConfirmTitle": "Delete everything?",
-    "deleteConfirmMessage": "Everything Kindwords keeps on this phone will be erased, including your notes. This can't be undone. To keep a copy, export your data first.",
+    "deleteConfirmMessage": "Everything Wafi keeps on this phone will be erased, including your notes. This can't be undone. To keep a copy, export your data first.",
     "deleteConfirmButton": "Delete everything",
     "deletedTitle": "All deleted",
-    "deletedMessage": "Kindwords is starting fresh.",
+    "deletedMessage": "Wafi is starting fresh.",
     "exportHelp": "Keep a copy of your notes, events, favorites and settings in a file, wherever you like: your email, a cloud drive, a message to yourself. On a new phone, import it to bring everything back.",
     "exportButton": "Export my data",
-    "exportDialogTitle": "Save your Kindwords data",
+    "exportDialogTitle": "Save your Wafi data",
     "exportErrorTitle": "Couldn't export your data",
     "importButton": "Import from a file",
     "importConfirmTitle": "Bring this back?",
@@ -365,30 +375,30 @@
     "importConfirmButton": "Import",
     "importDoneTitle": "Imported",
     "importDoneMessage": "Your notes, events, favorites and settings are back.",
-    "importPermissionNote": "To get kind words on this phone, open Settings and tap Save.",
-    "importInvalidTitle": "This isn't a Kindwords file",
+    "importPermissionNote": "To get Wafi kind words on this phone, open Settings and tap Save.",
+    "importInvalidTitle": "This isn't a Wafi file",
     "importInvalidMessage": "Pick a file made with \"Export my data\"."
   },
   "deliveryHelp": {
-    "title": "If kind words arrive late",
-    "intro": "To save battery, some phones hold back apps' notifications, so kind words can come late, or not at all. These settings can help. None of them is required.",
+    "title": "If Wafi kind words arrive late",
+    "intro": "To save battery, some phones hold back apps' notifications, so Wafi kind words can come late, or not at all. These settings can help. None of them is required.",
     "exactTitle": "On time",
-    "exactBody": "\"Alarms & reminders\" lets Kindwords send each kind word right at the time you chose. If it's off, Android may send them a little later.",
+    "exactBody": "\"Alarms & reminders\" lets Wafi send each kind word right at the time you chose. If it's off, Android may send them a little later.",
     "exactButton": "Open Alarms & reminders",
     "batteryTitle": "Battery",
-    "batteryBody": "In Kindwords' settings, set battery use to \"Unrestricted\" (on some phones: \"Don't optimize\").",
-    "batteryButton": "Open Kindwords' settings",
+    "batteryBody": "In Wafi's settings, set battery use to \"Unrestricted\" (on some phones: \"Don't optimize\").",
+    "batteryButton": "Open Wafi's settings",
     "notificationsTitle": "Notifications",
-    "notificationsBody": "Check that notifications are allowed for Kindwords, including the \"Kind words\" category.",
+    "notificationsBody": "Check that notifications are allowed for Wafi, including the \"Wafi kind words\" category.",
     "notificationsButton": "Open notification settings",
     "brandsTitle": "Some phones need one more step",
     "brands": {
-      "samsung": "Samsung: Settings > Battery > Background usage limits > Never sleeping apps, then add Kindwords.",
-      "xiaomi": "Xiaomi, Redmi, POCO: turn on Autostart for Kindwords, and set its battery saver to \"No restrictions\".",
-      "huawei": "Huawei, Honor: Settings > Battery > App launch, turn off \"Manage automatically\" for Kindwords and leave everything on.",
-      "other": "Other phones: look for Kindwords in the battery settings and turn off battery optimization."
+      "samsung": "Samsung: Settings > Battery > Background usage limits > Never sleeping apps, then add Wafi.",
+      "xiaomi": "Xiaomi, Redmi, POCO: turn on Autostart for Wafi, and set its battery saver to \"No restrictions\".",
+      "huawei": "Huawei, Honor: Settings > Battery > App launch, turn off \"Manage automatically\" for Wafi and leave everything on.",
+      "other": "Other phones: look for Wafi in the battery settings and turn off battery optimization."
     },
     "guidesLink": "Step-by-step guides for each brand (dontkillmyapp.com)",
-    "footer": "Kindwords keeps working either way: kind words may just arrive a little late."
+    "footer": "Wafi keeps working either way: its kind words may just arrive a little late."
   }
 }

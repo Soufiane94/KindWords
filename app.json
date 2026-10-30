@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "KindWords",
+    "name": "Wafi",
     "slug": "KindWords",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,7 +12,7 @@
     "android": {
       "package": "com.kindwords.app",
       "adaptiveIcon": {
-        "backgroundColor": "#F5B881",
+        "backgroundColor": "#4A86D2",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
@@ -52,8 +52,8 @@
           "widgets": [
             {
               "name": "KindWord",
-              "label": "Kind word",
-              "description": "A gentle kind word on your home screen",
+              "label": "A kind word from Wafi",
+              "description": "A gentle kind word from Wafi on your home screen",
               "minWidth": "250dp",
               "minHeight": "110dp",
               "targetCellWidth": 4,
@@ -68,7 +68,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#FBF6EC",
+          "backgroundColor": "#FFFFFF",
           "image": "./assets/splash-icon.png",
           "imageWidth": 200
         }

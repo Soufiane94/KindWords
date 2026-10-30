@@ -2,7 +2,7 @@
 // app's notifications to save battery, and since Android 14 an app may only
 // set exact alarms once the user allows it in "Alarms & reminders". This
 // page explains both gently, with buttons straight to the right settings.
-// Every step is optional: Kindwords keeps working without any of them, kind
+// Every step is optional: Wafi keeps working without any of them, kind
 // words may just come a little late.
 
 import React, { useMemo } from 'react';
